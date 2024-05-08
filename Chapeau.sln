@@ -3,7 +3,37 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChapeauDAL", "ChapeauDAL\ChapeauDAL.csproj", "{7B8C7756-FDB2-479A-9808-7D288C6CF4B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChapeauModel", "ChapeauModel\ChapeauModel.csproj", "{25578A9A-D5EB-4036-86AC-3BA52B362CB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChapeauService", "ChapeauService\ChapeauService.csproj", "{BFE04E95-A759-4386-87A4-29E81EA25A38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChapeauUI", "ChapeauUI\ChapeauUI.csproj", "{55421E30-A82F-459F-8859-0C4C17163CC5}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7B8C7756-FDB2-479A-9808-7D288C6CF4B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B8C7756-FDB2-479A-9808-7D288C6CF4B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B8C7756-FDB2-479A-9808-7D288C6CF4B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B8C7756-FDB2-479A-9808-7D288C6CF4B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25578A9A-D5EB-4036-86AC-3BA52B362CB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25578A9A-D5EB-4036-86AC-3BA52B362CB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25578A9A-D5EB-4036-86AC-3BA52B362CB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25578A9A-D5EB-4036-86AC-3BA52B362CB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFE04E95-A759-4386-87A4-29E81EA25A38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFE04E95-A759-4386-87A4-29E81EA25A38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFE04E95-A759-4386-87A4-29E81EA25A38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFE04E95-A759-4386-87A4-29E81EA25A38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55421E30-A82F-459F-8859-0C4C17163CC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55421E30-A82F-459F-8859-0C4C17163CC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55421E30-A82F-459F-8859-0C4C17163CC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55421E30-A82F-459F-8859-0C4C17163CC5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
