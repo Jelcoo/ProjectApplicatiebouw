@@ -31,7 +31,7 @@ namespace ChapeauDAL
             Example example = new Example(
                 (int)reader["exampleId"]
             );
-            return example
+            return example;
         } 
     }
 }
