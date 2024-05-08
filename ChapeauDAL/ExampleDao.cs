@@ -3,22 +3,35 @@ using System.Data;
 
 namespace ChapeauDAL
 {
-    public class ExampleDao : baseDao
+    public class ExampleDao : BaseDao
     {
-        public int GetAllExample()
+        public Example GetAllExample()
         {
-            string query = "Here your query";
-            SqlParameter[] sqlParameters = new SqlParameter[0];
-            return ReadTables(ExecuteSelectQuery(query, sqlParameters));
-        }
-        private int ReadTables(DataTable dataTable)
-        {
-            int count = 0;
-            foreach (DataRow dr in dataTable.Rows)
+            string query = "SELECT example FROM exampleTable WHERE value=@testParam";
+            SqlCommand command = new SqlCommand(query, OpenConnection());
+            command.Parameters.AddWithValue("@testParam", 0);
+
+            SqlDataReader reader = command.ExecuteReader();
+            List<Example> examples = new List<Example>();
+
+            while (reader.Read())
             {
-                count++;
+                Example example = ReadExample(reader);
+                examples.Add(example);
             }
-            return count;
+
+            reader.Close();
+            CloseConnection();
+
+            return examples;
+        }
+
+        private int ReadExample(SqlDataReader reader)
+        {
+            Example example = new Example(
+                (int)reader["exampleId"]
+            );
+            return example
         } 
     }
 }
