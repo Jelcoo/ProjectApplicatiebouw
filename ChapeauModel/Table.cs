@@ -7,5 +7,7 @@ namespace ChapeauModel
 
         private bool _occupied;
         public bool Occupied { get { return _occupied; } }
+
+        public Invoice? Invoice;
     }
 }

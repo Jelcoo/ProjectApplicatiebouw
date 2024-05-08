@@ -7,5 +7,7 @@ namespace ChapeauModel
 
         private int _stock;
         public int StockCount { get { return _stock; } }
+
+        public MenuItem MenuItem;
     }
 }

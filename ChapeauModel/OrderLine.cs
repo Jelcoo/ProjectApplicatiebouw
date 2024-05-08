@@ -11,5 +11,7 @@ namespace ChapeauModel
 
         private int _quantity;
         public int Quantity { get { return _quantity; } }
+
+        public OrderNote? OrderNote;
     }
 }

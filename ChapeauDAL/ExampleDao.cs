@@ -32,6 +32,6 @@ namespace ChapeauDAL
                 (int)reader["exampleId"]
             );
             return example;
-        } 
+        }
     }
 }

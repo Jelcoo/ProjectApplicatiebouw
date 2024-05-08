@@ -5,7 +5,7 @@ namespace ChapeauModel
         private int _tipId;
         public int TipId { get { return _tipId; } }
 
-        public Invoice Invoice;
+        public Payment Payment;
 
         private float _amount;
         public float Amount { get { return _amount; } }

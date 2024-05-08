@@ -11,5 +11,7 @@ namespace ChapeauModel
 
         private DateTime _orderedAt;
         public DateTime OrderedAt { get { return _orderedAt; } }
+
+        public List<OrderLine> OrderLines;
     }
 }

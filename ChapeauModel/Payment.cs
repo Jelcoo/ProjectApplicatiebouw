@@ -14,5 +14,7 @@ namespace ChapeauModel
 
         private DateTime _paidAt;
         public DateTime PaidAt { get { return _paidAt; } }
+
+        public Tip? Tip;
     }
 }

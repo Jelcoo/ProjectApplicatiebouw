@@ -13,6 +13,6 @@ namespace ChapeauModel
         private DateTime _employedAt;
         public DateTime EmployedAt { get { return _employedAt; } }
 
-        public Role role;
+        public Role Role;
     }
 }
