@@ -5,7 +5,7 @@ namespace ChapeauModel
         private int _orderId;
         public int OrderId { get { return _orderId; } }
 
-        public Invoice InvoiceId;
+        public Invoice Invoice;
 
         public OrderStatus OrderStatus;
 
@@ -14,10 +14,10 @@ namespace ChapeauModel
 
         public List<OrderLine> OrderLines;
 
-        public Order(int orderId, Invoice invoiceId, OrderStatus orderStatus, DateTime orderedAt, List<OrderLine> orderLines)
+        public Order(int orderId, Invoice invoice, OrderStatus orderStatus, DateTime orderedAt, List<OrderLine> orderLines)
         {
             _orderId = orderId;
-            InvoiceId = invoiceId;
+            Invoice = invoice;
             OrderStatus = orderStatus;
             _orderedAt = orderedAt;
             OrderLines = orderLines;
