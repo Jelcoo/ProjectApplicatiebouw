@@ -13,5 +13,14 @@ namespace ChapeauModel
         public DateTime OrderedAt { get { return _orderedAt; } }
 
         public List<OrderLine> OrderLines;
+
+        public Order(int orderId, Invoice invoiceId, OrderStatus orderStatus, DateTime orderedAt, List<OrderLine> orderLines)
+        {
+            _orderId = orderId;
+            InvoiceId = invoiceId;
+            OrderStatus = orderStatus;
+            _orderedAt = orderedAt;
+            OrderLines = orderLines;
+        }
     }
 }

@@ -7,5 +7,11 @@ namespace ChapeauModel
 
         private string _name;
         public string Name { get { return _name; } }
+
+        public Role(int roleId, string name)
+        {
+            _roleId = roleId;
+            _name = name;
+        }
     }
 }

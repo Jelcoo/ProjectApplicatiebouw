@@ -9,5 +9,12 @@ namespace ChapeauModel
         public int StockCount { get { return _stock; } }
 
         public MenuItem MenuItem;
+
+        public Stock(int stockId, int stock, MenuItem menuItem)
+        {
+            _stockId = stockId;
+            _stock = stock;
+            MenuItem = menuItem;
+        }
     }
 }

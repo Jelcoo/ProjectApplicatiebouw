@@ -7,5 +7,11 @@ namespace ChapeauModel
 
         private string _status;
         public string Status { get { return _status; } }
+
+        public OrderStatus(int orderStatusId, string status)
+        {
+            _orderStatusId = orderStatusId;
+            _status = status;
+        }
     }
 }

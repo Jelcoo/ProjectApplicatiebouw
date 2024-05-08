@@ -15,5 +15,14 @@ namespace ChapeauModel
         public DateTime ServeEnd { get { return _serveEnd; } }
 
         public List<MenuItem> MenuItems;
+
+        public Menu(int menuId, string name, DateTime serveStart, DateTime serveEnd, List<MenuItem> menuItems)
+        {
+            _menuId = menuId;
+            _name = name;
+            _serveStart = serveStart;
+            _serveEnd = serveEnd;
+            MenuItems = menuItems;
+        }
     }
 }

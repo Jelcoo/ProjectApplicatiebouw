@@ -14,5 +14,14 @@ namespace ChapeauModel
         public DateTime EmployedAt { get { return _employedAt; } }
 
         public Role Role;
+
+        public Employee(int employeeId, string name, string password, DateTime employedAt, Role role)
+        {
+            _employeeId = employeeId;
+            _name = name;
+            _password = password;
+            _employedAt = employedAt;
+            Role = role;
+        }
     }
 }

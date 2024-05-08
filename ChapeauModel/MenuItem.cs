@@ -19,5 +19,16 @@ namespace ChapeauModel
 
         private float _price;
         public float Price { get { return _price; } }
+
+        public MenuItem(int menuItemId, Stock stock, Menu menu, MenuType menuType, string name, float vATRate, float price)
+        {
+            _menuItemId = menuItemId;
+            Stock = stock;
+            Menu = menu;
+            MenuType = menuType;
+            _name = name;
+            _VATRate = vATRate;
+            _price = price;
+        }
     }
 }

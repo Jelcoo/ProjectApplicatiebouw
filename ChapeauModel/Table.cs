@@ -9,5 +9,12 @@ namespace ChapeauModel
         public bool Occupied { get { return _occupied; } }
 
         public Invoice? Invoice;
+
+        public Table(int tableId, bool occupied, Invoice? invoice)
+        {
+            _tableId = tableId;
+            _occupied = occupied;
+            Invoice = invoice;
+        }
     }
 }

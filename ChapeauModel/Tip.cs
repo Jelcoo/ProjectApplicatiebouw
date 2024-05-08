@@ -9,5 +9,12 @@ namespace ChapeauModel
 
         private float _amount;
         public float Amount { get { return _amount; } }
+
+        public Tip(int tipId, Payment payment, float amount)
+        {
+            _tipId = tipId;
+            Payment = payment;
+            _amount = amount;
+        }
     }
 }

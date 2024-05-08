@@ -9,5 +9,12 @@ namespace ChapeauModel
 
         private string _comment;
         public string Comment { get { return _comment; } }
+
+        public InvoiceComment(int invoiceCommentId, Invoice invoice, string comment)
+        {
+            _invoiceCommentId = invoiceCommentId;
+            Invoice = invoice;
+            _comment = comment;
+        }
     }
 }

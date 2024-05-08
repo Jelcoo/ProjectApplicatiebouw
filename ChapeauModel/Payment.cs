@@ -16,5 +16,15 @@ namespace ChapeauModel
         public DateTime PaidAt { get { return _paidAt; } }
 
         public Tip? Tip;
+
+        public Payment(int paymentId, Invoice invoice, PaymentMethod paymentMethod, float amount, DateTime paidAt, Tip? tip)
+        {
+            _paymentId = paymentId;
+            Invoice = invoice;
+            PaymentMethod = paymentMethod;
+            _amount = amount;
+            _paidAt = paidAt;
+            Tip = tip;
+        }
     }
 }
