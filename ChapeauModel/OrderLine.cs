@@ -24,14 +24,18 @@ namespace ChapeauModel
         public int? OrderNoteId { get { return _orderNoteId; } }
         public OrderNote? OrderNote;
 
-        public OrderLine(int orderLineId, int orderId, int menuItemId, int orderStatusId, int quantity, int orderNoteId)
+        public OrderLine(int orderId, int menuItemId, int orderStatusId, int quantity, int orderNoteId)
         {
-            _orderLineId = orderLineId;
             _orderId = orderId;
             _menuItemId = menuItemId;
             _orderStatusId = orderStatusId;
             _quantity = quantity;
             _orderNoteId = orderNoteId;
+        }
+        public OrderLine(int orderLineId, int orderId, int menuItemId, int orderStatusId, int quantity, int orderNoteId)
+            : this(orderId, menuItemId, orderStatusId, quantity, orderNoteId)
+        {
+            _orderLineId = orderLineId;
         }
 
         public OrderLine SetOrder(Order? order)

@@ -8,10 +8,14 @@ namespace ChapeauModel
         private string _status;
         public string Status { get { return _status; } }
 
+        public InvoiceStatus(string status)
+        {
+            _status = status;
+        }
         public InvoiceStatus(int invoiceStatusId, string status)
+            : this(status)
         {
             _invoiceStatusId = invoiceStatusId;
-            _status = status;
         }
     }
 }

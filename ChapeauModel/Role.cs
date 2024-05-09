@@ -8,10 +8,14 @@ namespace ChapeauModel
         private string _name;
         public string Name { get { return _name; } }
 
+        public Role(string name)
+        {
+            _name = name;
+        }
         public Role(int roleId, string name)
+            : this(name)
         {
             _roleId = roleId;
-            _name = name;
         }
     }
 }

@@ -12,11 +12,15 @@ namespace ChapeauModel
         private float _amount;
         public float Amount { get { return _amount; } }
 
-        public Tip(int tipId, int paymentId, float amount)
+        public Tip(int paymentId, float amount)
         {
-            _tipId = tipId;
             _paymentId = paymentId;
             _amount = amount;
+        }
+        public Tip(int tipId, int paymentId, float amount)
+            : this(paymentId, amount)
+        {
+            _tipId = tipId;
         }
 
         public Tip SetPayment(Payment payment)

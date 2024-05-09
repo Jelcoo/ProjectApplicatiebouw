@@ -12,11 +12,15 @@ namespace ChapeauModel
         private string _comment;
         public string Comment { get { return _comment; } }
 
-        public InvoiceComment(int invoiceCommentId, int invoiceId, string comment)
+        public InvoiceComment(int invoiceId, string comment)
         {
-            _invoiceCommentId = invoiceCommentId;
             _invoiceId = invoiceId;
             _comment = comment;
+        }
+        public InvoiceComment(int invoiceCommentId, int invoiceId, string comment)
+            : this(invoiceId, comment)
+        {
+            _invoiceCommentId = invoiceCommentId;
         }
 
         public InvoiceComment SetInvoice(Invoice? invoice)

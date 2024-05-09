@@ -23,14 +23,18 @@ namespace ChapeauModel
         public int TipId { get { return _tipId; } }
         public Tip? Tip;
 
-        public Payment(int paymentId, int invoiceId, int paymentMethodId, float amount, DateTime paidAt, int tipId)
+        public Payment(int invoiceId, int paymentMethodId, float amount, DateTime paidAt, int tipId)
         {
-            _paymentId = paymentId;
             _invoiceId = invoiceId;
             _paymentMethodId = paymentMethodId;
             _amount = amount;
             _paidAt = paidAt;
             _tipId = tipId;
+        }
+        public Payment(int paymentId, int invoiceId, int paymentMethodId, float amount, DateTime paidAt, int tipId)
+            : this(invoiceId, paymentMethodId, amount, paidAt, tipId)
+        {
+            _paymentId = paymentId;
         }
 
         public Payment SetInvoice(Invoice invoice)

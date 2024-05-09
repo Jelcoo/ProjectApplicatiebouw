@@ -16,13 +16,17 @@ namespace ChapeauModel
 
         public List<MenuItem> MenuItems;
 
-        public Menu(int menuId, string name, DateTime serveStart, DateTime serveEnd)
+        public Menu(string name, DateTime serveStart, DateTime serveEnd)
         {
-            _menuId = menuId;
             _name = name;
             _serveStart = serveStart;
             _serveEnd = serveEnd;
             MenuItems = new List<MenuItem>();
+        }
+        public Menu(int menuId, string name, DateTime serveStart, DateTime serveEnd)
+            : this(name, serveStart, serveEnd)
+        {
+            _menuId = menuId;
         }
 
         public Menu SetMenuItems(List<MenuItem> menuItems)

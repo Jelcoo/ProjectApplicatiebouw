@@ -8,10 +8,14 @@ namespace ChapeauModel
         private string _name;
         public string Name { get { return _name; } }
 
+        public PaymentMethod(string name)
+        {
+            _name = name;
+        }
         public PaymentMethod(int paymentMethodId, string name)
+            : this(name)
         {
             _paymentMethodId = paymentMethodId;
-            _name = name;
         }
     }
 }

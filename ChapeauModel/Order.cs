@@ -14,12 +14,16 @@ namespace ChapeauModel
 
         public List<OrderLine> OrderLines;
 
-        public Order(int orderId, int invoiceId, DateTime orderedAt)
+        public Order(int invoiceId, DateTime orderedAt)
         {
-            _orderId = orderId;
             _invoiceId = invoiceId;
             _orderedAt = orderedAt;
             OrderLines = new List<OrderLine>();
+        }
+        public Order(int orderId, int invoiceId, DateTime orderedAt)
+            : this(invoiceId, orderedAt)
+        {
+            _orderId = orderId;
         }
 
         public Order SetInvoice(Invoice invoice)

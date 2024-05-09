@@ -12,11 +12,15 @@ namespace ChapeauModel
         public int MenuItemId { get { return _menuItemId; } }
         public MenuItem? MenuItem;
 
-        public Stock(int stockId, int stock, int menuItemId)
+        public Stock(int stock, int menuItemId)
         {
-            _stockId = stockId;
             _stock = stock;
             _menuItemId = menuItemId;
+        }
+        public Stock(int stockId, int stock, int menuItemId)
+            : this(stock, menuItemId)
+        {
+            _stockId = stockId;
         }
 
         public Stock SetMenuItem(MenuItem menuItem)

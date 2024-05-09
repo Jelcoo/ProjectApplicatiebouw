@@ -12,11 +12,15 @@ namespace ChapeauModel
         public int InvoiceId { get { return _invoiceId; } }
         public Invoice? Invoice;
 
-        public Table(int tableId, bool occupied, int invoiceId)
+        public Table(bool occupied, int invoiceId)
         {
-            _tableId = tableId;
             _occupied = occupied;
             _invoiceId = invoiceId;
+        }
+        public Table(int tableId, bool occupied, int invoiceId)
+            : this(occupied, invoiceId)
+        {
+            _tableId = tableId;
         }
 
         public Table SetInvoice(Invoice invoice)

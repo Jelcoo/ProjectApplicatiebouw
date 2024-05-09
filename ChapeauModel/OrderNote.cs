@@ -12,11 +12,15 @@ namespace ChapeauModel
         private string _note;
         public string Note { get { return _note; } }
 
-        public OrderNote(int orderNoteId, int orderLineId, string note)
+        public OrderNote(int orderLineId, string note)
         {
-            _orderNoteId = orderNoteId;
             _orderLineId = orderLineId;
             _note = note;
+        }
+        public OrderNote(int orderNoteId, int orderLineId, string note)
+            : this(orderLineId, note)
+        {
+            _orderNoteId = orderNoteId;
         }
 
         public OrderNote SetOrderLine(OrderLine? orderLine)
