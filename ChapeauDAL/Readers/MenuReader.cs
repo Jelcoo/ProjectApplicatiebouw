@@ -11,8 +11,7 @@ namespace ChapeauDAL.Readers
                 menuId: (int)reader["menuId"],
                 name: (string)reader["name"],
                 serveStart: (DateTime)reader["serveStart"],
-                serveEnd: (DateTime)reader["serveEnd"],
-                menuItems: ReadMenuItems(reader)
+                serveEnd: (DateTime)reader["serveEnd"]
             );
 
             return menu;
@@ -22,9 +21,9 @@ namespace ChapeauDAL.Readers
         {
             MenuItem menuItem = new MenuItem(
                 menuItemId: (int)reader["menuItemId"],
-                stock: MenuReader.ReadStock(reader),
-                menu: ReadMenu(reader),
-                menuType: ReadMenuType(reader),
+                stockId: (int)reader["stockId"],
+                menuId: (int)reader["menuId"],
+                menuTypeId: (int)reader["menuTypeId"],
                 name: (string)reader["name"],
                 VATRate: (float)reader["VATRate"],
                 price: (float)reader["price"]
@@ -61,7 +60,7 @@ namespace ChapeauDAL.Readers
             Stock stock = new Stock(
                 stockId: (int)reader["stockid"],
                 stock: (int)reader["stock"],
-                menuItem: ReadMenuItem(reader)
+                menuItemId: (int)reader["menuItemId"]
             );
 
             return stock;

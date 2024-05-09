@@ -13,15 +13,24 @@ namespace ChapeauModel
         private DateTime _employedAt;
         public DateTime EmployedAt { get { return _employedAt; } }
 
-        public Role Role;
+        private int _roleId;
+        public int RoleId { get { return _roleId; } }
+        public Role? Role;
 
-        public Employee(int employeeId, string name, string password, DateTime employedAt, Role role)
+        public Employee(int employeeId, string name, string password, DateTime employedAt, int roleId)
         {
             _employeeId = employeeId;
             _name = name;
             _password = password;
             _employedAt = employedAt;
-            Role = role;
+            _roleId = roleId;
         }
+
+        public Employee SetRole(Role role)
+        {
+            Role = role;
+            return this;
+        }
+
     }
 }

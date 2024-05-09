@@ -5,16 +5,24 @@ namespace ChapeauModel
         private int _invoiceCommentId;
         public int InvoiceCommentId { get { return _invoiceCommentId; } }
 
-        public Invoice Invoice;
+        private int _invoiceId;
+        public int InvoiceId { get { return _invoiceId; } }
+        public Invoice? Invoice;
 
         private string _comment;
         public string Comment { get { return _comment; } }
 
-        public InvoiceComment(int invoiceCommentId, Invoice invoice, string comment)
+        public InvoiceComment(int invoiceCommentId, int invoiceId, string comment)
         {
             _invoiceCommentId = invoiceCommentId;
-            Invoice = invoice;
+            _invoiceId = invoiceId;
             _comment = comment;
+        }
+
+        public InvoiceComment SetInvoice(Invoice? invoice)
+        {
+            Invoice = invoice;
+            return this;
         }
     }
 }

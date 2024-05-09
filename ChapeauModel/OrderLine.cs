@@ -5,24 +5,54 @@ namespace ChapeauModel
         private int _orderLineId;
         public int OrderLineId { get { return _orderLineId; } }
 
-        public Order Order;
+        private int _orderId;
+        public int OrderId { get { return _orderId; } }
+        public Order? Order;
 
-        public MenuItem MenuItem;
+        private int _menuItemId;
+        public int MenuItemId { get { return _menuItemId; } }
+        public MenuItem? MenuItem;
 
         private int _quantity;
         public int Quantity { get { return _quantity; } }
 
+        private int? _orderNoteId;
+        public int? OrderNoteId { get { return _orderNoteId; } }
         public OrderNote? OrderNote;
-        public OrderStatus OrderStatus;
 
-        public OrderLine(int orderLineId, Order order, MenuItem menuItem, int quantity, OrderNote? orderNote, OrderStatus orderStatus)
+        private int _orderStatusId;
+        public int OrderStatusId { get { return _orderStatusId; } }
+        public OrderStatus? OrderStatus;
+
+        public OrderLine(int orderLineId, int orderId, int menuItemId, int quantity, int orderNoteId, int orderStatusId)
         {
             _orderLineId = orderLineId;
-            Order = order;
-            MenuItem = menuItem;
+            _orderId = orderId;
+            _menuItemId = menuItemId;
             _quantity = quantity;
+            _orderNoteId = orderNoteId;
+            _orderStatusId = orderStatusId;
+        }
+
+        public OrderLine SetOrder(Order? order)
+        {
+            Order = order;
+            return this;
+        }
+        public OrderLine SetMenuItem(MenuItem? menuItem)
+        {
+            MenuItem = menuItem;
+            return this;
+        }
+        public OrderLine SetOrderNote(OrderNote? orderNote)
+        {
             OrderNote = orderNote;
+            return this;
+        }
+        public OrderLine SetOrderStatus(OrderStatus? orderStatus)
+        {
             OrderStatus = orderStatus;
+            return this;
         }
     }
 }

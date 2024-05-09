@@ -12,7 +12,7 @@ namespace ChapeauDAL.Readers
                 name: (string)reader["name"],
                 password: (string)reader["password"],
                 employedAt: (DateTime)reader["employedAt"],
-                role: RoleReader.ReadRole(reader)
+                roleId: (int)reader["roleId"]
             );
 
             return employee;

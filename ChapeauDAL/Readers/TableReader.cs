@@ -10,7 +10,7 @@ namespace ChapeauDAL.Readers
             Table table = new Table(
                 tableId: (int)reader["tableId"],
                 occupied: (bool)reader["occupied"],
-                invoice: InvoiceReader.ReadInvoice(reader)
+                invoiceId: (int)reader["invoiceId"]
             );
 
             return table;

@@ -9,9 +9,9 @@ namespace ChapeauDAL.Readers
         {
             Invoice invoice = new Invoice(
                 invoiceId: (int)reader["invoiceId"],
-                table: TableReader.ReadTable(reader),
-                servedBy: EmployeeReader.ReadEmployee(reader),
-                invoiceStatus: ReadInvoiceStatus(reader),
+                tableId: (int)reader["tableId"],
+                servedBy: (int)reader["servedBy"],
+                invoiceStatusId: (int)reader["invoiceStatusId"],
                 createdAt: (DateTime)reader["createdAt"]
             );
 
@@ -22,7 +22,7 @@ namespace ChapeauDAL.Readers
         {
             InvoiceComment invoiceComment = new InvoiceComment(
                 invoiceCommentId: (int)reader["invoiceCommentId"],
-                invoice: ReadInvoice(reader),
+                invoiceId: (int)reader["invoiceId"],
                 comment: (string)reader["comment"]
             );
 

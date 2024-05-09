@@ -9,11 +9,11 @@ namespace ChapeauDAL.Readers
         {
             Payment payment = new Payment(
                 paymentId: (int)reader["paymentId"],
-                invoice: InvoiceReader.ReadInvoice(reader),
-                paymentMethod: ReadPaymentMethod(reader),
+                invoiceId: (int)reader["invoiceId"],
+                paymentMethodId: (int)reader["paymentMethodId"],
                 amount: (float)reader["amount"],
                 paidAt: (DateTime)reader["paidAt"],
-                tip: ReadTip(reader)
+                tipId: (int)reader["tipId"]
             );
 
             return payment;
@@ -33,7 +33,7 @@ namespace ChapeauDAL.Readers
         {
             Tip tip = new Tip(
                 tipId: (int)reader["tipId"],
-                payment: ReadPayment(reader),
+                paymentId: (int)reader["paymentId"],
                 amount: (float)reader["amount"]
             );
 

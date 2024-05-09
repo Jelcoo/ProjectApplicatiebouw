@@ -16,13 +16,24 @@ namespace ChapeauModel
 
         public List<MenuItem> MenuItems;
 
-        public Menu(int menuId, string name, DateTime serveStart, DateTime serveEnd, List<MenuItem> menuItems)
+        public Menu(int menuId, string name, DateTime serveStart, DateTime serveEnd)
         {
             _menuId = menuId;
             _name = name;
             _serveStart = serveStart;
             _serveEnd = serveEnd;
+            MenuItems = new List<MenuItem>();
+        }
+
+        public Menu SetMenuItems(List<MenuItem> menuItems)
+        {
             MenuItems = menuItems;
+            return this;
+        }
+        public Menu AddMenuItem(MenuItem menuItem)
+        {
+            MenuItems.Add(menuItem);
+            return this;
         }
     }
 }

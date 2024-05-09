@@ -9,9 +9,8 @@ namespace ChapeauDAL.Readers
         {
             Order order = new Order(
                 orderId: (int)reader["orderId"],
-                invoice: InvoiceReader.ReadInvoice(reader),
-                orderedAt: (DateTime)reader["orderedAt"],
-                orderLines: ReadOrderLines(reader)
+                invoiceId: (int)reader["invoiceId"],
+                orderedAt: (DateTime)reader["orderedAt"]
             );
 
             return order;
@@ -21,7 +20,7 @@ namespace ChapeauDAL.Readers
         {
             OrderStatus orderStatus = new OrderStatus(
                 orderStatusId: (int)reader["orderStatusId"],
-                orderLine: ReadOrderLine(reader),
+                orderLineId: (int)reader["orderLineId"],
                 status: (string)reader["status"]
             );
 
@@ -32,11 +31,11 @@ namespace ChapeauDAL.Readers
         {
             OrderLine orderLine = new OrderLine(
                 orderLineId: (int)reader["orderLineId"],
-                order: ReadOrder(reader),
-                menuItem: MenuReader.ReadMenuItem(reader),
+                orderId: (int)reader["orderId"],
+                menuItemId: (int)reader["menuItemId"],
                 quantity: (int)reader["quantity"],
-                orderNote: ReadOrderNote(reader),
-                orderStatus: ReadOrderStatus(reader)
+                orderNoteId: (int)reader["orderNoteId"],
+                orderStatusId: (int)reader["orderStatusId"]
             );
 
             return orderLine;
@@ -59,7 +58,7 @@ namespace ChapeauDAL.Readers
         {
             OrderNote orderNote = new OrderNote(
                 orderNoteId: (int)reader["orderNoteId"],
-                orderLine: ReadOrderLine(reader),
+                orderLineId: (int)reader["orderLineId"],
                 note: (string)reader["note"]
             );
 

@@ -5,11 +5,17 @@ namespace ChapeauModel
         private int _menuItemId;
         public int MenuItemId { get { return _menuItemId; } }
 
-        public Stock Stock;
+        private int _stockId;
+        public int StockId { get { return _stockId; } }
+        public Stock? Stock;
 
-        public Menu Menu;
+        private int _menuId;
+        public int MenuId { get { return _menuId; } }
+        public Menu? Menu;
 
-        public MenuType MenuType;
+        private int _menuTypeId;
+        public int MenuTypeId { get { return _menuTypeId; } }
+        public MenuType? MenuType;
 
         private string _name;
         public string Name { get { return _name; } }
@@ -20,15 +26,31 @@ namespace ChapeauModel
         private float _price;
         public float Price { get { return _price; } }
 
-        public MenuItem(int menuItemId, Stock stock, Menu menu, MenuType menuType, string name, float VATRate, float price)
+        public MenuItem(int menuItemId, int stockId, int menuId, int menuTypeId, string name, float VATRate, float price)
         {
             _menuItemId = menuItemId;
-            Stock = stock;
-            Menu = menu;
-            MenuType = menuType;
+            _stockId = stockId;
+            _menuId = menuId;
+            _menuTypeId = menuTypeId;
             _name = name;
             _VATRate = VATRate;
             _price = price;
+        }
+
+        public MenuItem SetStock(Stock stock)
+        {
+            Stock = stock;
+            return this;
+        }
+        public MenuItem SetMenu(Menu menu)
+        {
+            Menu = menu;
+            return this;
+        }
+        public MenuItem SetMenuType(MenuType menuType)
+        {
+            MenuType = menuType;
+            return this;
         }
     }
 }
