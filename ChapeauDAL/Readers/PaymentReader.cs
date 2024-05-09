@@ -11,7 +11,7 @@ namespace ChapeauDAL.Readers
                 paymentId: (int)reader["paymentId"],
                 invoiceId: (int)reader["invoiceId"],
                 paymentMethodId: (int)reader["paymentMethodId"],
-                amount: (float)reader["amount"],
+                amount: (float)reader["paymentAmount"],
                 paidAt: (DateTime)reader["paidAt"],
                 tipId: (int)reader["tipId"]
             );
@@ -34,7 +34,7 @@ namespace ChapeauDAL.Readers
             Tip tip = new Tip(
                 tipId: (int)reader["tipId"],
                 paymentId: (int)reader["paymentId"],
-                amount: (float)reader["amount"]
+                amount: (float)reader["tipAmount"]
             );
 
             return tip;
