@@ -22,7 +22,7 @@ namespace ChapeauDAL.Readers
         {
             MenuItem menuItem = new MenuItem(
                 menuItemId: (int)reader["menuItemId"],
-                stock: StockReader.ReadStock(reader),
+                stock: MenuReader.ReadStock(reader),
                 menu: ReadMenu(reader),
                 menuType: ReadMenuType(reader),
                 name: (string)reader["name"],
@@ -54,6 +54,17 @@ namespace ChapeauDAL.Readers
             );
 
             return menuType;
+        }
+
+        public static Stock ReadStock(SqlDataReader reader)
+        {
+            Stock stock = new Stock(
+                stockId: (int)reader["stockid"],
+                stock: (int)reader["stock"],
+                menuItem: ReadMenuItem(reader)
+            );
+
+            return stock;
         }
     }
 }
