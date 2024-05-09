@@ -13,6 +13,10 @@ namespace ChapeauModel
         public int MenuItemId { get { return _menuItemId; } }
         public MenuItem? MenuItem;
 
+        private int _orderStatusId;
+        public int OrderStatusId { get { return _orderStatusId; } }
+        public OrderStatus? OrderStatus;
+
         private int _quantity;
         public int Quantity { get { return _quantity; } }
 
@@ -20,18 +24,14 @@ namespace ChapeauModel
         public int? OrderNoteId { get { return _orderNoteId; } }
         public OrderNote? OrderNote;
 
-        private int _orderStatusId;
-        public int OrderStatusId { get { return _orderStatusId; } }
-        public OrderStatus? OrderStatus;
-
-        public OrderLine(int orderLineId, int orderId, int menuItemId, int quantity, int orderNoteId, int orderStatusId)
+        public OrderLine(int orderLineId, int orderId, int menuItemId, int orderStatusId, int quantity, int orderNoteId)
         {
             _orderLineId = orderLineId;
             _orderId = orderId;
             _menuItemId = menuItemId;
+            _orderStatusId = orderStatusId;
             _quantity = quantity;
             _orderNoteId = orderNoteId;
-            _orderStatusId = orderStatusId;
         }
 
         public OrderLine SetOrder(Order? order)
@@ -44,14 +44,14 @@ namespace ChapeauModel
             MenuItem = menuItem;
             return this;
         }
-        public OrderLine SetOrderNote(OrderNote? orderNote)
-        {
-            OrderNote = orderNote;
-            return this;
-        }
         public OrderLine SetOrderStatus(OrderStatus? orderStatus)
         {
             OrderStatus = orderStatus;
+            return this;
+        }
+        public OrderLine SetOrderNote(OrderNote? orderNote)
+        {
+            OrderNote = orderNote;
             return this;
         }
     }

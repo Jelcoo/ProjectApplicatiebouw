@@ -20,7 +20,6 @@ namespace ChapeauDAL.Readers
         {
             OrderStatus orderStatus = new OrderStatus(
                 orderStatusId: (int)reader["orderStatusId"],
-                orderLineId: (int)reader["orderLineId"],
                 status: (string)reader["status"]
             );
 
@@ -33,9 +32,9 @@ namespace ChapeauDAL.Readers
                 orderLineId: (int)reader["orderLineId"],
                 orderId: (int)reader["orderId"],
                 menuItemId: (int)reader["menuItemId"],
+                orderStatusId: (int)reader["orderStatusId"],
                 quantity: (int)reader["quantity"],
-                orderNoteId: (int)reader["orderNoteId"],
-                orderStatusId: (int)reader["orderStatusId"]
+                orderNoteId: (int)reader["orderNoteId"]
             );
 
             return orderLine;
