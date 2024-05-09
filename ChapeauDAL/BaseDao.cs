@@ -22,9 +22,9 @@ namespace ChapeauDAL
         {
             try
             {
-                if (conn.State == ConnectionState.Closed || conn.State == ConnectionState.Broken)
+                if (_conn.State == ConnectionState.Closed || _conn.State == ConnectionState.Broken)
                 {
-                    conn.Open();
+                    _conn.Open();
                 }
             }
             catch (Exception e)
@@ -32,12 +32,12 @@ namespace ChapeauDAL
                 //Print.ErrorLog(e);
                 throw;
             }
-            return conn;
+            return _conn;
         }
 
         protected void CloseConnection()
         {
-            conn.Close();
+            _conn.Close();
         }
     }
 }
