@@ -9,7 +9,7 @@ namespace ChapeauDAL.Readers
         {
             Employee employee = new Employee(
                 employeeId: (int)reader["employeeId"],
-                name: (string)reader["name"],
+                name: (string)reader["employeeName"],
                 password: (string)reader["password"],
                 employedAt: (DateTime)reader["employedAt"],
                 roleId: (int)reader["roleId"]

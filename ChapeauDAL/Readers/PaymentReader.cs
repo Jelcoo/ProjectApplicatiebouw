@@ -23,7 +23,7 @@ namespace ChapeauDAL.Readers
         {
             PaymentMethod paymentMethod = new PaymentMethod(
                 paymentMethodId: (int)reader["paymentMethodId"],
-                name: (string)reader["name"]
+                name: (string)reader["methodName"]
             );
 
             return paymentMethod;

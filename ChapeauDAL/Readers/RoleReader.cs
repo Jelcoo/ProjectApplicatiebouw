@@ -9,7 +9,7 @@ namespace ChapeauDAL.Readers
         {
             Role role = new Role(
                 roleId: (int)reader["roleId"],
-                name: (string)reader["name"]
+                name: (string)reader["roleName"]
             );
 
             return role;

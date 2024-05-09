@@ -9,7 +9,7 @@ namespace ChapeauDAL.Readers
         {
             Menu menu = new Menu(
                 menuId: (int)reader["menuId"],
-                name: (string)reader["name"],
+                name: (string)reader["menuName"],
                 serveStart: (DateTime)reader["serveStart"],
                 serveEnd: (DateTime)reader["serveEnd"]
             );
@@ -24,7 +24,7 @@ namespace ChapeauDAL.Readers
                 stockId: (int)reader["stockId"],
                 menuId: (int)reader["menuId"],
                 menuTypeId: (int)reader["menuTypeId"],
-                name: (string)reader["name"],
+                name: (string)reader["itemName"],
                 VATRate: (float)reader["VATRate"],
                 price: (float)reader["price"]
             );
@@ -49,7 +49,7 @@ namespace ChapeauDAL.Readers
         {
             MenuType menuType = new MenuType(
                 menuTypeId: (int)reader["menuTypeId"],
-                name: (string)reader["name"]
+                name: (string)reader["typeName"]
             );
 
             return menuType;
