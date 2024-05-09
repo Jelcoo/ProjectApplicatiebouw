@@ -7,7 +7,6 @@ namespace ChapeauModel
 
         private int _orderLineId;
         public int OrderLineId { get { return _orderLineId; } }
-        public OrderLine? OrderLine;
 
         private string _note;
         public string Note { get { return _note; } }
@@ -21,12 +20,6 @@ namespace ChapeauModel
             : this(orderLineId, note)
         {
             _orderNoteId = orderNoteId;
-        }
-
-        public OrderNote SetOrderLine(OrderLine? orderLine)
-        {
-            OrderLine = orderLine;
-            return this;
         }
     }
 }

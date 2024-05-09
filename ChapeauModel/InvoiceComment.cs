@@ -7,7 +7,6 @@ namespace ChapeauModel
 
         private int _invoiceId;
         public int InvoiceId { get { return _invoiceId; } }
-        public Invoice? Invoice;
 
         private string _comment;
         public string Comment { get { return _comment; } }
@@ -21,12 +20,6 @@ namespace ChapeauModel
             : this(invoiceId, comment)
         {
             _invoiceCommentId = invoiceCommentId;
-        }
-
-        public InvoiceComment SetInvoice(Invoice? invoice)
-        {
-            Invoice = invoice;
-            return this;
         }
     }
 }

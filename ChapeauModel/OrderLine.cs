@@ -7,7 +7,6 @@ namespace ChapeauModel
 
         private int _orderId;
         public int OrderId { get { return _orderId; } }
-        public Order? Order;
 
         private int _menuItemId;
         public int MenuItemId { get { return _menuItemId; } }
@@ -38,11 +37,6 @@ namespace ChapeauModel
             _orderLineId = orderLineId;
         }
 
-        public OrderLine SetOrder(Order? order)
-        {
-            Order = order;
-            return this;
-        }
         public OrderLine SetMenuItem(MenuItem? menuItem)
         {
             MenuItem = menuItem;

@@ -10,7 +10,6 @@ namespace ChapeauModel
 
         private int _menuItemId;
         public int MenuItemId { get { return _menuItemId; } }
-        public MenuItem? MenuItem;
 
         public Stock(int stock, int menuItemId)
         {
@@ -21,12 +20,6 @@ namespace ChapeauModel
             : this(stock, menuItemId)
         {
             _stockId = stockId;
-        }
-
-        public Stock SetMenuItem(MenuItem menuItem)
-        {
-            MenuItem = menuItem;
-            return this;
         }
     }
 }

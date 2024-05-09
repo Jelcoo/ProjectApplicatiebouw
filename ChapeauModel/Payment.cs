@@ -7,7 +7,6 @@ namespace ChapeauModel
 
         private int _invoiceId;
         public int InvoiceId { get { return _invoiceId; } }
-        public Invoice? Invoice;
 
         private int _paymentMethodId;
         public int PaymentMethodId { get { return _paymentMethodId; } }
@@ -37,11 +36,6 @@ namespace ChapeauModel
             _paymentId = paymentId;
         }
 
-        public Payment SetInvoice(Invoice invoice)
-        {
-            Invoice = invoice;
-            return this;
-        }
         public Payment SetPaymentMethod(PaymentMethod paymentMethod)
         {
             PaymentMethod = paymentMethod;

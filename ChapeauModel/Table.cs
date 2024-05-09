@@ -10,7 +10,6 @@ namespace ChapeauModel
 
         private int _invoiceId;
         public int InvoiceId { get { return _invoiceId; } }
-        public Invoice? Invoice;
 
         public Table(bool occupied, int invoiceId)
         {
@@ -21,12 +20,6 @@ namespace ChapeauModel
             : this(occupied, invoiceId)
         {
             _tableId = tableId;
-        }
-
-        public Table SetInvoice(Invoice invoice)
-        {
-            Invoice = invoice;
-            return this;
         }
     }
 }
