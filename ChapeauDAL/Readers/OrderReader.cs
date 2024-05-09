@@ -34,7 +34,7 @@ namespace ChapeauDAL.Readers
                 menuItemId: (int)reader["menuItemId"],
                 orderStatusId: (int)reader["orderStatusId"],
                 quantity: (int)reader["quantity"],
-                orderNoteId: (int)reader["orderNoteId"]
+                orderNoteId: reader["orderNoteId"] == DBNull.Value ? null : (int)reader["orderNoteId"]
             );
 
             return orderLine;

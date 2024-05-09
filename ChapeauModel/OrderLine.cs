@@ -23,7 +23,7 @@ namespace ChapeauModel
         public int? OrderNoteId { get { return _orderNoteId; } }
         public OrderNote? OrderNote;
 
-        public OrderLine(int orderId, int menuItemId, int orderStatusId, int quantity, int orderNoteId)
+        public OrderLine(int orderId, int menuItemId, int orderStatusId, int quantity, int? orderNoteId)
         {
             _orderId = orderId;
             _menuItemId = menuItemId;
@@ -31,7 +31,7 @@ namespace ChapeauModel
             _quantity = quantity;
             _orderNoteId = orderNoteId;
         }
-        public OrderLine(int orderLineId, int orderId, int menuItemId, int orderStatusId, int quantity, int orderNoteId)
+        public OrderLine(int orderLineId, int orderId, int menuItemId, int orderStatusId, int quantity, int? orderNoteId)
             : this(orderId, menuItemId, orderStatusId, quantity, orderNoteId)
         {
             _orderLineId = orderLineId;
