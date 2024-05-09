@@ -13,14 +13,16 @@ namespace ChapeauModel
         public int Quantity { get { return _quantity; } }
 
         public OrderNote? OrderNote;
+        public OrderStatus OrderStatus;
 
-        public OrderLine(int orderLineId, Order order, MenuItem menuItem, int quantity, OrderNote? orderNote)
+        public OrderLine(int orderLineId, Order order, MenuItem menuItem, int quantity, OrderNote? orderNote, OrderStatus orderStatus)
         {
             _orderLineId = orderLineId;
             Order = order;
             MenuItem = menuItem;
             _quantity = quantity;
             OrderNote = orderNote;
+            OrderStatus = orderStatus;
         }
     }
 }

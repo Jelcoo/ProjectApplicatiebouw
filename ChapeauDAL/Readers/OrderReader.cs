@@ -10,7 +10,6 @@ namespace ChapeauDAL.Readers
             Order order = new Order(
                 orderId: (int)reader["orderId"],
                 invoice: InvoiceReader.ReadInvoice(reader),
-                orderStatus: ReadOrderStatus(reader),
                 orderedAt: (DateTime)reader["orderedAt"],
                 orderLines: ReadOrderLines(reader)
             );
@@ -22,6 +21,7 @@ namespace ChapeauDAL.Readers
         {
             OrderStatus orderStatus = new OrderStatus(
                 orderStatusId: (int)reader["orderStatusId"],
+                orderLine: ReadOrderLine(reader),
                 status: (string)reader["status"]
             );
 
@@ -35,7 +35,8 @@ namespace ChapeauDAL.Readers
                 order: ReadOrder(reader),
                 menuItem: MenuReader.ReadMenuItem(reader),
                 quantity: (int)reader["quantity"],
-                orderNote: ReadOrderNote(reader)
+                orderNote: ReadOrderNote(reader),
+                orderStatus: ReadOrderStatus(reader)
             );
 
             return orderLine;
@@ -52,6 +53,17 @@ namespace ChapeauDAL.Readers
             }
 
             return orderLines;
+        }
+
+        public static OrderNote ReadOrderNote(SqlDataReader reader)
+        {
+            OrderNote orderNote = new OrderNote(
+                orderNoteId: (int)reader["orderNoteId"],
+                orderLine: ReadOrderLine(reader),
+                note: (string)reader["note"]
+            );
+
+            return orderNote;
         }
     }
 }
