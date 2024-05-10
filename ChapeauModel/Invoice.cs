@@ -20,11 +20,15 @@ namespace ChapeauModel
         private DateTime _createdAt;
         public DateTime CreatedAt { get { return _createdAt; } }
 
-        public Invoice(int tableId, int servedBy, int invoiceStatusId, DateTime createdAt)
+        public Invoice(int tableId, int servedBy, int invoiceStatusId)
         {
             _tableId = tableId;
             _servedBy = servedBy;
             _invoiceStatusId = invoiceStatusId;
+        }
+        public Invoice(int tableId, int servedBy, int invoiceStatusId, DateTime createdAt)
+            : this(tableId, servedBy, invoiceStatusId)
+        {
             _createdAt = createdAt;
         }
         public Invoice(int invoiceId, int tableId, int servedBy, int invoiceStatusId, DateTime createdAt)
@@ -33,6 +37,11 @@ namespace ChapeauModel
             _invoiceId = invoiceId;
         }
 
+        public Invoice SetId(int invoiceId)
+        {
+            _invoiceId = invoiceId;
+            return this;
+        }
         public Invoice SetTable(Table? table)
         {
             Table = table;

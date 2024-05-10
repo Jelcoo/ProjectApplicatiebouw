@@ -2,6 +2,8 @@ namespace ChapeauModel
 {
     public class InvoiceStatus
     {
+        public const string DEFAULT_STATUS = "Pending";
+
         private int _invoiceStatusId;
         public int InvoiceStatusId { get { return _invoiceStatusId; } }
 
