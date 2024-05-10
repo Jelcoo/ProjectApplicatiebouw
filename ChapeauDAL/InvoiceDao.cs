@@ -28,7 +28,7 @@ SELECT SCOPE_IDENTITY();";
         public InvoiceStatus GetInvoiceStatusByName(string statusName)
         {
             string query = @"
-SELECT invoiceStatusId, statusName
+SELECT invoiceStatusId, status
 FROM invoiceStatuses
 WHERE status = @statusName";
 
