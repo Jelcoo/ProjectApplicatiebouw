@@ -1,26 +1,11 @@
 ﻿using ChapeauModel;
 using ChapeauDAL.Readers;
 using System.Data.SqlClient;
-using System.Data;
 
 namespace ChapeauDAL
 {
     public class InvoiceDao : BaseDao
     {
-        public Invoice MakeNewInvoice(Table table, Employee employee)
-        {
-            InvoiceStatus invoiceStatus = GetInvoiceStatusByName(InvoiceStatus.DEFAULT_STATUS);
-            Invoice invoice = new Invoice(
-                tableId: table.TableId,
-                servedBy: employee.EmployeeId,
-                invoiceStatusId: invoiceStatus.InvoiceStatusId
-            );
-            invoice.SetTable(table);
-            invoice.SetServer(employee);
-            invoice.SetInvoiceStatus(invoiceStatus);
-            return CreateInvoice(invoice);
-        }
-
         public Invoice CreateInvoice(Invoice invoice)
         {
             string query = @"
@@ -31,8 +16,8 @@ SELECT SCOPE_IDENTITY();";
             SqlCommand command = new SqlCommand(query, OpenConnection());
             command.Parameters.AddWithValue("@tableId", invoice.TableId);
             command.Parameters.AddWithValue("@servedBy", invoice.ServedBy);
-            command.Parameters.AddWithValue("@invoiceStatusId", invoice.InvoiceStatus?.InvoiceStatusId);
-            command.Parameters.AddWithValue("@createdAt", invoice.CreatedAt);
+            command.Parameters.AddWithValue("@invoiceStatusId", invoice.InvoiceStatusId);
+            command.Parameters.AddWithValue("@createdAt", DateTime.Now);
             
             int invoiceId = Convert.ToInt32(command.ExecuteScalar());
             invoice.SetId(invoiceId);

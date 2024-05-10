@@ -26,6 +26,11 @@ namespace ChapeauModel
             _orderId = orderId;
         }
 
+        public Order SetId(int orderId)
+        {
+            _orderId = orderId;
+            return this;
+        }
         public Order SetInvoice(Invoice invoice)
         {
             _invoiceId = invoice.InvoiceId;

@@ -21,5 +21,11 @@ namespace ChapeauModel
         {
             _orderNoteId = orderNoteId;
         }
+
+        public OrderNote SetId(int orderNoteId)
+        {
+            _orderNoteId = orderNoteId;
+            return this;
+        }
     }
 }
