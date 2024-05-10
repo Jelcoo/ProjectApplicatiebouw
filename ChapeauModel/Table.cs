@@ -8,16 +8,12 @@ namespace ChapeauModel
         private bool _occupied;
         public bool Occupied { get { return _occupied; } }
 
-        private int _invoiceId;
-        public int InvoiceId { get { return _invoiceId; } }
-
-        public Table(bool occupied, int invoiceId)
+        public Table(bool occupied)
         {
             _occupied = occupied;
-            _invoiceId = invoiceId;
         }
-        public Table(int tableId, bool occupied, int invoiceId)
-            : this(occupied, invoiceId)
+        public Table(int tableId, bool occupied)
+            : this(occupied)
         {
             _tableId = tableId;
         }

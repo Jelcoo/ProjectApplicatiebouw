@@ -5,16 +5,21 @@ namespace ChapeauModel
         private int _orderId;
         public int OrderId { get { return _orderId; } }
 
-        private int _invoiceId;
-        public int InvoiceId { get { return _invoiceId; } }
+        private int? _invoiceId;
+        public int? InvoiceId { get { return _invoiceId; } }
         public Invoice? Invoice;
 
-        private DateTime _orderedAt;
-        public DateTime OrderedAt { get { return _orderedAt; } }
+        private DateTime? _orderedAt;
+        public DateTime? OrderedAt { get { return _orderedAt; } }
 
         public List<OrderLine> OrderLines;
 
+        public Order()
+        {
+            OrderLines = new List<OrderLine>();
+        }
         public Order(int invoiceId, DateTime orderedAt)
+            : this()
         {
             _invoiceId = invoiceId;
             _orderedAt = orderedAt;

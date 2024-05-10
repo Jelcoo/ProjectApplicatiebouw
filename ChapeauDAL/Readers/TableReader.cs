@@ -9,8 +9,7 @@ namespace ChapeauDAL.Readers
         {
             Table table = new Table(
                 tableId: (int)reader["tableId"],
-                occupied: (bool)reader["occupied"],
-                invoiceId: (int)reader["invoiceId"]
+                occupied: (bool)reader["occupied"]
             );
 
             return table;
