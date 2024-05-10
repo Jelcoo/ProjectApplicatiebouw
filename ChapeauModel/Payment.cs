@@ -38,11 +38,13 @@ namespace ChapeauModel
 
         public Payment SetPaymentMethod(PaymentMethod paymentMethod)
         {
+            _paymentMethodId = paymentMethod.PaymentMethodId;
             PaymentMethod = paymentMethod;
             return this;
         }
         public Payment SetTip(Tip tip)
         {
+            _tipId = tip.TipId;
             Tip = tip;
             return this;
         }

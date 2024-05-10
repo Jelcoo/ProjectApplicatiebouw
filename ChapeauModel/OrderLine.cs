@@ -37,18 +37,21 @@ namespace ChapeauModel
             _orderLineId = orderLineId;
         }
 
-        public OrderLine SetMenuItem(MenuItem? menuItem)
+        public OrderLine SetMenuItem(MenuItem menuItem)
         {
+            _menuItemId = menuItem.MenuItemId;
             MenuItem = menuItem;
             return this;
         }
-        public OrderLine SetOrderStatus(OrderStatus? orderStatus)
+        public OrderLine SetOrderStatus(OrderStatus orderStatus)
         {
+            _orderStatusId = orderStatus.OrderStatusId;
             OrderStatus = orderStatus;
             return this;
         }
-        public OrderLine SetOrderNote(OrderNote? orderNote)
+        public OrderLine SetOrderNote(OrderNote orderNote)
         {
+            _orderNoteId = orderNote.OrderNoteId;
             OrderNote = orderNote;
             return this;
         }

@@ -28,6 +28,7 @@ namespace ChapeauModel
 
         public Order SetInvoice(Invoice invoice)
         {
+            _invoiceId = invoice.InvoiceId;
             Invoice = invoice;
             return this;
         }

@@ -43,16 +43,19 @@ namespace ChapeauModel
 
         public MenuItem SetStock(Stock stock)
         {
+            _stockId = stock.StockId;
             Stock = stock;
             return this;
         }
         public MenuItem SetMenu(Menu menu)
         {
+            _menuId = menu.MenuId;
             Menu = menu;
             return this;
         }
         public MenuItem SetMenuType(MenuType menuType)
         {
+            _menuTypeId = menuType.MenuTypeId;
             MenuType = menuType;
             return this;
         }

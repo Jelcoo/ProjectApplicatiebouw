@@ -32,6 +32,7 @@ namespace ChapeauModel
         }
         public Employee SetRole(Role role)
         {
+            _roleId = role.RoleId;
             Role = role;
             return this;
         }

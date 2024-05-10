@@ -42,17 +42,20 @@ namespace ChapeauModel
             _invoiceId = invoiceId;
             return this;
         }
-        public Invoice SetTable(Table? table)
+        public Invoice SetTable(Table table)
         {
+            _tableId = table.TableId;
             Table = table;
             return this;
         }
-        public Invoice SetServer(Employee? server) {
+        public Invoice SetServer(Employee server) {
+            _servedBy = server.EmployeeId;
             Server = server;
             return this;
         }
-        public Invoice SetInvoiceStatus(InvoiceStatus? invoiceStatus)
+        public Invoice SetInvoiceStatus(InvoiceStatus invoiceStatus)
         {
+            _invoiceStatusId = invoiceStatus.InvoiceStatusId;
             InvoiceStatus = invoiceStatus;
             return this;
         }
