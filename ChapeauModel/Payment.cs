@@ -10,7 +10,7 @@ namespace ChapeauModel
 
         private int _paymentMethodId;
         public int PaymentMethodId { get { return _paymentMethodId; } }
-        public PaymentMethod? PaymentMethod;
+        public PaymentMethod? PaymentMethod { get; private set; }
 
         private float _amount;
         public float Amount { get { return _amount; } }
@@ -20,7 +20,7 @@ namespace ChapeauModel
 
         private int _tipId;
         public int TipId { get { return _tipId; } }
-        public Tip? Tip;
+        public Tip? Tip { get; private set; }
 
         public Payment(int invoiceId, int paymentMethodId, float amount, DateTime paidAt, int tipId)
         {

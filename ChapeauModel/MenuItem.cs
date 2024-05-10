@@ -7,15 +7,15 @@ namespace ChapeauModel
 
         private int _stockId;
         public int StockId { get { return _stockId; } }
-        public Stock? Stock;
+        public Stock? Stock { get; private set; }
 
         private int _menuId;
         public int MenuId { get { return _menuId; } }
-        public Menu? Menu;
+        public Menu? Menu { get; private set; }
 
         private int _menuTypeId;
         public int MenuTypeId { get { return _menuTypeId; } }
-        public MenuType? MenuType;
+        public MenuType? MenuType { get; private set; }
 
         private string _name;
         public string Name { get { return _name; } }

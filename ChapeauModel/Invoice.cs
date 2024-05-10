@@ -7,15 +7,15 @@ namespace ChapeauModel
 
         private int _tableId;
         public int TableId { get { return _tableId; } }
-        public Table? Table;
+        public Table? Table { get; private set; }
 
         private int _servedBy;
         public int ServedBy { get { return _servedBy; } }
-        public Employee? Server;
+        public Employee? Server { get; private set; }
 
         private int _invoiceStatusId;
         public int InvoiceStatusId { get { return _invoiceStatusId; } }
-        public InvoiceStatus? InvoiceStatus;
+        public InvoiceStatus? InvoiceStatus { get; private set; }
 
         private DateTime _createdAt;
         public DateTime CreatedAt { get { return _createdAt; } }

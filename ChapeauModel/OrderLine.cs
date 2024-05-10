@@ -7,15 +7,15 @@ namespace ChapeauModel
 
         private int _orderId;
         public int OrderId { get { return _orderId; } }
-        public Order? Order;
+        public Order? Order { get; private set; }
 
         private int _menuItemId;
         public int MenuItemId { get { return _menuItemId; } }
-        public MenuItem? MenuItem;
+        public MenuItem? MenuItem { get; private set; }
 
         private int _orderStatusId;
         public int OrderStatusId { get { return _orderStatusId; } }
-        public OrderStatus? OrderStatus;
+        public OrderStatus? OrderStatus { get; private set; }
 
         private int _quantity;
         public int Quantity { get { return _quantity; } }

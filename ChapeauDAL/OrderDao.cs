@@ -20,6 +20,8 @@ SELECT SCOPE_IDENTITY();";
             int orderId = Convert.ToInt32(command.ExecuteScalar());
             order.SetId(orderId);
 
+            CloseConnection();
+
             return order;
         }
 
@@ -39,6 +41,8 @@ SELECT SCOPE_IDENTITY();";
             int orderLineId = Convert.ToInt32(command.ExecuteScalar());
             orderLine.SetId(orderLineId);
 
+            CloseConnection();
+
             return orderLine;
         }
 
@@ -55,7 +59,12 @@ WHERE status = @statusName";
             SqlDataReader reader = command.ExecuteReader();
             if (reader.Read())
             {
-                return OrderReader.ReadOrderStatus(reader);
+                OrderStatus orderStatus = OrderReader.ReadOrderStatus(reader);
+                
+                reader.Close();
+                CloseConnection();
+
+                return orderStatus;
             } else
             {
                 throw new Exception($"Order status '{statusName}' not found");
@@ -76,6 +85,8 @@ SELECT SCOPE_IDENTITY();";
             int orderNoteId = Convert.ToInt32(command.ExecuteScalar());
             orderLine.OrderNote?.SetId(orderNoteId);
 
+            CloseConnection();
+
             return orderLine;
         }
 
@@ -91,6 +102,8 @@ WHERE menuItemId = @menuItemId;";
             command.Parameters.AddWithValue("@menuItemId", orderLine.MenuItemId);
 
             command.ExecuteNonQuery();
+
+            CloseConnection();
         }
     }
 }

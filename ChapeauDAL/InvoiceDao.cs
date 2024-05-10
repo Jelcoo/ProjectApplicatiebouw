@@ -21,6 +21,7 @@ SELECT SCOPE_IDENTITY();";
             
             int invoiceId = Convert.ToInt32(command.ExecuteScalar());
             invoice.SetId(invoiceId);
+            CloseConnection();
 
             return invoice;
         }
@@ -38,7 +39,12 @@ WHERE status = @statusName";
             SqlDataReader reader = command.ExecuteReader();
             if (reader.Read())
             {
-                return InvoiceReader.ReadInvoiceStatus(reader);
+                InvoiceStatus invoiceStatus = InvoiceReader.ReadInvoiceStatus(reader);
+                
+                reader.Close();
+                CloseConnection();
+
+                return invoiceStatus;
             } else
             {
                 throw new Exception($"Invoice status '{statusName}' not found");

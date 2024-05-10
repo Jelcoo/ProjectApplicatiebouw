@@ -7,12 +7,12 @@ namespace ChapeauModel
 
         private int? _invoiceId;
         public int? InvoiceId { get { return _invoiceId; } }
-        public Invoice? Invoice;
+        public Invoice? Invoice { get; private set; }
 
         private DateTime? _orderedAt;
         public DateTime? OrderedAt { get { return _orderedAt; } }
 
-        public List<OrderLine> OrderLines;
+        public List<OrderLine> OrderLines { get; private set; }
 
         public Order()
         {

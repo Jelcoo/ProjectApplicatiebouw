@@ -10,12 +10,12 @@ namespace ChapeauService
             if (order.Invoice == null)
             {
                 InvoiceService invoiceService = new InvoiceService();
-                order.Invoice = invoiceService.MakeNewInvoice(table, employee);
+                order.SetInvoice(invoiceService.MakeNewInvoice(table, employee));
             }
 
             OrderDao orderDao = new OrderDao();
             order = orderDao.CreateOrder(order);
-            order.OrderLines = MakeNewOrderLines(order);
+            order.SetOrderLines(MakeNewOrderLines(order));
 
             return order;
         }

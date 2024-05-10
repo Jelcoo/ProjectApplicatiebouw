@@ -15,7 +15,7 @@ namespace ChapeauModel
 
         private int _roleId;
         public int RoleId { get { return _roleId; } }
-        public Role? Role;
+        public Role? Role { get; private set; }
 
         public Employee(string name, string password, DateTime employedAt, int roleId)
         {
