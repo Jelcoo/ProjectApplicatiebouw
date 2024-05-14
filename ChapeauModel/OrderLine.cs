@@ -1,3 +1,5 @@
+using ChapeauModel.Enums;
+
 namespace ChapeauModel
 {
     public class OrderLine
@@ -12,9 +14,7 @@ namespace ChapeauModel
         public int MenuItemId { get { return _menuItemId; } }
         public MenuItem? MenuItem;
 
-        private int _orderStatusId;
-        public int OrderStatusId { get { return _orderStatusId; } }
-        public OrderStatus? OrderStatus;
+        public EOrderStatus orderStatus;
 
         private int _quantity;
         public int Quantity { get { return _quantity; } }
@@ -27,7 +27,7 @@ namespace ChapeauModel
         {
             _orderId = orderId;
             _menuItemId = menuItemId;
-            _orderStatusId = orderStatusId;
+            orderStatus = (EOrderStatus)orderStatusId;
             _quantity = quantity;
             _orderNoteId = orderNoteId;
         }
@@ -40,11 +40,6 @@ namespace ChapeauModel
         public OrderLine SetMenuItem(MenuItem? menuItem)
         {
             MenuItem = menuItem;
-            return this;
-        }
-        public OrderLine SetOrderStatus(OrderStatus? orderStatus)
-        {
-            OrderStatus = orderStatus;
             return this;
         }
         public OrderLine SetOrderNote(OrderNote? orderNote)
