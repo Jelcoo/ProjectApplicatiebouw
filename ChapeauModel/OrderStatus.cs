@@ -1,3 +1,5 @@
+using ChapeauModel.Enums;
+
 namespace ChapeauModel
 {
     public class OrderStatus
@@ -5,14 +7,14 @@ namespace ChapeauModel
         private int _orderStatusId;
         public int OrderStatusId { get { return _orderStatusId; } }
 
-        private string _status;
-        public string Status { get { return _status; } }
+        private EOrderStatus _status;
+        public EOrderStatus Status { get { return _status; } }
 
-        public OrderStatus(string status)
+        public OrderStatus(EOrderStatus status)
         {
             _status = status;
         }
-        public OrderStatus(int orderStatusId, string status)
+        public OrderStatus(int orderStatusId, EOrderStatus status)
             : this(status)
         {
             _orderStatusId = orderStatusId;
