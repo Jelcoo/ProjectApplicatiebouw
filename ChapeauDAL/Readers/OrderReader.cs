@@ -1,4 +1,5 @@
 ﻿using ChapeauModel;
+using ChapeauModel.Enums;
 using System.Data.SqlClient;
 
 namespace ChapeauDAL.Readers
@@ -20,7 +21,7 @@ namespace ChapeauDAL.Readers
         {
             OrderStatus orderStatus = new OrderStatus(
                 orderStatusId: (int)reader["orderStatusId"],
-                status: (string)reader["status"]
+                status: (EOrderStatus)Enum.Parse(typeof(EOrderStatus), (string)reader["status"])
             );
 
             return orderStatus;
