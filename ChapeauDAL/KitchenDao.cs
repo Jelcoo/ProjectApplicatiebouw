@@ -52,5 +52,17 @@ namespace ChapeauDAL
             }
             return orderLine;
         }
+        public void UpdateOrderLinesStatus(Order order)
+        {
+            List<OrderLine> orderLines = order.OrderLines;
+            string query = "UPDATE orderLines SET orderStatusId = @statusId WHERE orderLineId = @orderLineId";
+            foreach (OrderLine line in orderLines)
+            {
+                SqlCommand command = new SqlCommand(query, OpenConnection());
+                command.Parameters.AddWithValue("@statusId", (int)line.orderStatus);
+                command.Parameters.AddWithValue("@orderLineId", line.OrderLineId);
+                command.ExecuteNonQuery();
+            }
+        }
     }
 }
