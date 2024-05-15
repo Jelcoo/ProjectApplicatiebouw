@@ -23,8 +23,22 @@ namespace ChapeauDAL.Readers
                 menuItemId: (int)reader["menuItemId"],
                 stockId: (int)reader["stockId"],
                 menuId: (int)reader["menuId"],
-                menuTypeId: (int)reader["menuTypeId"],
+                menuTypeId: reader["orderNoteId"] == DBNull.Value ? null : (int)reader["menuTypeId"],
                 name: (string)reader["itemName"],
+                VATRate: (double)reader["VATRate"],
+                price: (double)reader["price"]
+            );
+
+            return menuItem;
+        }
+        public static MenuItem ReadMenuItemDetailed(SqlDataReader reader)
+        {
+            MenuItem menuItem = new MenuItem(
+                menuItemId: (int)reader["menuItemId"],
+                stockId: (int)reader["stockId"],
+                menuId: (int)reader["menuId"],
+                menuTypeId: reader["orderNoteId"] == DBNull.Value ? null : (int)reader["menuTypeId"],
+                name: (string)reader["itemDetailName"],
                 VATRate: (double)reader["VATRate"],
                 price: (double)reader["price"]
             );
