@@ -7,14 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="KitchenService.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="KitchenService.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ChapeauDAL\ChapeauDAL.csproj" />
     <ProjectReference Include="..\ChapeauModel\ChapeauModel.csproj" />
   </ItemGroup>
