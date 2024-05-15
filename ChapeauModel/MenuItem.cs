@@ -13,9 +13,9 @@ namespace ChapeauModel
         public int MenuId { get { return _menuId; } }
         public Menu? Menu { get; private set; }
 
-        private int _menuTypeId;
-        public int MenuTypeId { get { return _menuTypeId; } }
-        public MenuType? MenuType { get; private set; }
+        private int? _menuTypeId;
+        public int? MenuTypeId { get { return _menuTypeId; } }
+        public MenuType? MenuType;
 
         private string _name;
         public string Name { get { return _name; } }
@@ -29,7 +29,7 @@ namespace ChapeauModel
         private double _price;
         public double Price { get { return _price; } }
 
-        public MenuItem(int stockId, int menuId, int menuTypeId, string name, string detailName, double VATRate, double price)
+        public MenuItem(int stockId, int menuId, int? menuTypeId, string name, string detailName, double VATRate, double price)
         {
             _stockId = stockId;
             _menuId = menuId;
@@ -39,7 +39,7 @@ namespace ChapeauModel
             _VATRate = VATRate;
             _price = price;
         }
-        public MenuItem(int menuItemId, int stockId, int menuId, int menuTypeId, string name, string detailName, double VATRate, double price)
+        public MenuItem(int menuItemId, int stockId, int menuId, int? menuTypeId, string name, string detailName, double VATRate, double price)
             : this(stockId, menuId, menuTypeId, name, detailName, VATRate, price)
         {
             _menuItemId = menuItemId;
