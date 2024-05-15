@@ -39,6 +39,7 @@ namespace ChapeauDAL.Readers
                 menuId: (int)reader["menuId"],
                 menuTypeId: reader["orderNoteId"] == DBNull.Value ? null : (int)reader["menuTypeId"],
                 name: (string)reader["itemDetailName"],
+                detailName: (string)reader["itemDetailName"],
                 VATRate: (double)reader["VATRate"],
                 price: (double)reader["price"]
             );

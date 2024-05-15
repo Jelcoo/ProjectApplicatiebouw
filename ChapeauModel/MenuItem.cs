@@ -20,6 +20,7 @@ namespace ChapeauModel
         private string _name;
         public string Name { get { return _name; } }
 
+
         private double _VATRate;
         public double VATRate { get { return _VATRate; } }
 
@@ -32,6 +33,7 @@ namespace ChapeauModel
             _menuId = menuId;
             _menuTypeId = menuTypeId;
             _name = name;
+            _detailName = detailName;
             _VATRate = VATRate;
             _price = price;
         }
