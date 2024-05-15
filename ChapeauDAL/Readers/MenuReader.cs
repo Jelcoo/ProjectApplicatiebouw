@@ -23,7 +23,7 @@ namespace ChapeauDAL.Readers
                 menuItemId: (int)reader["menuItemId"],
                 stockId: (int)reader["stockId"],
                 menuId: (int)reader["menuId"],
-                menuTypeId: reader["orderNoteId"] == DBNull.Value ? null : (int)reader["menuTypeId"],
+                menuTypeId: reader["menuTypeId"] == DBNull.Value ? null : (int)reader["menuTypeId"],
                 name: (string)reader["itemName"],
                 detailName: (string)reader["itemDetailName"],
                 VATRate: (double)reader["VATRate"],
