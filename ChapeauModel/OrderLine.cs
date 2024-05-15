@@ -1,3 +1,5 @@
+using ChapeauModel.Enums;
+
 namespace ChapeauModel
 {
     public class OrderLine
@@ -13,9 +15,7 @@ namespace ChapeauModel
         public int MenuItemId { get { return _menuItemId; } }
         public MenuItem? MenuItem { get; private set; }
 
-        private int _orderStatusId;
-        public int OrderStatusId { get { return _orderStatusId; } }
-        public OrderStatus? OrderStatus { get; private set; }
+        public EOrderStatus orderStatus;
 
         private int _quantity;
         public int Quantity { get { return _quantity; } }
@@ -24,16 +24,16 @@ namespace ChapeauModel
         public int? OrderNoteId { get { return _orderNoteId; } }
         public OrderNote? OrderNote;
 
-        public OrderLine(int orderId, int menuItemId, int orderStatusId, int quantity, int orderNoteId)
+        public OrderLine(int orderId, int menuItemId, EOrderStatus orderStatusName, int quantity, int? orderNoteId)
         {
             _orderId = orderId;
             _menuItemId = menuItemId;
-            _orderStatusId = orderStatusId;
+            orderStatus = orderStatusName;
             _quantity = quantity;
             _orderNoteId = orderNoteId;
         }
-        public OrderLine(int orderLineId, int orderId, int menuItemId, int orderStatusId, int quantity, int orderNoteId)
-            : this(orderId, menuItemId, orderStatusId, quantity, orderNoteId)
+        public OrderLine(int orderLineId, int orderId, int menuItemId, EOrderStatus orderStatusName, int quantity, int? orderNoteId)
+            : this(orderId, menuItemId, orderStatusName, quantity, orderNoteId)
         {
             _orderLineId = orderLineId;
         }
@@ -55,13 +55,7 @@ namespace ChapeauModel
             MenuItem = menuItem;
             return this;
         }
-        public OrderLine SetOrderStatus(OrderStatus orderStatus)
-        {
-            _orderStatusId = orderStatus.OrderStatusId;
-            OrderStatus = orderStatus;
-            return this;
-        }
-        public OrderLine SetOrderNote(OrderNote orderNote)
+        public OrderLine SetOrderNote(OrderNote? orderNote)
         {
             _orderNoteId = orderNote.OrderNoteId;
             OrderNote = orderNote;
