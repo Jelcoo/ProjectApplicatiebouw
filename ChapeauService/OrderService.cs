@@ -1,5 +1,6 @@
 ﻿using ChapeauModel;
 using ChapeauDAL;
+using ChapeauModel.Enums;
 
 namespace ChapeauService
 {
@@ -43,6 +44,18 @@ namespace ChapeauService
             OrderDao orderDao = new OrderDao();
             orderDao.IncreaseStock(orderLine);
             orderDao.DeleteOrderLine(orderLine);
+        }
+
+        public void UpdateOrderNote(OrderLine orderLine)
+        {
+            OrderDao orderDao = new OrderDao();
+            orderDao.UpdateOrderNote(orderLine);
+        }
+
+        public void DeleteOrderNote(OrderLine orderLine)
+        {
+            OrderDao orderDao = new OrderDao();
+            orderDao.DeleteOrderNote(orderLine);
         }
     }
 }

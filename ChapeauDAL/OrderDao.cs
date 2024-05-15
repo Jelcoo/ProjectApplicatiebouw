@@ -104,6 +104,36 @@ SELECT SCOPE_IDENTITY();";
             return orderLine;
         }
 
+        public void UpdateOrderNote(OrderLine orderLine)
+        {
+            string query = @"
+UPDATE orderNotes
+SET note = @note
+WHERE orderLineId = @orderLineId;";
+
+            SqlCommand command = new SqlCommand(query, OpenConnection());
+            command.Parameters.AddWithValue("@note", orderLine.OrderNote?.Note);
+            command.Parameters.AddWithValue("@orderLineId", orderLine.OrderLineId);
+
+            command.ExecuteNonQuery();
+
+            CloseConnection();
+        }
+
+        public void DeleteOrderNote(OrderLine orderLine)
+        {
+            string query = @"
+DELETE FROM orderNotes
+WHERE orderLineId = @orderLineId;";
+
+            SqlCommand command = new SqlCommand(query, OpenConnection());
+            command.Parameters.AddWithValue("@orderLineId", orderLine.OrderLineId);
+
+            command.ExecuteNonQuery();
+
+            CloseConnection();
+        }
+
         public void DecreaseStock(OrderLine orderLine)
         {
             string query = @"
