@@ -20,23 +20,27 @@ namespace ChapeauModel
         private string _name;
         public string Name { get { return _name; } }
 
+        private string _detailName;
+        public string DetailName { get { return _detailName; } }
+
         private double _VATRate;
         public double VATRate { get { return _VATRate; } }
 
         private double _price;
         public double Price { get { return _price; } }
 
-        public MenuItem(int stockId, int menuId, int menuTypeId, string name, double VATRate, double price)
+        public MenuItem(int stockId, int menuId, int menuTypeId, string name, string detailName, double VATRate, double price)
         {
             _stockId = stockId;
             _menuId = menuId;
             _menuTypeId = menuTypeId;
             _name = name;
+            _detailName = detailName;
             _VATRate = VATRate;
             _price = price;
         }
-        public MenuItem(int menuItemId, int stockId, int menuId, int menuTypeId, string name, double VATRate, double price)
-            : this(stockId, menuId, menuTypeId, name, VATRate, price)
+        public MenuItem(int menuItemId, int stockId, int menuId, int menuTypeId, string name, string detailName, double VATRate, double price)
+            : this(stockId, menuId, menuTypeId, name, detailName, VATRate, price)
         {
             _menuItemId = menuItemId;
         }
