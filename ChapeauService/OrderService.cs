@@ -37,5 +37,12 @@ namespace ChapeauService
 
             return orderLines;
         }
+
+        public void RemoveOrderLine(OrderLine orderLine)
+        {
+            OrderDao orderDao = new OrderDao();
+            orderDao.IncreaseStock(orderLine);
+            orderDao.DeleteOrderLine(orderLine);
+        }
     }
 }

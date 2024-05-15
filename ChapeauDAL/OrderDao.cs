@@ -35,7 +35,7 @@ SELECT SCOPE_IDENTITY();";
             SqlCommand command = new SqlCommand(query, OpenConnection());
             command.Parameters.AddWithValue("@orderId", orderLine.OrderId);
             command.Parameters.AddWithValue("@menuItemId", orderLine.MenuItemId);
-            command.Parameters.AddWithValue("@orderStatusId", orderLine.OrderStatusId);
+            command.Parameters.AddWithValue("@orderStatusId", (int)orderLine.orderStatus);
             command.Parameters.AddWithValue("@quantity", orderLine.Quantity);
 
             int orderLineId = Convert.ToInt32(command.ExecuteScalar());
@@ -44,6 +44,20 @@ SELECT SCOPE_IDENTITY();";
             CloseConnection();
 
             return orderLine;
+        }
+
+        public void DeleteOrderLine(OrderLine orderLine)
+        {
+            string query = @"
+DELETE FROM orderLines
+WHERE orderLineId = @orderLineId;";
+
+            SqlCommand command = new SqlCommand(query, OpenConnection());
+            command.Parameters.AddWithValue("@orderLineId", orderLine.OrderLineId);
+
+            command.ExecuteNonQuery();
+
+            CloseConnection();
         }
 
         public OrderStatus GetOrderStatusByName(string statusName)
@@ -95,6 +109,22 @@ SELECT SCOPE_IDENTITY();";
             string query = @"
 UPDATE menuItems
 SET stock = stock - @quantity
+WHERE menuItemId = @menuItemId;";
+
+            SqlCommand command = new SqlCommand(query, OpenConnection());
+            command.Parameters.AddWithValue("@quantity", orderLine.Quantity);
+            command.Parameters.AddWithValue("@menuItemId", orderLine.MenuItemId);
+
+            command.ExecuteNonQuery();
+
+            CloseConnection();
+        }
+
+        public void IncreaseStock(OrderLine orderLine)
+        {
+            string query = @"
+UPDATE menuItems
+SET stock = stock + @quantity
 WHERE menuItemId = @menuItemId;";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
