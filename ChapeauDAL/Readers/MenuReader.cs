@@ -25,6 +25,7 @@ namespace ChapeauDAL.Readers
                 menuId: (int)reader["menuId"],
                 menuTypeId: (int)reader["menuTypeId"],
                 name: (string)reader["itemName"],
+                detailName: (string)reader["itemDetailName"],
                 VATRate: (float)reader["VATRate"],
                 price: (float)reader["price"]
             );
