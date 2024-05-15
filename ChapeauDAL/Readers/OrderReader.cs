@@ -33,7 +33,7 @@ namespace ChapeauDAL.Readers
                 orderLineId: (int)reader["orderLineId"],
                 orderId: (int)reader["orderId"],
                 menuItemId: (int)reader["menuItemId"],
-                orderStatusId: (int)reader["orderStatusId"],
+                orderStatusName: (EOrderStatus)Enum.Parse(typeof(EOrderStatus), (string)reader["status"]),
                 quantity: (int)reader["quantity"],
                 orderNoteId: reader["orderNoteId"] == DBNull.Value ? null : (int)reader["orderNoteId"]
             );

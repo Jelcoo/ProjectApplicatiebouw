@@ -14,7 +14,7 @@ namespace ChapeauDAL
     {
         public List<Order> GetOrdersInOrder()
         {
-            string query = "SELECT O.orderId, O.invoiceId, O.orderedAt, OL.orderLineId, OL.quantity, OL.orderStatusId, MI.menuItemId, MI.stockId, MI.menuId, MI.itemName, MI.VATRate, MI.price, MT.menuTypeId, MT.typeName , [ON].orderNoteId, [ON].note FROM orders AS O JOIN orderLines AS OL ON OL.orderId = O.orderId JOIN menuItems AS MI ON OL.menuItemId = MI.menuItemId JOIN menuTypes AS MT ON MT.menuTypeId = MI.menuTypeId LEFT JOIN orderNotes AS [ON] ON [ON].orderLineId = OL.orderLineId WHERE MT.menuTypeId IS NOT NULL AND CONVERT(date, O.orderedAt) = CONVERT(date, GETDATE()) ORDER BY O.orderedAt";
+            string query = "SELECT O.orderId, O.invoiceId, O.orderedAt, OL.orderLineId, OL.quantity, OS.orderStatusId, OS.[status], MI.menuItemId, MI.stockId, MI.menuId, MI.itemName, MI.VATRate, MI.price, MT.menuTypeId, MT.typeName , [ON].orderNoteId, [ON].note FROM orders AS O JOIN orderLines AS OL ON OL.orderId = O.orderId JOIN orderStatuses AS OS ON OL.orderStatusId = OS.orderStatusId JOIN menuItems AS MI ON OL.menuItemId = MI.menuItemId JOIN menuTypes AS MT ON MT.menuTypeId = MI.menuTypeId LEFT JOIN orderNotes AS [ON] ON [ON].orderLineId = OL.orderLineId WHERE MT.menuTypeId IS NOT NULL AND CONVERT(date, O.orderedAt) = CONVERT(date, GETDATE()) ORDER BY O.orderedAt";
             SqlCommand command = new SqlCommand(query, OpenConnection());
 
             SqlDataReader reader = command.ExecuteReader();
@@ -65,7 +65,7 @@ namespace ChapeauDAL
         }
         public List<Order> GetPreviousCompletedOrders()
         {
-            string query = "SELECT O.orderId, O.invoiceId, O.orderedAt, OL.orderLineId, OL.quantity, OL.orderStatusId, MI.menuItemId, MI.stockId, MI.menuId, MI.itemName, MI.VATRate, MI.price, MT.menuTypeId, MT.typeName , [ON].orderNoteId, [ON].note FROM orders AS O JOIN orderLines AS OL ON OL.orderId = O.orderId JOIN menuItems AS MI ON OL.menuItemId = MI.menuItemId JOIN menuTypes AS MT ON MT.menuTypeId = MI.menuTypeId LEFT JOIN orderNotes AS [ON] ON [ON].orderLineId = OL.orderLineId WHERE MT.menuTypeId IS NOT NULL AND CONVERT(date, O.orderedAt) <= CONVERT(date, GETDATE()) ORDER BY O.orderedAt";
+            string query = "SELECT O.orderId, O.invoiceId, O.orderedAt, OL.orderLineId, OL.quantity, OS.orderStatusId, OS.[status], MI.menuItemId, MI.stockId, MI.menuId, MI.itemName, MI.VATRate, MI.price, MT.menuTypeId, MT.typeName , [ON].orderNoteId, [ON].note FROM orders AS O JOIN orderLines AS OL ON OL.orderId = O.orderId JOIN orderStatuses AS OS ON OL.orderStatusId = OS.orderStatusId JOIN menuItems AS MI ON OL.menuItemId = MI.menuItemId JOIN menuTypes AS MT ON MT.menuTypeId = MI.menuTypeId LEFT JOIN orderNotes AS [ON] ON [ON].orderLineId = OL.orderLineId WHERE MT.menuTypeId IS NOT NULL AND CONVERT(date, O.orderedAt) <= CONVERT(date, GETDATE()) ORDER BY O.orderedAt";
             SqlCommand command = new SqlCommand(query, OpenConnection());
 
             SqlDataReader reader = command.ExecuteReader();
