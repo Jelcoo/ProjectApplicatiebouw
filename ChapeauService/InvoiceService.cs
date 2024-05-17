@@ -25,5 +25,15 @@ namespace ChapeauService
             invoice.SetInvoiceStatus(invoiceStatus);
             return _invoiceDao.CreateInvoice(invoice);
         }
+
+        public InvoiceComment CreateInvoiceComment(InvoiceComment invoiceComment)
+        {
+            return _invoiceDao.CreateInvoiceComment(invoiceComment);
+        }
+
+        public InvoiceComment GetInvoiceCommentById(int invoiceCommentId)
+        {
+            return _invoiceDao.GetInvoiceCommentById(invoiceCommentId);
+        }
     }
 }

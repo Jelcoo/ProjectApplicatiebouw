@@ -48,5 +48,10 @@ namespace ChapeauModel
             Tip = tip;
             return this;
         }
+
+        public void SetPaymentId(int paymentId)
+        {
+            _paymentId = paymentId;
+        }
     }
 }

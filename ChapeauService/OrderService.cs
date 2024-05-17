@@ -59,5 +59,10 @@ namespace ChapeauService
         {
             _orderDao.DeleteOrderNote(orderNote);
         }
+
+        public Dictionary<MenuItem, int> GetAllOrderedItemsByInvoiceId(int invoiceId)
+        {
+            return _orderDao.GetAllOrderedItemsByInvoiceId(invoiceId);
+        }
     }
 }
