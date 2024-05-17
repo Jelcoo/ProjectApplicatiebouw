@@ -15,33 +15,29 @@ namespace ChapeauDAL
 {
     public class StockDao : BaseDao
     {
-        public Dictionary<int, (string name, int stock)> GetStock()
+        public List<StockDisplayItem> GetStock()
         {
             string query = @"
-SELECT MI.menuItemId AS id, MI.itemName AS [name], S.stock
+SELECT MI.menuItemId, MI.itemName, S.stockId, S.stock
 FROM menuItems as MI
 JOIN stock AS S ON S.stockId = MI.stockId;";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
-
             SqlDataReader reader = command.ExecuteReader();
 
-            Dictionary<int, (string name, int stock)> stock = new Dictionary<int, (string name, int stock)>();
+            List<StockDisplayItem> stockItems = new List<StockDisplayItem>();
 
             while (reader.Read())
             {
-                int menuItemId = reader.GetInt32(reader.GetOrdinal("id"));
-                string itemName = reader.GetString(reader.GetOrdinal("name"));
-                int stockValue = reader.GetInt32(reader.GetOrdinal("stock"));
-
-                stock[menuItemId] = (itemName, stockValue);
+                StockDisplayItem stockItem = MenuReader.ReadStockDisplayItem(reader);
+                stockItems.Add(stockItem);
             }
-            if (stock.Count == 0)
+            if (stockItems.Count == 0)
             {
                 throw new Exception($"No stock found");
             }
 
-            return stock;
+            return stockItems;
         }
 
         // Add MenuItem

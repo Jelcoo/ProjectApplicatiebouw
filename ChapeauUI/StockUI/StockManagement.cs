@@ -14,7 +14,7 @@ namespace ChapeauUI.StockUI
 {
     public partial class StockManagement : Form
     {
-        private readonly StockService _stockService;
+        private StockService _stockService;
         public StockManagement()
         {
             InitializeComponent();
@@ -24,18 +24,23 @@ namespace ChapeauUI.StockUI
 
         public void PopulateStock()
         {
-            Dictionary<int, (string name, int stock)> stockData = _stockService.GetStock();
+            List<StockDisplayItem> stockData = _stockService.GetStock();
 
             lvStock.Items.Clear();
 
-            foreach (var item in stockData)
+            foreach (StockDisplayItem item in stockData)
             {
-                ListViewItem listViewItem = new ListViewItem(item.Value.name)
+                ListViewItem listViewItem = new ListViewItem(item.ItemName)
                 {
-                    Tag = item.Key
+                    Tag = item.MenuItemId
                 };
-                listViewItem.SubItems.Add(item.Value.stock.ToString());
+                ListViewItem.ListViewSubItem stockAmountSubItem = new ListViewItem.ListViewSubItem
+                {
+                    Text = item.StockCount.ToString(),
+                    Tag = item.StockId
+                };
 
+                listViewItem.SubItems.Add(stockAmountSubItem);
                 lvStock.Items.Add(listViewItem);
             }
 

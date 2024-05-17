@@ -18,7 +18,7 @@ namespace ChapeauService
             _stockDao = new StockDao();
         }
 
-        public Dictionary<int, (string name, int stock)> GetStock()
+        public List<StockDisplayItem> GetStock()
         {
             return _stockDao.GetStock();
         }

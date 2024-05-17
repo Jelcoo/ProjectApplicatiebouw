@@ -1,3 +1,5 @@
+using ChapeauUI.StockUI;
+
 namespace ChapeauUI
 {
     public partial class ChapeauPanel : Form
@@ -5,6 +7,12 @@ namespace ChapeauUI
         public ChapeauPanel()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            new StockUI.StockManagement().Show();
+            this.Hide();
         }
     }
 }
