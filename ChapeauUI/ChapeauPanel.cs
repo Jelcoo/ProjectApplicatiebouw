@@ -1,4 +1,3 @@
-using ChapeauDAL;
 namespace ChapeauUI
 {
     public partial class ChapeauPanel : Form
