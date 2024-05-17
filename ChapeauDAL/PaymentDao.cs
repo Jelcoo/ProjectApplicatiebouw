@@ -9,9 +9,9 @@ namespace ChapeauDAL
         public Payment CreatePayment(Invoice invoice, Payment payment)
         {
             string query = @"
-    INSERT INTO payments (invoiceId, paymentMethodId, paymentAmount, paidAt)
-    VALUES (@invoiceId, @paymentMethodId, @paymentAmount, @paidAt)
-    SELECT SCOPE_IDENTITY();";
+INSERT INTO payments (invoiceId, paymentMethodId, paymentAmount, paidAt)
+VALUES (@invoiceId, @paymentMethodId, @paymentAmount, @paidAt)
+SELECT SCOPE_IDENTITY();";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
             command.Parameters.AddWithValue("@invoiceId", invoice.InvoiceId);
@@ -29,9 +29,9 @@ namespace ChapeauDAL
         public int AddTip(Invoice invoice, int tipAmount)
         {
             string query = @"
-        INSERT INTO tips (invoiceId, tipAmount)
-        VALUES (@invoiceId, @tipAmount);
-        SELECT SCOPE_IDENTITY();";
+INSERT INTO tips (invoiceId, tipAmount)
+VALUES (@invoiceId, @tipAmount);
+SELECT SCOPE_IDENTITY();";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
             command.Parameters.AddWithValue("@invoiceId", invoice.InvoiceId);
@@ -46,9 +46,9 @@ namespace ChapeauDAL
         public Payment GetPaymentByInvoiceId(int invoiceId)
         {
             string query = @"
-    SELECT paymentId, invoiceId, paymentMethodId, paymentAmount, paidAt
-    FROM payments
-    WHERE invoiceId = @invoiceId";
+SELECT paymentId, invoiceId, paymentMethodId, paymentAmount, paidAt
+FROM payments
+WHERE invoiceId = @invoiceId";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
             command.Parameters.AddWithValue("@invoiceId", invoiceId);
@@ -72,8 +72,8 @@ namespace ChapeauDAL
         public PaymentMethod GetPaymentMethods()
         {
             string query = @"
-    SELECT paymentMethodId, methodName
-    FROM paymentMethods";
+SELECT paymentMethodId, methodName
+FROM paymentMethods";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
 

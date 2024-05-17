@@ -9,9 +9,9 @@ namespace ChapeauDAL
         public InvoiceComment CreateInvoiceComment(InvoiceComment invoiceComment)
         {
             string query = @"
-    INSERT INTO invoiceComments (invoiceId, comment)
-    VALUES (@invoiceId, @comment);
-    SELECT SCOPE_IDENTITY();";
+INSERT INTO invoiceComments (invoiceId, comment)
+VALUES (@invoiceId, @comment);
+SELECT SCOPE_IDENTITY();";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
             command.Parameters.AddWithValue("@invoiceId", invoiceComment.InvoiceId);
@@ -27,9 +27,9 @@ namespace ChapeauDAL
         public InvoiceComment GetInvoiceCommentById(int invoiceCommentId)
         {
             string query = @"
-    SELECT invoiceId, comment
-    FROM invoiceComments
-    WHERE invoiceCommentId = @invoiceCommentId;";
+SELECT invoiceId, comment
+FROM invoiceComments
+WHERE invoiceCommentId = @invoiceCommentId;";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
             command.Parameters.AddWithValue("@invoiceCommentId", invoiceCommentId);
