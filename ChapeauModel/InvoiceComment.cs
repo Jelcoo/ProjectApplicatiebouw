@@ -21,5 +21,10 @@ namespace ChapeauModel
         {
             _invoiceCommentId = invoiceCommentId;
         }
+
+        public void SetInvoiceCommentId(int invoiceId)
+        {
+            _invoiceCommentId = invoiceId;
+        }
     }
 }

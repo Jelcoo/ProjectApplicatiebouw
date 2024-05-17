@@ -45,6 +45,12 @@ namespace ChapeauModel
             _menuItemId = menuItemId;
         }
 
+        public MenuItem(string name, double price)
+        {
+            _name = name;
+            _price = price;
+        }
+
         public MenuItem SetStock(Stock stock)
         {
             Stock = stock;
