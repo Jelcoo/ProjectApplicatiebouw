@@ -5,11 +5,15 @@ namespace ChapeauService
 {
     public class PaymentService
     {
+        private PaymentDao _paymentDao;
+
+        public PaymentService()
+        {
+            _paymentDao = new PaymentDao();
+        }
         public Payment MakeNewPayment(Invoice invoice, int paymentMethodId, float amount, DateTime paidAt, int tipAmount)
         {
-            PaymentDao paymentDao = new PaymentDao();
-
-            int tipId = paymentDao.AddTip(invoice, tipAmount);
+            int tipId = _paymentDao.AddTip(invoice, tipAmount);
 
             Payment payment = new Payment(
                 invoiceId: invoice.InvoiceId,
@@ -19,7 +23,7 @@ namespace ChapeauService
                 tipId: tipId
             );
 
-            return paymentDao.CreatePayment(invoice, payment);
+            return _paymentDao.CreatePayment(invoice, payment);
         }
     }
 }

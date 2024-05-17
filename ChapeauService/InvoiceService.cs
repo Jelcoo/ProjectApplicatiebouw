@@ -10,16 +10,21 @@ namespace ChapeauService
 {
     public class InvoiceService
     {
+        private InvoiceDao _invoiceDao;
+
+        public InvoiceService()
+        {
+            _invoiceDao = new InvoiceDao();
+        }
+
         public InvoiceComment CreateInvoiceComment(InvoiceComment invoiceComment)
         {
-            InvoiceDao invoiceDao = new InvoiceDao();
-            return invoiceDao.CreateInvoiceComment(invoiceComment);
+            return _invoiceDao.CreateInvoiceComment(invoiceComment);
         }
 
         public InvoiceComment GetInvoiceCommentById(int invoiceCommentId)
         {
-            InvoiceDao invoiceDao = new InvoiceDao();
-            return invoiceDao.GetInvoiceCommentById(invoiceCommentId);
+            return _invoiceDao.GetInvoiceCommentById(invoiceCommentId);
         }
     }
 }

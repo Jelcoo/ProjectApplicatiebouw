@@ -6,10 +6,16 @@ namespace ChapeauService
 {
     public class OrderService
     {
+        private OrderDao _orderDao;
+
+        public OrderService()
+        {
+            _orderDao = new OrderDao();
+        }
+
         public Dictionary<MenuItem, int> GetAllOrderedItemsByInvoiceId(int invoiceId)
         {
-            OrderDao orderDao = new OrderDao();
-            return orderDao.GetAllOrderedItemsByInvoiceId(invoiceId);
+            return _orderDao.GetAllOrderedItemsByInvoiceId(invoiceId);
         }
     }
 }

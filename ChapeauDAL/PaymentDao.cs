@@ -1,11 +1,6 @@
 ﻿using ChapeauDAL.Readers;
 using ChapeauModel;
-using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ChapeauDAL
 {
@@ -15,8 +10,7 @@ namespace ChapeauDAL
         {
             string query = @"
     INSERT INTO payments (invoiceId, paymentMethodId, paymentAmount, paidAt)
-    VALUES 
-    (@invoiceId, @paymentMethodId, @paymentAmount, @paidAt)
+    VALUES (@invoiceId, @paymentMethodId, @paymentAmount, @paidAt)
     SELECT SCOPE_IDENTITY();";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
@@ -52,7 +46,7 @@ namespace ChapeauDAL
         public Payment GetPaymentByInvoiceId(int invoiceId)
         {
             string query = @"
-    SELECT *
+    SELECT paymentId, invoiceId, paymentMethodId, paymentAmount, paidAt
     FROM payments
     WHERE invoiceId = @invoiceId";
 
@@ -78,7 +72,7 @@ namespace ChapeauDAL
         public PaymentMethod GetPaymentMethods()
         {
             string query = @"
-    SELECT *
+    SELECT paymentMethodId, methodName
     FROM paymentMethods";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
