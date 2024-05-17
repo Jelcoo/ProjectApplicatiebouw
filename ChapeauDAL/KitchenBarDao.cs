@@ -55,12 +55,11 @@ ORDER BY O.orderedAt";
 
         public void UpdateOrderLinesStatus(Order order)
         {
-            List<OrderLine> orderLines = order.OrderLines;
             string query = @"
 UPDATE orderLines 
 SET orderStatusId = @statusId 
 WHERE orderLineId = @orderLineId";
-            foreach (OrderLine line in orderLines)
+            foreach (OrderLine line in order.OrderLines)
             {
                 SqlCommand command = new SqlCommand(query, OpenConnection());
                 command.Parameters.AddWithValue("@statusId", (int)line.orderStatus);
@@ -112,7 +111,6 @@ ORDER BY O.orderedAt";
 
         private OrderLine CombineData(SqlDataReader reader)
         {
-
             OrderLine orderLine = OrderReader.ReadOrderLine(reader);
             orderLine.SetMenuItem(MenuReader.ReadMenuItem(reader));
             if (orderLine.MenuItem.MenuType != null)
