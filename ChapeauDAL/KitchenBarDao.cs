@@ -1,11 +1,6 @@
 ﻿using ChapeauModel;
 using ChapeauDAL.Readers;
-using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ChapeauModel.Enums;
 
 namespace ChapeauDAL
@@ -62,7 +57,7 @@ WHERE orderLineId = @orderLineId";
             foreach (OrderLine line in order.OrderLines)
             {
                 SqlCommand command = new SqlCommand(query, OpenConnection());
-                command.Parameters.AddWithValue("@statusId", (int)line.orderStatus);
+                command.Parameters.AddWithValue("@statusId", (int)line.OrderStatus);
                 command.Parameters.AddWithValue("@orderLineId", line.OrderLineId);
                 command.ExecuteNonQuery();
             }

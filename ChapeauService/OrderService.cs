@@ -1,6 +1,5 @@
 ﻿using ChapeauModel;
 using ChapeauDAL;
-using ChapeauModel.Enums;
 
 namespace ChapeauService
 {

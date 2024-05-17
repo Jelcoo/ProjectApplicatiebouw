@@ -14,15 +14,13 @@ namespace ChapeauService
 
         public Invoice MakeNewInvoice(Table table, Employee employee)
         {
-            InvoiceStatus invoiceStatus = _invoiceDao.GetInvoiceStatusByName(InvoiceStatus.DEFAULT_STATUS);
             Invoice invoice = new Invoice(
                 tableId: table.TableId,
                 servedBy: employee.EmployeeId,
-                invoiceStatusId: invoiceStatus.InvoiceStatusId
+                invoiceStatus: InvoiceStatus.DEFAULT_STATUS
             );
             invoice.SetTable(table);
             invoice.SetServer(employee);
-            invoice.SetInvoiceStatus(invoiceStatus);
             return _invoiceDao.CreateInvoice(invoice);
         }
 

@@ -4,7 +4,7 @@ namespace ChapeauModel
 {
     public class OrderStatus
     {
-        const string DEFAULT_STATUS = "Pending";
+        public const EOrderStatus DEFAULT_STATUS = EOrderStatus.Pending;
 
         private int _orderStatusId;
         public int OrderStatusId { get { return _orderStatusId; } }

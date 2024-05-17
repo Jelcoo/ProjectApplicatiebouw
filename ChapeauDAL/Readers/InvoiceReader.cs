@@ -1,4 +1,5 @@
 ﻿using ChapeauModel;
+using ChapeauModel.Enums;
 using System.Data.SqlClient;
 
 namespace ChapeauDAL.Readers
@@ -11,7 +12,7 @@ namespace ChapeauDAL.Readers
                 invoiceId: (int)reader["invoiceId"],
                 tableId: (int)reader["tableId"],
                 servedBy: (int)reader["servedBy"],
-                invoiceStatusId: (int)reader["invoiceStatusId"],
+                invoiceStatus: (EInvoiceStatus)Enum.Parse(typeof(EInvoiceStatus), (string)reader["status"]),
                 createdAt: (DateTime)reader["createdAt"]
             );
 
@@ -33,7 +34,7 @@ namespace ChapeauDAL.Readers
         {
             InvoiceStatus invoiceStatus = new InvoiceStatus(
                 invoiceStatusId: (int)reader["invoiceStatusId"],
-                status: (string)reader["status"]
+                status: (EInvoiceStatus)Enum.Parse(typeof(EInvoiceStatus), (string)reader["status"])
             );
 
             return invoiceStatus;

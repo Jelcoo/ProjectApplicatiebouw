@@ -15,7 +15,7 @@ namespace ChapeauModel
         public int MenuItemId { get { return _menuItemId; } }
         public MenuItem? MenuItem { get; private set; }
 
-        public EOrderStatus orderStatus;
+        public EOrderStatus OrderStatus;
 
         private int _quantity;
         public int Quantity { get { return _quantity; } }
@@ -24,16 +24,16 @@ namespace ChapeauModel
         public int? OrderNoteId { get { return _orderNoteId; } }
         public OrderNote? OrderNote;
 
-        public OrderLine(int orderId, int menuItemId, EOrderStatus orderStatusName, int quantity, int? orderNoteId)
+        public OrderLine(int orderId, int menuItemId, EOrderStatus orderStatus, int quantity, int? orderNoteId)
         {
             _orderId = orderId;
             _menuItemId = menuItemId;
-            orderStatus = orderStatusName;
+            OrderStatus = orderStatus;
             _quantity = quantity;
             _orderNoteId = orderNoteId;
         }
-        public OrderLine(int orderLineId, int orderId, int menuItemId, EOrderStatus orderStatusName, int quantity, int? orderNoteId)
-            : this(orderId, menuItemId, orderStatusName, quantity, orderNoteId)
+        public OrderLine(int orderLineId, int orderId, int menuItemId, EOrderStatus orderStatus, int quantity, int? orderNoteId)
+            : this(orderId, menuItemId, orderStatus, quantity, orderNoteId)
         {
             _orderLineId = orderLineId;
         }

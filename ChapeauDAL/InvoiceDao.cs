@@ -16,7 +16,7 @@ SELECT SCOPE_IDENTITY();";
             SqlCommand command = new SqlCommand(query, OpenConnection());
             command.Parameters.AddWithValue("@tableId", invoice.TableId);
             command.Parameters.AddWithValue("@servedBy", invoice.ServedBy);
-            command.Parameters.AddWithValue("@invoiceStatusId", invoice.InvoiceStatusId);
+            command.Parameters.AddWithValue("@invoiceStatusId", (int)invoice.InvoiceStatus);
             command.Parameters.AddWithValue("@createdAt", DateTime.Now);
             
             int invoiceId = Convert.ToInt32(command.ExecuteScalar());
@@ -87,9 +87,7 @@ WHERE invoiceCommentId = @invoiceCommentId;";
                 CloseConnection();
 
                 return invoiceComment;
-            }
-            else
-            {
+            } else {
                 throw new Exception($"Invoice comment with ID '{invoiceCommentId}' not found");
             }
         }

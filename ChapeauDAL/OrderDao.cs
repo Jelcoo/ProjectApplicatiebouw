@@ -35,7 +35,7 @@ SELECT SCOPE_IDENTITY();";
             SqlCommand command = new SqlCommand(query, OpenConnection());
             command.Parameters.AddWithValue("@orderId", orderLine.OrderId);
             command.Parameters.AddWithValue("@menuItemId", orderLine.MenuItemId);
-            command.Parameters.AddWithValue("@orderStatusId", (int)orderLine.orderStatus);
+            command.Parameters.AddWithValue("@orderStatusId", (int)orderLine.OrderStatus);
             command.Parameters.AddWithValue("@quantity", orderLine.Quantity);
 
             int orderLineId = Convert.ToInt32(command.ExecuteScalar());

@@ -1,3 +1,5 @@
+using ChapeauModel.Enums;
+
 namespace ChapeauModel
 {
     public class Invoice
@@ -13,26 +15,24 @@ namespace ChapeauModel
         public int ServedBy { get { return _servedBy; } }
         public Employee? Server { get; private set; }
 
-        private int _invoiceStatusId;
-        public int InvoiceStatusId { get { return _invoiceStatusId; } }
-        public InvoiceStatus? InvoiceStatus { get; private set; }
+        public EInvoiceStatus InvoiceStatus;
 
         private DateTime _createdAt;
         public DateTime CreatedAt { get { return _createdAt; } }
 
-        public Invoice(int tableId, int servedBy, int invoiceStatusId)
+        public Invoice(int tableId, int servedBy, EInvoiceStatus invoiceStatus)
         {
             _tableId = tableId;
             _servedBy = servedBy;
-            _invoiceStatusId = invoiceStatusId;
+            InvoiceStatus = invoiceStatus;
         }
-        public Invoice(int tableId, int servedBy, int invoiceStatusId, DateTime createdAt)
-            : this(tableId, servedBy, invoiceStatusId)
+        public Invoice(int tableId, int servedBy, EInvoiceStatus invoiceStatus, DateTime createdAt)
+            : this(tableId, servedBy, invoiceStatus)
         {
             _createdAt = createdAt;
         }
-        public Invoice(int invoiceId, int tableId, int servedBy, int invoiceStatusId, DateTime createdAt)
-            : this(tableId, servedBy, invoiceStatusId, createdAt)
+        public Invoice(int invoiceId, int tableId, int servedBy, EInvoiceStatus invoiceStatus, DateTime createdAt)
+            : this(tableId, servedBy, invoiceStatus, createdAt)
         {
             _invoiceId = invoiceId;
         }
@@ -53,9 +53,8 @@ namespace ChapeauModel
             Server = server;
             return this;
         }
-        public Invoice SetInvoiceStatus(InvoiceStatus invoiceStatus)
+        public Invoice SetInvoiceStatus(EInvoiceStatus invoiceStatus)
         {
-            _invoiceStatusId = invoiceStatus.InvoiceStatusId;
             InvoiceStatus = invoiceStatus;
             return this;
         }
