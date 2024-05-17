@@ -103,30 +103,30 @@ SELECT SCOPE_IDENTITY();";
             return orderLine;
         }
 
-        public void UpdateOrderNote(OrderLine orderLine)
+        public void UpdateOrderNote(OrderNote orderNote)
         {
             string query = @"
 UPDATE orderNotes
 SET note = @note
-WHERE orderLineId = @orderLineId;";
+WHERE orderNoteId = @orderNoteId;";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
-            command.Parameters.AddWithValue("@note", orderLine.OrderNote?.Note);
-            command.Parameters.AddWithValue("@orderLineId", orderLine.OrderLineId);
+            command.Parameters.AddWithValue("@note", orderNote.Note);
+            command.Parameters.AddWithValue("@orderNoteId", orderNote.OrderNoteId);
 
             command.ExecuteNonQuery();
 
             CloseConnection();
         }
 
-        public void DeleteOrderNote(OrderLine orderLine)
+        public void DeleteOrderNote(OrderNote orderNote)
         {
             string query = @"
 DELETE FROM orderNotes
-WHERE orderLineId = @orderLineId;";
+WHERE orderNoteId = @orderNoteId;";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
-            command.Parameters.AddWithValue("@orderLineId", orderLine.OrderLineId);
+            command.Parameters.AddWithValue("@orderNoteId", orderNote.OrderNoteId);
 
             command.ExecuteNonQuery();
 

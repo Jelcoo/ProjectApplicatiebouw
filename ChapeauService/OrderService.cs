@@ -50,14 +50,14 @@ namespace ChapeauService
             _orderDao.DeleteOrderLine(orderLine);
         }
 
-        public void UpdateOrderNote(OrderLine orderLine)
+        public void UpdateOrderNote(OrderNote orderNote)
         {
-            _orderDao.UpdateOrderNote(orderLine);
+            _orderDao.UpdateOrderNote(orderNote);
         }
 
-        public void DeleteOrderNote(OrderLine orderLine)
+        public void DeleteOrderNote(OrderNote orderNote)
         {
-            _orderDao.DeleteOrderNote(orderLine);
+            _orderDao.DeleteOrderNote(orderNote);
         }
     }
 }
