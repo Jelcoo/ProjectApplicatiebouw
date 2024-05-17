@@ -28,8 +28,7 @@ LEFT JOIN orderNotes AS [ON] ON [ON].orderLineId = OL.orderLineId
 WHERE MT.menuTypeId IS NOT NULL 
 AND CONVERT(date, O.orderedAt) = CONVERT(date, GETDATE()) 
 ORDER BY O.orderedAt";
-            } else
-            {
+            } else {
                 query = @"
 SELECT O.orderId, O.invoiceId, O.orderedAt, OL.orderLineId, OL.quantity, OS.orderStatusId, OS.[status], MI.menuItemId, MI.stockId, MI.menuId, MI.itemDetailName, MI.itemName, MI.VATRate, MI.price, MT.menuTypeId, MT.typeName, [ON].orderNoteId, [ON].note 
 FROM orders AS O 
@@ -45,43 +44,15 @@ ORDER BY O.orderedAt";
             SqlCommand command = new SqlCommand(query, OpenConnection());
 
             SqlDataReader reader = command.ExecuteReader();
-            List<Order> orders = new List<Order>();
 
-            while (reader.Read())
-            {
-                Order order = new Order((int)reader["orderId"], (int)reader["invoiceId"], (DateTime)reader["orderedAt"]);
-                if (!orders.Select(order => order.OrderId).Contains(order.OrderId))
-                {
-                    orders.Add(order);
-                }
-                OrderLine orderLine = CombineData(reader);
-                for (int i = 0; i < orders.Count; i++)
-                {
-                    if (orderLine.OrderId != orders[i].OrderId) continue;
-                    orders[i].AddOrderLine(orderLine);
-                }
-            }
+            List<Order> orders = OrderParserAndCombiner(reader);
+
             reader.Close();
             CloseConnection();
 
             return orders;
         }
 
-        private OrderLine CombineData(SqlDataReader reader)
-        {
-            
-            OrderLine orderLine = OrderReader.ReadOrderLine(reader);
-            orderLine.SetMenuItem(MenuReader.ReadMenuItem(reader));
-            if (orderLine.MenuItem.MenuType != null)
-            {
-                orderLine.MenuItem.SetMenuType(MenuReader.ReadMenuType(reader));
-            }
-            if (orderLine.OrderNoteId != null)
-            {
-                orderLine.SetOrderNote(OrderReader.ReadOrderNote(reader));
-            }
-            return orderLine;
-        }
         public void UpdateOrderLinesStatus(Order order)
         {
             List<OrderLine> orderLines = order.OrderLines;
@@ -97,6 +68,7 @@ WHERE orderLineId = @orderLineId";
                 command.ExecuteNonQuery();
             }
         }
+
         public List<Order> GetPreviousCompletedOrders(EOrderDestination orderType)
         {
             string query;
@@ -113,9 +85,7 @@ LEFT JOIN orderNotes AS [ON] ON [ON].orderLineId = OL.orderLineId
 WHERE MT.menuTypeId IS NOT NULL 
 AND CONVERT(date, O.orderedAt) <= CONVERT(date, GETDATE()) 
 ORDER BY O.orderedAt";
-            }
-            else
-            {
+            } else {
                 query = @"
 SELECT O.orderId, O.invoiceId, O.orderedAt, OL.orderLineId, OL.quantity, OS.orderStatusId, OS.[status], MI.menuItemId, MI.stockId, MI.menuId, MI.itemDetailName, MI.itemName, MI.VATRate, MI.price, MT.menuTypeId, MT.typeName, [ON].orderNoteId, [ON].note 
 FROM orders AS O 
@@ -131,6 +101,33 @@ ORDER BY O.orderedAt";
             SqlCommand command = new SqlCommand(query, OpenConnection());
 
             SqlDataReader reader = command.ExecuteReader();
+
+            List<Order> orders = OrderParserAndCombiner(reader);
+
+            reader.Close();
+            CloseConnection();
+
+            return orders;
+        }
+
+        private OrderLine CombineData(SqlDataReader reader)
+        {
+
+            OrderLine orderLine = OrderReader.ReadOrderLine(reader);
+            orderLine.SetMenuItem(MenuReader.ReadMenuItem(reader));
+            if (orderLine.MenuItem.MenuType != null)
+            {
+                orderLine.MenuItem.SetMenuType(MenuReader.ReadMenuType(reader));
+            }
+            if (orderLine.OrderNoteId != null)
+            {
+                orderLine.SetOrderNote(OrderReader.ReadOrderNote(reader));
+            }
+            return orderLine;
+        }
+
+        private List<Order> OrderParserAndCombiner(SqlDataReader reader)
+        {
             List<Order> orders = new List<Order>();
 
             while (reader.Read())
@@ -147,8 +144,6 @@ ORDER BY O.orderedAt";
                     orders[i].AddOrderLine(orderLine);
                 }
             }
-            reader.Close();
-            CloseConnection();
 
             return orders;
         }
