@@ -125,7 +125,7 @@ ORDER BY O.orderedAt";
 
             while (reader.Read())
             {
-                Order order = new Order((int)reader["orderId"], (int)reader["invoiceId"], (DateTime)reader["orderedAt"]);
+                Order order = OrderReader.ReadOrder(reader);
                 if (!orders.Select(order => order.OrderId).Contains(order.OrderId))
                 {
                     orders.Add(order);
