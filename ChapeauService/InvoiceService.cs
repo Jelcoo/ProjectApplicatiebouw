@@ -5,10 +5,16 @@ namespace ChapeauService
 {
     public class InvoiceService
     {
+        private InvoiceDao _invoiceDao;
+
+        public InvoiceService()
+        {
+            _invoiceDao = new InvoiceDao();
+        }
+
         public Invoice MakeNewInvoice(Table table, Employee employee)
         {
-            InvoiceDao invoiceDao = new InvoiceDao();
-            InvoiceStatus invoiceStatus = invoiceDao.GetInvoiceStatusByName(InvoiceStatus.DEFAULT_STATUS);
+            InvoiceStatus invoiceStatus = _invoiceDao.GetInvoiceStatusByName(InvoiceStatus.DEFAULT_STATUS);
             Invoice invoice = new Invoice(
                 tableId: table.TableId,
                 servedBy: employee.EmployeeId,
@@ -17,7 +23,7 @@ namespace ChapeauService
             invoice.SetTable(table);
             invoice.SetServer(employee);
             invoice.SetInvoiceStatus(invoiceStatus);
-            return invoiceDao.CreateInvoice(invoice);
+            return _invoiceDao.CreateInvoice(invoice);
         }
     }
 }

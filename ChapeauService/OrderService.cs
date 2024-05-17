@@ -6,6 +6,13 @@ namespace ChapeauService
 {
     public class OrderService
     {
+        private OrderDao _orderDao;
+
+        public OrderService()
+        {
+            _orderDao = new OrderDao();
+        }
+
         public Order MakeNewOrder(Order order, Table table, Employee employee)
         {
             if (order.Invoice == null)
@@ -14,8 +21,7 @@ namespace ChapeauService
                 order.SetInvoice(invoiceService.MakeNewInvoice(table, employee));
             }
 
-            OrderDao orderDao = new OrderDao();
-            order = orderDao.CreateOrder(order);
+            order = _orderDao.CreateOrder(order);
             order.SetOrderLines(MakeNewOrderLines(order));
 
             return order;
@@ -23,16 +29,15 @@ namespace ChapeauService
 
         public List<OrderLine> MakeNewOrderLines(Order order)
         {
-            OrderDao orderDao = new OrderDao();
             List<OrderLine> orderLines = new List<OrderLine>();
             foreach (OrderLine orderLine in order.OrderLines)
             {
                 orderLine.SetOrder(order);
-                OrderLine line = orderDao.CreateOrderLine(orderLine);
+                OrderLine line = _orderDao.CreateOrderLine(orderLine);
 
-                if (line.OrderNote != null) line.OrderNote = orderDao.CreateOrderNote(line).OrderNote;
+                if (line.OrderNote != null) line.OrderNote = _orderDao.CreateOrderNote(line).OrderNote;
                 
-                orderDao.DecreaseStock(line);
+                _orderDao.DecreaseStock(line);
                 orderLines.Add(line);
             }
 
@@ -41,21 +46,18 @@ namespace ChapeauService
 
         public void RemoveOrderLine(OrderLine orderLine)
         {
-            OrderDao orderDao = new OrderDao();
-            orderDao.IncreaseStock(orderLine);
-            orderDao.DeleteOrderLine(orderLine);
+            _orderDao.IncreaseStock(orderLine);
+            _orderDao.DeleteOrderLine(orderLine);
         }
 
         public void UpdateOrderNote(OrderLine orderLine)
         {
-            OrderDao orderDao = new OrderDao();
-            orderDao.UpdateOrderNote(orderLine);
+            _orderDao.UpdateOrderNote(orderLine);
         }
 
         public void DeleteOrderNote(OrderLine orderLine)
         {
-            OrderDao orderDao = new OrderDao();
-            orderDao.DeleteOrderNote(orderLine);
+            _orderDao.DeleteOrderNote(orderLine);
         }
     }
 }
