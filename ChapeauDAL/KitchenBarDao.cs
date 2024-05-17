@@ -66,6 +66,7 @@ ORDER BY O.orderedAt";
 
             return orders;
         }
+
         private OrderLine CombineData(SqlDataReader reader)
         {
             
