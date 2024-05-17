@@ -41,5 +41,10 @@ namespace ChapeauUI.StockUI
 
             lvStock.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
         }
+
+        private void btnAddItem_Click(object sender, EventArgs e)
+        {
+            new StockAddItem().ShowDialog();
+        }
     }
 }

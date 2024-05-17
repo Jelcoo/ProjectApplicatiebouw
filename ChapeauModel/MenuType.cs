@@ -17,5 +17,11 @@ namespace ChapeauModel
         {
             _menuTypeId = menuTypeId;
         }
+
+        public MenuType SetId(int typeId)
+        {
+            _menuTypeId = typeId;
+            return this;
+        }
     }
 }
