@@ -79,8 +79,7 @@ WHERE status = @statusName";
                 CloseConnection();
 
                 return orderStatus;
-            } else
-            {
+            } else {
                 throw new Exception($"Order status '{statusName}' not found");
             }
         }

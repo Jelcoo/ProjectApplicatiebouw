@@ -45,8 +45,7 @@ WHERE status = @statusName";
                 CloseConnection();
 
                 return invoiceStatus;
-            } else
-            {
+            } else {
                 throw new Exception($"Invoice status '{statusName}' not found");
             }
         }
