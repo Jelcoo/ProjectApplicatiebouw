@@ -11,37 +11,21 @@ namespace ChapeauService
 {
     public class TableOverviewService
     {
-        private readonly OverviewDao _overviewDao;
+        private OverviewDao _overviewDao;
 
         public TableOverviewService()
         {
             _overviewDao = new OverviewDao();
         }
 
-        public List<TableOverview> GetAllTables()
+        public List<Table> GetAllTables()
         {
             return _overviewDao.GetTables();
         }
 
-        public TableOverview GetTableById(int tableId)
+        public Table GetTableById(int tableId)
         {
-            var tables = _overviewDao.GetTables();
-            return tables.FirstOrDefault(table => table.TableId == tableId);
-        }
-
-        public void UpdateTableStatus(int tableId, bool isOccupied)
-        {
-            // Code om de tabelstatus bij te werken in de database
-            string query = "UPDATE [tables] SET isOccupied = @isOccupied WHERE tableId = @tableId";
-            SqlParameter[] sqlParameters = new SqlParameter[]
-            {
-                new SqlParameter("@isOccupied", isOccupied ? 1 : 0),
-                new SqlParameter("@tableId", tableId)
-            };
-
-            _overviewDao.ExecuteEditQuery(query, sqlParameters);
+            return _overviewDao.GetTableById(tableId);
         }
     }
-
-
 }

@@ -11,24 +11,78 @@ namespace ChapeauDAL
 {
     public class OverviewDao : BaseDao
     {
-        public List<TableOverview> GetTables()
+        public List<Table> GetTables()
         {
             string query = "SELECT tableId, isOccupied FROM [tables]";
-            SqlParameter[] sqlParameters = new SqlParameter[0];
-            return ReadTable(ExecuteSelectQuery(query, sqlParameters));
+
+            using (SqlConnection connection = OpenConnection())
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        DataTable dataTable = new DataTable();
+                        dataTable.Load(reader);
+                        return ReadTable(dataTable);
+                    }
+                }
+            }
         }
 
-        private List<TableOverview> ReadTable(DataTable dataTable)
+        public Table GetTableById(int tableId)
         {
-            List<TableOverview> tables = new List<TableOverview>();
+            string query = "SELECT tableId, isOccupied FROM [tables] WHERE tableId = @tableId";
+            SqlParameter parameter = new SqlParameter("@tableId", tableId);
+
+            using (SqlConnection connection = OpenConnection())
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.Add(parameter);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            bool isOccupied = (bool)reader["isOccupied"];
+                            return new Table(tableId, isOccupied);
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        private List<Table> ReadTable(DataTable dataTable)
+        {
+            List<Table> tables = new List<Table>();
             foreach (DataRow dr in dataTable.Rows)
             {
-                int tableID = (int)dr["tableId"];
-                bool isOccupied = ((Int16)dr["isOccupied"] != 0);
-
-                tables.Add(new TableOverview(tableID, isOccupied));
+                int tableId = (int)dr["tableId"];
+                bool occupied = (bool)dr["isOccupied"];
+                tables.Add(new Table(tableId, occupied));
             }
             return tables;
+        }
+
+        public void UpdateTableStatus(int tableId, bool isOccupied)
+        {
+            string query = "UPDATE [tables] SET isOccupied = @isOccupied WHERE tableId = @tableId";
+            SqlParameter[] sqlParameters = new SqlParameter[]
+            {
+            new SqlParameter("@isOccupied", isOccupied ? 1 : 0),
+            new SqlParameter("@tableId", tableId)
+            };
+
+            using (SqlConnection connection = OpenConnection())
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddRange(sqlParameters);
+                    command.ExecuteNonQuery();
+                }
+            }
         }
     }
 }
