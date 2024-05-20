@@ -34,39 +34,6 @@ namespace ChapeauDAL
             }
             return _conn;
         }
-
-        protected DataTable ExecuteSelectQuery(string query, params SqlParameter[] sqlParameters)
-        {
-            SqlCommand command = new SqlCommand();
-            DataTable dataTable;
-            DataSet dataSet = new DataSet();
-
-            try
-            {
-                command.Connection = OpenConnection();
-                command.CommandText = query;
-                command.Parameters.AddRange(sqlParameters);
-                command.ExecuteNonQuery();
-                dataTable = dataSet.Tables[0];
-            }
-
-            catch (SqlException e)
-            {
-                // Print.ErrorLog(e);
-                throw;
-            }
-
-            finally
-            {
-                CloseConnection();
-            }
-
-            return dataTable;
-        }
-        protected void CloseConnection()
-        {
-            _conn.Close();
-        }
     }
 }
 

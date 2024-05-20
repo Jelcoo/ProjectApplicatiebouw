@@ -8,12 +8,13 @@ using System.Data.SqlClient;
 using System.Configuration;
 using ChapeauModel;
 using System.Diagnostics;
+using ChapeauDAL.Readers;
 
 namespace ChapeauDAL
 {
     public class LoginDao : BaseDao
     {
-        public Login GetLogin(int userId, string password)
+        public Employee GetLogin(int userId, string password)
         {
             string query = "SELECT employeeId, password FROM [employees] WHERE employeeId = @userId AND password = @password";
 
@@ -23,22 +24,23 @@ namespace ChapeauDAL
             new SqlParameter("@password", password)
         };
 
-            DataTable dataTable = ExecuteSelectQuery(query, sqlParameters);
-
-            if (dataTable.Rows.Count > 0)
+            using (SqlConnection connection = OpenConnection())
             {
-                DataRow dr = dataTable.Rows[0];
-                int id = (int)dr["employeeId"];
-                string retrievedPassword = dr["password"].ToString();
-                if (retrievedPassword == password)
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    return new Login { Id = id, Password = retrievedPassword };
+                    command.Parameters.AddRange(sqlParameters);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return EmployeeReader.ReadEmployee(reader);
+                        }
+                    }
                 }
             }
             return null;
         }
     }
-
-
 }
 

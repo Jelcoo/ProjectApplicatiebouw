@@ -21,20 +21,17 @@ namespace ChapeauService
         {
             if (string.IsNullOrEmpty(password))
             {
-                throw new ArgumentNullException(nameof(password), "Password cannot be null or empty.");
+                return false;
             }
 
-            Login user = _loginDao.GetLogin(userId, password);
+            Employee user = _loginDao.GetLogin(userId, password);
 
-            if (user != null)
+            if (user != null && user.CheckPassword(password))
             {
-                if (user.Id == userId && user.Password == password)
-                {
-                    return true; 
-                }
+                return true;
             }
 
-            return false; 
+            return false;
         }
     }
 }
