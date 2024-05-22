@@ -7,32 +7,30 @@ namespace ChapeauModel
         private int _invoiceId;
         public int InvoiceId { get { return _invoiceId; } }
 
-        private int _tableId;
-        public int TableId { get { return _tableId; } }
-        public Table? Table { get; private set; }
+        public Table Table { get; private set; }
 
-        private int _servedBy;
-        public int ServedBy { get { return _servedBy; } }
-        public Employee? Server { get; private set; }
+        public Employee Server { get; private set; }
+        
+        public InvoiceComment? Comment { get; private set; }
 
         public EInvoiceStatus InvoiceStatus;
 
         private DateTime _createdAt;
         public DateTime CreatedAt { get { return _createdAt; } }
 
-        public Invoice(int tableId, int servedBy, EInvoiceStatus invoiceStatus)
+        public Invoice(Table table, Employee servedBy, EInvoiceStatus invoiceStatus)
         {
-            _tableId = tableId;
-            _servedBy = servedBy;
+            Table = table;
+            Server = servedBy;
             InvoiceStatus = invoiceStatus;
         }
-        public Invoice(int tableId, int servedBy, EInvoiceStatus invoiceStatus, DateTime createdAt)
-            : this(tableId, servedBy, invoiceStatus)
+        public Invoice(Table table, Employee servedBy, EInvoiceStatus invoiceStatus, DateTime createdAt)
+            : this(table, servedBy, invoiceStatus)
         {
             _createdAt = createdAt;
         }
-        public Invoice(int invoiceId, int tableId, int servedBy, EInvoiceStatus invoiceStatus, DateTime createdAt)
-            : this(tableId, servedBy, invoiceStatus, createdAt)
+        public Invoice(int invoiceId, Table table, Employee servedBy, EInvoiceStatus invoiceStatus, DateTime createdAt)
+            : this(table, servedBy, invoiceStatus, createdAt)
         {
             _invoiceId = invoiceId;
         }
@@ -44,13 +42,17 @@ namespace ChapeauModel
         }
         public Invoice SetTable(Table table)
         {
-            _tableId = table.TableId;
             Table = table;
             return this;
         }
-        public Invoice SetServer(Employee server) {
-            _servedBy = server.EmployeeId;
+        public Invoice SetServer(Employee server)
+        {
             Server = server;
+            return this;
+        }
+        public Invoice SetInvoiceComment(InvoiceComment invoiceComment)
+        {
+            Comment = invoiceComment;
             return this;
         }
         public Invoice SetInvoiceStatus(EInvoiceStatus invoiceStatus)

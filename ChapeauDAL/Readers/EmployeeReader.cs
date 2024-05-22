@@ -1,4 +1,5 @@
 ﻿using ChapeauModel;
+using ChapeauModel.Enums;
 using System.Data.SqlClient;
 
 namespace ChapeauDAL.Readers
@@ -12,7 +13,7 @@ namespace ChapeauDAL.Readers
                 name: (string)reader["employeeName"],
                 password: (string)reader["password"],
                 employedAt: (DateTime)reader["employedAt"],
-                roleId: (int)reader["roleId"]
+                role: (ERole)(int)reader["roleId"]
             );
 
             return employee;

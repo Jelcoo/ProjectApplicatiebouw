@@ -1,3 +1,5 @@
+using ChapeauModel.Enums;
+
 namespace ChapeauModel
 {
     public class Employee
@@ -13,26 +15,23 @@ namespace ChapeauModel
         private DateTime _employedAt;
         public DateTime EmployedAt { get { return _employedAt; } }
 
-        private int _roleId;
-        public int RoleId { get { return _roleId; } }
-        public Role? Role { get; private set; }
+        public ERole Role { get; private set; }
 
-        public Employee(string name, string password, DateTime employedAt, int roleId)
+        public Employee(string name, string password, DateTime employedAt, ERole role)
         {
             _name = name;
             _password = password;
             _employedAt = employedAt;
-            _roleId = roleId;
+            Role = role;
         }
 
-        public Employee(int employeeId, string name, string password, DateTime employedAt, int roleId)
-            : this(name, password, employedAt, roleId)
+        public Employee(int employeeId, string name, string password, DateTime employedAt, ERole role)
+            : this(name, password, employedAt, role)
         {
             _employeeId = employeeId;
         }
-        public Employee SetRole(Role role)
+        public Employee SetRole(ERole role)
         {
-            _roleId = role.RoleId;
             Role = role;
             return this;
         }

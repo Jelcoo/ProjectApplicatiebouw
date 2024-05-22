@@ -8,22 +8,36 @@ namespace ChapeauModel
         private string _name;
         public string Name { get { return _name; } }
 
-        private DateTime _serveStart;
-        public DateTime ServeStart { get { return _serveStart; } }
+        private DateTime _menuAvailableFrom;
+        public DateTime MenuAvailableFrom { get { return _menuAvailableFrom; } }
 
-        private DateTime _serveEnd;
-        public DateTime ServeEnd { get { return _serveEnd; } }
+        private DateTime _menuAvailableTill;
+        public DateTime MenuAvailableTill { get { return _menuAvailableTill; } }
 
-        public Menu(string name, DateTime serveStart, DateTime serveEnd)
+        public List<MenuItem> MenuItems { get; private set; }
+
+        public Menu(string name, DateTime menuAvailableFrom, DateTime menuAvailableTill)
         {
             _name = name;
-            _serveStart = serveStart;
-            _serveEnd = serveEnd;
+            _menuAvailableFrom = menuAvailableFrom;
+            _menuAvailableTill = menuAvailableTill;
+            MenuItems = new List<MenuItem>();
         }
-        public Menu(int menuId, string name, DateTime serveStart, DateTime serveEnd)
-            : this(name, serveStart, serveEnd)
+        public Menu(int menuId, string name, DateTime menuAvailableFrom, DateTime menuAvailableTill)
+            : this(name, menuAvailableFrom, menuAvailableTill)
         {
             _menuId = menuId;
+        }
+
+        public Menu SetMenuItems(List<MenuItem> menuItems)
+        {
+            MenuItems = menuItems;
+            return this;
+        }
+        public Menu AddMenuItem(MenuItem menuItem)
+        {
+            MenuItems.Add(menuItem);
+            return this;
         }
     }
 }

@@ -2,6 +2,6 @@
 {
     public enum EInvoiceStatus
     {
-        Pending = 1, Paid, Cancelled
+        Pending = 1, Paid
     }
 }
