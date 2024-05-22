@@ -1,6 +1,6 @@
 ﻿namespace ChapeauModel.Enums
 {
-    public enum EOrderStatus
+    public enum EOrderLineStatus
     {
         Pending = 1, Preparing, Ready, Delivered
     }

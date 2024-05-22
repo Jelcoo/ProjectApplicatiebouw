@@ -14,7 +14,7 @@ VALUES (@invoiceId, @orderedAt);
 SELECT SCOPE_IDENTITY();";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
-            command.Parameters.AddWithValue("@invoiceId", order.InvoiceId);
+            command.Parameters.AddWithValue("@invoiceId", order.Invoice.InvoiceId);
             command.Parameters.AddWithValue("@orderedAt", DateTime.Now);
 
             int orderId = Convert.ToInt32(command.ExecuteScalar());
@@ -25,7 +25,7 @@ SELECT SCOPE_IDENTITY();";
             return order;
         }
 
-        public OrderLine CreateOrderLine(OrderLine orderLine)
+        public OrderLine CreateOrderLine(int orderId, OrderLine orderLine)
         {
             string query = @"
 INSERT INTO orderLines (orderId, menuItemId, orderStatusId, quantity)
@@ -33,9 +33,9 @@ VALUES (@orderId, @menuItemId, @orderStatusId, @quantity);
 SELECT SCOPE_IDENTITY();";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
-            command.Parameters.AddWithValue("@orderId", orderLine.OrderId);
-            command.Parameters.AddWithValue("@menuItemId", orderLine.MenuItemId);
-            command.Parameters.AddWithValue("@orderStatusId", (int)orderLine.OrderStatus);
+            command.Parameters.AddWithValue("@orderId", orderId);
+            command.Parameters.AddWithValue("@menuItemId", orderLine.MenuItem.MenuItemId);
+            command.Parameters.AddWithValue("@orderStatusId", (int)orderLine.OrderLineStatus);
             command.Parameters.AddWithValue("@quantity", orderLine.Quantity);
 
             int orderLineId = Convert.ToInt32(command.ExecuteScalar());
@@ -58,30 +58,6 @@ WHERE orderLineId = @orderLineId;";
             command.ExecuteNonQuery();
 
             CloseConnection();
-        }
-
-        public OrderStatus GetOrderStatusByName(string statusName)
-        {
-            string query = @"
-SELECT orderStatusId, status
-FROM orderStatuses
-WHERE status = @statusName";
-
-            SqlCommand command = new SqlCommand(query, OpenConnection());
-            command.Parameters.AddWithValue("@statusName", statusName);
-
-            SqlDataReader reader = command.ExecuteReader();
-            if (reader.Read())
-            {
-                OrderStatus orderStatus = OrderReader.ReadOrderStatus(reader);
-                
-                reader.Close();
-                CloseConnection();
-
-                return orderStatus;
-            } else {
-                throw new Exception($"Order status '{statusName}' not found");
-            }
         }
 
         public OrderLine CreateOrderNote(OrderLine orderLine)
@@ -142,7 +118,7 @@ WHERE menuItemId = @menuItemId;";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
             command.Parameters.AddWithValue("@quantity", orderLine.Quantity);
-            command.Parameters.AddWithValue("@menuItemId", orderLine.MenuItemId);
+            command.Parameters.AddWithValue("@menuItemId", orderLine.MenuItem.MenuItemId);
 
             command.ExecuteNonQuery();
 
@@ -158,7 +134,7 @@ WHERE menuItemId = @menuItemId;";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
             command.Parameters.AddWithValue("@quantity", orderLine.Quantity);
-            command.Parameters.AddWithValue("@menuItemId", orderLine.MenuItemId);
+            command.Parameters.AddWithValue("@menuItemId", orderLine.MenuItem.MenuItemId);
 
             command.ExecuteNonQuery();
 
@@ -168,7 +144,7 @@ WHERE menuItemId = @menuItemId;";
         public Dictionary<MenuItem, int> GetAllOrderedItemsByInvoiceId(int invoiceId)
         {
             string query = @"
-SELECT MI.itemName AS itemName, MI.price AS price, SUM(OL.quantity) AS [quantity]
+SELECT MI.menuItemId, MI.stockId, MI.menuId, MI.itemDetailName, MI.itemName, MI.VATRate, MI.price, SUM(OL.quantity) AS [quantity]
 FROM [orderLines] AS OL
 JOIN [orders] AS O ON O.orderId = OL.orderId
 JOIN [invoices] AS I ON I.invoiceId = O.invoiceId
@@ -185,10 +161,7 @@ GROUP BY MI.itemName, MI.price;";
 
             while (reader.Read())
             {
-                string itemName = (string)reader["itemName"];
-                double price = (double)reader["price"];
-                MenuItem menuItem = new MenuItem(itemName, price);
-
+                MenuItem menuItem = MenuReader.ReadMenuItem(reader);
                 int quantity = (int)reader["quantity"];
 
                 AllOrderedItems.Add(menuItem, quantity);

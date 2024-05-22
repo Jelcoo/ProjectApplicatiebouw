@@ -1,4 +1,5 @@
 ﻿using ChapeauModel;
+using ChapeauModel.Enums;
 using System.Data.SqlClient;
 
 namespace ChapeauDAL.Readers
@@ -9,31 +10,28 @@ namespace ChapeauDAL.Readers
         {
             Payment payment = new Payment(
                 paymentId: (int)reader["paymentId"],
-                invoiceId: (int)reader["invoiceId"],
-                paymentMethodId: (int)reader["paymentMethodId"],
+                invoice: InvoiceReader.ReadInvoice(reader),
                 amount: (float)reader["paymentAmount"],
-                paidAt: (DateTime)reader["paidAt"],
-                tipId: (int)reader["tipId"]
+                paidAt: (DateTime)reader["paidAt"]
             );
+
+            if (reader["tipId"] != DBNull.Value)
+            {
+                payment.SetTip(ReadTip(reader));
+            }
+
+            if (reader["paymentMethodId"] != DBNull.Value)
+            {
+                payment.SetPaymentMethod((EPaymentMethod)(int)reader["paymentMethodId"]);
+            }
 
             return payment;
-        }
-
-        public static PaymentMethod ReadPaymentMethod(SqlDataReader reader)
-        {
-            PaymentMethod paymentMethod = new PaymentMethod(
-                paymentMethodId: (int)reader["paymentMethodId"],
-                name: (string)reader["methodName"]
-            );
-
-            return paymentMethod;
         }
 
         public static Tip ReadTip(SqlDataReader reader)
         {
             Tip tip = new Tip(
                 tipId: (int)reader["tipId"],
-                paymentId: (int)reader["paymentId"],
                 amount: (float)reader["tipAmount"]
             );
 

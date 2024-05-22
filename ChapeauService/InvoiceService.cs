@@ -1,5 +1,6 @@
 ﻿using ChapeauModel;
 using ChapeauDAL;
+using ChapeauModel.Enums;
 
 namespace ChapeauService
 {
@@ -15,18 +16,16 @@ namespace ChapeauService
         public Invoice MakeNewInvoice(Table table, Employee employee)
         {
             Invoice invoice = new Invoice(
-                tableId: table.TableId,
-                servedBy: employee.EmployeeId,
-                invoiceStatus: InvoiceStatus.DEFAULT_STATUS
+                table,
+                servedBy: employee,
+                invoiceStatus: EInvoiceStatus.Pending
             );
-            invoice.SetTable(table);
-            invoice.SetServer(employee);
             return _invoiceDao.CreateInvoice(invoice);
         }
 
-        public InvoiceComment CreateInvoiceComment(InvoiceComment invoiceComment)
+        public InvoiceComment CreateInvoiceComment(int invoiceId, InvoiceComment invoiceComment)
         {
-            return _invoiceDao.CreateInvoiceComment(invoiceComment);
+            return _invoiceDao.CreateInvoiceComment(invoiceId, invoiceComment);
         }
 
         public InvoiceComment GetInvoiceCommentById(int invoiceCommentId)
