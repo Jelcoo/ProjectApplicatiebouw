@@ -14,5 +14,11 @@ namespace ChapeauUI
             new StockUI.StockManagement().Show();
             this.Hide();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            new MenuUI.MenuManagement().Show();
+            this.Hide();
+        }
     }
 }

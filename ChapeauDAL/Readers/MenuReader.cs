@@ -66,15 +66,5 @@ namespace ChapeauDAL.Readers
 
             return stock;
         }
-
-        public static StockDisplayItem ReadStockDisplayItem(SqlDataReader reader)
-        {
-            int stockId = reader.GetInt32(reader.GetOrdinal("stockId"));
-            int menuItemId = reader.GetInt32(reader.GetOrdinal("menuItemId"));
-            string itemName = reader.GetString(reader.GetOrdinal("itemName"));
-            int stockCount = reader.GetInt32(reader.GetOrdinal("stock"));
-
-            return new StockDisplayItem(stockId, stockCount, menuItemId, itemName);
-        }
     }
 }
