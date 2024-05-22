@@ -7,11 +7,11 @@ namespace ChapeauModel
         private int _orderLineId;
         public int OrderLineId { get { return _orderLineId; } }
 
-        private int _orderId;
+        private int _orderId; // TODO: remove recursive
         public int OrderId { get { return _orderId; } }
         public Order? Order { get; private set; }
 
-        private int _menuItemId;
+        private int _menuItemId; // TODO: remove ID's from models
         public int MenuItemId { get { return _menuItemId; } }
         public MenuItem? MenuItem { get; private set; }
 

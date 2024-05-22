@@ -1,14 +1,14 @@
 namespace ChapeauModel
 {
     public class Menu
-    {
+    { // TODO: make singleton?
         private int _menuId;
         public int MenuId { get { return _menuId; } }
-
+        // TODO: add relations to menuitem
         private string _name;
         public string Name { get { return _name; } }
 
-        private DateTime _serveStart;
+        private DateTime _serveStart; // TODO: rename variable
         public DateTime ServeStart { get { return _serveStart; } }
 
         private DateTime _serveEnd;

@@ -1,7 +1,7 @@
 namespace ChapeauModel
 {
     public class MenuType
-    {
+    { // TODO: enums/models
         private int _menuTypeId;
         public int MenuTypeId { get { return _menuTypeId; } }
 
