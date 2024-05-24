@@ -31,8 +31,7 @@ namespace ChapeauService
             List<OrderLine> orderLines = new List<OrderLine>();
             foreach (OrderLine orderLine in order.OrderLines)
             {
-                orderLine.SetOrder(order);
-                OrderLine line = _orderDao.CreateOrderLine(orderLine);
+                OrderLine line = _orderDao.CreateOrderLine(order.OrderId, orderLine);
 
                 if (line.OrderNote != null) line.OrderNote = _orderDao.CreateOrderNote(line).OrderNote;
                 

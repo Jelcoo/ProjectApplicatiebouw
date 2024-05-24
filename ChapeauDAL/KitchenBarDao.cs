@@ -57,7 +57,7 @@ WHERE orderLineId = @orderLineId";
             foreach (OrderLine line in order.OrderLines)
             {
                 SqlCommand command = new SqlCommand(query, OpenConnection());
-                command.Parameters.AddWithValue("@statusId", (int)line.OrderStatus);
+                command.Parameters.AddWithValue("@statusId", (int)line.OrderLineStatus);
                 command.Parameters.AddWithValue("@orderLineId", line.OrderLineId);
                 command.ExecuteNonQuery();
             }
@@ -110,9 +110,9 @@ ORDER BY O.orderedAt";
             orderLine.SetMenuItem(MenuReader.ReadMenuItem(reader));
             if (orderLine.MenuItem.MenuType != null)
             {
-                orderLine.MenuItem.SetMenuType(MenuReader.ReadMenuType(reader));
+                orderLine.MenuItem.SetMenuType((EMenuType)(int)reader["menuTypeId"]);
             }
-            if (orderLine.OrderNoteId != null)
+            if (orderLine.OrderNote != null)
             {
                 orderLine.SetOrderNote(OrderReader.ReadOrderNote(reader));
             }
@@ -125,7 +125,7 @@ ORDER BY O.orderedAt";
 
             while (reader.Read())
             {
-                Order order = new Order((int)reader["orderId"], (int)reader["invoiceId"], (DateTime)reader["orderedAt"]);
+                Order order = OrderReader.ReadOrder(reader);
                 if (!orders.Select(order => order.OrderId).Contains(order.OrderId))
                 {
                     orders.Add(order);
@@ -133,7 +133,7 @@ ORDER BY O.orderedAt";
                 OrderLine orderLine = CombineData(reader);
                 for (int i = 0; i < orders.Count; i++)
                 {
-                    if (orderLine.OrderId != orders[i].OrderId) continue;
+                    if ((int)reader["orderId"] != orders[i].OrderId) continue;
                     orders[i].AddOrderLine(orderLine);
                 }
             }

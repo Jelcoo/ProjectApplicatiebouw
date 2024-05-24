@@ -5,19 +5,15 @@ namespace ChapeauModel
         private int _stockId;
         public int StockId { get { return _stockId; } }
 
-        private int _stock;
-        public int StockCount { get { return _stock; } }
+        private int _count;
+        public int Count { get { return _count; } }
 
-        private int _menuItemId;
-        public int MenuItemId { get { return _menuItemId; } }
-
-        public Stock(int stock, int menuItemId)
+        public Stock(int count)
         {
-            _stock = stock;
-            _menuItemId = menuItemId;
+            _count = count;
         }
-        public Stock(int stockId, int stock, int menuItemId)
-            : this(stock, menuItemId)
+        public Stock(int stockId, int count)
+            : this(count)
         {
             _stockId = stockId;
         }

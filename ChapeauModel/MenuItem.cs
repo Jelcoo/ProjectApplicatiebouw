@@ -1,3 +1,5 @@
+using ChapeauModel.Enums;
+
 namespace ChapeauModel
 {
     public class MenuItem
@@ -5,17 +7,9 @@ namespace ChapeauModel
         private int _menuItemId;
         public int MenuItemId { get { return _menuItemId; } }
 
-        private int _stockId;
-        public int StockId { get { return _stockId; } }
-        public Stock? Stock { get; private set; }
+        public Stock Stock { get; private set; }
 
-        private int _menuId;
-        public int MenuId { get { return _menuId; } }
-        public Menu? Menu { get; private set; }
-
-        private int? _menuTypeId;
-        public int? MenuTypeId { get { return _menuTypeId; } }
-        public MenuType? MenuType;
+        public EMenuType? MenuType;
 
         private string _name;
         public string Name { get { return _name; } }
@@ -29,43 +23,27 @@ namespace ChapeauModel
         private double _price;
         public double Price { get { return _price; } }
 
-        public MenuItem(int stockId, int menuId, int? menuTypeId, string name, string detailName, double VATRate, double price)
+        public MenuItem(Stock stock, string name, string detailName, double VATRate, double price)
         {
-            _stockId = stockId;
-            _menuId = menuId;
-            _menuTypeId = menuTypeId;
+            Stock = stock;
             _name = name;
             _detailName = detailName;
             _VATRate = VATRate;
             _price = price;
         }
-        public MenuItem(int menuItemId, int stockId, int menuId, int? menuTypeId, string name, string detailName, double VATRate, double price)
-            : this(stockId, menuId, menuTypeId, name, detailName, VATRate, price)
+        public MenuItem(int menuItemId, Stock stock, string name, string detailName, double VATRate, double price)
+            : this(stock, name, detailName, VATRate, price)
         {
             _menuItemId = menuItemId;
         }
 
-        public MenuItem(string name, double price)
-        {
-            _name = name;
-            _price = price;
-        }
-
         public MenuItem SetStock(Stock stock)
         {
-            _stockId = stock.StockId;
             Stock = stock;
             return this;
         }
-        public MenuItem SetMenu(Menu menu)
+        public MenuItem SetMenuType(EMenuType menuType)
         {
-            _menuId = menu.MenuId;
-            Menu = menu;
-            return this;
-        }
-        public MenuItem SetMenuType(MenuType menuType)
-        {
-            _menuTypeId = menuType.MenuTypeId;
             MenuType = menuType;
             return this;
         }

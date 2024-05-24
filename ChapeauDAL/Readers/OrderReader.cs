@@ -10,33 +10,26 @@ namespace ChapeauDAL.Readers
         {
             Order order = new Order(
                 orderId: (int)reader["orderId"],
-                invoiceId: (int)reader["invoiceId"],
+                invoice: InvoiceReader.ReadInvoice(reader),
                 orderedAt: (DateTime)reader["orderedAt"]
             );
 
             return order;
         }
 
-        public static OrderStatus ReadOrderStatus(SqlDataReader reader)
-        {
-            OrderStatus orderStatus = new OrderStatus(
-                orderStatusId: (int)reader["orderStatusId"],
-                status: (EOrderStatus)Enum.Parse(typeof(EOrderStatus), (string)reader["status"])
-            );
-
-            return orderStatus;
-        }
-
         public static OrderLine ReadOrderLine(SqlDataReader reader)
         {
             OrderLine orderLine = new OrderLine(
                 orderLineId: (int)reader["orderLineId"],
-                orderId: (int)reader["orderId"],
-                menuItemId: (int)reader["menuItemId"],
-                orderStatus: (EOrderStatus)Enum.Parse(typeof(EOrderStatus), (string)reader["status"]),
-                quantity: (int)reader["quantity"],
-                orderNoteId: reader["orderNoteId"] == DBNull.Value ? null : (int)reader["orderNoteId"]
+                menuItem: MenuReader.ReadMenuItem(reader),
+                orderLineStatus: (EOrderLineStatus)(int)reader["orderLineStatusId"],
+                quantity: (int)reader["quantity"]
             );
+
+            if (reader["orderNoteId"] != DBNull.Value)
+            {
+                orderLine.SetOrderNote(ReadOrderNote(reader));
+            }
 
             return orderLine;
         }
@@ -58,7 +51,6 @@ namespace ChapeauDAL.Readers
         {
             OrderNote orderNote = new OrderNote(
                 orderNoteId: (int)reader["orderNoteId"],
-                orderLineId: (int)reader["orderLineId"],
                 note: (string)reader["note"]
             );
 

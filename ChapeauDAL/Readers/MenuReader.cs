@@ -1,4 +1,5 @@
 ﻿using ChapeauModel;
+using ChapeauModel.Enums;
 using System.Data.SqlClient;
 
 namespace ChapeauDAL.Readers
@@ -10,8 +11,8 @@ namespace ChapeauDAL.Readers
             Menu menu = new Menu(
                 menuId: (int)reader["menuId"],
                 name: (string)reader["menuName"],
-                serveStart: (DateTime)reader["serveStart"],
-                serveEnd: (DateTime)reader["serveEnd"]
+                menuAvailableFrom: (DateTime)reader["menuAvailableFrom"],
+                menuAvailableTill: (DateTime)reader["menuAvailableTill"]
             );
 
             return menu;
@@ -21,14 +22,15 @@ namespace ChapeauDAL.Readers
         {
             MenuItem menuItem = new MenuItem(
                 menuItemId: (int)reader["menuItemId"],
-                stockId: (int)reader["stockId"],
-                menuId: (int)reader["menuId"],
-                menuTypeId: reader["menuTypeId"] == DBNull.Value ? null : (int)reader["menuTypeId"],
+                stock: ReadStock(reader),
                 name: (string)reader["itemName"],
                 detailName: (string)reader["itemDetailName"],
                 VATRate: (double)reader["VATRate"],
                 price: (double)reader["price"]
             );
+            if (reader["menuTypeId"] != DBNull.Value) {
+                menuItem.SetMenuType((EMenuType)(int)reader["menuTypeId"]);
+            }
 
             return menuItem;
         }
@@ -46,22 +48,11 @@ namespace ChapeauDAL.Readers
             return menuItems;
         }
 
-        public static MenuType ReadMenuType(SqlDataReader reader)
-        {
-            MenuType menuType = new MenuType(
-                menuTypeId: (int)reader["menuTypeId"],
-                name: (string)reader["typeName"]
-            );
-
-            return menuType;
-        }
-
         public static Stock ReadStock(SqlDataReader reader)
         {
             Stock stock = new Stock(
                 stockId: (int)reader["stockid"],
-                stock: (int)reader["stock"],
-                menuItemId: (int)reader["menuItemId"]
+                count: (int)reader["count"]
             );
 
             return stock;
