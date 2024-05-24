@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ReaLTaiizor" Version="3.8.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ChapeauModel\ChapeauModel.csproj" />
     <ProjectReference Include="..\ChapeauService\ChapeauService.csproj" />
   </ItemGroup>
