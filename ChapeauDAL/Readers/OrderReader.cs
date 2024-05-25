@@ -16,13 +16,22 @@ namespace ChapeauDAL.Readers
 
             return order;
         }
+        public static Order ReadOrderWithoutInvoice(SqlDataReader reader)
+        {
+            Order order = new Order(
+                orderId: (int)reader["orderId"],
+                orderedAt: (DateTime)reader["orderedAt"]
+            );
+
+            return order;
+        }
 
         public static OrderLine ReadOrderLine(SqlDataReader reader)
         {
             OrderLine orderLine = new OrderLine(
                 orderLineId: (int)reader["orderLineId"],
                 menuItem: MenuReader.ReadMenuItem(reader),
-                orderLineStatus: (EOrderLineStatus)(int)reader["orderLineStatusId"],
+                orderLineStatus: (EOrderLineStatus)(int)reader["orderStatusId"],
                 quantity: (int)reader["quantity"]
             );
 
