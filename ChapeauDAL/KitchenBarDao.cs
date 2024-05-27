@@ -13,23 +13,25 @@ namespace ChapeauDAL
             if (orderType == EOrderDestination.Kitchen)
             {
                 query = @"
-SELECT O.orderId, O.invoiceId, O.orderedAt, OL.orderLineId, OL.quantity, OS.orderStatusId, OS.[status], MI.menuItemId, MI.stockId, MI.menuId, MI.itemDetailName, MI.itemName, MI.VATRate, MI.price, MT.menuTypeId, MT.typeName, [ON].orderNoteId, [ON].note 
+SELECT O.orderId, O.invoiceId, O.orderedAt, OL.orderLineId, OL.quantity, OS.orderStatusId, OS.[status], MI.menuItemId, MI.stockId, ST.stock AS [count], MI.menuId, MI.itemDetailName, MI.itemName, MI.VATRate, MI.price, MT.menuTypeId, MT.typeName, [ON].orderNoteId, [ON].note 
 FROM orders AS O 
 JOIN orderLines AS OL ON OL.orderId = O.orderId 
 JOIN orderStatuses AS OS ON OL.orderStatusId = OS.orderStatusId 
-JOIN menuItems AS MI ON OL.menuItemId = MI.menuItemId 
-JOIN menuTypes AS MT ON MT.menuTypeId = MI.menuTypeId 
+JOIN menuItems AS MI ON OL.menuItemId = MI.menuItemId
+JOIN stock AS ST ON MI.stockId = ST.stockId
+LEFT JOIN menuTypes AS MT ON MT.menuTypeId = MI.menuTypeId 
 LEFT JOIN orderNotes AS [ON] ON [ON].orderLineId = OL.orderLineId 
 WHERE MT.menuTypeId IS NOT NULL 
 AND CONVERT(date, O.orderedAt) = CONVERT(date, GETDATE()) 
 ORDER BY O.orderedAt";
             } else {
                 query = @"
-SELECT O.orderId, O.invoiceId, O.orderedAt, OL.orderLineId, OL.quantity, OS.orderStatusId, OS.[status], MI.menuItemId, MI.stockId, MI.menuId, MI.itemDetailName, MI.itemName, MI.VATRate, MI.price, MT.menuTypeId, MT.typeName, [ON].orderNoteId, [ON].note 
+SELECT O.orderId, O.invoiceId, O.orderedAt, OL.orderLineId, OL.quantity, OS.orderStatusId, OS.[status], MI.menuItemId, MI.stockId, ST.stock AS [count], MI.menuId, MI.itemDetailName, MI.itemName, MI.VATRate, MI.price, MT.menuTypeId, MT.typeName, [ON].orderNoteId, [ON].note 
 FROM orders AS O 
 JOIN orderLines AS OL ON OL.orderId = O.orderId 
 JOIN orderStatuses AS OS ON OL.orderStatusId = OS.orderStatusId 
-JOIN menuItems AS MI ON OL.menuItemId = MI.menuItemId 
+JOIN menuItems AS MI ON OL.menuItemId = MI.menuItemId
+JOIN stock AS ST ON MI.stockId = ST.stockId
 LEFT JOIN menuTypes AS MT ON MT.menuTypeId = MI.menuTypeId 
 LEFT JOIN orderNotes AS [ON] ON [ON].orderLineId = OL.orderLineId 
 WHERE MT.menuTypeId IS NULL 
@@ -69,23 +71,25 @@ WHERE orderLineId = @orderLineId";
             if (orderType == EOrderDestination.Kitchen)
             {
                 query = @"
-SELECT O.orderId, O.invoiceId, O.orderedAt, OL.orderLineId, OL.quantity, OS.orderStatusId, OS.[status], MI.menuItemId, MI.stockId, MI.menuId, MI.itemDetailName, MI.itemName, MI.VATRate, MI.price, MT.menuTypeId, MT.typeName, [ON].orderNoteId, [ON].note 
+SELECT O.orderId, O.invoiceId, O.orderedAt, OL.orderLineId, OL.quantity, OS.orderStatusId, OS.[status], MI.menuItemId, MI.stockId, ST.stock AS [count], MI.menuId, MI.itemDetailName, MI.itemName, MI.VATRate, MI.price, MT.menuTypeId, MT.typeName, [ON].orderNoteId, [ON].note 
 FROM orders AS O 
 JOIN orderLines AS OL ON OL.orderId = O.orderId 
 JOIN orderStatuses AS OS ON OL.orderStatusId = OS.orderStatusId 
-JOIN menuItems AS MI ON OL.menuItemId = MI.menuItemId 
-JOIN menuTypes AS MT ON MT.menuTypeId = MI.menuTypeId 
+JOIN menuItems AS MI ON OL.menuItemId = MI.menuItemId
+JOIN stock AS ST ON MI.stockId = ST.stockId
+LEFT JOIN menuTypes AS MT ON MT.menuTypeId = MI.menuTypeId 
 LEFT JOIN orderNotes AS [ON] ON [ON].orderLineId = OL.orderLineId 
 WHERE MT.menuTypeId IS NOT NULL 
 AND CONVERT(date, O.orderedAt) <= CONVERT(date, GETDATE()) 
 ORDER BY O.orderedAt";
             } else {
                 query = @"
-SELECT O.orderId, O.invoiceId, O.orderedAt, OL.orderLineId, OL.quantity, OS.orderStatusId, OS.[status], MI.menuItemId, MI.stockId, MI.menuId, MI.itemDetailName, MI.itemName, MI.VATRate, MI.price, MT.menuTypeId, MT.typeName, [ON].orderNoteId, [ON].note 
+SELECT O.orderId, O.invoiceId, O.orderedAt, OL.orderLineId, OL.quantity, OS.orderStatusId, OS.[status], MI.menuItemId, MI.stockId, ST.stock AS [count], MI.menuId, MI.itemDetailName, MI.itemName, MI.VATRate, MI.price, MT.menuTypeId, MT.typeName, [ON].orderNoteId, [ON].note 
 FROM orders AS O 
 JOIN orderLines AS OL ON OL.orderId = O.orderId 
 JOIN orderStatuses AS OS ON OL.orderStatusId = OS.orderStatusId 
-JOIN menuItems AS MI ON OL.menuItemId = MI.menuItemId 
+JOIN menuItems AS MI ON OL.menuItemId = MI.menuItemId
+JOIN stock AS ST ON MI.stockId = ST.stockId
 LEFT JOIN menuTypes AS MT ON MT.menuTypeId = MI.menuTypeId 
 LEFT JOIN orderNotes AS [ON] ON [ON].orderLineId = OL.orderLineId 
 WHERE MT.menuTypeId IS NULL 
@@ -125,7 +129,7 @@ ORDER BY O.orderedAt";
 
             while (reader.Read())
             {
-                Order order = OrderReader.ReadOrder(reader);
+                Order order = OrderReader.ReadOrderWithoutInvoice(reader);
                 if (!orders.Select(order => order.OrderId).Contains(order.OrderId))
                 {
                     orders.Add(order);
