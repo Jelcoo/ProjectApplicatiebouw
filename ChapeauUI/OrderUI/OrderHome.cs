@@ -40,17 +40,19 @@ namespace ChapeauUI.OrderUI
                 SelectMenuStyle(menuSelectorDinner);
             }
         }
-        private void SelectMenuStyle(RoundedButton buutton)
+        private void SelectMenuStyle(RoundedButton button)
         {
-            buutton.BackColor = Color.FromArgb(246, 255, 248);
-            buutton.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Underline, GraphicsUnit.Point);
-            buutton.HasBorder = true;
+            button.BackColor = Color.FromArgb(246, 255, 248);
+            button.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Underline, GraphicsUnit.Point);
+            button.HasBorder = true;
+            button.Cursor = Cursors.No;
         }
-        private void UnselectMenuStyle(RoundedButton buutton)
+        private void UnselectMenuStyle(RoundedButton button)
         {
-            buutton.BackColor = Color.FromArgb(246, 255, 248);
-            buutton.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Underline, GraphicsUnit.Point);
-            buutton.HasBorder = false;
+            button.BackColor = Color.FromArgb(234, 244, 244);
+            button.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Regular, GraphicsUnit.Point);
+            button.HasBorder = false;
+            button.Cursor = Cursors.Hand;
         }
 
         private void menuSelectorDrinks_Click(object sender, EventArgs e)
@@ -58,13 +60,11 @@ namespace ChapeauUI.OrderUI
             _selectedMenu = EMenu.Drinks;
             UpdateMenuStyles();
         }
-
         private void menuSelectorLunch_Click(object sender, EventArgs e)
         {
             _selectedMenu = EMenu.Lunch;
             UpdateMenuStyles();
         }
-
         private void menuSelectorDinner_Click(object sender, EventArgs e)
         {
             _selectedMenu = EMenu.Dinner;

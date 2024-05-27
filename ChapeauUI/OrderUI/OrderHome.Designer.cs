@@ -69,6 +69,7 @@ namespace ChapeauUI.OrderUI
             menuSelectorDrinks.Text = "Drinks";
             menuSelectorDrinks.UseVisualStyleBackColor = false;
             menuSelectorDrinks.Click += menuSelectorDrinks_Click;
+            menuSelectorDrinks.Cursor = Cursors.Hand;
             // 
             // menuSelectorLunch
             // 
@@ -85,6 +86,7 @@ namespace ChapeauUI.OrderUI
             menuSelectorLunch.Text = "Lunch";
             menuSelectorLunch.UseVisualStyleBackColor = false;
             menuSelectorLunch.Click += menuSelectorLunch_Click;
+            menuSelectorLunch.Cursor = Cursors.Hand;
             // 
             // menuSelectorDinner
             // 
@@ -101,6 +103,7 @@ namespace ChapeauUI.OrderUI
             menuSelectorDinner.Text = "Dinner";
             menuSelectorDinner.UseVisualStyleBackColor = false;
             menuSelectorDinner.Click += menuSelectorDinner_Click;
+            menuSelectorDinner.Cursor = Cursors.Hand;
             // 
             // chapeauLogo
             // 
