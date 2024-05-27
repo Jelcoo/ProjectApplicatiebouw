@@ -1,3 +1,5 @@
+using ChapeauModel.Enums;
+
 namespace ChapeauModel
 {
     public class Menu
@@ -13,6 +15,8 @@ namespace ChapeauModel
 
         private DateTime _menuAvailableTill;
         public DateTime MenuAvailableTill { get { return _menuAvailableTill; } }
+
+        public EMenu MenuType { get; private set; }
 
         public List<MenuItem> MenuItems { get; private set; }
 
@@ -37,6 +41,12 @@ namespace ChapeauModel
         public Menu AddMenuItem(MenuItem menuItem)
         {
             MenuItems.Add(menuItem);
+            return this;
+        }
+
+        public Menu SetMenuType(EMenu menuType)
+        {
+            MenuType = menuType;
             return this;
         }
     }

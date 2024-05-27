@@ -60,6 +60,7 @@ namespace ChapeauUI.OrderUI
             menuSelectorDrinks.BorderColor = Color.Black;
             menuSelectorDrinks.BorderRadius = 22;
             menuSelectorDrinks.BorderWidth = 5;
+            menuSelectorDrinks.Cursor = Cursors.Hand;
             menuSelectorDrinks.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Underline, GraphicsUnit.Point);
             menuSelectorDrinks.HasBorder = true;
             menuSelectorDrinks.Location = new Point(70, 12);
@@ -69,7 +70,6 @@ namespace ChapeauUI.OrderUI
             menuSelectorDrinks.Text = "Drinks";
             menuSelectorDrinks.UseVisualStyleBackColor = false;
             menuSelectorDrinks.Click += menuSelectorDrinks_Click;
-            menuSelectorDrinks.Cursor = Cursors.Hand;
             // 
             // menuSelectorLunch
             // 
@@ -77,6 +77,7 @@ namespace ChapeauUI.OrderUI
             menuSelectorLunch.BorderColor = Color.Black;
             menuSelectorLunch.BorderRadius = 22;
             menuSelectorLunch.BorderWidth = 5;
+            menuSelectorLunch.Cursor = Cursors.Hand;
             menuSelectorLunch.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Underline, GraphicsUnit.Point);
             menuSelectorLunch.HasBorder = true;
             menuSelectorLunch.Location = new Point(240, 12);
@@ -86,7 +87,6 @@ namespace ChapeauUI.OrderUI
             menuSelectorLunch.Text = "Lunch";
             menuSelectorLunch.UseVisualStyleBackColor = false;
             menuSelectorLunch.Click += menuSelectorLunch_Click;
-            menuSelectorLunch.Cursor = Cursors.Hand;
             // 
             // menuSelectorDinner
             // 
@@ -94,6 +94,7 @@ namespace ChapeauUI.OrderUI
             menuSelectorDinner.BorderColor = Color.Black;
             menuSelectorDinner.BorderRadius = 22;
             menuSelectorDinner.BorderWidth = 5;
+            menuSelectorDinner.Cursor = Cursors.Hand;
             menuSelectorDinner.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Underline, GraphicsUnit.Point);
             menuSelectorDinner.HasBorder = true;
             menuSelectorDinner.Location = new Point(410, 12);
@@ -103,7 +104,6 @@ namespace ChapeauUI.OrderUI
             menuSelectorDinner.Text = "Dinner";
             menuSelectorDinner.UseVisualStyleBackColor = false;
             menuSelectorDinner.Click += menuSelectorDinner_Click;
-            menuSelectorDinner.Cursor = Cursors.Hand;
             // 
             // chapeauLogo
             // 
