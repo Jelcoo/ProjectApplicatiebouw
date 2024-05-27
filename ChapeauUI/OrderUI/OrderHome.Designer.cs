@@ -1,4 +1,6 @@
-﻿namespace ChapeauUI.OrderUI
+﻿using ChapeauUI.Components;
+
+namespace ChapeauUI.OrderUI
 {
     partial class OrderHome
     {
@@ -29,21 +31,76 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OrderHome));
-            backgroundPanel = new Panel();
+            backgroundPanel = new BackgroundPanel();
+            menuSelectorDrinks = new RoundedButton();
+            menuSelectorLunch = new RoundedButton();
+            menuSelectorDinner = new RoundedButton();
             chapeauLogo = new PictureBox();
             loggedInAsPreLabel = new Label();
             loggedInAsLabel = new Label();
             dateTimeLabel = new Label();
+            backgroundPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)chapeauLogo).BeginInit();
             SuspendLayout();
             // 
             // backgroundPanel
             // 
             backgroundPanel.BackColor = Color.FromArgb(204, 227, 222);
+            backgroundPanel.Controls.Add(menuSelectorDrinks);
+            backgroundPanel.Controls.Add(menuSelectorLunch);
+            backgroundPanel.Controls.Add(menuSelectorDinner);
             backgroundPanel.Location = new Point(210, 70);
             backgroundPanel.Name = "backgroundPanel";
             backgroundPanel.Size = new Size(1230, 954);
             backgroundPanel.TabIndex = 0;
+            // 
+            // menuSelectorDrinks
+            // 
+            menuSelectorDrinks.BackColor = Color.FromArgb(246, 255, 248);
+            menuSelectorDrinks.BorderColor = Color.Black;
+            menuSelectorDrinks.BorderRadius = 22;
+            menuSelectorDrinks.BorderWidth = 5;
+            menuSelectorDrinks.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Underline, GraphicsUnit.Point);
+            menuSelectorDrinks.HasBorder = true;
+            menuSelectorDrinks.Location = new Point(70, 12);
+            menuSelectorDrinks.Name = "menuSelectorDrinks";
+            menuSelectorDrinks.Size = new Size(155, 45);
+            menuSelectorDrinks.TabIndex = 0;
+            menuSelectorDrinks.Text = "Drinks";
+            menuSelectorDrinks.UseVisualStyleBackColor = false;
+            menuSelectorDrinks.Click += menuSelectorDrinks_Click;
+            // 
+            // menuSelectorLunch
+            // 
+            menuSelectorLunch.BackColor = Color.FromArgb(246, 255, 248);
+            menuSelectorLunch.BorderColor = Color.Black;
+            menuSelectorLunch.BorderRadius = 22;
+            menuSelectorLunch.BorderWidth = 5;
+            menuSelectorLunch.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Underline, GraphicsUnit.Point);
+            menuSelectorLunch.HasBorder = true;
+            menuSelectorLunch.Location = new Point(240, 12);
+            menuSelectorLunch.Name = "menuSelectorLunch";
+            menuSelectorLunch.Size = new Size(155, 45);
+            menuSelectorLunch.TabIndex = 0;
+            menuSelectorLunch.Text = "Lunch";
+            menuSelectorLunch.UseVisualStyleBackColor = false;
+            menuSelectorLunch.Click += menuSelectorLunch_Click;
+            // 
+            // menuSelectorDinner
+            // 
+            menuSelectorDinner.BackColor = Color.FromArgb(246, 255, 248);
+            menuSelectorDinner.BorderColor = Color.Black;
+            menuSelectorDinner.BorderRadius = 22;
+            menuSelectorDinner.BorderWidth = 5;
+            menuSelectorDinner.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Underline, GraphicsUnit.Point);
+            menuSelectorDinner.HasBorder = true;
+            menuSelectorDinner.Location = new Point(410, 12);
+            menuSelectorDinner.Name = "menuSelectorDinner";
+            menuSelectorDinner.Size = new Size(155, 45);
+            menuSelectorDinner.TabIndex = 0;
+            menuSelectorDinner.Text = "Dinner";
+            menuSelectorDinner.UseVisualStyleBackColor = false;
+            menuSelectorDinner.Click += menuSelectorDinner_Click;
             // 
             // chapeauLogo
             // 
@@ -57,30 +114,30 @@
             // loggedInAsPreLabel
             // 
             loggedInAsPreLabel.AutoSize = true;
-            loggedInAsPreLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            loggedInAsPreLabel.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
             loggedInAsPreLabel.Location = new Point(210, 21);
             loggedInAsPreLabel.Name = "loggedInAsPreLabel";
-            loggedInAsPreLabel.Size = new Size(332, 32);
+            loggedInAsPreLabel.Size = new Size(332, 29);
             loggedInAsPreLabel.TabIndex = 2;
             loggedInAsPreLabel.Text = "You are currently logged in as";
             // 
             // loggedInAsLabel
             // 
             loggedInAsLabel.AutoSize = true;
-            loggedInAsLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            loggedInAsLabel.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point);
             loggedInAsLabel.Location = new Point(534, 21);
             loggedInAsLabel.Name = "loggedInAsLabel";
-            loggedInAsLabel.Size = new Size(80, 32);
+            loggedInAsLabel.Size = new Size(78, 29);
             loggedInAsLabel.TabIndex = 3;
             loggedInAsLabel.Text = "Maria";
             // 
             // dateTimeLabel
             // 
             dateTimeLabel.AutoSize = true;
-            dateTimeLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            dateTimeLabel.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
             dateTimeLabel.Location = new Point(1195, 21);
             dateTimeLabel.Name = "dateTimeLabel";
-            dateTimeLabel.Size = new Size(230, 32);
+            dateTimeLabel.Size = new Size(229, 29);
             dateTimeLabel.TabIndex = 4;
             dateTimeLabel.Text = "Loading date & time...";
             dateTimeLabel.TextAlign = ContentAlignment.MiddleRight;
@@ -99,6 +156,7 @@
             Name = "OrderHome";
             Text = "Chapeau - Ordering";
             Load += OrderHome_Load;
+            backgroundPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)chapeauLogo).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -106,10 +164,13 @@
 
         #endregion
 
-        private Panel backgroundPanel;
+        private BackgroundPanel backgroundPanel;
         private PictureBox chapeauLogo;
         private Label loggedInAsPreLabel;
         private Label loggedInAsLabel;
         private Label dateTimeLabel;
+        private RoundedButton menuSelectorDrinks;
+        private RoundedButton menuSelectorLunch;
+        private RoundedButton menuSelectorDinner;
     }
 }
