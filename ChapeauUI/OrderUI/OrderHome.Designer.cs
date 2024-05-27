@@ -32,6 +32,9 @@ namespace ChapeauUI.OrderUI
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OrderHome));
             backgroundPanel = new BackgroundPanel();
+            orderOverview = new Panel();
+            menuListPanel = new Panel();
+            menuList = new TableLayoutPanel();
             menuSelectorDrinks = new RoundedButton();
             menuSelectorLunch = new RoundedButton();
             menuSelectorDinner = new RoundedButton();
@@ -40,12 +43,15 @@ namespace ChapeauUI.OrderUI
             loggedInAsLabel = new Label();
             dateTimeLabel = new Label();
             backgroundPanel.SuspendLayout();
+            menuListPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)chapeauLogo).BeginInit();
             SuspendLayout();
             // 
             // backgroundPanel
             // 
             backgroundPanel.BackColor = Color.FromArgb(204, 227, 222);
+            backgroundPanel.Controls.Add(orderOverview);
+            backgroundPanel.Controls.Add(menuListPanel);
             backgroundPanel.Controls.Add(menuSelectorDrinks);
             backgroundPanel.Controls.Add(menuSelectorLunch);
             backgroundPanel.Controls.Add(menuSelectorDinner);
@@ -53,6 +59,40 @@ namespace ChapeauUI.OrderUI
             backgroundPanel.Name = "backgroundPanel";
             backgroundPanel.Size = new Size(1230, 954);
             backgroundPanel.TabIndex = 0;
+            // 
+            // orderOverview
+            // 
+            orderOverview.BackColor = Color.FromArgb(234, 244, 244);
+            orderOverview.Location = new Point(865, 85);
+            orderOverview.Name = "orderOverview";
+            orderOverview.Size = new Size(349, 830);
+            orderOverview.TabIndex = 2;
+            // 
+            // menuListPanel
+            // 
+            menuListPanel.AutoScroll = true;
+            menuListPanel.Controls.Add(menuList);
+            menuListPanel.Location = new Point(70, 85);
+            menuListPanel.Name = "menuListPanel";
+            menuListPanel.Size = new Size(790, 830);
+            menuListPanel.TabIndex = 2;
+            // 
+            // menuList
+            // 
+            menuList.AutoScroll = true;
+            menuList.AutoSize = true;
+            menuList.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            menuList.ColumnCount = 3;
+            menuList.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            menuList.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            menuList.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            menuList.Dock = DockStyle.Fill;
+            menuList.Location = new Point(0, 0);
+            menuList.Name = "menuList";
+            menuList.RowCount = 1;
+            menuList.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            menuList.Size = new Size(790, 830);
+            menuList.TabIndex = 1;
             // 
             // menuSelectorDrinks
             // 
@@ -160,6 +200,8 @@ namespace ChapeauUI.OrderUI
             Text = "Chapeau - Ordering";
             Load += OrderHome_Load;
             backgroundPanel.ResumeLayout(false);
+            menuListPanel.ResumeLayout(false);
+            menuListPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)chapeauLogo).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -175,5 +217,8 @@ namespace ChapeauUI.OrderUI
         private RoundedButton menuSelectorDrinks;
         private RoundedButton menuSelectorLunch;
         private RoundedButton menuSelectorDinner;
+        private Panel orderOverview;
+        private TableLayoutPanel menuList;
+        private Panel menuListPanel;
     }
 }
