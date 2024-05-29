@@ -13,7 +13,11 @@ namespace ChapeauDAL
             if (orderType == EOrderDestination.Kitchen)
             {
                 query = @"
+<<<<<<< dev-kitchen-ui
 SELECT O.orderId, O.invoiceId, O.orderedAt, OL.orderLineId, OL.quantity, OS.orderStatusId, OS.[status], MI.menuItemId, MI.stockId, ST.[count], MI.menuId, MI.itemDetailName, MI.itemName, MI.VATRate, MI.price, MT.menuTypeId, MT.typeName, [ON].orderNoteId, [ON].note 
+=======
+SELECT O.orderId, O.invoiceId, O.orderedAt, OL.orderLineId, OL.quantity, OS.orderStatusId, OS.[status], MI.menuItemId, MI.stockId, ST.stock AS [count], MI.menuId, MI.itemDetailName, MI.itemName, MI.VATRate, MI.price, MT.menuTypeId, MT.typeName, [ON].orderNoteId, [ON].note 
+>>>>>>> dev
 FROM orders AS O 
 JOIN orderLines AS OL ON OL.orderId = O.orderId 
 JOIN orderStatuses AS OS ON OL.orderStatusId = OS.orderStatusId 
@@ -26,7 +30,11 @@ AND CONVERT(date, O.orderedAt) = CONVERT(date, GETDATE())
 ORDER BY O.orderedAt";
             } else {
                 query = @"
+<<<<<<< dev-kitchen-ui
 SELECT O.orderId, O.invoiceId, O.orderedAt, OL.orderLineId, OL.quantity, OS.orderStatusId, OS.[status], MI.menuItemId, MI.stockId, ST.[count], MI.menuId, MI.itemDetailName, MI.itemName, MI.VATRate, MI.price, MT.menuTypeId, MT.typeName, [ON].orderNoteId, [ON].note 
+=======
+SELECT O.orderId, O.invoiceId, O.orderedAt, OL.orderLineId, OL.quantity, OS.orderStatusId, OS.[status], MI.menuItemId, MI.stockId, ST.stock AS [count], MI.menuId, MI.itemDetailName, MI.itemName, MI.VATRate, MI.price, MT.menuTypeId, MT.typeName, [ON].orderNoteId, [ON].note 
+>>>>>>> dev
 FROM orders AS O 
 JOIN orderLines AS OL ON OL.orderId = O.orderId 
 JOIN orderStatuses AS OS ON OL.orderStatusId = OS.orderStatusId 
@@ -71,7 +79,11 @@ WHERE orderLineId = @orderLineId";
             if (orderType == EOrderDestination.Kitchen)
             {
                 query = @"
+<<<<<<< dev-kitchen-ui
 SELECT O.orderId, O.invoiceId, O.orderedAt, OL.orderLineId, OL.quantity, OS.orderStatusId, OS.[status], MI.menuItemId, MI.stockId, ST.[count], MI.menuId, MI.itemDetailName, MI.itemName, MI.VATRate, MI.price, MT.menuTypeId, MT.typeName, [ON].orderNoteId, [ON].note 
+=======
+SELECT O.orderId, O.invoiceId, O.orderedAt, OL.orderLineId, OL.quantity, OS.orderStatusId, OS.[status], MI.menuItemId, MI.stockId, ST.stock AS [count], MI.menuId, MI.itemDetailName, MI.itemName, MI.VATRate, MI.price, MT.menuTypeId, MT.typeName, [ON].orderNoteId, [ON].note 
+>>>>>>> dev
 FROM orders AS O 
 JOIN orderLines AS OL ON OL.orderId = O.orderId 
 JOIN orderStatuses AS OS ON OL.orderStatusId = OS.orderStatusId 
@@ -84,7 +96,11 @@ AND CONVERT(date, O.orderedAt) < CONVERT(date, GETDATE())
 ORDER BY O.orderedAt";
             } else {
                 query = @"
+<<<<<<< dev-kitchen-ui
 SELECT O.orderId, O.invoiceId, O.orderedAt, OL.orderLineId, OL.quantity, OS.orderStatusId, OS.[status], MI.menuItemId, MI.stockId, ST.[count], MI.menuId, MI.itemDetailName, MI.itemName, MI.VATRate, MI.price, MT.menuTypeId, MT.typeName, [ON].orderNoteId, [ON].note 
+=======
+SELECT O.orderId, O.invoiceId, O.orderedAt, OL.orderLineId, OL.quantity, OS.orderStatusId, OS.[status], MI.menuItemId, MI.stockId, ST.stock AS [count], MI.menuId, MI.itemDetailName, MI.itemName, MI.VATRate, MI.price, MT.menuTypeId, MT.typeName, [ON].orderNoteId, [ON].note 
+>>>>>>> dev
 FROM orders AS O 
 JOIN orderLines AS OL ON OL.orderId = O.orderId 
 JOIN orderStatuses AS OS ON OL.orderStatusId = OS.orderStatusId 

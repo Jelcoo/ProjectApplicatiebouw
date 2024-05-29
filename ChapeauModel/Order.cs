@@ -11,7 +11,7 @@ namespace ChapeauModel
         public DateTime OrderedAt { get { return _orderedAt; } }
 
         public List<OrderLine> OrderLines { get; private set; }
-
+        
         public Order(Invoice invoice)
         {
             Invoice = invoice;
