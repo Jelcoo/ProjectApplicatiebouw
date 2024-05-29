@@ -33,21 +33,21 @@ namespace ChapeauUI.OrderUI
         {
             if (_selectedMenu == EMenu.Drinks)
             {
-                _menuItems = Program.Menus.Single(menu => menu.MenuType == EMenu.Drinks).MenuItems;
+                _menuItems = Program.Menus.Single(menu => menu.Name == EMenu.Drinks).MenuItems;
                 SelectMenuStyle(menuSelectorDrinks);
                 UnselectMenuStyle(menuSelectorLunch);
                 UnselectMenuStyle(menuSelectorDinner);
             }
             if (_selectedMenu == EMenu.Lunch)
             {
-                _menuItems = Program.Menus.Single(menu => menu.MenuType == EMenu.Lunch).MenuItems;
+                _menuItems = Program.Menus.Single(menu => menu.Name == EMenu.Lunch).MenuItems;
                 UnselectMenuStyle(menuSelectorDrinks);
                 SelectMenuStyle(menuSelectorLunch);
                 UnselectMenuStyle(menuSelectorDinner);
             }
             if (_selectedMenu == EMenu.Dinner)
             {
-                _menuItems = Program.Menus.Single(menu => menu.MenuType == EMenu.Dinner).MenuItems;
+                _menuItems = Program.Menus.Single(menu => menu.Name == EMenu.Dinner).MenuItems;
                 UnselectMenuStyle(menuSelectorDrinks);
                 UnselectMenuStyle(menuSelectorLunch);
                 SelectMenuStyle(menuSelectorDinner);

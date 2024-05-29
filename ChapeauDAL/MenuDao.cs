@@ -32,7 +32,6 @@ LEFT JOIN menuTypes AS MT ON MT.menuTypeId = MI.menuTypeId;";
             while (reader.Read())
             {
                 Menu menu = MenuReader.ReadMenu(reader);
-                menu.SetMenuType((EMenu)(int)reader["menuId"]);
 
                 if (!menus.Select(menu => menu.MenuId).Contains(menu.MenuId))
                 {

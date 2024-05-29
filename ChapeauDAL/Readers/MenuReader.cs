@@ -10,7 +10,7 @@ namespace ChapeauDAL.Readers
         {
             Menu menu = new Menu(
                 menuId: (int)reader["menuId"],
-                name: (string)reader["menuName"],
+                name: (EMenu)(int)reader["menuId"],
                 menuAvailableFrom: (DateTime)reader["menuAvailableFrom"],
                 menuAvailableTill: (DateTime)reader["menuAvailableTill"]
             );
