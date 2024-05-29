@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             tableLabel = new Label();
-            orderLinesLabel = new Label();
+            orderLinesBox = new RichTextBox();
             SuspendLayout();
             // 
             // tableLabel
@@ -41,19 +41,22 @@
             tableLabel.Text = "Order for table #?";
             tableLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // orderLinesLabel
+            // orderLinesBox
             // 
-            orderLinesLabel.Location = new Point(3, 35);
-            orderLinesLabel.Name = "orderLinesLabel";
-            orderLinesLabel.Size = new Size(343, 676);
-            orderLinesLabel.TabIndex = 1;
-            orderLinesLabel.Text = "label1";
+            orderLinesBox.Location = new Point(3, 35);
+            orderLinesBox.Name = "orderLinesBox";
+            orderLinesBox.Size = new Size(343, 676);
+            orderLinesBox.TabIndex = 1;
+            orderLinesBox.Text = "";
+            orderLinesBox.BorderStyle = BorderStyle.None;
+            orderLinesBox.Enabled = false;
+            orderLinesBox.ReadOnly = true;
             // 
             // OrderItemList
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(orderLinesLabel);
+            Controls.Add(orderLinesBox);
             Controls.Add(tableLabel);
             Name = "OrderItemList";
             Size = new Size(349, 830);
@@ -63,6 +66,6 @@
         #endregion
 
         private Label tableLabel;
-        private Label orderLinesLabel;
+        private RichTextBox orderLinesBox;
     }
 }

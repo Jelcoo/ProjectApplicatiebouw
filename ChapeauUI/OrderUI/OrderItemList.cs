@@ -31,13 +31,17 @@ namespace ChapeauUI.OrderUI
 
         public void Update()
         {
-            string labelText = "";
+            orderLinesBox.Text = "";
+
             foreach (OrderLine line in _order.OrderLines)
             {
-                labelText += $"{line.MenuItem.Name} ({line.Quantity}x)\n";
+                orderLinesBox.AppendText($"{line.MenuItem.Name} ({line.Quantity}x)\n");
+                if (line.OrderNote != null)
+                {
+                    orderLinesBox.SelectionColor = Color.Red;
+                    orderLinesBox.AppendText($"!! {line.OrderNote.Note} !!\n");
+                }
             }
-
-            orderLinesLabel.Text = labelText;
         }
     }
 }

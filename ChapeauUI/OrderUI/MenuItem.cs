@@ -35,10 +35,29 @@ namespace ChapeauUI.OrderUI
 
         private void addButton_Click(object sender, EventArgs e)
         {
+            AddOrderItem();
+        }
+
+        private void specifyButton_Click(object sender, EventArgs e)
+        {
+            OrderLineNote note = new OrderLineNote(_menuItem, _order);
+            note.ShowDialog();
+
+            if (!string.IsNullOrEmpty(note.Note))
+            {
+                AddOrderItemWithNote(note.Note);
+            } else
+            {
+                AddOrderItem();
+            }
+        }
+
+        private void AddOrderItem()
+        {
             bool alreadyInOrder = false;
             foreach (OrderLine orderLine in _order.OrderLines)
             {
-                if (orderLine.MenuItem.MenuItemId == _menuItem.MenuItemId)
+                if (orderLine.MenuItem.MenuItemId == _menuItem.MenuItemId && orderLine.OrderNote == null)
                 {
                     alreadyInOrder = true;
                     orderLine.IncreaseQuantity(1);
@@ -46,14 +65,36 @@ namespace ChapeauUI.OrderUI
             }
             if (!alreadyInOrder)
             {
-                AddOrderline();
+                OrderLine orderLine = new OrderLine(_menuItem, EOrderLineStatus.Pending, 1);
+                CreateOrderline(orderLine);
             }
+
             NotifyObserver();
         }
 
-        private void AddOrderline()
+        private void AddOrderItemWithNote(string note)
         {
-            OrderLine orderLine = new OrderLine(_menuItem, EOrderLineStatus.Pending, 1);
+            bool alreadyInOrder = false;
+            foreach (OrderLine orderLine in _order.OrderLines)
+            {
+                if (orderLine.MenuItem.MenuItemId == _menuItem.MenuItemId && orderLine.OrderNote?.Note == note)
+                {
+                    alreadyInOrder = true;
+                    orderLine.IncreaseQuantity(1);
+                }
+            }
+            if (!alreadyInOrder)
+            {
+                OrderLine orderLine = new OrderLine(_menuItem, EOrderLineStatus.Pending, 1);
+                orderLine.SetOrderNote(new OrderNote(note));
+                CreateOrderline(orderLine);
+            }
+
+            NotifyObserver();
+        }
+
+        private void CreateOrderline(OrderLine orderLine)
+        {
             _order.AddOrderLine(orderLine);
         }
     }

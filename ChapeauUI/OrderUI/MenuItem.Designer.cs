@@ -80,6 +80,7 @@
             specifyButton.TabIndex = 0;
             specifyButton.Text = "Specify";
             specifyButton.UseVisualStyleBackColor = false;
+            specifyButton.Click += specifyButton_Click;
             // 
             // addButton
             // 
