@@ -47,7 +47,7 @@ namespace ChapeauModel
         {
             if (OrderNote != null)
             {
-                return $"  {Quantity}x {MenuItem.Name} {OrderNote.Note}";
+                return $"  {Quantity}x {MenuItem.Name} '!!{OrderNote.Note}!!'";
             }
             else
             {
