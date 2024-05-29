@@ -5,19 +5,15 @@ namespace ChapeauModel
         private int _orderNoteId;
         public int OrderNoteId { get { return _orderNoteId; } }
 
-        private int _orderLineId;
-        public int OrderLineId { get { return _orderLineId; } }
-
         private string _note;
         public string Note { get { return _note; } }
 
-        public OrderNote(int orderLineId, string note)
+        public OrderNote(string note)
         {
-            _orderLineId = orderLineId;
             _note = note;
         }
-        public OrderNote(int orderNoteId, int orderLineId, string note)
-            : this(orderLineId, note)
+        public OrderNote(int orderNoteId, string note)
+            : this( note)
         {
             _orderNoteId = orderNoteId;
         }

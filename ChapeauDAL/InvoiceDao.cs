@@ -14,8 +14,8 @@ VALUES (@tableId, @servedBy, @invoiceStatusId, @createdAt);
 SELECT SCOPE_IDENTITY();";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
-            command.Parameters.AddWithValue("@tableId", invoice.TableId);
-            command.Parameters.AddWithValue("@servedBy", invoice.ServedBy);
+            command.Parameters.AddWithValue("@tableId", invoice.Table.TableId);
+            command.Parameters.AddWithValue("@servedBy", invoice.Server.EmployeeId);
             command.Parameters.AddWithValue("@invoiceStatusId", (int)invoice.InvoiceStatus);
             command.Parameters.AddWithValue("@createdAt", DateTime.Now);
             
@@ -26,31 +26,7 @@ SELECT SCOPE_IDENTITY();";
             return invoice;
         }
 
-        public InvoiceStatus GetInvoiceStatusByName(string statusName)
-        {
-            string query = @"
-SELECT invoiceStatusId, status
-FROM invoiceStatuses
-WHERE status = @statusName";
-
-            SqlCommand command = new SqlCommand(query, OpenConnection());
-            command.Parameters.AddWithValue("@statusName", statusName);
-
-            SqlDataReader reader = command.ExecuteReader();
-            if (reader.Read())
-            {
-                InvoiceStatus invoiceStatus = InvoiceReader.ReadInvoiceStatus(reader);
-                
-                reader.Close();
-                CloseConnection();
-
-                return invoiceStatus;
-            } else {
-                throw new Exception($"Invoice status '{statusName}' not found");
-            }
-        }
-
-        public InvoiceComment CreateInvoiceComment(InvoiceComment invoiceComment)
+        public InvoiceComment CreateInvoiceComment(int invoiceId, InvoiceComment invoiceComment)
         {
             string query = @"
 INSERT INTO invoiceComments (invoiceId, comment)
@@ -58,7 +34,7 @@ VALUES (@invoiceId, @comment);
 SELECT SCOPE_IDENTITY();";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
-            command.Parameters.AddWithValue("@invoiceId", invoiceComment.InvoiceId);
+            command.Parameters.AddWithValue("@invoiceId", invoiceId);
             command.Parameters.AddWithValue("@comment", invoiceComment.Comment);
 
             int commentInvoiceId = Convert.ToInt32(command.ExecuteScalar());

@@ -5,31 +5,32 @@ namespace ChapeauModel
         private int _orderId;
         public int OrderId { get { return _orderId; } }
 
-        private int? _invoiceId;
-        public int? InvoiceId { get { return _invoiceId; } }
         public Invoice? Invoice { get; private set; }
 
-        private DateTime? _orderedAt;
-        public DateTime? OrderedAt { get { return _orderedAt; } }
+        private DateTime _orderedAt;
+        public DateTime OrderedAt { get { return _orderedAt; } }
 
         public List<OrderLine> OrderLines { get; private set; }
-
-        public Order()
+        
+        public Order(Invoice invoice)
         {
+            Invoice = invoice;
             OrderLines = new List<OrderLine>();
+            _orderedAt = DateTime.Now;
         }
-        public Order(int invoiceId, DateTime orderedAt)
-            : this()
-        {
-            _invoiceId = invoiceId;
-            _orderedAt = orderedAt;
-            OrderLines = new List<OrderLine>();
-        }
-        public Order(int orderId, int invoiceId, DateTime orderedAt)
-            : this(invoiceId, orderedAt)
+        public Order(int orderId, DateTime orderedAt)
         {
             _orderId = orderId;
+            OrderLines = new List<OrderLine>();
+            _orderedAt = orderedAt;
         }
+        public Order(int orderId, Invoice invoice, DateTime orderedAt)
+            : this(invoice)
+        {
+            _orderId = orderId;
+            _orderedAt = orderedAt;
+        }
+        
 
         public Order SetId(int orderId)
         {
@@ -38,7 +39,6 @@ namespace ChapeauModel
         }
         public Order SetInvoice(Invoice invoice)
         {
-            _invoiceId = invoice.InvoiceId;
             Invoice = invoice;
             return this;
         }

@@ -10,8 +10,8 @@ namespace ChapeauDAL.Readers
         {
             Invoice invoice = new Invoice(
                 invoiceId: (int)reader["invoiceId"],
-                tableId: (int)reader["tableId"],
-                servedBy: (int)reader["servedBy"],
+                table: TableReader.ReadTable(reader),
+                servedBy: EmployeeReader.ReadEmployee(reader),
                 invoiceStatus: (EInvoiceStatus)Enum.Parse(typeof(EInvoiceStatus), (string)reader["status"]),
                 createdAt: (DateTime)reader["createdAt"]
             );
@@ -23,21 +23,10 @@ namespace ChapeauDAL.Readers
         {
             InvoiceComment invoiceComment = new InvoiceComment(
                 invoiceCommentId: (int)reader["invoiceCommentId"],
-                invoiceId: (int)reader["invoiceId"],
                 comment: (string)reader["comment"]
             );
 
             return invoiceComment;
-        }
-
-        public static InvoiceStatus ReadInvoiceStatus(SqlDataReader reader)
-        {
-            InvoiceStatus invoiceStatus = new InvoiceStatus(
-                invoiceStatusId: (int)reader["invoiceStatusId"],
-                status: (EInvoiceStatus)Enum.Parse(typeof(EInvoiceStatus), (string)reader["status"])
-            );
-
-            return invoiceStatus;
         }
     }
 }

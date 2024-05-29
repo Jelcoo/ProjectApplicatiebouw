@@ -11,17 +11,16 @@ namespace ChapeauService
         {
             _paymentDao = new PaymentDao();
         }
-        public Payment MakeNewPayment(Invoice invoice, int paymentMethodId, float amount, DateTime paidAt, int tipAmount)
+        public Payment MakeNewPayment(Invoice invoice, float amount, DateTime paidAt, float tipAmount)
         {
-            int tipId = _paymentDao.AddTip(invoice, tipAmount);
+            Tip tip = _paymentDao.AddTip(invoice, new Tip(tipAmount));
 
             Payment payment = new Payment(
-                invoiceId: invoice.InvoiceId,
-                paymentMethodId: paymentMethodId,
+                invoice,
                 amount: amount,
-                paidAt: paidAt,
-                tipId: tipId
+                paidAt: paidAt
             );
+            payment.SetTip(tip);
 
             return _paymentDao.CreatePayment(invoice, payment);
         }
