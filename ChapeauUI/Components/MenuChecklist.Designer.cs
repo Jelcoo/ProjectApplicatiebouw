@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             checkedListBox1 = new CheckedListBox();
-            button1 = new Button();
             SuspendLayout();
             // 
             // checkedListBox1
@@ -37,32 +36,23 @@
             checkedListBox1.FormattingEnabled = true;
             checkedListBox1.Location = new Point(0, 0);
             checkedListBox1.Name = "checkedListBox1";
-            checkedListBox1.Size = new Size(355, 256);
+            checkedListBox1.Size = new Size(399, 256);
             checkedListBox1.TabIndex = 2;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(48, 386);
-            button1.Name = "button1";
-            button1.Size = new Size(112, 34);
-            button1.TabIndex = 3;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
             // 
             // MenuChecklist
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(button1);
+            AutoSize = true;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             Controls.Add(checkedListBox1);
             Name = "MenuChecklist";
-            Size = new Size(593, 622);
+            Size = new Size(402, 259);
             ResumeLayout(false);
         }
 
         #endregion
 
         private CheckedListBox checkedListBox1;
-        private Button button1;
     }
 }

@@ -19,7 +19,7 @@ namespace ChapeauUI.Components
             List<OrderLine> orderLinesIntermediates = MenuItemSeperator(EMenuType.Intermediate, lines);
             List<OrderLine> orderLinesMains = MenuItemSeperator(EMenuType.Main, lines);
             List<OrderLine> orderLinesDesserts = MenuItemSeperator(EMenuType.Dessert, lines);
-            List<OrderLine> orderLinesDrinks = MenuItemSeperator(EMenuType.Dessert, lines);
+            List<OrderLine> orderLinesDrinks = MenuItemSeperator(null, lines);
 
             AddItemsToList(orderLinesStarters, EMenuType.Starter);
             AddItemsToList(orderLinesIntermediates, EMenuType.Intermediate);
@@ -48,7 +48,7 @@ namespace ChapeauUI.Components
                 }
             }
         }
-        private List<OrderLine> MenuItemSeperator(EMenuType menuType, List<OrderLine> orderLines)
+        private List<OrderLine> MenuItemSeperator(EMenuType? menuType, List<OrderLine> orderLines)
         {
             List<OrderLine> orderLinesFiltered = new List<OrderLine>();
             for (int i = 0; i < orderLines.Count; i++)
