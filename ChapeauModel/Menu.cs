@@ -1,3 +1,4 @@
+using ChapeauModel.Enums;
 namespace ChapeauModel
 {
     public class Menu
