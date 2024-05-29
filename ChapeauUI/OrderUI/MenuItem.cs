@@ -15,13 +15,10 @@ namespace ChapeauUI.OrderUI
         {
             InitializeComponent();
 
-            this.Tag = menuItem;
-            this.itemName.Text = menuItem.Name;
-            this.stock.Text = $"Stock: {menuItem.Stock.Count}";
-            this.price.Text = $"Price: €{menuItem.Price}";
-
             _menuItem = menuItem;
             _order = order;
+
+            SetComponentStyle();
         }
 
         public void SetObserver(IOrderObserver observer)
@@ -31,6 +28,23 @@ namespace ChapeauUI.OrderUI
         public void NotifyObserver()
         {
             _observer.Update();
+        }
+
+        private void SetComponentStyle()
+        {
+            this.Tag = _menuItem;
+            this.itemName.Text = _menuItem.Name;
+            this.stock.Text = $"Stock: {_menuItem.Stock.Count}";
+            this.price.Text = $"Price: €{_menuItem.Price}";
+
+            if (_menuItem.Stock.Count <= 0)
+            {
+                this.BackColor = Color.LightGray;
+                this.addButton.Click -= addButton_Click;
+                this.addButton.Cursor = Cursors.No;
+                this.specifyButton.Click -= specifyButton_Click;
+                this.specifyButton.Cursor = Cursors.No;
+            }
         }
 
         private void addButton_Click(object sender, EventArgs e)
