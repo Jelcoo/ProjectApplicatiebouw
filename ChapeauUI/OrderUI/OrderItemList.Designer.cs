@@ -30,6 +30,7 @@
         {
             tableLabel = new Label();
             orderLinesBox = new RichTextBox();
+            orderButton = new Button();
             SuspendLayout();
             // 
             // tableLabel
@@ -43,19 +44,30 @@
             // 
             // orderLinesBox
             // 
+            orderLinesBox.BorderStyle = BorderStyle.None;
+            orderLinesBox.Enabled = false;
             orderLinesBox.Location = new Point(3, 35);
             orderLinesBox.Name = "orderLinesBox";
+            orderLinesBox.ReadOnly = true;
             orderLinesBox.Size = new Size(343, 676);
             orderLinesBox.TabIndex = 1;
             orderLinesBox.Text = "";
-            orderLinesBox.BorderStyle = BorderStyle.None;
-            orderLinesBox.Enabled = false;
-            orderLinesBox.ReadOnly = true;
+            // 
+            // orderButton
+            // 
+            orderButton.Location = new Point(55, 740);
+            orderButton.Name = "orderButton";
+            orderButton.Size = new Size(239, 71);
+            orderButton.TabIndex = 2;
+            orderButton.Text = "Order";
+            orderButton.UseVisualStyleBackColor = true;
+            orderButton.Click += orderButton_Click;
             // 
             // OrderItemList
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(orderButton);
             Controls.Add(orderLinesBox);
             Controls.Add(tableLabel);
             Name = "OrderItemList";
@@ -67,5 +79,6 @@
 
         private Label tableLabel;
         private RichTextBox orderLinesBox;
+        private Button orderButton;
     }
 }

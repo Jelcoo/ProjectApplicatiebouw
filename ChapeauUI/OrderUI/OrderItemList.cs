@@ -1,4 +1,5 @@
 ﻿using ChapeauModel;
+using ChapeauService;
 using ChapeauUI.OrderUI.Observers;
 
 namespace ChapeauUI.OrderUI
@@ -10,11 +11,14 @@ namespace ChapeauUI.OrderUI
         private Restaurant _restaurant;
         private Order _order;
 
+        private OrderService _orderService;
+
         public OrderItemList()
         {
             InitializeComponent();
 
             _restaurant = Restaurant.GetInstance();
+            _orderService = new OrderService();
         }
         public void SetObservable(IOrderObservable orderObservable)
         {
@@ -42,6 +46,16 @@ namespace ChapeauUI.OrderUI
                     orderLinesBox.AppendText($"!! {line.OrderNote.Note} !!\n");
                 }
             }
+        }
+
+        private void orderButton_Click(object sender, EventArgs e)
+        {
+            _orderService.MakeNewOrder(_order, _restaurant.SelectedTable, _restaurant.LoggedInEmployee);
+
+            MessageBox.Show("Your order has been processed!");
+
+            _order = new Order();
+            Update();
         }
     }
 }

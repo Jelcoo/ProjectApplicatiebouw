@@ -25,8 +25,7 @@ namespace ChapeauUI.OrderUI
             _orderService = new OrderService();
             _menuService = new MenuService();
 
-            Invoice invoice = new Invoice(_restaurant.SelectedTable, _restaurant.LoggedInEmployee, EInvoiceStatus.Pending);
-            _currentOrder = new Order(invoice);
+            _currentOrder = new Order();
         }
 
         private void OrderHome_Load(object sender, EventArgs e)

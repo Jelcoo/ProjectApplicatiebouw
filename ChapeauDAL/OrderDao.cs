@@ -1,6 +1,8 @@
 ﻿using ChapeauModel;
 using ChapeauDAL.Readers;
 using System.Data.SqlClient;
+using Microsoft.VisualBasic;
+using System.Collections.Generic;
 
 namespace ChapeauDAL
 {
@@ -112,9 +114,13 @@ WHERE orderNoteId = @orderNoteId;";
         public void DecreaseStock(OrderLine orderLine)
         {
             string query = @"
-UPDATE menuItems
-SET stock = stock - @quantity
-WHERE menuItemId = @menuItemId;";
+UPDATE stock
+SET count = count - @quantity
+WHERE stockId = (
+    SELECT stockId
+    FROM menuItems
+    WHERE menuItemId = @menuItemId
+);"; 
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
             command.Parameters.AddWithValue("@quantity", orderLine.Quantity);
