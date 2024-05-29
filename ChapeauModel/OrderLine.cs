@@ -43,5 +43,15 @@ namespace ChapeauModel
             OrderNote = orderNote;
             return this;
         }
+        public OrderLine IncreaseQuantity(int quantity)
+        {
+            _quantity += quantity;
+            return this;
+        }
+        public OrderLine DecreaseQuantity(int quantity)
+        {
+            _quantity -= quantity;
+            return this;
+        }
     }
 }

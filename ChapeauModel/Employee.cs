@@ -35,6 +35,5 @@ namespace ChapeauModel
             Role = role;
             return this;
         }
-
     }
 }

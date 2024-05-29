@@ -12,20 +12,21 @@ namespace ChapeauUI.OrderUI
         private OrderService _orderService;
         private MenuService _menuService;
         private List<ChapeauModel.MenuItem> _menuItems;
+        private Order _currentOrder;
 
         public OrderHome()
         {
             InitializeComponent();
             _orderService = new OrderService();
             _menuService = new MenuService();
+
+            _currentOrder = new Order();
         }
 
         private void OrderHome_Load(object sender, EventArgs e)
         {
             dateTimeLabel.Text = GenericHelpers.FormatDateTime(DateTime.Now);
             UpdateMenuStyles();
-
-            _menuService.GetMenus();
         }
 
         private void UpdateMenuStyles()
@@ -110,7 +111,7 @@ namespace ChapeauUI.OrderUI
             }
 
             // Create a new panel with random height to test
-            MenuItem menuItemComponent = new MenuItem(menuItem);
+            MenuItem menuItemComponent = new MenuItem(menuItem, _currentOrder);
 
             // Adding the new panel to the layout
             menuList.Controls.Add(menuItemComponent, nextColumn, nextRow);

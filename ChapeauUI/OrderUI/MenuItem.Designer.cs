@@ -37,10 +37,9 @@
             // 
             // itemName
             // 
-            itemName.Location = new Point(29, 0);
-            itemName.Margin = new Padding(2, 0, 2, 0);
+            itemName.Location = new Point(41, 0);
             itemName.Name = "itemName";
-            itemName.Size = new Size(108, 39);
+            itemName.Size = new Size(154, 65);
             itemName.TabIndex = 0;
             itemName.Text = "itemName";
             itemName.TextAlign = ContentAlignment.MiddleCenter;
@@ -49,10 +48,9 @@
             // 
             price.AutoSize = true;
             price.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            price.Location = new Point(29, 54);
-            price.Margin = new Padding(2, 0, 2, 0);
+            price.Location = new Point(41, 90);
             price.Name = "price";
-            price.Size = new Size(33, 15);
+            price.Size = new Size(50, 25);
             price.TabIndex = 1;
             price.Text = "price";
             price.TextAlign = ContentAlignment.MiddleCenter;
@@ -60,10 +58,9 @@
             // stock
             // 
             stock.AutoSize = true;
-            stock.Location = new Point(29, 39);
-            stock.Margin = new Padding(2, 0, 2, 0);
+            stock.Location = new Point(41, 65);
             stock.Name = "stock";
-            stock.Size = new Size(35, 15);
+            stock.Size = new Size(54, 25);
             stock.TabIndex = 2;
             stock.Text = "stock";
             stock.TextAlign = ContentAlignment.MiddleCenter;
@@ -71,13 +68,15 @@
             // specifyButton
             // 
             specifyButton.BackColor = Color.FromArgb(204, 227, 222);
+            specifyButton.BorderColor = Color.Black;
             specifyButton.BorderRadius = 5;
+            specifyButton.BorderWidth = 5;
             specifyButton.Cursor = Cursors.Hand;
             specifyButton.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            specifyButton.Location = new Point(29, 71);
-            specifyButton.Margin = new Padding(2);
+            specifyButton.HasBorder = false;
+            specifyButton.Location = new Point(41, 118);
             specifyButton.Name = "specifyButton";
-            specifyButton.Size = new Size(108, 27);
+            specifyButton.Size = new Size(154, 45);
             specifyButton.TabIndex = 0;
             specifyButton.Text = "Specify";
             specifyButton.UseVisualStyleBackColor = false;
@@ -85,20 +84,23 @@
             // addButton
             // 
             addButton.BackColor = Color.FromArgb(164, 195, 178);
+            addButton.BorderColor = Color.Black;
             addButton.BorderRadius = 5;
+            addButton.BorderWidth = 5;
             addButton.Cursor = Cursors.Hand;
             addButton.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            addButton.Location = new Point(29, 102);
-            addButton.Margin = new Padding(2);
+            addButton.HasBorder = false;
+            addButton.Location = new Point(41, 170);
             addButton.Name = "addButton";
-            addButton.Size = new Size(108, 27);
+            addButton.Size = new Size(154, 45);
             addButton.TabIndex = 0;
             addButton.Text = "Add";
             addButton.UseVisualStyleBackColor = false;
+            addButton.Click += addButton_Click;
             // 
             // MenuItem
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(234, 244, 244);
             Controls.Add(specifyButton);
@@ -106,9 +108,8 @@
             Controls.Add(stock);
             Controls.Add(price);
             Controls.Add(itemName);
-            Margin = new Padding(2);
             Name = "MenuItem";
-            Size = new Size(168, 131);
+            Size = new Size(240, 218);
             ResumeLayout(false);
             PerformLayout();
         }
