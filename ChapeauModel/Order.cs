@@ -12,20 +12,16 @@ namespace ChapeauModel
 
         public List<OrderLine> OrderLines { get; private set; }
 
-        public Order()
+        public Order(Invoice invoice)
         {
+            Invoice = invoice;
             OrderLines = new List<OrderLine>();
             _orderedAt = DateTime.Now;
         }
-        public Order(Invoice invoice)
-            : this()
-        {
-            Invoice = invoice;
-        }
         public Order(int orderId, DateTime orderedAt)
-            : this()
         {
             _orderId = orderId;
+            OrderLines = new List<OrderLine>();
             _orderedAt = orderedAt;
         }
         public Order(int orderId, Invoice invoice, DateTime orderedAt)
@@ -34,7 +30,7 @@ namespace ChapeauModel
             _orderId = orderId;
             _orderedAt = orderedAt;
         }
-        
+
         public Order SetId(int orderId)
         {
             _orderId = orderId;

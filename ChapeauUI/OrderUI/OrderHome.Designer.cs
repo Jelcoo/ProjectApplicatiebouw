@@ -42,7 +42,9 @@ namespace ChapeauUI.OrderUI
             loggedInAsPreLabel = new Label();
             loggedInAsLabel = new Label();
             dateTimeLabel = new Label();
+            orderItemList = new OrderItemList();
             backgroundPanel.SuspendLayout();
+            orderOverview.SuspendLayout();
             menuListPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)chapeauLogo).BeginInit();
             SuspendLayout();
@@ -63,6 +65,7 @@ namespace ChapeauUI.OrderUI
             // orderOverview
             // 
             orderOverview.BackColor = Color.FromArgb(234, 244, 244);
+            orderOverview.Controls.Add(orderItemList);
             orderOverview.Location = new Point(865, 85);
             orderOverview.Name = "orderOverview";
             orderOverview.Size = new Size(349, 830);
@@ -185,6 +188,14 @@ namespace ChapeauUI.OrderUI
             dateTimeLabel.Text = "Loading date & time...";
             dateTimeLabel.TextAlign = ContentAlignment.MiddleRight;
             // 
+            // orderItemList
+            // 
+            orderItemList.Location = new Point(0, 0);
+            orderItemList.Name = "orderItemList";
+            orderItemList.Size = new Size(524, 1245);
+            orderItemList.TabIndex = 0;
+            orderOverview.Location = new Point(865, 85);
+            // 
             // OrderHome
             // 
             BackColor = Color.FromArgb(164, 195, 178);
@@ -200,6 +211,7 @@ namespace ChapeauUI.OrderUI
             Text = "Chapeau - Ordering";
             Load += OrderHome_Load;
             backgroundPanel.ResumeLayout(false);
+            orderOverview.ResumeLayout(false);
             menuListPanel.ResumeLayout(false);
             menuListPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)chapeauLogo).EndInit();
@@ -220,5 +232,6 @@ namespace ChapeauUI.OrderUI
         private Panel orderOverview;
         private TableLayoutPanel menuList;
         private Panel menuListPanel;
+        private OrderItemList orderItemList;
     }
 }

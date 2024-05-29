@@ -9,6 +9,8 @@ namespace ChapeauUI.OrderUI
     public partial class OrderHome : Form
     {
         private EMenu _selectedMenu = EMenu.Drinks;
+
+        private Restaurant _restaurant;
         private OrderService _orderService;
         private MenuService _menuService;
         private List<ChapeauModel.MenuItem> _menuItems;
@@ -17,37 +19,43 @@ namespace ChapeauUI.OrderUI
         public OrderHome()
         {
             InitializeComponent();
+
+            _restaurant = Restaurant.GetInstance();
+
             _orderService = new OrderService();
             _menuService = new MenuService();
 
-            _currentOrder = new Order();
+            Invoice invoice = new Invoice(_restaurant.SelectedTable, _restaurant.LoggedInEmployee, EInvoiceStatus.Pending);
+            _currentOrder = new Order(invoice);
         }
 
         private void OrderHome_Load(object sender, EventArgs e)
         {
             dateTimeLabel.Text = GenericHelpers.FormatDateTime(DateTime.Now);
             UpdateMenuStyles();
+
+            orderItemList.SetOrder(_currentOrder);
         }
 
         private void UpdateMenuStyles()
         {
             if (_selectedMenu == EMenu.Drinks)
             {
-                _menuItems = Program.Menus.Single(menu => menu.Name == EMenu.Drinks).MenuItems;
+                _menuItems = _restaurant.Menus.Single(menu => menu.Name == EMenu.Drinks).MenuItems;
                 SelectMenuStyle(menuSelectorDrinks);
                 UnselectMenuStyle(menuSelectorLunch);
                 UnselectMenuStyle(menuSelectorDinner);
             }
             if (_selectedMenu == EMenu.Lunch)
             {
-                _menuItems = Program.Menus.Single(menu => menu.Name == EMenu.Lunch).MenuItems;
+                _menuItems = _restaurant.Menus.Single(menu => menu.Name == EMenu.Lunch).MenuItems;
                 UnselectMenuStyle(menuSelectorDrinks);
                 SelectMenuStyle(menuSelectorLunch);
                 UnselectMenuStyle(menuSelectorDinner);
             }
             if (_selectedMenu == EMenu.Dinner)
             {
-                _menuItems = Program.Menus.Single(menu => menu.Name == EMenu.Dinner).MenuItems;
+                _menuItems = _restaurant.Menus.Single(menu => menu.Name == EMenu.Dinner).MenuItems;
                 UnselectMenuStyle(menuSelectorDrinks);
                 UnselectMenuStyle(menuSelectorLunch);
                 SelectMenuStyle(menuSelectorDinner);
@@ -112,6 +120,7 @@ namespace ChapeauUI.OrderUI
 
             // Create a new panel with random height to test
             MenuItem menuItemComponent = new MenuItem(menuItem, _currentOrder);
+            orderItemList.SetObservable(menuItemComponent);
 
             // Adding the new panel to the layout
             menuList.Controls.Add(menuItemComponent, nextColumn, nextRow);

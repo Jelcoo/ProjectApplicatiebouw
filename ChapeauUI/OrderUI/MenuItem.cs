@@ -1,12 +1,15 @@
 ﻿using ChapeauModel;
 using ChapeauModel.Enums;
+using ChapeauUI.OrderUI.Observers;
 
 namespace ChapeauUI.OrderUI
 {
-    public partial class MenuItem : UserControl
+    public partial class MenuItem : UserControl, IOrderObservable
     {
         private ChapeauModel.MenuItem _menuItem;
         private Order _order;
+
+        private IOrderObserver _observer;
 
         public MenuItem(ChapeauModel.MenuItem menuItem, Order order)
         {
@@ -19,6 +22,15 @@ namespace ChapeauUI.OrderUI
 
             _menuItem = menuItem;
             _order = order;
+        }
+
+        public void SetObserver(IOrderObserver observer)
+        {
+            _observer = observer;
+        }
+        public void NotifyObserver()
+        {
+            _observer.Update(_order.OrderLines);
         }
 
         private void addButton_Click(object sender, EventArgs e)
@@ -36,6 +48,7 @@ namespace ChapeauUI.OrderUI
             {
                 AddOrderline();
             }
+            NotifyObserver();
         }
 
         private void AddOrderline()
