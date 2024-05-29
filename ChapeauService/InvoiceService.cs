@@ -23,8 +23,9 @@ namespace ChapeauService
             return _invoiceDao.CreateInvoice(invoice);
         }
 
-        public InvoiceComment CreateInvoiceComment(int invoiceId, InvoiceComment invoiceComment)
+        public InvoiceComment CreateInvoiceComment(int invoiceId, InvoiceComment comment)
         {
+            InvoiceComment invoiceComment = new InvoiceComment(invoiceId, comment.Comment);
             return _invoiceDao.CreateInvoiceComment(invoiceId, invoiceComment);
         }
 
