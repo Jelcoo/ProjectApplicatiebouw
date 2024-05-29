@@ -43,5 +43,16 @@ namespace ChapeauModel
             OrderNote = orderNote;
             return this;
         }
+        public override string ToString()
+        {
+            if (OrderNote != null)
+            {
+                return $"  {Quantity}x {MenuItem.Name} {OrderNote.Note}";
+            }
+            else
+            {
+                return $"  {Quantity}x {MenuItem.Name}";
+            }
+        }
     }
 }
