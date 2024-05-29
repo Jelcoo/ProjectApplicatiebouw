@@ -5,8 +5,7 @@ namespace ChapeauModel
         private int _menuId;
         public int MenuId { get { return _menuId; } }
 
-        private string _name;
-        public string Name { get { return _name; } }
+        public EMenu Name { get; private set; }
 
         private DateTime _menuAvailableFrom;
         public DateTime MenuAvailableFrom { get { return _menuAvailableFrom; } }
@@ -16,14 +15,14 @@ namespace ChapeauModel
 
         public List<MenuItem> MenuItems { get; private set; }
 
-        public Menu(string name, DateTime menuAvailableFrom, DateTime menuAvailableTill)
+        public Menu(EMenu name, DateTime menuAvailableFrom, DateTime menuAvailableTill)
         {
-            _name = name;
+            Name = name;
             _menuAvailableFrom = menuAvailableFrom;
             _menuAvailableTill = menuAvailableTill;
             MenuItems = new List<MenuItem>();
         }
-        public Menu(int menuId, string name, DateTime menuAvailableFrom, DateTime menuAvailableTill)
+        public Menu(int menuId, EMenu name, DateTime menuAvailableFrom, DateTime menuAvailableTill)
             : this(name, menuAvailableFrom, menuAvailableTill)
         {
             _menuId = menuId;
