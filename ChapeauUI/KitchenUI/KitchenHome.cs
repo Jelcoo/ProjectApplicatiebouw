@@ -1,4 +1,9 @@
-﻿using ChapeauUI.Helpers;
+﻿//using ChapeauUI.Components;
+using ChapeauModel;
+using ChapeauModel.Enums;
+using ChapeauService;
+using ChapeauUI.Components;
+using ChapeauUI.Helpers;
 using System.Windows.Forms;
 
 namespace ChapeauUI.KitchenUI
@@ -32,31 +37,18 @@ namespace ChapeauUI.KitchenUI
                 kitchenOrderLayoutPanel.RowCount++;
                 kitchenOrderLayoutPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
             }
+            KitchenBarService barService = new KitchenBarService();
+            List<Order> orders = barService.GetPreviousCompletedOrders(EOrderDestination.Kitchen);
 
-            // Create a new panel with random height to test
-            Panel newPanel = new Panel();
-            newPanel.Size = new Size(100, new Random().Next(100, 200));
-            newPanel.BackColor = Color.Red;
-
-            // Adding the new panel to the layout
-            kitchenOrderLayoutPanel.Controls.Add(newPanel, nextColumn, nextRow);
-
-            // color randomizer to differentiate between columns and rows
-            switch (count % 4)
+            for (int i = 0; i < orders.Count; i++)
             {
-                case 0:
-                    newPanel.BackColor = Color.Red;
-                    break;
-                case 1:
-                    newPanel.BackColor = Color.Green;
-                    break;
-                case 2:
-                    newPanel.BackColor = Color.Blue;
-                    break;
-                case 3:
-                    newPanel.BackColor = Color.Yellow;
-                    break;
+                MenuChecklist menuChecklist = new MenuChecklist(orders[i].OrderLines);
+
+                // Adding the new panel to the layout
+                kitchenOrderLayoutPanel.Controls.Add(menuChecklist, nextColumn, nextRow);
             }
+
+            
 
             // Tries to keep every row to the minimum hieght that is set otherwise be dynamic 
             for (int i = 0; i < kitchenOrderLayoutPanel.RowCount; i++)
