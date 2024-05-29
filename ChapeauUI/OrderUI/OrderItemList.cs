@@ -29,10 +29,10 @@ namespace ChapeauUI.OrderUI
             this.tableLabel.Text = $"Order for table #{order.Invoice?.Table.TableId}";
         }
 
-        public void Update(List<OrderLine> orderLines)
+        public void Update()
         {
             string labelText = "";
-            foreach (OrderLine line in orderLines)
+            foreach (OrderLine line in _order.OrderLines)
             {
                 labelText += $"{line.MenuItem.Name} ({line.Quantity}x)\n";
             }

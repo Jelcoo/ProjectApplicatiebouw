@@ -30,7 +30,7 @@ namespace ChapeauUI.OrderUI
         }
         public void NotifyObserver()
         {
-            _observer.Update(_order.OrderLines);
+            _observer.Update();
         }
 
         private void addButton_Click(object sender, EventArgs e)
