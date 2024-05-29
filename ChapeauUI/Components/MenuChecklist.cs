@@ -146,6 +146,7 @@ namespace ChapeauUI.Components
             // Set the new height
             checkedListBox1.Height = newHeight;
         }
+
         public List<OrderLine> GetUpdatedOrderLines() {
             List<OrderLine> checkedOrderLines = new List<OrderLine>();
 
