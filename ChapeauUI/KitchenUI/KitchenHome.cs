@@ -29,7 +29,7 @@ namespace ChapeauUI.KitchenUI
 
             // Calculate the next cell to add a new panel
             int nextRow = count / columns;
-            int nextColumn = count % columns;
+            int nextColumn = 0;
 
             // Add a new row if there is no space anymore
             if (nextRow >= rows)
@@ -39,16 +39,17 @@ namespace ChapeauUI.KitchenUI
             }
             KitchenBarService barService = new KitchenBarService();
             List<Order> orders = barService.GetPreviousCompletedOrders(EOrderDestination.Kitchen);
-
             for (int i = 0; i < orders.Count; i++)
             {
-                MenuChecklist menuChecklist = new MenuChecklist(orders[i].OrderLines);
+                if (nextColumn > columns) { nextColumn = 0; }
+                CompleteOrderTemplate completeOrderTemplate = new CompleteOrderTemplate(orders[i]);
 
                 // Adding the new panel to the layout
-                kitchenOrderLayoutPanel.Controls.Add(menuChecklist, nextColumn, nextRow);
+                kitchenOrderLayoutPanel.Controls.Add(completeOrderTemplate, nextColumn, nextRow);
+                nextColumn++;
             }
 
-            
+
 
             // Tries to keep every row to the minimum hieght that is set otherwise be dynamic 
             for (int i = 0; i < kitchenOrderLayoutPanel.RowCount; i++)
