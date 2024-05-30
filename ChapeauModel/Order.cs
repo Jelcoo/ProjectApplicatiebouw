@@ -40,7 +40,7 @@ namespace ChapeauModel
             _orderId = orderId;
             return this;
         }
-        public Order SetInvoice(Invoice invoice)
+        public Order SetInvoice(Invoice? invoice)
         {
             Invoice = invoice;
             return this;

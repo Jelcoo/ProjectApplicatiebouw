@@ -30,7 +30,7 @@ namespace ChapeauUI.OrderUI
         {
             this._order = order;
 
-            this.tableLabel.Text = $"Order for table #{order.Invoice?.Table.TableId}";
+            this.tableLabel.Text = $"Order for table #{_restaurant.SelectedTable.TableId}";
         }
 
         public void Update()

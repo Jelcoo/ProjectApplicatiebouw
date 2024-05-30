@@ -3,6 +3,7 @@ using ChapeauDAL.Readers;
 using System.Data.SqlClient;
 using Microsoft.VisualBasic;
 using System.Collections.Generic;
+using ChapeauModel.Enums;
 
 namespace ChapeauDAL
 {
@@ -145,6 +146,32 @@ WHERE menuItemId = @menuItemId;";
             command.ExecuteNonQuery();
 
             CloseConnection();
+        }
+
+        public Invoice? GetOpenInvoice(Table table)
+        {
+            string query = @"
+SELECT invoiceId, tableId, servedBy, invoiceStatusId, createdAt
+FROM invoices
+WHERE tableId = @tableId
+AND invoiceStatusId = @status;";
+
+            SqlCommand command = new SqlCommand(query, OpenConnection());
+            command.Parameters.AddWithValue("@tableId", table.TableId);
+            command.Parameters.AddWithValue("@status", (int)EInvoiceStatus.Pending);
+
+            SqlDataReader reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                Invoice invoice = InvoiceReader.ReadInvoice(reader);
+
+                reader.Close();
+                CloseConnection();
+
+                return invoice;
+            } else {
+                return null;
+            }
         }
 
         public Dictionary<MenuItem, int> GetAllOrderedItemsByInvoiceId(int invoiceId)

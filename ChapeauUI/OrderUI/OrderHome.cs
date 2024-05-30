@@ -33,6 +33,9 @@ namespace ChapeauUI.OrderUI
             dateTimeLabel.Text = GenericHelpers.FormatDateTime(DateTime.Now);
             UpdateMenuStyles();
 
+            Invoice? openInvoice = _orderService.GetOpenInvoice(_restaurant.SelectedTable);
+            _currentOrder.SetInvoice(openInvoice);
+
             orderItemList.SetOrder(_currentOrder);
         }
 

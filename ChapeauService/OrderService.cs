@@ -42,6 +42,12 @@ namespace ChapeauService
             return orderLines;
         }
 
+        public Invoice? GetOpenInvoice(Table table)
+        {
+            Invoice invoice = _orderDao.GetOpenInvoice(table);
+            return invoice;
+        }
+
         public void RemoveOrderLine(OrderLine orderLine)
         {
             _orderDao.IncreaseStock(orderLine);
