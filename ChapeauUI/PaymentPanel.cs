@@ -6,15 +6,23 @@ namespace ChapeauUI
 {
     public partial class PaymentPanel : Form
     {
+        const int invoiceId = 2; // debug
+        private Invoice invoice;
         private OrderService _orderService;
+        private InvoiceService _invoiceService;
+        private PaymentService _paymentService;
+        private List<(string personId, int percentage, double totalPrice, EPaymentMethod paymentMethod)> paymentDetailsList;
+
         public PaymentPanel()
         {
             InitializeComponent();
             _orderService = new OrderService();
+            _invoiceService = new InvoiceService();
+            _paymentService = new PaymentService();
+            paymentDetailsList = new List<(string, int, double, EPaymentMethod)>();
+            this.invoice = _invoiceService.GetInvoiceById(invoiceId);
 
-            int invoiceId = 1; // debug
             DisplayAllOrderedItems(GetAllOrderedItems(invoiceId));
-
             ResetVisibilityAndText();
 
             foreach (EPaymentMethod paymentMethod in Enum.GetValues(typeof(EPaymentMethod)))
@@ -41,13 +49,18 @@ namespace ChapeauUI
                 listViewItem.Tag = item;
                 listViewItem.Text = item.Key.Name; // Name
                 listViewItem.SubItems.Add(item.Key.Price.ToString("€0.00")); // Price
-                totalItems++;
                 listViewItem.SubItems.Add(item.Value.ToString()); // Quantity
-                totalPrice += item.Key.Price * item.Value;
                 listViewItem.SubItems.Add((item.Key.Price * item.Value).ToString("€0.00")); // Total item price
+
+                totalItems += item.Value;
+                totalPrice += item.Key.Price * item.Value;
                 totalVat += item.Key.VATRate;
+
                 lvAllOrderItems.Items.Add(listViewItem);
             }
+
+            double vatPrice = totalPrice * (totalVat / 100);
+            double totalVatPrice = vatPrice + totalPrice;
 
             // Adds total quantity and price on last row
             ListViewItem subTotalItem = new ListViewItem();
@@ -62,7 +75,7 @@ namespace ChapeauUI
             vatItem.Text = "";
             vatItem.SubItems.Add("Sales Tax:");
             vatItem.SubItems.Add("");
-            vatItem.SubItems.Add(totalVat.ToString("€0.00"));
+            vatItem.SubItems.Add(vatPrice.ToString("€0.00"));
             lvAllOrderItems.Items.Add(vatItem);
 
             // Shows vat + total price
@@ -70,7 +83,7 @@ namespace ChapeauUI
             totalItem.Text = "";
             totalItem.SubItems.Add("Total:");
             totalItem.SubItems.Add("");
-            totalItem.SubItems.Add((totalVat + totalPrice).ToString("€0.00"));
+            totalItem.SubItems.Add(totalVatPrice.ToString("€0.00"));
             lvAllOrderItems.Items.Add(totalItem);
         }
 
@@ -81,7 +94,52 @@ namespace ChapeauUI
 
         private void btnPay_Click(object sender, EventArgs e)
         {
-            // back to table overview
+            paymentDetailsList.Clear();
+            double totalVatPrice = GetTotalVatPriceFromListView();
+
+            if (double.TryParse(tbPriceWithTip.Text, out double tipAmount) && tipAmount > totalVatPrice)
+            {
+                totalVatPrice = tipAmount;
+            }
+
+            AddPaymentDetails(1, lblPersonOne, tbPersonOnePercentage, cbPersonOne, totalVatPrice);
+            AddPaymentDetails(2, lblPersonTwo, tbPersonTwoPercentage, cbPersonTwo, totalVatPrice);
+            AddPaymentDetails(3, lblPersonThree, tbPersonThreePercentage, cbPersonThree, totalVatPrice);
+            AddPaymentDetails(4, lblPersonFour, tbPersonFourPercentage, cbPersonFour, totalVatPrice);
+
+            foreach ((string personId, int percentage, double totalPrice, EPaymentMethod paymentMethod) in paymentDetailsList)
+            {
+                new PaymentPromptPanel(personId, percentage, totalPrice, paymentMethod).ShowDialog();
+                _paymentService.MakeNewPayment(invoice, totalPrice, paymentMethod, tipAmount);
+            }
+
+            this.Close();
+        }
+
+        private void AddPaymentDetails(int personNumber, Label lblPerson, TextBox tbPercentage, ComboBox cbPaymentMethod, double totalVatPrice)
+        {
+            if (lblPerson.Visible && int.TryParse(tbPercentage.Text, out int percentage) && cbPaymentMethod.SelectedItem is EPaymentMethod paymentMethod)
+            {
+                double personTotalPrice = totalVatPrice * percentage / 100;
+                paymentDetailsList.Add((personNumber.ToString(), percentage, personTotalPrice, paymentMethod));
+            }
+        }
+
+        private double GetTotalVatPriceFromListView()
+        {
+            foreach (ListViewItem item in lvAllOrderItems.Items)
+            {
+                if (item.SubItems[1].Text == "Total:")
+                {
+                    string totalPriceText = item.SubItems[3].Text;
+                    string numericPart = totalPriceText.Substring(1);
+                    if (double.TryParse(numericPart, out double totalVatPrice))
+                    {
+                        return totalVatPrice;
+                    }
+                }
+            }
+            return 0;
         }
 
         private void tbPeopleAmount_TextChanged(object sender, EventArgs e)

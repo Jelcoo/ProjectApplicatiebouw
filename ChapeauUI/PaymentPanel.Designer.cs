@@ -59,9 +59,10 @@
             // lvAllOrderItems
             // 
             lvAllOrderItems.Columns.AddRange(new ColumnHeader[] { name, price, quantity, totalPrice });
-            lvAllOrderItems.Location = new Point(12, 12);
+            lvAllOrderItems.Location = new Point(8, 7);
+            lvAllOrderItems.Margin = new Padding(2);
             lvAllOrderItems.Name = "lvAllOrderItems";
-            lvAllOrderItems.Size = new Size(544, 483);
+            lvAllOrderItems.Size = new Size(425, 291);
             lvAllOrderItems.TabIndex = 0;
             lvAllOrderItems.UseCompatibleStateImageBehavior = false;
             lvAllOrderItems.View = View.Details;
@@ -76,25 +77,25 @@
             // 
             price.Tag = "price";
             price.Text = "Price";
-            price.Width = 120;
+            price.Width = 80;
             // 
             // quantity
             // 
             quantity.Tag = "quantity";
             quantity.Text = "Quantity";
-            quantity.Width = 100;
             // 
             // totalPrice
             // 
             totalPrice.Tag = "totalPrice";
             totalPrice.Text = "Total Price";
-            totalPrice.Width = 120;
+            totalPrice.Width = 80;
             // 
             // btnPay
             // 
-            btnPay.Location = new Point(718, 238);
+            btnPay.Location = new Point(547, 143);
+            btnPay.Margin = new Padding(2);
             btnPay.Name = "btnPay";
-            btnPay.Size = new Size(462, 34);
+            btnPay.Size = new Size(323, 23);
             btnPay.TabIndex = 3;
             btnPay.Text = "Pay";
             btnPay.UseVisualStyleBackColor = true;
@@ -103,18 +104,20 @@
             // lblAmountOfPeople
             // 
             lblAmountOfPeople.AutoSize = true;
-            lblAmountOfPeople.Location = new Point(562, 12);
+            lblAmountOfPeople.Location = new Point(437, 7);
+            lblAmountOfPeople.Margin = new Padding(2, 0, 2, 0);
             lblAmountOfPeople.Name = "lblAmountOfPeople";
-            lblAmountOfPeople.Size = new Size(65, 25);
+            lblAmountOfPeople.Size = new Size(43, 15);
             lblAmountOfPeople.TabIndex = 4;
             lblAmountOfPeople.Text = "People";
             lblAmountOfPeople.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // tbPriceWithTip
             // 
-            tbPriceWithTip.Location = new Point(562, 238);
+            tbPriceWithTip.Location = new Point(437, 143);
+            tbPriceWithTip.Margin = new Padding(2);
             tbPriceWithTip.Name = "tbPriceWithTip";
-            tbPriceWithTip.Size = new Size(150, 31);
+            tbPriceWithTip.Size = new Size(106, 23);
             tbPriceWithTip.TabIndex = 5;
             tbPriceWithTip.TextAlign = HorizontalAlignment.Right;
             tbPriceWithTip.KeyPress += tbPriceWithTip_KeyPress;
@@ -122,9 +125,10 @@
             // lblTip
             // 
             lblTip.AutoSize = true;
-            lblTip.Location = new Point(562, 210);
+            lblTip.Location = new Point(437, 126);
+            lblTip.Margin = new Padding(2, 0, 2, 0);
             lblTip.Name = "lblTip";
-            lblTip.Size = new Size(145, 25);
+            lblTip.Size = new Size(96, 15);
             lblTip.TabIndex = 6;
             lblTip.Text = "€ Tip (total price)";
             lblTip.TextAlign = ContentAlignment.MiddleLeft;
@@ -132,18 +136,20 @@
             // lblPersonOne
             // 
             lblPersonOne.AutoSize = true;
-            lblPersonOne.Location = new Point(562, 95);
+            lblPersonOne.Location = new Point(437, 57);
+            lblPersonOne.Margin = new Padding(2, 0, 2, 0);
             lblPersonOne.Name = "lblPersonOne";
-            lblPersonOne.Size = new Size(80, 25);
+            lblPersonOne.Size = new Size(52, 15);
             lblPersonOne.TabIndex = 8;
             lblPersonOne.Text = "Person 1";
             lblPersonOne.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // tbPersonOnePercentage
             // 
-            tbPersonOnePercentage.Location = new Point(562, 123);
+            tbPersonOnePercentage.Location = new Point(437, 74);
+            tbPersonOnePercentage.Margin = new Padding(2);
             tbPersonOnePercentage.Name = "tbPersonOnePercentage";
-            tbPersonOnePercentage.Size = new Size(103, 31);
+            tbPersonOnePercentage.Size = new Size(73, 23);
             tbPersonOnePercentage.TabIndex = 7;
             tbPersonOnePercentage.Text = "100";
             tbPersonOnePercentage.TextAlign = HorizontalAlignment.Right;
@@ -151,9 +157,10 @@
             // lblPersonTwo
             // 
             lblPersonTwo.AutoSize = true;
-            lblPersonTwo.Location = new Point(718, 95);
+            lblPersonTwo.Location = new Point(547, 57);
+            lblPersonTwo.Margin = new Padding(2, 0, 2, 0);
             lblPersonTwo.Name = "lblPersonTwo";
-            lblPersonTwo.Size = new Size(80, 25);
+            lblPersonTwo.Size = new Size(52, 15);
             lblPersonTwo.TabIndex = 10;
             lblPersonTwo.Text = "Person 2";
             lblPersonTwo.TextAlign = ContentAlignment.MiddleLeft;
@@ -161,9 +168,10 @@
             // 
             // tbPersonTwoPercentage
             // 
-            tbPersonTwoPercentage.Location = new Point(718, 123);
+            tbPersonTwoPercentage.Location = new Point(547, 74);
+            tbPersonTwoPercentage.Margin = new Padding(2);
             tbPersonTwoPercentage.Name = "tbPersonTwoPercentage";
-            tbPersonTwoPercentage.Size = new Size(103, 31);
+            tbPersonTwoPercentage.Size = new Size(73, 23);
             tbPersonTwoPercentage.TabIndex = 9;
             tbPersonTwoPercentage.TextAlign = HorizontalAlignment.Right;
             tbPersonTwoPercentage.Visible = false;
@@ -171,9 +179,10 @@
             // lblPersonThree
             // 
             lblPersonThree.AutoSize = true;
-            lblPersonThree.Location = new Point(874, 95);
+            lblPersonThree.Location = new Point(656, 57);
+            lblPersonThree.Margin = new Padding(2, 0, 2, 0);
             lblPersonThree.Name = "lblPersonThree";
-            lblPersonThree.Size = new Size(80, 25);
+            lblPersonThree.Size = new Size(52, 15);
             lblPersonThree.TabIndex = 12;
             lblPersonThree.Text = "Person 3";
             lblPersonThree.TextAlign = ContentAlignment.MiddleLeft;
@@ -181,9 +190,10 @@
             // 
             // tbPersonThreePercentage
             // 
-            tbPersonThreePercentage.Location = new Point(874, 123);
+            tbPersonThreePercentage.Location = new Point(656, 74);
+            tbPersonThreePercentage.Margin = new Padding(2);
             tbPersonThreePercentage.Name = "tbPersonThreePercentage";
-            tbPersonThreePercentage.Size = new Size(103, 31);
+            tbPersonThreePercentage.Size = new Size(73, 23);
             tbPersonThreePercentage.TabIndex = 11;
             tbPersonThreePercentage.TextAlign = HorizontalAlignment.Right;
             tbPersonThreePercentage.Visible = false;
@@ -191,9 +201,10 @@
             // lblPersonFour
             // 
             lblPersonFour.AutoSize = true;
-            lblPersonFour.Location = new Point(1030, 95);
+            lblPersonFour.Location = new Point(765, 57);
+            lblPersonFour.Margin = new Padding(2, 0, 2, 0);
             lblPersonFour.Name = "lblPersonFour";
-            lblPersonFour.Size = new Size(80, 25);
+            lblPersonFour.Size = new Size(52, 15);
             lblPersonFour.TabIndex = 14;
             lblPersonFour.Text = "Person 4";
             lblPersonFour.TextAlign = ContentAlignment.MiddleLeft;
@@ -201,9 +212,10 @@
             // 
             // tbPersonFourPercentage
             // 
-            tbPersonFourPercentage.Location = new Point(1030, 123);
+            tbPersonFourPercentage.Location = new Point(765, 74);
+            tbPersonFourPercentage.Margin = new Padding(2);
             tbPersonFourPercentage.Name = "tbPersonFourPercentage";
-            tbPersonFourPercentage.Size = new Size(103, 31);
+            tbPersonFourPercentage.Size = new Size(73, 23);
             tbPersonFourPercentage.TabIndex = 13;
             tbPersonFourPercentage.TextAlign = HorizontalAlignment.Right;
             tbPersonFourPercentage.Visible = false;
@@ -211,17 +223,19 @@
             // cbPersonOne
             // 
             cbPersonOne.FormattingEnabled = true;
-            cbPersonOne.Location = new Point(562, 160);
+            cbPersonOne.Location = new Point(437, 96);
+            cbPersonOne.Margin = new Padding(2);
             cbPersonOne.Name = "cbPersonOne";
-            cbPersonOne.Size = new Size(150, 33);
+            cbPersonOne.Size = new Size(106, 23);
             cbPersonOne.TabIndex = 15;
             // 
             // lblPercentage1
             // 
             lblPercentage1.AutoSize = true;
-            lblPercentage1.Location = new Point(671, 126);
+            lblPercentage1.Location = new Point(514, 76);
+            lblPercentage1.Margin = new Padding(2, 0, 2, 0);
             lblPercentage1.Name = "lblPercentage1";
-            lblPercentage1.Size = new Size(27, 25);
+            lblPercentage1.Size = new Size(17, 15);
             lblPercentage1.TabIndex = 16;
             lblPercentage1.Text = "%";
             lblPercentage1.TextAlign = ContentAlignment.MiddleLeft;
@@ -229,33 +243,37 @@
             // cbPersonTwo
             // 
             cbPersonTwo.FormattingEnabled = true;
-            cbPersonTwo.Location = new Point(718, 160);
+            cbPersonTwo.Location = new Point(547, 96);
+            cbPersonTwo.Margin = new Padding(2);
             cbPersonTwo.Name = "cbPersonTwo";
-            cbPersonTwo.Size = new Size(150, 33);
+            cbPersonTwo.Size = new Size(106, 23);
             cbPersonTwo.TabIndex = 17;
             // 
             // cbPersonThree
             // 
             cbPersonThree.FormattingEnabled = true;
-            cbPersonThree.Location = new Point(874, 160);
+            cbPersonThree.Location = new Point(656, 96);
+            cbPersonThree.Margin = new Padding(2);
             cbPersonThree.Name = "cbPersonThree";
-            cbPersonThree.Size = new Size(150, 33);
+            cbPersonThree.Size = new Size(106, 23);
             cbPersonThree.TabIndex = 18;
             // 
             // cbPersonFour
             // 
             cbPersonFour.FormattingEnabled = true;
-            cbPersonFour.Location = new Point(1030, 160);
+            cbPersonFour.Location = new Point(765, 96);
+            cbPersonFour.Margin = new Padding(2);
             cbPersonFour.Name = "cbPersonFour";
-            cbPersonFour.Size = new Size(150, 33);
+            cbPersonFour.Size = new Size(106, 23);
             cbPersonFour.TabIndex = 19;
             // 
             // lblPercentage2
             // 
             lblPercentage2.AutoSize = true;
-            lblPercentage2.Location = new Point(827, 126);
+            lblPercentage2.Location = new Point(623, 76);
+            lblPercentage2.Margin = new Padding(2, 0, 2, 0);
             lblPercentage2.Name = "lblPercentage2";
-            lblPercentage2.Size = new Size(27, 25);
+            lblPercentage2.Size = new Size(17, 15);
             lblPercentage2.TabIndex = 20;
             lblPercentage2.Text = "%";
             lblPercentage2.TextAlign = ContentAlignment.MiddleLeft;
@@ -263,9 +281,10 @@
             // lblPercentage3
             // 
             lblPercentage3.AutoSize = true;
-            lblPercentage3.Location = new Point(983, 126);
+            lblPercentage3.Location = new Point(732, 76);
+            lblPercentage3.Margin = new Padding(2, 0, 2, 0);
             lblPercentage3.Name = "lblPercentage3";
-            lblPercentage3.Size = new Size(27, 25);
+            lblPercentage3.Size = new Size(17, 15);
             lblPercentage3.TabIndex = 21;
             lblPercentage3.Text = "%";
             lblPercentage3.TextAlign = ContentAlignment.MiddleLeft;
@@ -273,19 +292,21 @@
             // lblPercentage4
             // 
             lblPercentage4.AutoSize = true;
-            lblPercentage4.Location = new Point(1139, 126);
+            lblPercentage4.Location = new Point(841, 76);
+            lblPercentage4.Margin = new Padding(2, 0, 2, 0);
             lblPercentage4.Name = "lblPercentage4";
-            lblPercentage4.Size = new Size(27, 25);
+            lblPercentage4.Size = new Size(17, 15);
             lblPercentage4.TabIndex = 22;
             lblPercentage4.Text = "%";
             lblPercentage4.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // tbPeopleAmount
             // 
-            tbPeopleAmount.Location = new Point(562, 40);
+            tbPeopleAmount.Location = new Point(437, 24);
+            tbPeopleAmount.Margin = new Padding(2);
             tbPeopleAmount.MaxLength = 1;
             tbPeopleAmount.Name = "tbPeopleAmount";
-            tbPeopleAmount.Size = new Size(103, 31);
+            tbPeopleAmount.Size = new Size(73, 23);
             tbPeopleAmount.TabIndex = 24;
             tbPeopleAmount.Text = "1";
             tbPeopleAmount.TextAlign = HorizontalAlignment.Right;
@@ -293,9 +314,9 @@
             // 
             // PaymentPanel
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1189, 507);
+            ClientSize = new Size(876, 304);
             Controls.Add(tbPeopleAmount);
             Controls.Add(lblPercentage4);
             Controls.Add(lblPercentage3);
@@ -318,6 +339,7 @@
             Controls.Add(lblAmountOfPeople);
             Controls.Add(btnPay);
             Controls.Add(lvAllOrderItems);
+            Margin = new Padding(2);
             Name = "PaymentPanel";
             Text = "PaymentPanel";
             ResumeLayout(false);

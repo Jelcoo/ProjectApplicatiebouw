@@ -33,5 +33,10 @@ namespace ChapeauService
         {
             return _invoiceDao.GetInvoiceCommentById(invoiceCommentId);
         }
+
+        public Invoice GetInvoiceById(int invoiceId)
+        {
+            return _invoiceDao.GetInvoiceById(invoiceId);
+        }
     }
 }
