@@ -23,7 +23,11 @@ namespace ChapeauUI.Components
             orderedAtLabel.Text = $"Ordered at: {_order.OrderedAt.ToString("t")}";
             _checklist = new MenuChecklist(_order.OrderLines, _orderTime);
             LayoutOrderPanel.Controls.Add(_checklist);
-            if (_orderTime == EOrderTime.InThePast) StartPreparingBTN.Enabled = false;
+            if (_orderTime == EOrderTime.InThePast) 
+            {
+                StartPreparingBTN.Enabled = false;
+                ReadyButton.Enabled = false;
+            }
         }
 
         private void ReadyButton_Click(object sender, EventArgs e)
