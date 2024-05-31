@@ -6,13 +6,13 @@ namespace ChapeauUI.Components
 {
     public partial class MenuChecklist : UserControl
     {
-        public MenuChecklist(List<OrderLine> lines)
+        public MenuChecklist(List<OrderLine> lines, EOrderTime orderTime)
         {
             InitializeComponent();
-            InitializeChecklist(lines);
+            InitializeChecklist(lines, orderTime);
         }
 
-        private void InitializeChecklist(List<OrderLine> lines)
+        private void InitializeChecklist(List<OrderLine> lines, EOrderTime orderTime)
         {
             checkedListBox1.Items.Clear();
             List<OrderLine> orderLinesStarters = MenuItemSeperator(EMenuType.Starter, lines);
@@ -26,7 +26,7 @@ namespace ChapeauUI.Components
             AddItemsToList(orderLinesMains, EMenuType.Main);
             AddItemsToList(orderLinesDesserts, EMenuType.Dessert);
             AddItemsToList(orderLinesDrinks, null);
-
+            if (orderTime == EOrderTime.InThePast) { CheckAllItems(); }
             checkedListBox1.ItemCheck += checkedListBox1_ItemCheck;
             AdjustCheckedListBoxHeight();
         }
@@ -53,7 +53,7 @@ namespace ChapeauUI.Components
             List<OrderLine> orderLinesFiltered = new List<OrderLine>();
             for (int i = 0; i < orderLines.Count; i++)
             {
-                if (orderLines[i].MenuItem.MenuType == menuType)
+                if ((orderLines[i].MenuItem.MenuType == menuType) && (orderLines[i].OrderLineStatus != EOrderLineStatus.Ready))
                 {
                     orderLinesFiltered.Add(orderLines[i]);
                 }
@@ -159,6 +159,14 @@ namespace ChapeauUI.Components
                 }
             }
             return checkedOrderLines;
+        }
+        private void CheckAllItems()
+        {
+            // Check all items in the CheckedListBox
+            for (int i = 0; i < checkedListBox1.Items.Count; i++)
+            {
+                checkedListBox1.SetItemChecked(i, true);
+            }
         }
     }
 }
