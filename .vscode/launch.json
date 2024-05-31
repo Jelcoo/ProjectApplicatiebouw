@@ -1,0 +1,12 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "C#: ChapeauUI",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}\\ChapeauUI\\ChapeauUI.csproj",
+            "launchConfigurationId": "TargetFramework=;ChapeauUI"
+        }
+    ]
+}
