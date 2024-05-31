@@ -75,14 +75,14 @@ namespace ChapeauUI.Components
             StartPreparingBTN.Enabled = false;
             _form.Addpanel(EOrderTime.Current);
         }
+
         private bool CheckPreparingStatus()
         {
-            int preparing = 0;
             foreach (OrderLine line in _order.OrderLines)
             {
-                if (line.OrderLineStatus == EOrderLineStatus.Preparing) preparing++;
+                if (line.OrderLineStatus == EOrderLineStatus.Preparing) return true;
             }
-            return preparing > 0;
+            return false;
         }
     }
 }
