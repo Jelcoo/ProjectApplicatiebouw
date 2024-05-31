@@ -6,13 +6,17 @@ namespace ChapeauUI.Components
 {
     public partial class MenuChecklist : UserControl
     {
+        private EOrderTime _orderTime;
+        public int ChecklistCount { get; private set; }
+
         public MenuChecklist(List<OrderLine> lines, EOrderTime orderTime)
         {
+            _orderTime = orderTime;
             InitializeComponent();
-            InitializeChecklist(lines, orderTime);
+            InitializeChecklist(lines);
         }
 
-        private void InitializeChecklist(List<OrderLine> lines, EOrderTime orderTime)
+        private void InitializeChecklist(List<OrderLine> lines)
         {
             checkedListBox1.Items.Clear();
             List<OrderLine> orderLinesStarters = MenuItemSeperator(EMenuType.Starter, lines);
@@ -26,9 +30,10 @@ namespace ChapeauUI.Components
             AddItemsToList(orderLinesMains, EMenuType.Main);
             AddItemsToList(orderLinesDesserts, EMenuType.Dessert);
             AddItemsToList(orderLinesDrinks, null);
-            if (orderTime == EOrderTime.InThePast) { CheckAllItems(); }
+            if (_orderTime == EOrderTime.InThePast) { CheckAllItems(); }
             checkedListBox1.ItemCheck += checkedListBox1_ItemCheck;
             AdjustCheckedListBoxHeight();
+            ChecklistCount = checkedListBox1.Items.Count;
         }
         private void AddItemsToList(List<OrderLine> lines, EMenuType? menuType)
         {
@@ -53,7 +58,7 @@ namespace ChapeauUI.Components
             List<OrderLine> orderLinesFiltered = new List<OrderLine>();
             for (int i = 0; i < orderLines.Count; i++)
             {
-                if ((orderLines[i].MenuItem.MenuType == menuType) && (orderLines[i].OrderLineStatus != EOrderLineStatus.Ready))
+                if (((orderLines[i].MenuItem.MenuType == menuType) && (orderLines[i].OrderLineStatus != EOrderLineStatus.Ready)) || ((orderLines[i].MenuItem.MenuType == menuType) && (_orderTime == EOrderTime.InThePast)))
                 {
                     orderLinesFiltered.Add(orderLines[i]);
                 }
