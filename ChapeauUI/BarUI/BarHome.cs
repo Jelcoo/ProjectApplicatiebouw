@@ -1,12 +1,13 @@
 ﻿using ChapeauModel;
 using ChapeauModel.Enums;
+using ChapeauModel.Interfaces;
 using ChapeauService;
 using ChapeauUI.Components;
 using ChapeauUI.Helpers;
 
 namespace ChapeauUI.BarUI
 {
-    public partial class BarHome : Form
+    public partial class BarHome : Form, IKitchenBar
     {
         private KitchenBarService _barService = new KitchenBarService();
         public BarHome()
@@ -19,7 +20,7 @@ namespace ChapeauUI.BarUI
             dateTimeLabel.Text = GenericHelpers.FormatDateTime(DateTime.Now);
             Addpanel(EOrderTime.Current);
         }
-        private void Addpanel(EOrderTime orderTime)
+        public void Addpanel(EOrderTime orderTime)
         {
             barOrderLayoutPanel.Controls.Clear();
             int count = barOrderLayoutPanel.Controls.Count; // Get the total amount of panels
@@ -74,7 +75,8 @@ namespace ChapeauUI.BarUI
             for (int i = 0; i < orders.Count; i++)
             {
                 if (nextColumn > columns) { nextColumn = 0; }
-                CompleteOrderTemplate completeOrderTemplate = new CompleteOrderTemplate(orders[i], orderTime);
+                CompleteOrderTemplate completeOrderTemplate = new CompleteOrderTemplate(orders[i], orderTime, this);
+                if (completeOrderTemplate.ChecklistCount == 0) continue;
 
                 // Adding the new panel to the layout
                 barOrderLayoutPanel.Controls.Add(completeOrderTemplate, nextColumn, nextRow);
