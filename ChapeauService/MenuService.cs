@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ChapeauDAL;
 using ChapeauModel;
+using ChapeauModel.Enums;
 
 namespace ChapeauService
 {
@@ -22,11 +23,6 @@ namespace ChapeauService
             return _menuDao.GetMenu();
         }
 
-        public List<MenuType> GetMenuTypes()
-        {
-            return _menuDao.GetMenuTypes();
-        }
-
         public List<Menu> GetMenus()
         {
             return _menuDao.GetMenus();
@@ -36,9 +32,9 @@ namespace ChapeauService
             return _menuDao.GetVATRates();
         }
 
-        public int AddItemStock(int stockAmount)
+        public int CreateItemStock()
         {
-            return _menuDao.AddItemStock(stockAmount);
+            return _menuDao.CreateItemStock();
         }
 
         public void AddMenuItem(MenuItem menuItem)
@@ -49,6 +45,19 @@ namespace ChapeauService
         public MenuItem GetMenuItemById(int id)
         {
             return _menuDao.GetMenuItemById(id);
+        }
+
+        public void ChangeMenuItem(MenuItem changedMenuItem)
+        {
+            _menuDao.ChangeMenuItem(changedMenuItem);
+            if (changedMenuItem.MenuType != null) { _menuDao.AddMenuItemMenuType(changedMenuItem); }
+        }
+
+        public void DeleteMenuItemAndStockById(int menuItemId)
+        {
+            int stockId = _menuDao.GetStockId(menuItemId);
+            _menuDao.DeleteMenuItemById(menuItemId);
+            _menuDao.DeleteMenuItemStockById(stockId);
         }
     }
 }

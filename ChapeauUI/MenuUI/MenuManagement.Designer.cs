@@ -37,6 +37,7 @@
             itemVATRate = new ColumnHeader();
             btnAddMenuItem = new Button();
             btnChangeMenuItem = new Button();
+            btnDeleteMenuItem = new Button();
             SuspendLayout();
             // 
             // lvMenu
@@ -46,7 +47,7 @@
             lvMenu.Location = new Point(26, 53);
             lvMenu.MultiSelect = false;
             lvMenu.Name = "lvMenu";
-            lvMenu.Size = new Size(586, 371);
+            lvMenu.Size = new Size(670, 371);
             lvMenu.TabIndex = 0;
             lvMenu.UseCompatibleStateImageBehavior = false;
             lvMenu.View = View.Details;
@@ -79,7 +80,7 @@
             // 
             // btnAddMenuItem
             // 
-            btnAddMenuItem.Location = new Point(664, 105);
+            btnAddMenuItem.Location = new Point(768, 102);
             btnAddMenuItem.Name = "btnAddMenuItem";
             btnAddMenuItem.Size = new Size(94, 29);
             btnAddMenuItem.TabIndex = 1;
@@ -89,7 +90,7 @@
             // 
             // btnChangeMenuItem
             // 
-            btnChangeMenuItem.Location = new Point(664, 159);
+            btnChangeMenuItem.Location = new Point(768, 156);
             btnChangeMenuItem.Name = "btnChangeMenuItem";
             btnChangeMenuItem.Size = new Size(94, 29);
             btnChangeMenuItem.TabIndex = 1;
@@ -97,11 +98,22 @@
             btnChangeMenuItem.UseVisualStyleBackColor = true;
             btnChangeMenuItem.Click += btnChangeMenuItem_Click;
             // 
+            // btnDeleteMenuItem
+            // 
+            btnDeleteMenuItem.Location = new Point(768, 213);
+            btnDeleteMenuItem.Name = "btnDeleteMenuItem";
+            btnDeleteMenuItem.Size = new Size(94, 29);
+            btnDeleteMenuItem.TabIndex = 1;
+            btnDeleteMenuItem.Text = "Delete";
+            btnDeleteMenuItem.UseVisualStyleBackColor = true;
+            btnDeleteMenuItem.Click += btnDeleteMenuItem_Click;
+            // 
             // MenuManagement
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(918, 450);
+            Controls.Add(btnDeleteMenuItem);
             Controls.Add(btnChangeMenuItem);
             Controls.Add(btnAddMenuItem);
             Controls.Add(lvMenu);
@@ -121,5 +133,6 @@
         private ColumnHeader itemType;
         private Button btnAddMenuItem;
         private Button btnChangeMenuItem;
+        private Button btnDeleteMenuItem;
     }
 }

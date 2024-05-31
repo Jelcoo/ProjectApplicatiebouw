@@ -35,8 +35,8 @@ namespace ChapeauUI.MenuUI
             {
                 ListViewItem listViewItem = new ListViewItem(item.Name);
                 listViewItem.SubItems.Add(item.DetailName);
-                listViewItem.SubItems.Add(((EMenuNames)item.MenuId).ToString());
-                listViewItem.SubItems.Add(item.MenuTypeId != null ? ((EMenuTypes)item.MenuTypeId).ToString() : "");
+                listViewItem.SubItems.Add(item.Menu.ToString());
+                listViewItem.SubItems.Add(item.MenuType != EMenuType.None ? (item.MenuType).ToString() : "");
                 listViewItem.SubItems.Add(item.Price.ToString("F2"));
                 listViewItem.SubItems.Add(item.VATRate.ToString("F2"));
                 listViewItem.Tag = item.MenuItemId;
@@ -48,7 +48,7 @@ namespace ChapeauUI.MenuUI
         }
         private void btnAddMenuItem_Click(object sender, EventArgs e)
         {
-            new MenuAddMenuItem().ShowDialog();
+            new MenuAddMenuItem(this).ShowDialog();
         }
 
         private void btnChangeMenuItem_Click(object sender, EventArgs e)
@@ -59,8 +59,37 @@ namespace ChapeauUI.MenuUI
 
                 int menuItemId = (int)selectedItem.Tag;
 
-                MenuChangeMenuItem otherForm = new MenuChangeMenuItem(menuItemId);
+                MenuChangeMenuItem otherForm = new MenuChangeMenuItem(this, menuItemId);
                 otherForm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Please select an item from the list.");
+            }
+        }
+
+        public void Reload() { PopulateMenuDisplay(); }
+
+        public void btnDeleteMenuItem_Click(object sender, EventArgs e)
+        {
+            MenuService menuService = new MenuService();
+
+            if (lvMenu.SelectedItems.Count > 0)
+            {
+                DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete a item?", "Confirm Add Item", MessageBoxButtons.YesNo);
+
+                if (dialogResult == DialogResult.Yes)
+                {
+                    ListViewItem selectedItem = lvMenu.SelectedItems[0];
+
+                    int menuItemId = (int)selectedItem.Tag;
+                    MessageBox.Show(menuItemId.ToString());
+                    menuService.DeleteMenuItemAndStockById(menuItemId);
+
+                    MessageBox.Show("Item deleted successfully");
+
+                    this.Reload();
+                }
             }
             else
             {

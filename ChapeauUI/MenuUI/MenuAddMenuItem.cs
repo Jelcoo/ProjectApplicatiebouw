@@ -7,22 +7,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ChapeauModel.Enums;
 using ChapeauModel;
 using ChapeauService;
 
-namespace ChapeauUI.StockUI
+namespace ChapeauUI.MenuUI
 {
     public partial class MenuAddMenuItem : Form
     {
-        public MenuAddMenuItem()
+        private MenuManagement parentForm;
+
+        public MenuAddMenuItem(MenuManagement parentForm)
         {
             InitializeComponent();
+            this.parentForm = parentForm;
             FillComboBoxes();
-        }
-
-        private void btnCancelAddItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
 
         private void btnConfirmAddItem_Click(object sender, EventArgs e)
@@ -33,63 +32,53 @@ namespace ChapeauUI.StockUI
             {
                 MenuService menuService = new MenuService();
 
-                int stockId = menuService.AddItemStock(GetAddStockAmount());
-
+                int stockId = menuService.CreateItemStock();
                 MenuItem menuItem = GetMenuItemDataFromInput(stockId);
-
                 menuService.AddMenuItem(menuItem);
 
+                MessageBox.Show("MenuItem added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                parentForm.Reload();
                 this.Close();
             }
-
         }
+
+        private void btnCancelAddItem_Click(object sender, EventArgs e) { this.Close(); }
 
         public void FillComboBoxes()
         {
             MenuService menuService = new MenuService();
 
-            List<MenuType> menuTypes = menuService.GetMenuTypes();
-            List<Menu> menus = menuService.GetMenus();
-            List<double> VATRates = menuService.GetVATRates();
-
-            // Populate ItemType Combobox
+            // MenuType's
             cbItemType.Items.Clear();
+            cbItemType.DataSource = Enum.GetValues(typeof(EMenuType));
 
-            menuTypes.Insert(0, new MenuType(string.Empty));
-
-            cbItemType.DataSource = menuTypes;
-            cbItemType.DisplayMember = "Name";
-            cbItemType.ValueMember = "MenuTypeId";
-
-            // Populate Menu Combobox
+            // Menu's
             cbItemMenu.Items.Clear();
+            cbItemMenu.DataSource = Enum.GetValues(typeof(EMenu));
 
-            cbItemMenu.DataSource = menus;
-            cbItemMenu.DisplayMember = "Name";
-            cbItemMenu.ValueMember = "MenuId";
-
-            // Populate VATRates Combobox
+            // VATRates
+            List<double> VATRates = menuService.GetVATRates();
             cbItemVATRate.DataSource = VATRates;
         }
 
         public MenuItem GetMenuItemDataFromInput(int stockId)
         {
-            int menuId = (int)cbItemMenu.SelectedValue;
-            int menuTypeId = (int)cbItemType.SelectedValue;
+            EMenuType menuType = (EMenuType)cbItemType.SelectedValue;
+            EMenu menu = (EMenu)cbItemMenu.SelectedValue;
             string itemName = inputItemName.Text;
             string itemDetailName = inputItemDetailName.Text;
             double VATRate = (double)cbItemVATRate.SelectedValue;
             double price = double.Parse(inputItemPrice.Text);
 
-            MenuItem menuItem = new MenuItem(stockId, menuId, menuTypeId, itemName, itemDetailName, VATRate, price);
+            MenuItem menuItem = new MenuItem(new Stock(stockId, 0), itemName, itemDetailName, VATRate, price);
+
+            menuItem.SetMenu(menu);
+
+            if (menuType == EMenuType.None) { menuItem.SetMenuType(null); }
+            else { menuItem.SetMenuType(menuType); }
 
             return menuItem;
         }
-
-        public int GetAddStockAmount()
-        {
-            return int.Parse(inputItemStock.Text);
-        }
-
     }
 }

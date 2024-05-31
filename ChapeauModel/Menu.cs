@@ -39,5 +39,10 @@ namespace ChapeauModel
             MenuItems.Add(menuItem);
             return this;
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

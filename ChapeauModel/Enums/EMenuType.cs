@@ -2,6 +2,6 @@
 {
     public enum EMenuType
     {
-        Starter = 1, Intermediate, Main, Dessert
+        None, Starter, Intermediate, Main, Dessert
     }
 }
