@@ -1,4 +1,4 @@
-﻿using ChapeauModel;
+using ChapeauModel;
 using ChapeauService;
 using ChapeauUI.OrderUI.Observers;
 
@@ -50,6 +50,11 @@ namespace ChapeauUI.OrderUI
 
         private void orderButton_Click(object sender, EventArgs e)
         {
+            if (_order.OrderLines.Count == 0) {
+                MessageBox.Show("Your order is empty. Please add some items to your order.");
+                return;
+            }
+
             _orderService.MakeNewOrder(_order, _restaurant.SelectedTable, _restaurant.LoggedInEmployee);
 
             MessageBox.Show("Your order has been processed!");
