@@ -10,6 +10,7 @@ namespace ChapeauUI.Components
         private KitchenBarService _kitchenBarService;
         private MenuChecklist _checklist;
         private EOrderTime _orderTime;
+
         public CompleteOrderTemplate(Order order, EOrderTime orderTime)
         {
             InitializeComponent();
