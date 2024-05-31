@@ -44,7 +44,7 @@ namespace ChapeauService
 
         public Invoice? GetOpenInvoice(Table table)
         {
-            Invoice invoice = _orderDao.GetOpenInvoice(table);
+            Invoice? invoice = _orderDao.GetOpenInvoice(table);
             return invoice;
         }
 

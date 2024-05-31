@@ -12,7 +12,7 @@ namespace ChapeauDAL.Readers
                 invoiceId: (int)reader["invoiceId"],
                 table: TableReader.ReadTable(reader),
                 servedBy: EmployeeReader.ReadEmployee(reader),
-                invoiceStatus: (EInvoiceStatus)Enum.Parse(typeof(EInvoiceStatus), (string)reader["status"]),
+                invoiceStatus: (EInvoiceStatus)(int)reader["invoiceStatusId"],
                 createdAt: (DateTime)reader["createdAt"]
             );
 

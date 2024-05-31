@@ -31,12 +31,13 @@ namespace ChapeauUI.OrderUI
         private void OrderHome_Load(object sender, EventArgs e)
         {
             dateTimeLabel.Text = GenericHelpers.FormatDateTime(DateTime.Now);
-            UpdateMenuStyles();
 
-            Invoice? openInvoice = _orderService.GetOpenInvoice(_restaurant.SelectedTable);
+            Invoice? openInvoice = _orderService.GetOpenInvoice(_restaurant.SelectedTable!);
             _currentOrder.SetInvoice(openInvoice);
 
             orderItemList.SetOrder(_currentOrder);
+            
+            UpdateMenuStyles();
         }
 
         private void UpdateMenuStyles()
@@ -140,6 +141,14 @@ namespace ChapeauUI.OrderUI
                     menuList.RowStyles[i].SizeType = SizeType.AutoSize;
                 }
             }
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            _restaurant.SetSelectedTable(null);
+
+            new TableUI.TableHome().Show();
+            this.Hide();
         }
     }
 }

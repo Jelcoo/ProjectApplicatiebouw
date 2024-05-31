@@ -42,6 +42,7 @@ namespace ChapeauUI.OrderUI
             loggedInAsPreLabel = new Label();
             loggedInAsLabel = new Label();
             dateTimeLabel = new Label();
+            backButton = new Button();
             orderItemList = new OrderItemList();
             backgroundPanel.SuspendLayout();
             orderOverview.SuspendLayout();
@@ -52,6 +53,7 @@ namespace ChapeauUI.OrderUI
             // backgroundPanel
             // 
             backgroundPanel.BackColor = Color.FromArgb(204, 227, 222);
+            backgroundPanel.Controls.Add(backButton);
             backgroundPanel.Controls.Add(orderOverview);
             backgroundPanel.Controls.Add(menuListPanel);
             backgroundPanel.Controls.Add(menuSelectorDrinks);
@@ -194,7 +196,16 @@ namespace ChapeauUI.OrderUI
             orderItemList.Name = "orderItemList";
             orderItemList.Size = new Size(524, 1245);
             orderItemList.TabIndex = 0;
-            orderOverview.Location = new Point(865, 85);
+            // 
+            // backButton
+            // 
+            backButton.Location = new Point(1102, 23);
+            backButton.Name = "backButton";
+            backButton.Size = new Size(112, 34);
+            backButton.TabIndex = 3;
+            backButton.Text = "< Back";
+            backButton.UseVisualStyleBackColor = true;
+            backButton.Click += backButton_Click;
             // 
             // OrderHome
             // 
@@ -232,6 +243,7 @@ namespace ChapeauUI.OrderUI
         private Panel orderOverview;
         private TableLayoutPanel menuList;
         private Panel menuListPanel;
+        private Button backButton;
         private OrderItemList orderItemList;
     }
 }

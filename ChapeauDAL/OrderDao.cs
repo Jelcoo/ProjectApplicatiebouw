@@ -151,10 +151,12 @@ WHERE menuItemId = @menuItemId;";
         public Invoice? GetOpenInvoice(Table table)
         {
             string query = @"
-SELECT invoiceId, tableId, servedBy, invoiceStatusId, createdAt
-FROM invoices
-WHERE tableId = @tableId
-AND invoiceStatusId = @status;";
+SELECT I.invoiceId, I.tableId, I.servedBy, I.invoiceStatusId, I.createdAt, T.isOccupied, E.employeeId, E.employeeName, E.password, E.employedAt, E.roleId
+FROM invoices AS I
+JOIN tables AS T ON T.tableId = I.tableId
+JOIN employees AS E ON E.employeeId = I.servedBy
+WHERE I.tableId = @tableId
+AND I.invoiceStatusId = @status;";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
             command.Parameters.AddWithValue("@tableId", table.TableId);

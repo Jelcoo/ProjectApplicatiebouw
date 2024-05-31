@@ -13,8 +13,8 @@ namespace ChapeauModel
         private List<Menu> _menus;
         public List<Menu> Menus { get { return _menus; } }
 
-        private Table _selectedTable;
-        public Table SelectedTable { get { return _selectedTable; } }
+        private Table? _selectedTable;
+        public Table? SelectedTable { get { return _selectedTable; } }
 
         private Employee _loggedInEmployee;
         public Employee LoggedInEmployee { get { return _loggedInEmployee; } }
@@ -33,7 +33,7 @@ namespace ChapeauModel
         {
             _menus = menus;
         }
-        public void SetSelectedTable(Table selectedTable)
+        public void SetSelectedTable(Table? selectedTable)
         {
             _selectedTable = selectedTable;
         }
