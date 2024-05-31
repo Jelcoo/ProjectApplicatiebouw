@@ -33,16 +33,17 @@
             lvStock = new ListView();
             ItemName = new ColumnHeader();
             ItemStock = new ColumnHeader();
-            label2 = new Label();
-            button1 = new Button();
-            button2 = new Button();
+            lblStockManagementText = new Label();
+            btnAddStock = new Button();
+            btnAlterStock = new Button();
             imageList1 = new ImageList(components);
             lblMenuItemName = new Label();
             lblMenuItemDetail = new Label();
-            InStockText = new Label();
+            lblInStockText = new Label();
             lblMenuItemStock = new Label();
-            pictureBox1 = new PictureBox();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            pbItemImage = new PictureBox();
+            lblSelectAnItemText = new Label();
+            ((System.ComponentModel.ISupportInitialize)pbItemImage).BeginInit();
             SuspendLayout();
             // 
             // lvStock
@@ -66,32 +67,39 @@
             // 
             ItemStock.Text = "Stock";
             // 
-            // label2
+            // lblStockManagementText
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(566, 343);
-            label2.Name = "label2";
-            label2.Size = new Size(137, 20);
-            label2.TabIndex = 1;
-            label2.Text = "Stock Management";
+            lblStockManagementText.AutoSize = true;
+            lblStockManagementText.Location = new Point(534, 352);
+            lblStockManagementText.MinimumSize = new Size(200, 0);
+            lblStockManagementText.Name = "lblStockManagementText";
+            lblStockManagementText.Size = new Size(200, 20);
+            lblStockManagementText.TabIndex = 1;
+            lblStockManagementText.Text = "Stock Management";
+            lblStockManagementText.TextAlign = ContentAlignment.MiddleCenter;
+            lblStockManagementText.Visible = false;
             // 
-            // button1
+            // btnAddStock
             // 
-            button1.Location = new Point(486, 375);
-            button1.Name = "button1";
-            button1.Size = new Size(144, 48);
-            button1.TabIndex = 2;
-            button1.Text = "Add Stock Delivery";
-            button1.UseVisualStyleBackColor = true;
+            btnAddStock.Location = new Point(486, 375);
+            btnAddStock.Name = "btnAddStock";
+            btnAddStock.Size = new Size(144, 48);
+            btnAddStock.TabIndex = 2;
+            btnAddStock.Text = "Add Stock Delivery";
+            btnAddStock.UseVisualStyleBackColor = true;
+            btnAddStock.Visible = false;
+            btnAddStock.Click += btnAddStock_Click;
             // 
-            // button2
+            // btnAlterStock
             // 
-            button2.Location = new Point(636, 375);
-            button2.Name = "button2";
-            button2.Size = new Size(144, 48);
-            button2.TabIndex = 2;
-            button2.Text = "Alter Stock";
-            button2.UseVisualStyleBackColor = true;
+            btnAlterStock.Location = new Point(636, 375);
+            btnAlterStock.Name = "btnAlterStock";
+            btnAlterStock.Size = new Size(144, 48);
+            btnAlterStock.TabIndex = 2;
+            btnAlterStock.Text = "Alter Stock";
+            btnAlterStock.UseVisualStyleBackColor = true;
+            btnAlterStock.Visible = false;
+            btnAlterStock.Click += btnAlterStock_Click;
             // 
             // imageList1
             // 
@@ -136,66 +144,85 @@
             // 
             // lblMenuItemName
             // 
-            lblMenuItemName.AutoSize = true;
-            lblMenuItemName.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point);
-            lblMenuItemName.Location = new Point(604, 12);
+            lblMenuItemName.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            lblMenuItemName.Location = new Point(534, 12);
+            lblMenuItemName.MaximumSize = new Size(500, 500);
+            lblMenuItemName.MinimumSize = new Size(200, 50);
             lblMenuItemName.Name = "lblMenuItemName";
-            lblMenuItemName.Size = new Size(0, 31);
+            lblMenuItemName.Size = new Size(200, 50);
             lblMenuItemName.TabIndex = 3;
+            lblMenuItemName.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblMenuItemDetail
             // 
-            lblMenuItemDetail.AutoSize = true;
             lblMenuItemDetail.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point);
-            lblMenuItemDetail.Location = new Point(616, 61);
+            lblMenuItemDetail.Location = new Point(534, 62);
+            lblMenuItemDetail.MaximumSize = new Size(500, 500);
+            lblMenuItemDetail.MinimumSize = new Size(200, 50);
             lblMenuItemDetail.Name = "lblMenuItemDetail";
-            lblMenuItemDetail.Size = new Size(0, 20);
+            lblMenuItemDetail.Size = new Size(200, 50);
             lblMenuItemDetail.TabIndex = 4;
+            lblMenuItemDetail.TextAlign = ContentAlignment.TopCenter;
             // 
-            // InStockText
+            // lblInStockText
             // 
-            InStockText.AutoSize = true;
-            InStockText.Location = new Point(604, 122);
-            InStockText.Name = "InStockText";
-            InStockText.Size = new Size(68, 20);
-            InStockText.TabIndex = 5;
-            InStockText.Text = "In Stock: ";
+            lblInStockText.AutoSize = true;
+            lblInStockText.Location = new Point(534, 122);
+            lblInStockText.MinimumSize = new Size(200, 0);
+            lblInStockText.Name = "lblInStockText";
+            lblInStockText.Size = new Size(200, 20);
+            lblInStockText.TabIndex = 5;
+            lblInStockText.Text = "In Stock: ";
+            lblInStockText.TextAlign = ContentAlignment.MiddleCenter;
+            lblInStockText.Visible = false;
             // 
             // lblMenuItemStock
             // 
             lblMenuItemStock.AutoSize = true;
-            lblMenuItemStock.Location = new Point(616, 151);
+            lblMenuItemStock.Location = new Point(534, 142);
+            lblMenuItemStock.MinimumSize = new Size(200, 30);
             lblMenuItemStock.Name = "lblMenuItemStock";
-            lblMenuItemStock.Size = new Size(0, 20);
+            lblMenuItemStock.Size = new Size(200, 30);
             lblMenuItemStock.TabIndex = 6;
+            lblMenuItemStock.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // pictureBox1
+            // pbItemImage
             // 
-            pictureBox1.Image = Properties.Resources.Boerenkazen;
-            pictureBox1.Location = new Point(544, 186);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(174, 142);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 7;
-            pictureBox1.TabStop = false;
+            pbItemImage.Location = new Point(534, 189);
+            pbItemImage.Name = "pbItemImage";
+            pbItemImage.Size = new Size(200, 150);
+            pbItemImage.SizeMode = PictureBoxSizeMode.Zoom;
+            pbItemImage.TabIndex = 7;
+            pbItemImage.TabStop = false;
+            // 
+            // lblSelectAnItemText
+            // 
+            lblSelectAnItemText.Font = new Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point);
+            lblSelectAnItemText.Location = new Point(534, 87);
+            lblSelectAnItemText.Name = "lblSelectAnItemText";
+            lblSelectAnItemText.Size = new Size(200, 35);
+            lblSelectAnItemText.TabIndex = 8;
+            lblSelectAnItemText.Text = "Select an Item";
+            lblSelectAnItemText.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // StockManagement
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(pictureBox1);
+            Controls.Add(lblSelectAnItemText);
+            Controls.Add(pbItemImage);
             Controls.Add(lblMenuItemStock);
-            Controls.Add(InStockText);
+            Controls.Add(lblInStockText);
             Controls.Add(lblMenuItemDetail);
             Controls.Add(lblMenuItemName);
-            Controls.Add(button2);
-            Controls.Add(button1);
-            Controls.Add(label2);
+            Controls.Add(btnAlterStock);
+            Controls.Add(btnAddStock);
+            Controls.Add(lblStockManagementText);
             Controls.Add(lvStock);
             Name = "StockManagement";
             Text = "StockManagement";
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbItemImage).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -205,14 +232,15 @@
         private ListView lvStock;
         private ColumnHeader ItemName;
         private ColumnHeader ItemStock;
-        private Label label2;
-        private Button button1;
-        private Button button2;
+        private Label lblStockManagementText;
+        private Button btnAddStock;
+        private Button btnAlterStock;
         private ImageList imageList1;
         private Label lblMenuItemName;
         private Label lblMenuItemDetail;
-        private Label InStockText;
+        private Label lblInStockText;
         private Label lblMenuItemStock;
-        private PictureBox pictureBox1;
+        private PictureBox pbItemImage;
+        private Label lblSelectAnItemText;
     }
 }

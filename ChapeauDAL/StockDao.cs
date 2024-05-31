@@ -15,155 +15,117 @@ namespace ChapeauDAL
 {
     public class StockDao : BaseDao
     {
-        public List<StockDisplayItem> GetStock()
+        public List<MenuItem> GetStock()
         {
             string query = @"
-SELECT MI.menuItemId, MI.itemName, S.stockId, S.stock
+SELECT MI.menuItemId, MI.itemName, MI.itemDetailName, MI.menuId, MI.menuTypeId, MI.VATRate, MI.price, S.stockId, S.[count]
 FROM menuItems as MI
 JOIN stock AS S ON S.stockId = MI.stockId;";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
             SqlDataReader reader = command.ExecuteReader();
 
-            List<StockDisplayItem> stockItems = new List<StockDisplayItem>();
+            List<MenuItem> stockItems = new List<MenuItem>();
 
             while (reader.Read())
             {
-                StockDisplayItem stockItem = MenuReader.ReadStockDisplayItem(reader);
-                stockItems.Add(stockItem);
+                stockItems = MenuReader.ReadMenuItems(reader);
             }
             if (stockItems.Count == 0)
             {
                 throw new Exception($"No stock found");
             }
 
-            return stockItems;
-        }
-
-        // Add MenuItem
-
-        public int AddItemStock(int stockAmount)
-        {
-            string query = @"
-insert into stock (stock)
-values (@stock);
-SELECT SCOPE_IDENTITY();";
-
-            SqlCommand command = new SqlCommand(query, OpenConnection());
-            command.Parameters.AddWithValue("@stock", stockAmount);
-            int stockId = Convert.ToInt32(command.ExecuteScalar());
-
+            reader.Close();
             CloseConnection();
 
-            return stockId;
+            return stockItems;
         }
-
-        public void AddMenuItem(MenuItem menuItem)
+        
+        public string GetDetailNameById(int id)
         {
             string query = @"
-INSERT INTO menuItems(stockId, menuId, menuTypeId, itemName, itemDetailName, VATRate, price)
-VALUES(@stockId, @menuId, @menuTypeId, @itemName, @itemDetailName, @VATRate, @price);";
+SELECT itemDetailName
+FROM menuItems
+WHERE menuItemId = @menuItemId;";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
-            command.Parameters.AddWithValue("@stockId", menuItem.StockId);
-            command.Parameters.AddWithValue("@menuId", menuItem.MenuId);
-            command.Parameters.AddWithValue("@menuTypeId", menuItem.MenuTypeId);
-            command.Parameters.AddWithValue("@itemName", menuItem.Name);
-            command.Parameters.AddWithValue("@itemDetailName", menuItem.DetailName);
-            command.Parameters.AddWithValue("@VATRate", menuItem.VATRate);
-            command.Parameters.AddWithValue("@price", menuItem.Price);
+            command.Parameters.AddWithValue("@menuItemId", id);
+
+            SqlDataReader reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                string detailName = reader.GetString(reader.GetOrdinal("itemDetailName"));
+
+                reader.Close();
+                CloseConnection();
+
+                return detailName;
+            }
+            else
+            {
+                throw new Exception($"DetailName with id:{id} not found");
+            }
+        }
+
+        public Dictionary<MenuItem, Stock> GetMenuItemAndStockById(int id)
+        {
+            string query = @"
+SELECT MI.menuItemId, MI.itemName, MI.itemDetailName, MI.MenuTypeId, MI.MenuId, MI.price, MI.VATRate, S.stockId, S.count
+FROM menuItems as MI
+JOIN stock AS S ON S.stockId = MI.stockId
+WHERE menuItemId = @menuItemId;";
+
+            SqlCommand command = new SqlCommand(query, OpenConnection());
+            command.Parameters.AddWithValue("@menuItemId", id);
+            command.ExecuteNonQuery();
+
+            Dictionary<MenuItem, Stock> details = new Dictionary<MenuItem, Stock>(); 
+
+            SqlDataReader reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                details.Add(MenuReader.ReadMenuItem(reader), MenuReader.ReadStock(reader));
+
+                reader.Close();
+                CloseConnection();
+
+                return details;
+            }
+            else
+            {
+                throw new Exception($"DetailName with id:{id} not found");
+            }
+        }
+
+        public void AddDelivery(int stockId, int amount)
+        {
+            string query = @"
+UPDATE stock
+SET count = count + @amount
+WHERE stockId = @stockId;";
+
+            SqlCommand command = new SqlCommand(query, OpenConnection());
+            command.Parameters.AddWithValue("@amount", amount);
+            command.Parameters.AddWithValue("@stockId", stockId);
             command.ExecuteNonQuery();
 
             CloseConnection();
         }
 
-        public List<MenuType> GetMenuTypes()
+        public void AlterStock(Stock stock)
         {
             string query = @"
-SELECT menuTypeId, typeName
-FROM menuTypes";
+UPDATE stock
+SET count = @count
+WHERE stockId = @stockId;";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
+            command.Parameters.AddWithValue("@count", stock.Count);
+            command.Parameters.AddWithValue("@stockId", stock.StockId);
+            command.ExecuteNonQuery();
 
-            SqlDataReader reader = command.ExecuteReader();
-
-            List<MenuType > menuTypes = new List<MenuType>();
-
-            while (reader.Read())
-            {
-                MenuType menuType = MenuReader.ReadMenuType(reader);
-
-                menuTypes.Add(menuType);
-            }
-
-            if (menuTypes.Count == 0)
-            {
-                throw new Exception("No menuTypes found");
-            }
-
-            reader.Close();
-            command.Connection.Close();
-
-            return menuTypes;
-        }
-        public List<Menu> GetMenus()
-        {
-            string query = @"
-SELECT menuId, menuName, serveStart, serveEnd
-FROM menus";
-
-            SqlCommand command = new SqlCommand(query, OpenConnection());
-
-            SqlDataReader reader = command.ExecuteReader();
-
-            List<Menu> menus = new List<Menu>();
-
-            while (reader.Read())
-            {
-                Menu menu = MenuReader.ReadMenu(reader);
-
-                menus.Add(menu);
-            }
-
-            if (menus.Count == 0)
-            {
-                throw new Exception("No menus found");
-            }
-
-            reader.Close();
-            command.Connection.Close();
-
-            return menus;
-        }
-        public List<Double> GetVATRates()
-        {
-            string query = @"
-SELECT VATRate
-FROM menuItems
-GROUP BY VATRate;";
-
-            SqlCommand command = new SqlCommand(query, OpenConnection());
-
-            SqlDataReader reader = command.ExecuteReader();
-
-            List<double> VATRates = new List<double>();
-
-            while (reader.Read())
-            {
-                double VATRate = reader.GetDouble(0);
-
-                VATRates.Add(VATRate);
-            }
-
-            if (VATRates.Count == 0)
-            {
-                throw new Exception("No VAT-rates found");
-            }
-
-            reader.Close();
-            command.Connection.Close();
-
-            return VATRates;
+            CloseConnection();
         }
     }
 }
