@@ -9,6 +9,32 @@ namespace ChapeauDAL
 {
     public class OrderDao : BaseDao
     {
+        public Order GetOrderById(int orderId)
+        {
+            string query = @"
+SELECT O.orderId, O.invoiceId, O.orderedAt, OL.orderLineId, OL.quantity, OS.orderStatusId, OS.[status], MI.menuItemId, MI.stockId, ST.[count], MI.menuId, MI.itemDetailName, MI.itemName, MI.VATRate, MI.price, MT.menuTypeId, MT.typeName, [ON].orderNoteId, [ON].note
+FROM orders AS O
+JOIN orderLines AS OL ON OL.orderId = O.orderId
+JOIN orderStatuses AS OS ON OL.orderStatusId = OS.orderStatusId
+JOIN menuItems AS MI ON OL.menuItemId = MI.menuItemId
+JOIN stock AS ST ON MI.stockId = ST.stockId
+JOIN invoices AS I ON I.invoiceId = O.invoiceId
+LEFT JOIN menuTypes AS MT ON MT.menuTypeId = MI.menuTypeId
+LEFT JOIN orderNotes AS [ON] ON [ON].orderLineId = OL.orderLineId
+WHERE O.orderId = @orderId;";
+            
+            SqlCommand command = new SqlCommand(query, OpenConnection());
+            command.Parameters.AddWithValue("@orderId", orderId);
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            List<Order> orders = OrderParserAndCombiner(reader);
+
+            reader.Close();
+            CloseConnection();
+
+            return orders.First();
+        }
         public Order CreateOrder(Order order)
         {
             string query = @"

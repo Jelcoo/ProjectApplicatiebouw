@@ -1,6 +1,5 @@
 ﻿using ChapeauModel;
 using ChapeauService;
-using ChapeauUI.Helpers;
 
 namespace ChapeauUI.OrderUI
 {
@@ -8,7 +7,6 @@ namespace ChapeauUI.OrderUI
     {
         private OrderService _orderService;
         private Order _order;
-        private Order _oldOrder;
 
         public OrderModifyScreen(Order order)
         {
@@ -16,7 +14,6 @@ namespace ChapeauUI.OrderUI
 
             _orderService = new OrderService();
             _order = order;
-            _oldOrder = ObjectHelpers.DeepCopy(_order);
         }
 
         private void OrderModifyScreen_Load(object sender, EventArgs e)
@@ -85,7 +82,8 @@ namespace ChapeauUI.OrderUI
         {
             if (_order.OrderId != 0)
             {
-                _orderService.UpdateOrder(_oldOrder, _order);
+                Order oldOrder = _orderService.GetOrderById(_order.OrderId);
+                _orderService.UpdateOrder(oldOrder, _order);
             }
 
             this.Close();

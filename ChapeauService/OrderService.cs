@@ -14,6 +14,10 @@ namespace ChapeauService
             _restaurant = Restaurant.GetInstance();
         }
 
+        public Order GetOrderById(int orderId)
+        {
+            return _orderDao.GetOrderById(orderId);
+        }
         public Order MakeNewOrder(Order order, Table table, Employee employee)
         {
             if (order.Invoice == null)
