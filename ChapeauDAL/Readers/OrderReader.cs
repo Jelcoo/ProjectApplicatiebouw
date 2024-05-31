@@ -16,10 +16,7 @@ namespace ChapeauDAL.Readers
 
             return order;
         }
-<<<<<<< dev-kitchen-ui
-      
-=======
->>>>>>> dev
+
         public static Order ReadOrderWithoutInvoice(SqlDataReader reader)
         {
             Order order = new Order(
