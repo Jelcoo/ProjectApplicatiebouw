@@ -41,5 +41,19 @@ namespace ChapeauModel
         {
             _loggedInEmployee = employee;
         }
+
+        public void ModifyStock(OrderLine orderLine)
+        {
+            foreach (Menu menu in _menus)
+            {
+                foreach (MenuItem menuItem in menu.MenuItems)
+                {
+                    if (menuItem.MenuItemId == orderLine.MenuItem.MenuItemId)
+                    {
+                        menuItem.Stock.Decrease(orderLine.Quantity);
+                    }
+                }
+            }
+        }
     }
 }

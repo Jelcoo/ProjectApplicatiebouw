@@ -6,10 +6,12 @@ namespace ChapeauService
     public class OrderService
     {
         private OrderDao _orderDao;
+        private Restaurant _restaurant;
 
         public OrderService()
         {
             _orderDao = new OrderDao();
+            _restaurant = Restaurant.GetInstance();
         }
 
         public Order MakeNewOrder(Order order, Table table, Employee employee)
@@ -34,8 +36,10 @@ namespace ChapeauService
                 OrderLine line = _orderDao.CreateOrderLine(order.OrderId, orderLine);
 
                 if (line.OrderNote != null) line.OrderNote = _orderDao.CreateOrderNote(line).OrderNote;
-                
+
                 _orderDao.DecreaseStock(line);
+                _restaurant.ModifyStock(line);
+
                 orderLines.Add(line);
             }
 

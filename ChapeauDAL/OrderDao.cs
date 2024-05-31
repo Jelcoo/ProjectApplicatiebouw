@@ -121,7 +121,7 @@ WHERE stockId = (
     SELECT stockId
     FROM menuItems
     WHERE menuItemId = @menuItemId
-);"; 
+);";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
             command.Parameters.AddWithValue("@quantity", orderLine.Quantity);
