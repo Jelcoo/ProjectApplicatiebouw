@@ -59,8 +59,10 @@ namespace ChapeauUI.OrderUI
 
             MessageBox.Show("Your order has been processed!");
 
-            _order = new Order();
-            Update();
+            _restaurant.SetSelectedTable(null);
+
+            new TableUI.TableHome().Show();
+            this.ParentForm.Hide();
         }
     }
 }
