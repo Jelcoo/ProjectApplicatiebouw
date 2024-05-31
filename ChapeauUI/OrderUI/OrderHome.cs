@@ -157,7 +157,8 @@ namespace ChapeauUI.OrderUI
             viewScreen.ShowDialog();
 
             Order selectedOrder = viewScreen.SelectedOrder;
-            
+            if (selectedOrder == null) return;
+
             OrderModifyScreen modifyScreen = new OrderModifyScreen(selectedOrder);
             modifyScreen.ShowDialog();
         }

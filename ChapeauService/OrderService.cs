@@ -36,7 +36,7 @@ namespace ChapeauService
         {
             foreach (OrderLine orderLine in newOrder.OrderLines)
             {
-                OrderLine? oldOrderLine = oldOrder.OrderLines.Find(o => o.OrderLineId == orderLine.OrderLineId);
+                OrderLine oldOrderLine = oldOrder.OrderLines.Find(o => o.OrderLineId == orderLine.OrderLineId);
 
                 if (oldOrderLine.OrderNote != null && orderLine.OrderNote != null && oldOrderLine.OrderNote.Note != orderLine.OrderNote.Note)
                 {
@@ -61,6 +61,8 @@ namespace ChapeauService
                 }
 
                 if (orderLine.Quantity == 0) RemoveOrderLine(orderLine);
+
+                UpdateOrderLine(orderLine);
             }
         }
 
@@ -92,6 +94,11 @@ namespace ChapeauService
         {
             List<Order> orders = _orderDao.GetOrdersByTable(table);
             return orders;
+        }
+
+        public void UpdateOrderLine(OrderLine orderLine)
+        {
+            _orderDao.UpdateOrderLine(orderLine);
         }
 
         public void RemoveOrderLine(OrderLine orderLine)

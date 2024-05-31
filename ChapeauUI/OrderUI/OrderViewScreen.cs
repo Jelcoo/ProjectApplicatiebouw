@@ -25,11 +25,13 @@ namespace ChapeauUI.OrderUI
             orderOverview.Columns.Add("Total items", 100);
             orderOverview.Columns.Add("Total price", 100);
 
-            foreach (Order order in _orderService.GetOrdersByTable(_table))
+            List<Order> orders = _orderService.GetOrdersByTable(_table);
+
+            foreach (Order order in orders)
             {
                 ListViewItem listViewItem = new ListViewItem(order.OrderId.ToString());
                 listViewItem.SubItems.Add(order.OrderedAt.ToString());
-                listViewItem.SubItems.Add(order.OrderLines.Count.ToString());
+                listViewItem.SubItems.Add(order.GetTotalQuantity().ToString());
                 listViewItem.SubItems.Add($"€{order.GetTotalPrice():0.00}");
                 listViewItem.Tag = order;
                 orderOverview.Items.Add(listViewItem);

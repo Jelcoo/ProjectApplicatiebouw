@@ -56,6 +56,16 @@ namespace ChapeauModel
             return this;
         }
 
+        public int GetTotalQuantity()
+        {
+            int totalQuantity = 0;
+            foreach (OrderLine orderLine in OrderLines)
+            {
+                totalQuantity += orderLine.Quantity;
+            }
+
+            return totalQuantity;
+        }
         public double GetTotalPrice()
         {
             double totalPrice = 0;

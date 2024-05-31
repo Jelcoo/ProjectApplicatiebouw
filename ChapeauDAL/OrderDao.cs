@@ -75,6 +75,22 @@ SELECT SCOPE_IDENTITY();";
             return orderLine;
         }
 
+        public void UpdateOrderLine(OrderLine orderLine)
+        {
+            string query = @"
+UPDATE orderLines
+SET quantity = @quantity
+WHERE orderLineId = @orderLineId;";
+
+            SqlCommand command = new SqlCommand(query, OpenConnection());
+            command.Parameters.AddWithValue("@quantity", orderLine.Quantity);
+            command.Parameters.AddWithValue("@orderLineId", orderLine.OrderLineId);
+
+            command.ExecuteNonQuery();
+
+            CloseConnection();
+        }
+
         public void DeleteOrderLine(OrderLine orderLine)
         {
             string query = @"
