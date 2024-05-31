@@ -43,14 +43,7 @@ namespace ChapeauUI.Components
 
             for (int i = 0; i < lines.Count; i++)
             {
-                if (lines[i].OrderNote != null)
-                {
-                    checkedListBox1.Items.Add(lines[i]);
-                }
-                else
-                {
-                    checkedListBox1.Items.Add(lines[i]);
-                }
+                checkedListBox1.Items.Add(lines[i]);
             }
         }
         private List<OrderLine> MenuItemSeperator(EMenuType? menuType, List<OrderLine> orderLines)
@@ -152,7 +145,8 @@ namespace ChapeauUI.Components
             checkedListBox1.Height = newHeight;
         }
 
-        public List<OrderLine> GetUpdatedOrderLines() {
+        public List<OrderLine> GetUpdatedOrderLines()
+        {
             List<OrderLine> checkedOrderLines = new List<OrderLine>();
 
             foreach (object item in checkedListBox1.CheckedItems)
