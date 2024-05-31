@@ -1,12 +1,13 @@
 ﻿using ChapeauModel;
 using ChapeauModel.Enums;
+using ChapeauModel.Interfaces;
 using ChapeauService;
 using ChapeauUI.Components;
 using ChapeauUI.Helpers;
 
 namespace ChapeauUI.KitchenUI
 {
-    public partial class KitchenHome : Form
+    public partial class KitchenHome : Form, IKitchenBar
     {
         private KitchenBarService _kitchenService = new KitchenBarService();
         public KitchenHome()

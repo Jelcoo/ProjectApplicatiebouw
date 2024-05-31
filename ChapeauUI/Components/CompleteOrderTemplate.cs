@@ -1,5 +1,6 @@
 ﻿using ChapeauModel;
 using ChapeauModel.Enums;
+using ChapeauModel.Interfaces;
 using ChapeauService;
 using ChapeauUI.KitchenUI;
 
@@ -11,10 +12,10 @@ namespace ChapeauUI.Components
         private KitchenBarService _kitchenBarService;
         private MenuChecklist _checklist;
         private EOrderTime _orderTime;
-        private KitchenHome _form;
+        private IKitchenBar _form;
         public int ChecklistCount { get; private set; }
 
-        public CompleteOrderTemplate(Order order, EOrderTime orderTime, KitchenHome form)
+        public CompleteOrderTemplate(Order order, EOrderTime orderTime, IKitchenBar form)
         {
             InitializeComponent();
             _order = order;
