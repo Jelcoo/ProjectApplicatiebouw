@@ -63,6 +63,70 @@ WHERE orderLineId = @orderLineId;";
             CloseConnection();
         }
 
+        public List<Order> GetOrdersByTable(Table table)
+        {
+            string query = @"
+SELECT O.orderId, O.invoiceId, O.orderedAt, OL.orderLineId, OL.quantity, OS.orderStatusId, OS.[status], MI.menuItemId, MI.stockId, ST.[count], MI.menuId, MI.itemDetailName, MI.itemName, MI.VATRate, MI.price, MT.menuTypeId, MT.typeName, [ON].orderNoteId, [ON].note, I.tableId
+FROM orders AS O
+JOIN orderLines AS OL ON OL.orderId = O.orderId
+JOIN orderStatuses AS OS ON OL.orderStatusId = OS.orderStatusId
+JOIN menuItems AS MI ON OL.menuItemId = MI.menuItemId
+JOIN stock AS ST ON MI.stockId = ST.stockId
+JOIN invoices AS I ON I.invoiceId = O.invoiceId
+LEFT JOIN menuTypes AS MT ON MT.menuTypeId = MI.menuTypeId
+LEFT JOIN orderNotes AS [ON] ON [ON].orderLineId = OL.orderLineId
+WHERE I.tableId = @tableId;";
+
+            SqlCommand command = new SqlCommand(query, OpenConnection());
+            command.Parameters.AddWithValue("@tableId", table.TableId);
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            List<Order> orders = OrderParserAndCombiner(reader);
+
+            reader.Close();
+            CloseConnection();
+
+            return orders;
+        }
+
+        private OrderLine CombineData(SqlDataReader reader)
+        {
+            OrderLine orderLine = OrderReader.ReadOrderLine(reader);
+            orderLine.SetMenuItem(MenuReader.ReadMenuItem(reader));
+            if (orderLine.MenuItem.MenuType != null)
+            {
+                orderLine.MenuItem.SetMenuType((EMenuType)(int)reader["menuTypeId"]);
+            }
+            if (orderLine.OrderNote != null)
+            {
+                orderLine.SetOrderNote(OrderReader.ReadOrderNote(reader));
+            }
+            return orderLine;
+        }
+
+        private List<Order> OrderParserAndCombiner(SqlDataReader reader)
+        {
+            List<Order> orders = new List<Order>();
+
+            while (reader.Read())
+            {
+                Order order = OrderReader.ReadOrderWithoutInvoice(reader);
+                if (!orders.Select(order => order.OrderId).Contains(order.OrderId))
+                {
+                    orders.Add(order);
+                }
+                OrderLine orderLine = CombineData(reader);
+                for (int i = 0; i < orders.Count; i++)
+                {
+                    if ((int)reader["orderId"] != orders[i].OrderId) continue;
+                    orders[i].AddOrderLine(orderLine);
+                }
+            }
+
+            return orders;
+        }
+
         public OrderLine CreateOrderNote(OrderLine orderLine)
         {
             string query = @"
@@ -112,7 +176,7 @@ WHERE orderNoteId = @orderNoteId;";
             CloseConnection();
         }
 
-        public void DecreaseStock(OrderLine orderLine)
+        public void DecreaseStock(OrderLine orderLine, int? quantity = null)
         {
             string query = @"
 UPDATE stock
@@ -124,7 +188,7 @@ WHERE stockId = (
 );";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
-            command.Parameters.AddWithValue("@quantity", orderLine.Quantity);
+            command.Parameters.AddWithValue("@quantity", quantity ?? orderLine.Quantity);
             command.Parameters.AddWithValue("@menuItemId", orderLine.MenuItem.MenuItemId);
 
             command.ExecuteNonQuery();
@@ -132,15 +196,19 @@ WHERE stockId = (
             CloseConnection();
         }
 
-        public void IncreaseStock(OrderLine orderLine)
+        public void IncreaseStock(OrderLine orderLine, int? quantity = null)
         {
             string query = @"
-UPDATE menuItems
-SET stock = stock + @quantity
-WHERE menuItemId = @menuItemId;";
+UPDATE stock
+SET count = count + @quantity
+WHERE stockId = (
+    SELECT stockId
+    FROM menuItems
+    WHERE menuItemId = @menuItemId
+);";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
-            command.Parameters.AddWithValue("@quantity", orderLine.Quantity);
+            command.Parameters.AddWithValue("@quantity", quantity ?? orderLine.Quantity);
             command.Parameters.AddWithValue("@menuItemId", orderLine.MenuItem.MenuItemId);
 
             command.ExecuteNonQuery();

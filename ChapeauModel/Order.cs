@@ -55,5 +55,16 @@ namespace ChapeauModel
             OrderLines.Add(orderLine);
             return this;
         }
+
+        public double GetTotalPrice()
+        {
+            double totalPrice = 0;
+            foreach (OrderLine orderLine in OrderLines)
+            {
+                totalPrice += orderLine.MenuItem.Price * orderLine.Quantity;
+            }
+
+            return totalPrice;
+        }
     }
 }

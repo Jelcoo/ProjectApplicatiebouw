@@ -17,5 +17,11 @@ namespace ChapeauModel
         {
             _tableId = tableId;
         }
+
+        public Table SetId(int tableId)
+        {
+            _tableId = tableId;
+            return this;
+        }
     }
 }

@@ -1,5 +1,6 @@
 using ChapeauModel;
 using ChapeauService;
+using ChapeauUI.Helpers;
 
 namespace ChapeauUI
 {

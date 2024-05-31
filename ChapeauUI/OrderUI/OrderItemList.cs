@@ -50,7 +50,8 @@ namespace ChapeauUI.OrderUI
 
         private void orderButton_Click(object sender, EventArgs e)
         {
-            if (_order.OrderLines.Count == 0) {
+            if (_order.OrderLines.Count == 0)
+            {
                 MessageBox.Show("Your order is empty. Please add some items to your order.");
                 return;
             }
@@ -63,6 +64,14 @@ namespace ChapeauUI.OrderUI
 
             new TableUI.TableHome().Show();
             this.ParentForm.Hide();
+        }
+
+        private void modifyButton_Click(object sender, EventArgs e)
+        {
+            OrderModifyScreen modifyScreen = new OrderModifyScreen(_order);
+            modifyScreen.ShowDialog();
+
+            Update();
         }
     }
 }

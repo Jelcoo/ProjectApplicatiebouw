@@ -1,6 +1,4 @@
-﻿using ChapeauModel;
-
-namespace ChapeauUI.OrderUI.Observers
+﻿namespace ChapeauUI.OrderUI.Observers
 {
     public interface IOrderObserver
     {

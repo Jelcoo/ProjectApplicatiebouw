@@ -54,7 +54,7 @@ namespace ChapeauUI.OrderUI
 
         private void specifyButton_Click(object sender, EventArgs e)
         {
-            OrderLineNote note = new OrderLineNote(_menuItem, _order);
+            OrderLineNote note = new OrderLineNote(_menuItem);
             note.ShowDialog();
 
             if (!string.IsNullOrEmpty(note.Note))

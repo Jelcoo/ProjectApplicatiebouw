@@ -32,6 +32,8 @@ namespace ChapeauUI.OrderUI
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OrderHome));
             backgroundPanel = new BackgroundPanel();
+            openOrdersButton = new Button();
+            backButton = new Button();
             orderOverview = new Panel();
             menuListPanel = new Panel();
             menuList = new TableLayoutPanel();
@@ -42,10 +44,8 @@ namespace ChapeauUI.OrderUI
             loggedInAsPreLabel = new Label();
             loggedInAsLabel = new Label();
             dateTimeLabel = new Label();
-            backButton = new Button();
             orderItemList = new OrderItemList();
             backgroundPanel.SuspendLayout();
-            orderOverview.SuspendLayout();
             menuListPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)chapeauLogo).BeginInit();
             SuspendLayout();
@@ -53,6 +53,7 @@ namespace ChapeauUI.OrderUI
             // backgroundPanel
             // 
             backgroundPanel.BackColor = Color.FromArgb(204, 227, 222);
+            backgroundPanel.Controls.Add(openOrdersButton);
             backgroundPanel.Controls.Add(backButton);
             backgroundPanel.Controls.Add(orderOverview);
             backgroundPanel.Controls.Add(menuListPanel);
@@ -63,6 +64,26 @@ namespace ChapeauUI.OrderUI
             backgroundPanel.Name = "backgroundPanel";
             backgroundPanel.Size = new Size(1230, 954);
             backgroundPanel.TabIndex = 0;
+            // 
+            // openOrdersButton
+            // 
+            openOrdersButton.Location = new Point(972, 23);
+            openOrdersButton.Name = "openOrdersButton";
+            openOrdersButton.Size = new Size(124, 34);
+            openOrdersButton.TabIndex = 4;
+            openOrdersButton.Text = "Open orders";
+            openOrdersButton.UseVisualStyleBackColor = true;
+            openOrdersButton.Click += openOrdersButton_Click;
+            // 
+            // backButton
+            // 
+            backButton.Location = new Point(1102, 23);
+            backButton.Name = "backButton";
+            backButton.Size = new Size(112, 34);
+            backButton.TabIndex = 3;
+            backButton.Text = "< Back";
+            backButton.UseVisualStyleBackColor = true;
+            backButton.Click += backButton_Click;
             // 
             // orderOverview
             // 
@@ -197,16 +218,6 @@ namespace ChapeauUI.OrderUI
             orderItemList.Size = new Size(524, 1245);
             orderItemList.TabIndex = 0;
             // 
-            // backButton
-            // 
-            backButton.Location = new Point(1102, 23);
-            backButton.Name = "backButton";
-            backButton.Size = new Size(112, 34);
-            backButton.TabIndex = 3;
-            backButton.Text = "< Back";
-            backButton.UseVisualStyleBackColor = true;
-            backButton.Click += backButton_Click;
-            // 
             // OrderHome
             // 
             BackColor = Color.FromArgb(164, 195, 178);
@@ -245,5 +256,6 @@ namespace ChapeauUI.OrderUI
         private Panel menuListPanel;
         private Button backButton;
         private OrderItemList orderItemList;
+        private Button openOrdersButton;
     }
 }

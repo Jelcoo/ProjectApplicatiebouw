@@ -23,5 +23,10 @@ namespace ChapeauModel
             _orderNoteId = orderNoteId;
             return this;
         }
+        public OrderNote SetNote(string note)
+        {
+            _note = note;
+            return this;
+        }
     }
 }

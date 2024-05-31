@@ -36,7 +36,7 @@ namespace ChapeauUI.OrderUI
             _currentOrder.SetInvoice(openInvoice);
 
             orderItemList.SetOrder(_currentOrder);
-            
+
             UpdateMenuStyles();
         }
 
@@ -149,6 +149,17 @@ namespace ChapeauUI.OrderUI
 
             new TableUI.TableHome().Show();
             this.Hide();
+        }
+
+        private void openOrdersButton_Click(object sender, EventArgs e)
+        {
+            OrderViewScreen viewScreen = new OrderViewScreen(_restaurant.SelectedTable!);
+            viewScreen.ShowDialog();
+
+            Order selectedOrder = viewScreen.SelectedOrder;
+            
+            OrderModifyScreen modifyScreen = new OrderModifyScreen(selectedOrder);
+            modifyScreen.ShowDialog();
         }
     }
 }
