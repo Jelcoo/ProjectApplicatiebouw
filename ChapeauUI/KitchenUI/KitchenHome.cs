@@ -1,15 +1,14 @@
-﻿//using ChapeauUI.Components;
-using ChapeauModel;
+﻿using ChapeauModel;
 using ChapeauModel.Enums;
 using ChapeauService;
 using ChapeauUI.Components;
 using ChapeauUI.Helpers;
-using System.Windows.Forms;
 
 namespace ChapeauUI.KitchenUI
 {
     public partial class KitchenHome : Form
     {
+        private KitchenBarService _kitchenService = new KitchenBarService();
         public KitchenHome()
         {
             InitializeComponent();
@@ -17,19 +16,17 @@ namespace ChapeauUI.KitchenUI
         public void KitchenHome_Load(object sender, EventArgs e)
         {
             dateTimeLabel.Text = GenericHelpers.FormatDateTime(DateTime.Now);
-            kitchenOrderLayoutPanel.HorizontalScroll.Enabled = false;
-            kitchenOrderLayoutPanel.HorizontalScroll.Visible = false;
+            Addpanel(EOrderTime.Current);
         }
-        private void Addpanel()
+        private void Addpanel(EOrderTime orderTime)
         {
+            kitchenOrderLayoutPanel.Controls.Clear();
             int count = kitchenOrderLayoutPanel.Controls.Count; // Get the total amount of panels
             int columns = kitchenOrderLayoutPanel.ColumnCount;
             int rows = kitchenOrderLayoutPanel.RowCount;
-            int minimumRowHeight = 50; // Minimum height if no content in row
 
             // Calculate the next cell to add a new panel
             int nextRow = count / columns;
-            int nextColumn = 0;
 
             // Add a new row if there is no space anymore
             if (nextRow >= rows)
@@ -37,19 +34,14 @@ namespace ChapeauUI.KitchenUI
                 kitchenOrderLayoutPanel.RowCount++;
                 kitchenOrderLayoutPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
             }
-            KitchenBarService barService = new KitchenBarService();
-            List<Order> orders = barService.GetPreviousCompletedOrders(EOrderDestination.Kitchen);
-            for (int i = 0; i < orders.Count; i++)
-            {
-                if (nextColumn > columns) { nextColumn = 0; }
-                CompleteOrderTemplate completeOrderTemplate = new CompleteOrderTemplate(orders[i]);
 
-                // Adding the new panel to the layout
-                kitchenOrderLayoutPanel.Controls.Add(completeOrderTemplate, nextColumn, nextRow);
-                nextColumn++;
-            }
+            AddOrderToPanel(columns, nextRow, orderTime);
+            HeightChecker();
+        }
 
-
+        private void HeightChecker()
+        {
+            int minimumRowHeight = 50; // Minimum height if no content in row
 
             // Tries to keep every row to the minimum hieght that is set otherwise be dynamic 
             for (int i = 0; i < kitchenOrderLayoutPanel.RowCount; i++)
@@ -65,10 +57,37 @@ namespace ChapeauUI.KitchenUI
                 }
             }
         }
-
-        private void button1_Click(object sender, EventArgs e)
+        private void AddOrderToPanel(int columns, int nextRow, EOrderTime orderTime)
         {
-            Addpanel();
+            int nextColumn = 0;
+            List<Order> orders;
+            if (orderTime == EOrderTime.Current)
+            {
+                orders = _kitchenService.GetOrdersInOrder(EOrderDestination.Kitchen);
+            }
+            else
+            {
+                orders = _kitchenService.GetPreviousCompletedOrders(EOrderDestination.Kitchen);
+            }
+
+            for (int i = 0; i < orders.Count; i++)
+            {
+                if (nextColumn > columns) { nextColumn = 0; }
+                CompleteOrderTemplate completeOrderTemplate = new CompleteOrderTemplate(orders[i], orderTime);
+
+                // Adding the new panel to the layout
+                kitchenOrderLayoutPanel.Controls.Add(completeOrderTemplate, nextColumn, nextRow);
+                nextColumn++;
+            }
+        }
+
+        private void CompletedOrderButton_Click(object sender, EventArgs e)
+        {
+            Addpanel(EOrderTime.InThePast);
+        }
+        private void currentOrderButton_Click(object sender, EventArgs e)
+        {
+            Addpanel(EOrderTime.Current);
         }
     }
 }
