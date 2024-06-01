@@ -95,26 +95,46 @@ namespace ChapeauUI
         {
             paymentDetailsList.Clear();
             double totalVatPrice = GetTotalVatPriceFromListView();
-            double tipAmount = 0;
-
-            if (double.TryParse(tbPriceWithTip.Text, out double totalTip) && totalTip > totalVatPrice)
-            {
-                tipAmount = totalTip - totalVatPrice;
-                totalVatPrice = totalTip;
-            }
+            double tipAmount = CalculateTipAmount(totalVatPrice, out double totalWithTip);
 
             AddPaymentDetails(1, lblPersonOne, tbPersonOnePercentage, cbPersonOne, totalVatPrice);
             AddPaymentDetails(2, lblPersonTwo, tbPersonTwoPercentage, cbPersonTwo, totalVatPrice);
             AddPaymentDetails(3, lblPersonThree, tbPersonThreePercentage, cbPersonThree, totalVatPrice);
             AddPaymentDetails(4, lblPersonFour, tbPersonFourPercentage, cbPersonFour, totalVatPrice);
 
-            foreach ((string personId, int percentage, double totalPrice, EPaymentMethod paymentMethod) in paymentDetailsList)
-            {
-                new PaymentPromptPanel(personId, percentage, totalPrice, paymentMethod).ShowDialog();
-                _paymentService.MakeNewPayment(invoice, totalPrice, paymentMethod, (int)(tipAmount * (percentage / 100)));
-            }
+            ProcessPayments(tipAmount);
 
             this.Close();
+        }
+
+        private double GetTotalVatPriceFromListView()
+        {
+            foreach (ListViewItem item in lvAllOrderItems.Items)
+            {
+                if (item.SubItems[1].Text == "Total:")
+                {
+                    string totalPriceText = item.SubItems[3].Text;
+                    if (double.TryParse(totalPriceText.TrimStart('€'), out double totalVatPrice))
+                    {
+                        return totalVatPrice;
+                    }
+                }
+            }
+            return 0;
+        }
+
+        private double CalculateTipAmount(double totalVatPrice, out double totalWithTip)
+        {
+            double tipAmount = 0;
+            totalWithTip = totalVatPrice;
+
+            if (double.TryParse(tbPriceWithTip.Text, out double totalTip) && totalTip > totalVatPrice)
+            {
+                tipAmount = totalTip - totalVatPrice;
+                totalWithTip = totalTip;
+            }
+
+            return tipAmount;
         }
 
         private void AddPaymentDetails(int personNumber, Label lblPerson, TextBox tbPercentage, ComboBox cbPaymentMethod, double totalVatPrice)
@@ -126,21 +146,14 @@ namespace ChapeauUI
             }
         }
 
-        private double GetTotalVatPriceFromListView()
+        private void ProcessPayments(double tipAmount)
         {
-            foreach (ListViewItem item in lvAllOrderItems.Items)
+            foreach ((string personId, int percentage, double totalPrice, EPaymentMethod paymentMethod) in paymentDetailsList)
             {
-                if (item.SubItems[1].Text == "Total:")
-                {
-                    string totalPriceText = item.SubItems[3].Text;
-                    string numericPart = totalPriceText.Substring(1);
-                    if (double.TryParse(numericPart, out double totalVatPrice))
-                    {
-                        return totalVatPrice;
-                    }
-                }
+                new PaymentPromptPanel(personId, percentage, totalPrice, paymentMethod).ShowDialog();
+                double personTipAmount = tipAmount * (percentage / 100);
+                _paymentService.MakeNewPayment(invoice, totalPrice, paymentMethod, personTipAmount);
             }
-            return 0;
         }
 
         private void tbPeopleAmount_TextChanged(object sender, EventArgs e)
