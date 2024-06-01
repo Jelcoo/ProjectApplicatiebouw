@@ -60,10 +60,12 @@
             // 
             lvAllOrderItems.Columns.AddRange(new ColumnHeader[] { name, price, quantity, totalPrice });
             lvAllOrderItems.Dock = DockStyle.Fill;
+            lvAllOrderItems.HeaderStyle = ColumnHeaderStyle.Nonclickable;
             lvAllOrderItems.Location = new Point(0, 0);
             lvAllOrderItems.Margin = new Padding(2);
+            lvAllOrderItems.MultiSelect = false;
             lvAllOrderItems.Name = "lvAllOrderItems";
-            lvAllOrderItems.Size = new Size(945, 453);
+            lvAllOrderItems.Size = new Size(957, 453);
             lvAllOrderItems.TabIndex = 0;
             lvAllOrderItems.UseCompatibleStateImageBehavior = false;
             lvAllOrderItems.View = View.Details;
@@ -93,7 +95,7 @@
             // 
             // btnPay
             // 
-            btnPay.Location = new Point(610, 143);
+            btnPay.Location = new Point(611, 143);
             btnPay.Margin = new Padding(2);
             btnPay.Name = "btnPay";
             btnPay.Size = new Size(323, 23);
@@ -317,7 +319,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(945, 453);
+            ClientSize = new Size(957, 453);
             Controls.Add(tbPeopleAmount);
             Controls.Add(lblPercentage4);
             Controls.Add(lblPercentage3);
