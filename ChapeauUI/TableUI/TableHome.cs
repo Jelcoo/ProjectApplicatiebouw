@@ -7,28 +7,21 @@ namespace ChapeauUI.TableUI
     public partial class TableHome : Form
     {
         private Restaurant _restaurant;
-        private TableService _tableService;
-
-        private List<Table> _tables;
 
         public TableHome()
         {
             InitializeComponent();
 
             _restaurant = Restaurant.GetInstance();
-
-            _tableService = new TableService();
         }
 
         private void TableHome_Load(object sender, EventArgs e)
         {
-            _tables = _tableService.GetTables();
-
             tableSelector.Clear();
             tableSelector.Columns.Add("Number", 100);
             tableSelector.Columns.Add("Free?", 100);
 
-            foreach (Table table in _tables)
+            foreach (Table table in _restaurant.Tables)
             {
                 ListViewItem listViewItem = new ListViewItem(table.TableId.ToString());
                 listViewItem.Tag = table;

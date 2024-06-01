@@ -1,6 +1,5 @@
 using ChapeauModel;
 using ChapeauService;
-using ChapeauUI.Helpers;
 
 namespace ChapeauUI
 {
@@ -17,9 +16,11 @@ namespace ChapeauUI
             _restaurant = Restaurant.GetInstance();
 
             MenuService menuService = new MenuService();
+            TableService tableService = new TableService();
             List<Menu> menuList = menuService.GetMenus();
             _restaurant.SetMenus(menuList);
-            _restaurant.SetSelectedTable(new Table(1, false));
+            List<Table> tableList = tableService.GetTables();
+            _restaurant.SetTables(tableList);
             _restaurant.SetLoggedInEmployee(new Employee(1, "John Doe", "1234", DateTime.Now, ChapeauModel.Enums.ERole.Manager));
 
             // To customize application configuration such as set high DPI settings or default font,

@@ -23,5 +23,10 @@ namespace ChapeauModel
             _tableId = tableId;
             return this;
         }
+        public Table SetOccupied(bool occupied)
+        {
+            _occupied = occupied;
+            return this;
+        }
     }
 }

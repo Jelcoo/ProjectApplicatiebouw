@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ChapeauModel
+﻿namespace ChapeauModel
 {
     public class Restaurant
     {
@@ -12,6 +6,9 @@ namespace ChapeauModel
 
         private List<Menu> _menus;
         public List<Menu> Menus { get { return _menus; } }
+        
+        private List<Table> _tables;
+        public List<Table> Tables { get { return _tables; } }
 
         private Table? _selectedTable;
         public Table? SelectedTable { get { return _selectedTable; } }
@@ -32,6 +29,10 @@ namespace ChapeauModel
         public void SetMenus(List<Menu> menus)
         {
             _menus = menus;
+        }
+        public void SetTables(List<Table> tables)
+        {
+            _tables = tables;
         }
         public void SetSelectedTable(Table? selectedTable)
         {
