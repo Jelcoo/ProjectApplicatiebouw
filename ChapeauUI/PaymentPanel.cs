@@ -16,15 +16,29 @@ namespace ChapeauUI
         public PaymentPanel()
         {
             InitializeComponent();
+
+            InitializeServices();
+            InitializeInvoiceAndDisplayItems();
+            InitializePaymentMethods();
+        }
+
+        private void InitializeServices()
+        {
             _orderService = new OrderService();
             _invoiceService = new InvoiceService();
             _paymentService = new PaymentService();
             paymentDetailsList = new List<(string, int, double, EPaymentMethod)>();
-            this.invoice = _invoiceService.GetInvoiceById(invoiceId);
+        }
 
+        private void InitializeInvoiceAndDisplayItems()
+        {
+            invoice = _invoiceService.GetInvoiceById(invoiceId);
             DisplayAllOrderedItems(GetAllOrderedItems(invoiceId));
             ResetVisibilityAndText();
+        }
 
+        private void InitializePaymentMethods()
+        {
             foreach (EPaymentMethod paymentMethod in Enum.GetValues(typeof(EPaymentMethod)))
             {
                 cbPersonOne.Items.Add(paymentMethod);
@@ -33,6 +47,7 @@ namespace ChapeauUI
                 cbPersonFour.Items.Add(paymentMethod);
             }
         }
+
         private void DisplayAllOrderedItems(Dictionary<MenuItem, int> orderedItems)
         {
             lvAllOrderItems.Items.Clear();
