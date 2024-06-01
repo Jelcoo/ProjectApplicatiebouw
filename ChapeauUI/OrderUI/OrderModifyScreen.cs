@@ -86,6 +86,15 @@ namespace ChapeauUI.OrderUI
                 _orderService.UpdateOrder(oldOrder, _order);
             }
 
+            for (int i = _order.OrderLines.Count - 1; i >= 0; i--)
+            {
+                OrderLine line = _order.OrderLines[i];
+                if (line.Quantity == 0)
+                {
+                    _order.OrderLines.Remove(line);
+                }
+            }
+
             this.Close();
         }
     }
