@@ -96,10 +96,12 @@ namespace ChapeauUI
         {
             paymentDetailsList.Clear();
             double totalVatPrice = GetTotalVatPriceFromListView();
+            double tipAmount = 0;
 
-            if (double.TryParse(tbPriceWithTip.Text, out double tipAmount) && tipAmount > totalVatPrice)
+            if (double.TryParse(tbPriceWithTip.Text, out double totalTip) && totalTip > totalVatPrice)
             {
-                totalVatPrice = tipAmount;
+                tipAmount = totalTip - totalVatPrice;
+                totalVatPrice = totalTip;
             }
 
             AddPaymentDetails(1, lblPersonOne, tbPersonOnePercentage, cbPersonOne, totalVatPrice);
@@ -110,7 +112,7 @@ namespace ChapeauUI
             foreach ((string personId, int percentage, double totalPrice, EPaymentMethod paymentMethod) in paymentDetailsList)
             {
                 new PaymentPromptPanel(personId, percentage, totalPrice, paymentMethod).ShowDialog();
-                _paymentService.MakeNewPayment(invoice, totalPrice, paymentMethod, tipAmount);
+                _paymentService.MakeNewPayment(invoice, totalPrice, paymentMethod, (int)(tipAmount * (percentage / 100)));
             }
 
             this.Close();
