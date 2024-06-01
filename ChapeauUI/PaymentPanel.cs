@@ -118,6 +118,7 @@ namespace ChapeauUI
 
             ProcessPayments(tipAmount);
 
+            MessageBox.Show("Payment successful.", "Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }
 
