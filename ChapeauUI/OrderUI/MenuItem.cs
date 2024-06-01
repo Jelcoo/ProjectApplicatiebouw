@@ -1,4 +1,4 @@
-﻿using ChapeauModel;
+using ChapeauModel;
 using ChapeauModel.Enums;
 using ChapeauUI.OrderUI.Observers;
 
@@ -73,6 +73,11 @@ namespace ChapeauUI.OrderUI
             {
                 if (orderLine.MenuItem.MenuItemId == _menuItem.MenuItemId && orderLine.OrderNote == null)
                 {
+                    if (orderLine.Quantity >= orderLine.MenuItem.Stock.Count) {
+                        MessageBox.Show("There is no more stock of this item.");
+                        return;
+                    }
+
                     alreadyInOrder = true;
                     orderLine.IncreaseQuantity(1);
                 }
