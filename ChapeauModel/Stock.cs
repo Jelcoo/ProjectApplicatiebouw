@@ -18,6 +18,9 @@ namespace ChapeauModel
             _stockId = stockId;
         }
 
+        public void Increase(int quantity) {
+            _count += quantity;
+        }
         public void Decrease(int quantity) {
             _count -= quantity;
         }

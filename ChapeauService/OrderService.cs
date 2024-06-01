@@ -54,10 +54,12 @@ namespace ChapeauService
                 if (oldOrderLine.Quantity > orderLine.Quantity)
                 {
                     _orderDao.IncreaseStock(orderLine, oldOrderLine.Quantity - orderLine.Quantity);
+                    _restaurant.IncreaseStock(orderLine.MenuItem, orderLine.Quantity);
                 }
                 else if (oldOrderLine.Quantity < orderLine.Quantity)
                 {
                     _orderDao.DecreaseStock(orderLine, orderLine.Quantity - oldOrderLine.Quantity);
+                    _restaurant.DecreaseStock(orderLine.MenuItem, orderLine.Quantity);
                 }
 
                 if (orderLine.Quantity == 0) RemoveOrderLine(orderLine);
@@ -76,7 +78,7 @@ namespace ChapeauService
                 if (line.OrderNote != null) line.OrderNote = _orderDao.CreateOrderNote(line).OrderNote;
 
                 _orderDao.DecreaseStock(line);
-                _restaurant.ModifyStock(line);
+                _restaurant.DecreaseStock(line.MenuItem, line.Quantity);
 
                 orderLines.Add(line);
             }
