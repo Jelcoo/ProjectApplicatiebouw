@@ -20,5 +20,11 @@ namespace ChapeauUI
             new MenuUI.MenuManagement().Show();
             this.Hide();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            new IncomeUI().Show();
+            this.Hide();
+        }
     }
 }
