@@ -59,10 +59,11 @@
             // lvAllOrderItems
             // 
             lvAllOrderItems.Columns.AddRange(new ColumnHeader[] { name, price, quantity, totalPrice });
-            lvAllOrderItems.Location = new Point(8, 7);
+            lvAllOrderItems.Dock = DockStyle.Fill;
+            lvAllOrderItems.Location = new Point(0, 0);
             lvAllOrderItems.Margin = new Padding(2);
             lvAllOrderItems.Name = "lvAllOrderItems";
-            lvAllOrderItems.Size = new Size(425, 291);
+            lvAllOrderItems.Size = new Size(945, 453);
             lvAllOrderItems.TabIndex = 0;
             lvAllOrderItems.UseCompatibleStateImageBehavior = false;
             lvAllOrderItems.View = View.Details;
@@ -71,7 +72,7 @@
             // 
             name.Tag = "name";
             name.Text = "Name";
-            name.Width = 200;
+            name.Width = 220;
             // 
             // price
             // 
@@ -88,11 +89,11 @@
             // 
             totalPrice.Tag = "totalPrice";
             totalPrice.Text = "Total Price";
-            totalPrice.Width = 80;
+            totalPrice.Width = 100;
             // 
             // btnPay
             // 
-            btnPay.Location = new Point(547, 143);
+            btnPay.Location = new Point(610, 143);
             btnPay.Margin = new Padding(2);
             btnPay.Name = "btnPay";
             btnPay.Size = new Size(323, 23);
@@ -104,7 +105,7 @@
             // lblAmountOfPeople
             // 
             lblAmountOfPeople.AutoSize = true;
-            lblAmountOfPeople.Location = new Point(437, 7);
+            lblAmountOfPeople.Location = new Point(500, 7);
             lblAmountOfPeople.Margin = new Padding(2, 0, 2, 0);
             lblAmountOfPeople.Name = "lblAmountOfPeople";
             lblAmountOfPeople.Size = new Size(43, 15);
@@ -114,7 +115,7 @@
             // 
             // tbPriceWithTip
             // 
-            tbPriceWithTip.Location = new Point(437, 143);
+            tbPriceWithTip.Location = new Point(500, 143);
             tbPriceWithTip.Margin = new Padding(2);
             tbPriceWithTip.Name = "tbPriceWithTip";
             tbPriceWithTip.Size = new Size(106, 23);
@@ -125,7 +126,7 @@
             // lblTip
             // 
             lblTip.AutoSize = true;
-            lblTip.Location = new Point(437, 126);
+            lblTip.Location = new Point(500, 126);
             lblTip.Margin = new Padding(2, 0, 2, 0);
             lblTip.Name = "lblTip";
             lblTip.Size = new Size(96, 15);
@@ -136,7 +137,7 @@
             // lblPersonOne
             // 
             lblPersonOne.AutoSize = true;
-            lblPersonOne.Location = new Point(437, 57);
+            lblPersonOne.Location = new Point(500, 57);
             lblPersonOne.Margin = new Padding(2, 0, 2, 0);
             lblPersonOne.Name = "lblPersonOne";
             lblPersonOne.Size = new Size(52, 15);
@@ -146,7 +147,7 @@
             // 
             // tbPersonOnePercentage
             // 
-            tbPersonOnePercentage.Location = new Point(437, 74);
+            tbPersonOnePercentage.Location = new Point(500, 74);
             tbPersonOnePercentage.Margin = new Padding(2);
             tbPersonOnePercentage.Name = "tbPersonOnePercentage";
             tbPersonOnePercentage.Size = new Size(73, 23);
@@ -157,7 +158,7 @@
             // lblPersonTwo
             // 
             lblPersonTwo.AutoSize = true;
-            lblPersonTwo.Location = new Point(547, 57);
+            lblPersonTwo.Location = new Point(610, 57);
             lblPersonTwo.Margin = new Padding(2, 0, 2, 0);
             lblPersonTwo.Name = "lblPersonTwo";
             lblPersonTwo.Size = new Size(52, 15);
@@ -168,7 +169,7 @@
             // 
             // tbPersonTwoPercentage
             // 
-            tbPersonTwoPercentage.Location = new Point(547, 74);
+            tbPersonTwoPercentage.Location = new Point(610, 74);
             tbPersonTwoPercentage.Margin = new Padding(2);
             tbPersonTwoPercentage.Name = "tbPersonTwoPercentage";
             tbPersonTwoPercentage.Size = new Size(73, 23);
@@ -179,7 +180,7 @@
             // lblPersonThree
             // 
             lblPersonThree.AutoSize = true;
-            lblPersonThree.Location = new Point(656, 57);
+            lblPersonThree.Location = new Point(719, 57);
             lblPersonThree.Margin = new Padding(2, 0, 2, 0);
             lblPersonThree.Name = "lblPersonThree";
             lblPersonThree.Size = new Size(52, 15);
@@ -190,7 +191,7 @@
             // 
             // tbPersonThreePercentage
             // 
-            tbPersonThreePercentage.Location = new Point(656, 74);
+            tbPersonThreePercentage.Location = new Point(719, 74);
             tbPersonThreePercentage.Margin = new Padding(2);
             tbPersonThreePercentage.Name = "tbPersonThreePercentage";
             tbPersonThreePercentage.Size = new Size(73, 23);
@@ -201,7 +202,7 @@
             // lblPersonFour
             // 
             lblPersonFour.AutoSize = true;
-            lblPersonFour.Location = new Point(765, 57);
+            lblPersonFour.Location = new Point(828, 57);
             lblPersonFour.Margin = new Padding(2, 0, 2, 0);
             lblPersonFour.Name = "lblPersonFour";
             lblPersonFour.Size = new Size(52, 15);
@@ -212,7 +213,7 @@
             // 
             // tbPersonFourPercentage
             // 
-            tbPersonFourPercentage.Location = new Point(765, 74);
+            tbPersonFourPercentage.Location = new Point(828, 74);
             tbPersonFourPercentage.Margin = new Padding(2);
             tbPersonFourPercentage.Name = "tbPersonFourPercentage";
             tbPersonFourPercentage.Size = new Size(73, 23);
@@ -223,7 +224,7 @@
             // cbPersonOne
             // 
             cbPersonOne.FormattingEnabled = true;
-            cbPersonOne.Location = new Point(437, 96);
+            cbPersonOne.Location = new Point(500, 96);
             cbPersonOne.Margin = new Padding(2);
             cbPersonOne.Name = "cbPersonOne";
             cbPersonOne.Size = new Size(106, 23);
@@ -232,7 +233,7 @@
             // lblPercentage1
             // 
             lblPercentage1.AutoSize = true;
-            lblPercentage1.Location = new Point(514, 76);
+            lblPercentage1.Location = new Point(577, 76);
             lblPercentage1.Margin = new Padding(2, 0, 2, 0);
             lblPercentage1.Name = "lblPercentage1";
             lblPercentage1.Size = new Size(17, 15);
@@ -243,7 +244,7 @@
             // cbPersonTwo
             // 
             cbPersonTwo.FormattingEnabled = true;
-            cbPersonTwo.Location = new Point(547, 96);
+            cbPersonTwo.Location = new Point(610, 96);
             cbPersonTwo.Margin = new Padding(2);
             cbPersonTwo.Name = "cbPersonTwo";
             cbPersonTwo.Size = new Size(106, 23);
@@ -252,7 +253,7 @@
             // cbPersonThree
             // 
             cbPersonThree.FormattingEnabled = true;
-            cbPersonThree.Location = new Point(656, 96);
+            cbPersonThree.Location = new Point(719, 96);
             cbPersonThree.Margin = new Padding(2);
             cbPersonThree.Name = "cbPersonThree";
             cbPersonThree.Size = new Size(106, 23);
@@ -261,7 +262,7 @@
             // cbPersonFour
             // 
             cbPersonFour.FormattingEnabled = true;
-            cbPersonFour.Location = new Point(765, 96);
+            cbPersonFour.Location = new Point(828, 96);
             cbPersonFour.Margin = new Padding(2);
             cbPersonFour.Name = "cbPersonFour";
             cbPersonFour.Size = new Size(106, 23);
@@ -270,7 +271,7 @@
             // lblPercentage2
             // 
             lblPercentage2.AutoSize = true;
-            lblPercentage2.Location = new Point(623, 76);
+            lblPercentage2.Location = new Point(686, 76);
             lblPercentage2.Margin = new Padding(2, 0, 2, 0);
             lblPercentage2.Name = "lblPercentage2";
             lblPercentage2.Size = new Size(17, 15);
@@ -281,7 +282,7 @@
             // lblPercentage3
             // 
             lblPercentage3.AutoSize = true;
-            lblPercentage3.Location = new Point(732, 76);
+            lblPercentage3.Location = new Point(795, 76);
             lblPercentage3.Margin = new Padding(2, 0, 2, 0);
             lblPercentage3.Name = "lblPercentage3";
             lblPercentage3.Size = new Size(17, 15);
@@ -292,7 +293,7 @@
             // lblPercentage4
             // 
             lblPercentage4.AutoSize = true;
-            lblPercentage4.Location = new Point(841, 76);
+            lblPercentage4.Location = new Point(904, 76);
             lblPercentage4.Margin = new Padding(2, 0, 2, 0);
             lblPercentage4.Name = "lblPercentage4";
             lblPercentage4.Size = new Size(17, 15);
@@ -302,7 +303,7 @@
             // 
             // tbPeopleAmount
             // 
-            tbPeopleAmount.Location = new Point(437, 24);
+            tbPeopleAmount.Location = new Point(500, 24);
             tbPeopleAmount.Margin = new Padding(2);
             tbPeopleAmount.MaxLength = 1;
             tbPeopleAmount.Name = "tbPeopleAmount";
@@ -316,7 +317,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(876, 304);
+            ClientSize = new Size(945, 453);
             Controls.Add(tbPeopleAmount);
             Controls.Add(lblPercentage4);
             Controls.Add(lblPercentage3);

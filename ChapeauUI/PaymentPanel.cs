@@ -40,51 +40,50 @@ namespace ChapeauUI
 
             int totalItems = 0;
             double totalPrice = 0;
-            double totalVat = 0;
+            double totalVatRate = 0;
 
             foreach (var item in orderedItems)
             {
-                ListViewItem listViewItem = new ListViewItem();
+                var menuItem = item.Key;
+                int quantity = item.Value;
+                double itemTotalPrice = menuItem.Price * quantity;
 
-                listViewItem.Tag = item;
-                listViewItem.Text = item.Key.Name; // Name
-                listViewItem.SubItems.Add(item.Key.Price.ToString("€0.00")); // Price
-                listViewItem.SubItems.Add(item.Value.ToString()); // Quantity
-                listViewItem.SubItems.Add((item.Key.Price * item.Value).ToString("€0.00")); // Total item price
+                AddListViewItem(menuItem.Name, menuItem.Price.ToString("€0.00"), quantity.ToString("0x"), itemTotalPrice.ToString("€0.00"), item);
 
-                totalItems += item.Value;
-                totalPrice += item.Key.Price * item.Value;
-                totalVat += item.Key.VATRate;
-
-                lvAllOrderItems.Items.Add(listViewItem);
+                totalItems += quantity;
+                totalPrice += itemTotalPrice;
+                totalVatRate += menuItem.VATRate;
             }
 
-            double vatPrice = totalPrice * (totalVat / 100);
-            double totalVatPrice = vatPrice + totalPrice;
+            double vatAmount = totalPrice * (totalVatRate / 100);
+            double totalIncludingVat = totalPrice + vatAmount;
 
-            // Adds total quantity and price on last row
-            ListViewItem subTotalItem = new ListViewItem();
-            subTotalItem.Text = "";
-            subTotalItem.SubItems.Add("Sub Total:");
-            subTotalItem.SubItems.Add(totalItems.ToString("0x"));
-            subTotalItem.SubItems.Add(totalPrice.ToString("€0.00"));
-            lvAllOrderItems.Items.Add(subTotalItem);
+            AddListViewSummaryItem("Sub Total:", totalItems.ToString("0x"), totalPrice.ToString("€0.00"));
+            AddListViewSummaryItem("Sales Tax:", "", vatAmount.ToString("€0.00"));
+            AddListViewSummaryItem("Total:", "", totalIncludingVat.ToString("€0.00"));
+        }
 
-            // Adds shows total VAT
-            ListViewItem vatItem = new ListViewItem();
-            vatItem.Text = "";
-            vatItem.SubItems.Add("Sales Tax:");
-            vatItem.SubItems.Add("");
-            vatItem.SubItems.Add(vatPrice.ToString("€0.00"));
-            lvAllOrderItems.Items.Add(vatItem);
+        private void AddListViewItem(string name, string price, string quantity, string totalPrice, object tag)
+        {
+            var listViewItem = new ListViewItem
+            {
+                Text = name,
+                Tag = tag
+            };
+            listViewItem.SubItems.Add(price);
+            listViewItem.SubItems.Add(quantity);
+            listViewItem.SubItems.Add(totalPrice);
 
-            // Shows vat + total price
-            ListViewItem totalItem = new ListViewItem();
-            totalItem.Text = "";
-            totalItem.SubItems.Add("Total:");
-            totalItem.SubItems.Add("");
-            totalItem.SubItems.Add(totalVatPrice.ToString("€0.00"));
-            lvAllOrderItems.Items.Add(totalItem);
+            lvAllOrderItems.Items.Add(listViewItem);
+        }
+
+        private void AddListViewSummaryItem(string label, string quantity, string totalPrice)
+        {
+            var listViewItem = new ListViewItem();
+            listViewItem.SubItems.Add(label);
+            listViewItem.SubItems.Add(quantity);
+            listViewItem.SubItems.Add(totalPrice);
+            lvAllOrderItems.Items.Add(listViewItem);
         }
 
         private Dictionary<MenuItem, int> GetAllOrderedItems(int invoiceId)
