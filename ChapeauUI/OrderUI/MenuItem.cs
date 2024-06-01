@@ -1,4 +1,4 @@
-using ChapeauModel;
+﻿using ChapeauModel;
 using ChapeauModel.Enums;
 using ChapeauUI.OrderUI.Observers;
 
@@ -57,21 +57,19 @@ namespace ChapeauUI.OrderUI
             OrderLineNote note = new OrderLineNote(_menuItem);
             note.ShowDialog();
 
-            if (!string.IsNullOrEmpty(note.Note))
-            {
-                AddOrderItemWithNote(note.Note);
-            } else
-            {
-                AddOrderItem();
-            }
+            AddOrderItem(note.Note);
         }
 
-        private void AddOrderItem()
+        private void AddOrderItem(string? note = null)
         {
             bool alreadyInOrder = false;
             foreach (OrderLine orderLine in _order.OrderLines)
             {
-                if (orderLine.MenuItem.MenuItemId == _menuItem.MenuItemId && orderLine.OrderNote == null)
+                bool statement = false;
+                if (note != null) statement = orderLine.OrderNote?.Note == note;
+                else statement = orderLine.OrderNote == null;
+
+                if (orderLine.MenuItem.MenuItemId == _menuItem.MenuItemId && statement)
                 {
                     if (orderLine.Quantity >= orderLine.MenuItem.Stock.Count) {
                         MessageBox.Show("There is no more stock of this item.");
@@ -85,27 +83,7 @@ namespace ChapeauUI.OrderUI
             if (!alreadyInOrder)
             {
                 OrderLine orderLine = new OrderLine(_menuItem, EOrderLineStatus.Pending, 1);
-                CreateOrderline(orderLine);
-            }
-
-            NotifyObserver();
-        }
-
-        private void AddOrderItemWithNote(string note)
-        {
-            bool alreadyInOrder = false;
-            foreach (OrderLine orderLine in _order.OrderLines)
-            {
-                if (orderLine.MenuItem.MenuItemId == _menuItem.MenuItemId && orderLine.OrderNote?.Note == note)
-                {
-                    alreadyInOrder = true;
-                    orderLine.IncreaseQuantity(1);
-                }
-            }
-            if (!alreadyInOrder)
-            {
-                OrderLine orderLine = new OrderLine(_menuItem, EOrderLineStatus.Pending, 1);
-                orderLine.SetOrderNote(new OrderNote(note));
+                if (note != null) orderLine.SetOrderNote(new OrderNote(note));
                 CreateOrderline(orderLine);
             }
 
