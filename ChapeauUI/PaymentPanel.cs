@@ -33,7 +33,6 @@ namespace ChapeauUI
                 cbPersonFour.Items.Add(paymentMethod);
             }
         }
-
         private void DisplayAllOrderedItems(Dictionary<MenuItem, int> orderedItems)
         {
             lvAllOrderItems.Items.Clear();
@@ -97,10 +96,10 @@ namespace ChapeauUI
             double totalVatPrice = GetTotalVatPriceFromListView();
             double tipAmount = CalculateTipAmount(totalVatPrice, out double totalWithTip);
 
-            AddPaymentDetails(1, lblPersonOne, tbPersonOnePercentage, cbPersonOne, totalVatPrice);
-            AddPaymentDetails(2, lblPersonTwo, tbPersonTwoPercentage, cbPersonTwo, totalVatPrice);
-            AddPaymentDetails(3, lblPersonThree, tbPersonThreePercentage, cbPersonThree, totalVatPrice);
-            AddPaymentDetails(4, lblPersonFour, tbPersonFourPercentage, cbPersonFour, totalVatPrice);
+            AddPaymentDetails(1, lblPersonOne, tbPersonOnePercentage, cbPersonOne, totalWithTip);
+            AddPaymentDetails(2, lblPersonTwo, tbPersonTwoPercentage, cbPersonTwo, totalWithTip);
+            AddPaymentDetails(3, lblPersonThree, tbPersonThreePercentage, cbPersonThree, totalWithTip);
+            AddPaymentDetails(4, lblPersonFour, tbPersonFourPercentage, cbPersonFour, totalWithTip);
 
             ProcessPayments(tipAmount);
 
@@ -158,9 +157,7 @@ namespace ChapeauUI
 
         private void tbPeopleAmount_TextChanged(object sender, EventArgs e)
         {
-            int peopleAmount;
-
-            if (int.TryParse(tbPeopleAmount.Text, out peopleAmount))
+            if (int.TryParse(tbPeopleAmount.Text, out int peopleAmount))
             {
                 ResetVisibilityAndText();
 
