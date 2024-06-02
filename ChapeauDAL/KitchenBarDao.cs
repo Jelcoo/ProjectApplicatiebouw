@@ -80,7 +80,8 @@ JOIN stock AS ST ON MI.stockId = ST.stockId
 LEFT JOIN menuTypes AS MT ON MT.menuTypeId = MI.menuTypeId 
 LEFT JOIN orderNotes AS [ON] ON [ON].orderLineId = OL.orderLineId 
 WHERE MT.menuTypeId IS NOT NULL 
-AND CONVERT(date, O.orderedAt) < CONVERT(date, GETDATE()) 
+AND CONVERT(date, O.orderedAt) <= CONVERT(date, GETDATE()) AND
+OL.orderStatusId = 3
 ORDER BY O.orderedAt";
             } else {
                 query = @"
@@ -93,7 +94,8 @@ JOIN stock AS ST ON MI.stockId = ST.stockId
 LEFT JOIN menuTypes AS MT ON MT.menuTypeId = MI.menuTypeId 
 LEFT JOIN orderNotes AS [ON] ON [ON].orderLineId = OL.orderLineId 
 WHERE MT.menuTypeId IS NULL 
-AND CONVERT(date, O.orderedAt) < CONVERT(date, GETDATE()) 
+AND CONVERT(date, O.orderedAt) <= CONVERT(date, GETDATE()) AND
+OL.orderStatusId = 3
 ORDER BY O.orderedAt";
             }
             SqlCommand command = new SqlCommand(query, OpenConnection());
