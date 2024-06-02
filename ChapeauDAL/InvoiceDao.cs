@@ -26,6 +26,35 @@ SELECT SCOPE_IDENTITY();";
             return invoice;
         }
 
+        public Invoice GetInvoiceById(int invoiceId)
+        {
+            string query = @"
+SELECT I.invoiceId, I.tableId, I.servedBy, I.invoiceStatusId, I.createdAt, T.isOccupied, E.employeeId, E.employeeName, E.[password], E.employedAt, E.roleId, S.[status]
+FROM invoices AS I
+JOIN [tables] AS T ON T.tableId = I.tableId
+JOIN employees AS E ON E.employeeId = I.servedBy
+JOIN invoiceStatuses AS S ON S.invoiceStatusId = I.invoiceStatusId
+WHERE invoiceId = @invoiceId;";
+
+            SqlCommand command = new SqlCommand(query, OpenConnection());
+            command.Parameters.AddWithValue("@invoiceId", invoiceId);
+
+            SqlDataReader reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                Invoice invoice = InvoiceReader.ReadInvoice(reader);
+
+                reader.Close();
+                CloseConnection();
+
+                return invoice;
+            }
+            else
+            {
+                throw new Exception($"Invoice comment with ID '{invoiceId}' not found");
+            }
+        }
+
         public InvoiceComment CreateInvoiceComment(int invoiceId, InvoiceComment invoiceComment)
         {
             string query = @"

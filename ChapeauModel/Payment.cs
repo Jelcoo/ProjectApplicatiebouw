@@ -11,21 +11,21 @@ namespace ChapeauModel
 
         public EPaymentMethod? PaymentMethod { get; private set; }
 
-        private float _amount;
-        public float Amount { get { return _amount; } }
+        private double _amount;
+        public double Amount { get { return _amount; } }
 
         private DateTime _paidAt;
         public DateTime PaidAt { get { return _paidAt; } }
 
         public Tip? Tip { get; private set; }
 
-        public Payment(Invoice invoice, float amount, DateTime paidAt)
+        public Payment(Invoice invoice, double amount, DateTime paidAt)
         {
             Invoice = invoice;
             _amount = amount;
             _paidAt = paidAt;
         }
-        public Payment(int paymentId, Invoice invoice, float amount, DateTime paidAt)
+        public Payment(int paymentId, Invoice invoice, double amount, DateTime paidAt)
             : this(invoice, amount, paidAt)
         {
             _paymentId = paymentId;

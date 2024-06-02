@@ -289,13 +289,15 @@ AND I.invoiceStatusId = @status;";
         public Dictionary<MenuItem, int> GetAllOrderedItemsByInvoiceId(int invoiceId)
         {
             string query = @"
-SELECT MI.menuItemId, MI.stockId, MI.menuId, MI.itemDetailName, MI.itemName, MI.VATRate, MI.price, SUM(OL.quantity) AS [quantity]
+SELECT MI.menuItemId, MI.stockId, MI.menuId, MI.itemDetailName, MI.itemName, MI.VATRate, MI.price, MI.menuTypeId, S.count, SUM(OL.quantity) AS [quantity]
 FROM [orderLines] AS OL
 JOIN [orders] AS O ON O.orderId = OL.orderId
 JOIN [invoices] AS I ON I.invoiceId = O.invoiceId
 JOIN [menuItems] AS MI ON MI.menuItemId = OL.menuItemId
+JOIN [stock] AS S ON MI.stockId = S.stockId
 WHERE I.invoiceId = @invoiceId
-GROUP BY MI.itemName, MI.price;";
+GROUP BY MI.menuItemId, MI.stockId, MI.menuId, MI.itemDetailName, MI.itemName, MI.VATRate, MI.price, MI.menuTypeId, S.count;
+";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
             command.Parameters.AddWithValue("@invoiceId", invoiceId);

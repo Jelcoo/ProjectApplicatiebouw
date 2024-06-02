@@ -17,7 +17,7 @@ SELECT SCOPE_IDENTITY();";
             command.Parameters.AddWithValue("@invoiceId", invoice.InvoiceId);
             command.Parameters.AddWithValue("@paymentMethodId", payment.PaymentMethod);
             command.Parameters.AddWithValue("@paymentAmount", payment.Amount);
-            command.Parameters.AddWithValue("@paidAt", payment.Amount);
+            command.Parameters.AddWithValue("@paidAt", payment.PaidAt);
 
             int paymentId = Convert.ToInt32(command.ExecuteScalar());
             payment.SetPaymentId(paymentId);
