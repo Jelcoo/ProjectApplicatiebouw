@@ -36,10 +36,5 @@ namespace ChapeauUI
         {
 
         }
-
-        private void paymentButton_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

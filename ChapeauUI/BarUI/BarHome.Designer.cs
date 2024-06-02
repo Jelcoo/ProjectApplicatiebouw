@@ -37,6 +37,7 @@
             CompletedOrderButton = new Components.RoundedButton();
             currentOrderButton = new Components.RoundedButton();
             barOrderLayoutPanel = new TableLayoutPanel();
+            backButton = new Button();
             ((System.ComponentModel.ISupportInitialize)chapeauLogo).BeginInit();
             backgroundPanel.SuspendLayout();
             SuspendLayout();
@@ -84,6 +85,7 @@
             // backgroundPanel
             // 
             backgroundPanel.BackColor = Color.FromArgb(204, 227, 222);
+            backgroundPanel.Controls.Add(backButton);
             backgroundPanel.Controls.Add(CompletedOrderButton);
             backgroundPanel.Controls.Add(currentOrderButton);
             backgroundPanel.Controls.Add(barOrderLayoutPanel);
@@ -140,6 +142,16 @@
             barOrderLayoutPanel.Size = new Size(1185, 653);
             barOrderLayoutPanel.TabIndex = 0;
             // 
+            // backButton
+            // 
+            backButton.Location = new Point(1364, 21);
+            backButton.Name = "backButton";
+            backButton.Size = new Size(137, 55);
+            backButton.TabIndex = 3;
+            backButton.Text = "< Back";
+            backButton.UseVisualStyleBackColor = true;
+            backButton.Click += backButton_Click;
+            // 
             // BarHome
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -170,5 +182,6 @@
         private TableLayoutPanel barOrderLayoutPanel;
         private Components.RoundedButton CompletedOrderButton;
         private Components.RoundedButton currentOrderButton;
+        private Button backButton;
     }
 }

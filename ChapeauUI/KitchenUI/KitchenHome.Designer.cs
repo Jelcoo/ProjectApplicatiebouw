@@ -34,9 +34,10 @@
             loggedInAsPreLabel = new Label();
             chapeauLogo = new PictureBox();
             backgroundPanel = new Panel();
-            kitchenOrderLayoutPanel = new TableLayoutPanel();
             CompletedOrderButton = new Components.RoundedButton();
             currentOrderButton = new Components.RoundedButton();
+            kitchenOrderLayoutPanel = new TableLayoutPanel();
+            backButton = new Button();
             ((System.ComponentModel.ISupportInitialize)chapeauLogo).BeginInit();
             backgroundPanel.SuspendLayout();
             SuspendLayout();
@@ -84,6 +85,7 @@
             // backgroundPanel
             // 
             backgroundPanel.BackColor = Color.FromArgb(204, 227, 222);
+            backgroundPanel.Controls.Add(backButton);
             backgroundPanel.Controls.Add(CompletedOrderButton);
             backgroundPanel.Controls.Add(currentOrderButton);
             backgroundPanel.Controls.Add(kitchenOrderLayoutPanel);
@@ -91,21 +93,6 @@
             backgroundPanel.Name = "backgroundPanel";
             backgroundPanel.Size = new Size(1230, 954);
             backgroundPanel.TabIndex = 5;
-            // 
-            // kitchenOrderLayoutPanel
-            // 
-            kitchenOrderLayoutPanel.AutoScroll = true;
-            kitchenOrderLayoutPanel.AutoScrollMinSize = new Size(1000, 0);
-            kitchenOrderLayoutPanel.ColumnCount = 3;
-            kitchenOrderLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            kitchenOrderLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            kitchenOrderLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            kitchenOrderLayoutPanel.Location = new Point(16, 67);
-            kitchenOrderLayoutPanel.Name = "kitchenOrderLayoutPanel";
-            kitchenOrderLayoutPanel.RowCount = 1;
-            kitchenOrderLayoutPanel.RowStyles.Add(new RowStyle());
-            kitchenOrderLayoutPanel.Size = new Size(1185, 653);
-            kitchenOrderLayoutPanel.TabIndex = 0;
             // 
             // CompletedOrderButton
             // 
@@ -138,7 +125,33 @@
             currentOrderButton.TabIndex = 10;
             currentOrderButton.Text = "Current Orders";
             currentOrderButton.UseVisualStyleBackColor = false;
-            currentOrderButton.Click += this.currentOrderButton_Click;
+            currentOrderButton.Click += currentOrderButton_Click;
+            // 
+            // kitchenOrderLayoutPanel
+            // 
+            kitchenOrderLayoutPanel.AutoScroll = true;
+            kitchenOrderLayoutPanel.AutoScrollMinSize = new Size(1000, 0);
+            kitchenOrderLayoutPanel.ColumnCount = 3;
+            kitchenOrderLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            kitchenOrderLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            kitchenOrderLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            kitchenOrderLayoutPanel.Location = new Point(20, 84);
+            kitchenOrderLayoutPanel.Margin = new Padding(4, 4, 4, 4);
+            kitchenOrderLayoutPanel.Name = "kitchenOrderLayoutPanel";
+            kitchenOrderLayoutPanel.RowCount = 1;
+            kitchenOrderLayoutPanel.RowStyles.Add(new RowStyle());
+            kitchenOrderLayoutPanel.Size = new Size(1481, 816);
+            kitchenOrderLayoutPanel.TabIndex = 0;
+            // 
+            // backButton
+            // 
+            backButton.Location = new Point(1364, 21);
+            backButton.Name = "backButton";
+            backButton.Size = new Size(137, 55);
+            backButton.TabIndex = 12;
+            backButton.Text = "< Back";
+            backButton.UseVisualStyleBackColor = true;
+            backButton.Click += backButton_Click;
             // 
             // KitchenHome
             // 
@@ -170,5 +183,6 @@
         private TableLayoutPanel kitchenOrderLayoutPanel;
         private Components.RoundedButton CompletedOrderButton;
         private Components.RoundedButton currentOrderButton;
+        private Button backButton;
     }
 }

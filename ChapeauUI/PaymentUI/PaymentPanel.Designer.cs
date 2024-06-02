@@ -80,12 +80,13 @@
             // 
             price.Tag = "price";
             price.Text = "Price";
-            price.Width = 80;
+            price.Width = 100;
             // 
             // quantity
             // 
             quantity.Tag = "quantity";
             quantity.Text = "Quantity";
+            quantity.Width = 100;
             // 
             // totalPrice
             // 

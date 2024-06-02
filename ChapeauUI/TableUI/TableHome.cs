@@ -45,5 +45,12 @@ namespace ChapeauUI.TableUI
             new OrderUI.OrderHome().Show();
             this.Hide();
         }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            ChapeauPanel chapeauPanel = new ChapeauPanel();
+            chapeauPanel.Show();
+            this.Hide();
+        }
     }
 }

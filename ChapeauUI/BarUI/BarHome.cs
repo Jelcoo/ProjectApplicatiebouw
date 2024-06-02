@@ -93,5 +93,12 @@ namespace ChapeauUI.BarUI
         {
             Addpanel(EOrderTime.Current);
         }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            ChapeauPanel chapeauPanel = new ChapeauPanel();
+            chapeauPanel.Show();
+            this.Hide();
+        }
     }
 }

@@ -32,7 +32,6 @@
             kitchenButton = new Button();
             barOverview = new Button();
             managementButton = new Button();
-            paymentButton = new Button();
             SuspendLayout();
             // 
             // orderButton
@@ -75,22 +74,11 @@
             managementButton.UseVisualStyleBackColor = true;
             managementButton.Click += managementButton_Click;
             // 
-            // paymentButton
-            // 
-            paymentButton.Location = new Point(636, 12);
-            paymentButton.Name = "paymentButton";
-            paymentButton.Size = new Size(150, 75);
-            paymentButton.TabIndex = 4;
-            paymentButton.Text = "Payments";
-            paymentButton.UseVisualStyleBackColor = true;
-            paymentButton.Click += paymentButton_Click;
-            // 
             // ChapeauPanel
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(793, 103);
-            Controls.Add(paymentButton);
             Controls.Add(managementButton);
             Controls.Add(barOverview);
             Controls.Add(kitchenButton);
@@ -106,6 +94,5 @@
         private Button kitchenButton;
         private Button barOverview;
         private Button managementButton;
-        private Button paymentButton;
     }
 }

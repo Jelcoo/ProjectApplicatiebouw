@@ -30,6 +30,7 @@
         {
             tableSelector = new ListView();
             selectButton = new Button();
+            backButton = new Button();
             SuspendLayout();
             // 
             // tableSelector
@@ -52,11 +53,22 @@
             selectButton.UseVisualStyleBackColor = true;
             selectButton.Click += selectButton_Click;
             // 
+            // backButton
+            // 
+            backButton.Location = new Point(639, 52);
+            backButton.Name = "backButton";
+            backButton.Size = new Size(138, 34);
+            backButton.TabIndex = 2;
+            backButton.Text = "< Back";
+            backButton.UseVisualStyleBackColor = true;
+            backButton.Click += backButton_Click;
+            // 
             // TableHome
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(backButton);
             Controls.Add(selectButton);
             Controls.Add(tableSelector);
             Name = "TableHome";
@@ -69,5 +81,6 @@
 
         private ListView tableSelector;
         private Button selectButton;
+        private Button backButton;
     }
 }

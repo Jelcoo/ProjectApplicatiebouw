@@ -3,6 +3,7 @@ using ChapeauModel.Enums;
 using ChapeauService;
 using ChapeauUI.Components;
 using ChapeauUI.Helpers;
+using ChapeauUI.PaymentUI;
 
 namespace ChapeauUI.OrderUI
 {
@@ -11,8 +12,7 @@ namespace ChapeauUI.OrderUI
         private EMenu _selectedMenu = EMenu.Drinks;
 
         private Restaurant _restaurant;
-        private OrderService _orderService;
-        private MenuService _menuService;
+        private InvoiceService _invoiceService;
         private List<ChapeauModel.MenuItem> _menuItems;
         private Order _currentOrder;
 
@@ -22,8 +22,7 @@ namespace ChapeauUI.OrderUI
 
             _restaurant = Restaurant.GetInstance();
 
-            _orderService = new OrderService();
-            _menuService = new MenuService();
+            _invoiceService = new InvoiceService();
 
             _currentOrder = new Order();
         }
@@ -32,7 +31,7 @@ namespace ChapeauUI.OrderUI
         {
             dateTimeLabel.Text = GenericHelpers.FormatDateTime(DateTime.Now);
 
-            Invoice? openInvoice = _orderService.GetOpenInvoice(_restaurant.SelectedTable!);
+            Invoice? openInvoice = _invoiceService.GetOpenInvoice(_restaurant.SelectedTable!);
             _currentOrder.SetInvoice(openInvoice);
 
             orderItemList.SetOrder(_currentOrder);
@@ -161,6 +160,13 @@ namespace ChapeauUI.OrderUI
 
             OrderModifyScreen modifyScreen = new OrderModifyScreen(selectedOrder);
             modifyScreen.ShowDialog();
+        }
+
+        private void paymentButton_Click(object sender, EventArgs e)
+        {
+            PaymentPanel paymentPanel = new PaymentPanel(_restaurant.SelectedTable);
+            paymentPanel.Show();
+            this.Hide();
         }
     }
 }

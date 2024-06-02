@@ -45,6 +45,7 @@ namespace ChapeauUI.OrderUI
             loggedInAsLabel = new Label();
             dateTimeLabel = new Label();
             orderItemList = new OrderItemList();
+            paymentButton = new Button();
             backgroundPanel.SuspendLayout();
             menuListPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)chapeauLogo).BeginInit();
@@ -53,6 +54,7 @@ namespace ChapeauUI.OrderUI
             // backgroundPanel
             // 
             backgroundPanel.BackColor = Color.FromArgb(204, 227, 222);
+            backgroundPanel.Controls.Add(paymentButton);
             backgroundPanel.Controls.Add(openOrdersButton);
             backgroundPanel.Controls.Add(backButton);
             backgroundPanel.Controls.Add(orderOverview);
@@ -218,6 +220,16 @@ namespace ChapeauUI.OrderUI
             orderItemList.Size = new Size(524, 1245);
             orderItemList.TabIndex = 0;
             // 
+            // paymentButton
+            // 
+            paymentButton.Location = new Point(854, 23);
+            paymentButton.Name = "paymentButton";
+            paymentButton.Size = new Size(112, 34);
+            paymentButton.TabIndex = 5;
+            paymentButton.Text = "Pay";
+            paymentButton.UseVisualStyleBackColor = true;
+            paymentButton.Click += paymentButton_Click;
+            // 
             // OrderHome
             // 
             BackColor = Color.FromArgb(164, 195, 178);
@@ -257,5 +269,6 @@ namespace ChapeauUI.OrderUI
         private Button backButton;
         private OrderItemList orderItemList;
         private Button openOrdersButton;
+        private Button paymentButton;
     }
 }

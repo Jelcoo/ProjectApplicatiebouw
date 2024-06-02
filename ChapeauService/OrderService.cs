@@ -86,12 +86,6 @@ namespace ChapeauService
             return orderLines;
         }
 
-        public Invoice? GetOpenInvoice(Table table)
-        {
-            Invoice? invoice = _orderDao.GetOpenInvoice(table);
-            return invoice;
-        }
-
         public List<Order> GetOrdersByTable(Table table)
         {
             List<Order> orders = _orderDao.GetOrdersByTable(table);
@@ -122,11 +116,6 @@ namespace ChapeauService
         public void DeleteOrderNote(OrderNote orderNote)
         {
             _orderDao.DeleteOrderNote(orderNote);
-        }
-
-        public Dictionary<MenuItem, int> GetAllOrderedItemsByInvoiceId(int invoiceId)
-        {
-            return _orderDao.GetAllOrderedItemsByInvoiceId(invoiceId);
         }
     }
 }

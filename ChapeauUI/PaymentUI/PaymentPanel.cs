@@ -7,32 +7,31 @@ namespace ChapeauUI.PaymentUI
     public partial class PaymentPanel : Form
     {
         const int invoiceId = 2; // debug
-        private Invoice invoice;
+        private Table _table;
+        private Invoice _invoice;
         private OrderService _orderService;
         private InvoiceService _invoiceService;
         private PaymentService _paymentService;
         private List<(string personId, int percentage, double totalPrice, EPaymentMethod paymentMethod)> paymentDetailsList;
 
-        public PaymentPanel()
+        public PaymentPanel(Table table)
         {
             InitializeComponent();
 
-            InitializeServices();
-            InitializeInvoiceAndDisplayItems();
-            InitializePaymentMethods();
-        }
+            _table = table;
 
-        private void InitializeServices()
-        {
             _orderService = new OrderService();
             _invoiceService = new InvoiceService();
             _paymentService = new PaymentService();
             paymentDetailsList = new List<(string, int, double, EPaymentMethod)>();
+
+            InitializeInvoiceAndDisplayItems();
+            InitializePaymentMethods();
         }
 
         private void InitializeInvoiceAndDisplayItems()
         {
-            invoice = _invoiceService.GetInvoiceById(invoiceId);
+            _invoice = _invoiceService.GetOpenInvoice(_table);
             DisplayAllOrderedItems(GetAllOrderedItems(invoiceId));
             ResetVisibilityAndText();
         }
@@ -102,7 +101,7 @@ namespace ChapeauUI.PaymentUI
 
         private Dictionary<MenuItem, int> GetAllOrderedItems(int invoiceId)
         {
-            return _orderService.GetAllOrderedItemsByInvoiceId(invoiceId);
+            return _invoiceService.GetAllOrderedItemsByInvoiceId(invoiceId);
         }
 
         private void btnPay_Click(object sender, EventArgs e)
@@ -167,7 +166,7 @@ namespace ChapeauUI.PaymentUI
             {
                 new PaymentPromptPanel(personId, percentage, totalPrice, paymentMethod).ShowDialog();
                 double personTipAmount = tipAmount * (percentage / 100);
-                _paymentService.MakeNewPayment(invoice, totalPrice, paymentMethod, personTipAmount);
+                _paymentService.MakeNewPayment(_invoice, totalPrice, paymentMethod, personTipAmount);
             }
         }
 

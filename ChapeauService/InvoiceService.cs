@@ -23,20 +23,15 @@ namespace ChapeauService
             return _invoiceDao.CreateInvoice(invoice);
         }
 
-        public InvoiceComment CreateInvoiceComment(int invoiceId, InvoiceComment comment)
+        public Invoice? GetOpenInvoice(Table table)
         {
-            InvoiceComment invoiceComment = new InvoiceComment(invoiceId, comment.Comment);
-            return _invoiceDao.CreateInvoiceComment(invoiceId, invoiceComment);
+            return _invoiceDao.GetOpenInvoice(table);
         }
+        
 
-        public InvoiceComment GetInvoiceCommentById(int invoiceCommentId)
+        public Dictionary<MenuItem, int> GetAllOrderedItemsByInvoiceId(int invoiceId)
         {
-            return _invoiceDao.GetInvoiceCommentById(invoiceCommentId);
-        }
-
-        public Invoice GetInvoiceById(int invoiceId)
-        {
-            return _invoiceDao.GetInvoiceById(invoiceId);
+            return _invoiceDao.GetAllOrderedItemsByInvoiceId(invoiceId);
         }
     }
 }

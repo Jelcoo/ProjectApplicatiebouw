@@ -90,5 +90,12 @@ namespace ChapeauUI.KitchenUI
         {
             Addpanel(EOrderTime.Current);
         }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            ChapeauPanel chapeauPanel = new ChapeauPanel();
+            chapeauPanel.Show();
+            this.Hide();
+        }
     }
 }
