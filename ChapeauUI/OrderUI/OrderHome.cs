@@ -41,27 +41,9 @@ namespace ChapeauUI.OrderUI
 
         private void UpdateMenuStyles()
         {
-            if (_selectedMenu == EMenu.Drinks)
-            {
-                _menuItems = _restaurant.Menus.Single(menu => menu.Name == EMenu.Drinks).MenuItems;
-                SelectMenuStyle(menuSelectorDrinks);
-                UnselectMenuStyle(menuSelectorLunch);
-                UnselectMenuStyle(menuSelectorDinner);
-            }
-            if (_selectedMenu == EMenu.Lunch)
-            {
-                _menuItems = _restaurant.Menus.Single(menu => menu.Name == EMenu.Lunch).MenuItems;
-                UnselectMenuStyle(menuSelectorDrinks);
-                SelectMenuStyle(menuSelectorLunch);
-                UnselectMenuStyle(menuSelectorDinner);
-            }
-            if (_selectedMenu == EMenu.Dinner)
-            {
-                _menuItems = _restaurant.Menus.Single(menu => menu.Name == EMenu.Dinner).MenuItems;
-                UnselectMenuStyle(menuSelectorDrinks);
-                UnselectMenuStyle(menuSelectorLunch);
-                SelectMenuStyle(menuSelectorDinner);
-            }
+            _menuItems = _restaurant.Menus.Single(menu => menu.Name == _selectedMenu).MenuItems;
+
+            SetMenuStyles();
 
             menuList.Controls.Clear();
             menuList.RowStyles.Clear();
@@ -69,6 +51,27 @@ namespace ChapeauUI.OrderUI
             foreach (ChapeauModel.MenuItem menuitem in _menuItems)
             {
                 AddPanel(menuitem);
+            }
+        }
+        private void SetMenuStyles()
+        {
+            if (_selectedMenu == EMenu.Drinks)
+            {
+                SelectMenuStyle(menuSelectorDrinks);
+                UnselectMenuStyle(menuSelectorLunch);
+                UnselectMenuStyle(menuSelectorDinner);
+            }
+            if (_selectedMenu == EMenu.Lunch)
+            {
+                UnselectMenuStyle(menuSelectorDrinks);
+                SelectMenuStyle(menuSelectorLunch);
+                UnselectMenuStyle(menuSelectorDinner);
+            }
+            if (_selectedMenu == EMenu.Dinner)
+            {
+                UnselectMenuStyle(menuSelectorDrinks);
+                UnselectMenuStyle(menuSelectorLunch);
+                SelectMenuStyle(menuSelectorDinner);
             }
         }
         private void SelectMenuStyle(RoundedButton button)
@@ -107,7 +110,6 @@ namespace ChapeauUI.OrderUI
             int count = menuList.Controls.Count; // Get the total amount of panels
             int columns = menuList.ColumnCount;
             int rows = menuList.RowCount;
-            int minimumRowHeight = 50; // Minimum height if no content in row
 
             // Calculate the next cell to add a new panel
             int nextRow = count / columns;
@@ -120,12 +122,13 @@ namespace ChapeauUI.OrderUI
                 menuList.RowStyles.Add(new RowStyle(SizeType.AutoSize));
             }
 
-            // Create a new panel with random height to test
-            MenuItem menuItemComponent = new MenuItem(menuItem, _currentOrder);
-            orderItemList.SetObservable(menuItemComponent);
+            AddOrderToPanel(nextColumn, nextRow, menuItem);
+            HeightChecker();
 
-            // Adding the new panel to the layout
-            menuList.Controls.Add(menuItemComponent, nextColumn, nextRow);
+        }
+        private void HeightChecker()
+        {
+            int minimumRowHeight = 50; // Minimum height if no content in row
 
             // Tries to keep every row to the minimum height that is set otherwise be dynamic 
             for (int i = 0; i < menuList.RowCount; i++)
@@ -140,6 +143,15 @@ namespace ChapeauUI.OrderUI
                     menuList.RowStyles[i].SizeType = SizeType.AutoSize;
                 }
             }
+        }
+        private void AddOrderToPanel(int nextColumn, int nextRow, ChapeauModel.MenuItem menuItem)
+        {
+            // Create a new panel with random height to test
+            MenuItem menuItemComponent = new MenuItem(menuItem, _currentOrder);
+            orderItemList.SetObservable(menuItemComponent);
+
+            // Adding the new panel to the layout
+            menuList.Controls.Add(menuItemComponent, nextColumn, nextRow);
         }
 
         private void backButton_Click(object sender, EventArgs e)

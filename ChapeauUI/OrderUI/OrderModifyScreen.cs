@@ -33,42 +33,10 @@ namespace ChapeauUI.OrderUI
 
                 orderOverview.Items.Add(listViewItem);
 
-                Button quantityButton = new Button();
-                quantityButton.Text = line.Quantity.ToString();
-                quantityButton.MouseDown += (sender, e) =>
-                {
-                    if (e.Button == MouseButtons.Left)
-                        line.IncreaseQuantity(1);
-                    else if (e.Button == MouseButtons.Right && line.Quantity != 0)
-                        line.DecreaseQuantity(1);
-
-                    quantityButton.Text = line.Quantity.ToString();
-                };
-                SetBounds(quantityButton, quantityItem.Bounds);
+                Button quantityButton = GetQuantityButton(quantityItem, line);
                 _buttons.Add(quantityItem, quantityButton);
 
-                Button noteButton = new Button();
-                noteButton.Text = line.OrderNote?.Note ?? "";
-                noteButton.Click += (sender, e) =>
-                {
-                    OrderLineNote note = new OrderLineNote(line.MenuItem, line.OrderNote);
-                    note.ShowDialog();
-
-                    if (!string.IsNullOrEmpty(note.Note))
-                    {
-                        if (line.OrderNote == null)
-                            line.OrderNote = new OrderNote(note.Note);
-                        else
-                            line.OrderNote.SetNote(note.Note);
-                    }
-                    else
-                    {
-                        line.OrderNote = null;
-                    }
-
-                    noteButton.Text = note.Note;
-                };
-                SetBounds(noteButton, noteItem.Bounds);
+                Button noteButton = GetNoteButton(noteItem, line);
                 _buttons.Add(noteItem, noteButton);
 
                 orderOverview.Controls.Add(quantityButton);
@@ -113,6 +81,51 @@ namespace ChapeauUI.OrderUI
             }
 
             this.Close();
+        }
+
+        private Button GetQuantityButton(ListViewItem.ListViewSubItem item, OrderLine line)
+        {
+            Button quantityButton = new Button();
+            quantityButton.Text = line.Quantity.ToString();
+            quantityButton.MouseDown += (sender, e) =>
+            {
+                if (e.Button == MouseButtons.Left)
+                    line.IncreaseQuantity(1);
+                else if (e.Button == MouseButtons.Right && line.Quantity != 0)
+                    line.DecreaseQuantity(1);
+
+                quantityButton.Text = line.Quantity.ToString();
+            };
+            SetBounds(quantityButton, item.Bounds);
+
+            return quantityButton;
+        }
+        private Button GetNoteButton(ListViewItem.ListViewSubItem item, OrderLine line)
+        {
+            Button noteButton = new Button();
+            noteButton.Text = line.OrderNote?.Note ?? "";
+            noteButton.Click += (sender, e) =>
+            {
+                OrderLineNote note = new OrderLineNote(line.MenuItem, line.OrderNote);
+                note.ShowDialog();
+
+                if (!string.IsNullOrEmpty(note.Note))
+                {
+                    if (line.OrderNote == null)
+                        line.OrderNote = new OrderNote(note.Note);
+                    else
+                        line.OrderNote.SetNote(note.Note);
+                }
+                else
+                {
+                    line.OrderNote = null;
+                }
+
+                noteButton.Text = note.Note;
+            };
+            SetBounds(noteButton, item.Bounds);
+
+            return noteButton;
         }
     }
 }

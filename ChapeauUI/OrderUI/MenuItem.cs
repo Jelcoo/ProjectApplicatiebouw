@@ -65,33 +65,22 @@ namespace ChapeauUI.OrderUI
             bool alreadyInOrder = false;
             foreach (OrderLine orderLine in _order.OrderLines)
             {
-                bool statement = false;
-                if (note != null) statement = orderLine.OrderNote?.Note == note;
-                else statement = orderLine.OrderNote == null;
-
-                if (orderLine.MenuItem.MenuItemId == _menuItem.MenuItemId && statement)
+                if (orderLine.MenuItem.MenuItemId == _menuItem.MenuItemId && (note != null ? orderLine.OrderNote?.Note == note : orderLine.OrderNote == null))
                 {
-                    if (orderLine.Quantity >= orderLine.MenuItem.Stock.Count) {
-                        MessageBox.Show("There is no more stock of this item.");
-                        return;
-                    }
-
+                    if (orderLine.Quantity >= orderLine.MenuItem.Stock.Count) MessageBox.Show("There is no more stock of this item.");
                     alreadyInOrder = true;
                     orderLine.IncreaseQuantity(1);
                 }
             }
-            if (!alreadyInOrder)
-            {
-                OrderLine orderLine = new OrderLine(_menuItem, EOrderLineStatus.Pending, 1);
-                if (note != null) orderLine.SetOrderNote(new OrderNote(note));
-                CreateOrderline(orderLine);
-            }
+            if (!alreadyInOrder) CreateOrderline(note);
 
             NotifyObserver();
         }
 
-        private void CreateOrderline(OrderLine orderLine)
+        private void CreateOrderline(string? note)
         {
+            OrderLine orderLine = new OrderLine(_menuItem, EOrderLineStatus.Pending, 1);
+            if (note != null) orderLine.SetOrderNote(new OrderNote(note));
             _order.AddOrderLine(orderLine);
         }
     }
