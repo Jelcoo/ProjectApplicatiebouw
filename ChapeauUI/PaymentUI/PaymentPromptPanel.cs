@@ -1,6 +1,6 @@
 ﻿using ChapeauModel.Enums;
 
-namespace ChapeauUI
+namespace ChapeauUI.PaymentUI
 {
     public partial class PaymentPromptPanel : Form
     {

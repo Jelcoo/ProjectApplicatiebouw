@@ -1,4 +1,4 @@
-﻿namespace ChapeauUI
+﻿namespace ChapeauUI.PaymentUI
 {
     partial class PaymentPanel
     {

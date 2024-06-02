@@ -2,7 +2,7 @@
 using ChapeauModel.Enums;
 using ChapeauService;
 
-namespace ChapeauUI
+namespace ChapeauUI.PaymentUI
 {
     public partial class PaymentPanel : Form
     {
