@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            orderOverview = new ListView();
+            orderOverview = new ScrollableListView();
             saveButton = new Button();
             SuspendLayout();
             // 
@@ -40,6 +40,8 @@
             orderOverview.TabIndex = 0;
             orderOverview.UseCompatibleStateImageBehavior = false;
             orderOverview.View = View.Details;
+            orderOverview.Scroll += new ScrollEventHandler(ListView_Scroll);
+            orderOverview.MouseScroll += new MouseEventHandler(ListView_MouseScroll);
             // 
             // saveButton
             // 
@@ -66,7 +68,7 @@
 
         #endregion
 
-        private ListView orderOverview;
+        private ScrollableListView orderOverview;
         private Button saveButton;
     }
 }

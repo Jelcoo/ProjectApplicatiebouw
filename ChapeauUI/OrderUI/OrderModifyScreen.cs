@@ -7,6 +7,7 @@ namespace ChapeauUI.OrderUI
     {
         private OrderService _orderService;
         private Order _order;
+        private Dictionary<ListViewItem.ListViewSubItem, Button> _buttons = new Dictionary<ListViewItem.ListViewSubItem, Button>();
 
         public OrderModifyScreen(Order order)
         {
@@ -44,6 +45,7 @@ namespace ChapeauUI.OrderUI
                     quantityButton.Text = line.Quantity.ToString();
                 };
                 SetBounds(quantityButton, quantityItem.Bounds);
+                _buttons.Add(quantityItem, quantityButton);
 
                 Button noteButton = new Button();
                 noteButton.Text = line.OrderNote?.Note ?? "";
@@ -67,9 +69,24 @@ namespace ChapeauUI.OrderUI
                     noteButton.Text = note.Note;
                 };
                 SetBounds(noteButton, noteItem.Bounds);
+                _buttons.Add(noteItem, noteButton);
 
                 orderOverview.Controls.Add(quantityButton);
                 orderOverview.Controls.Add(noteButton);
+            }
+        }
+        private void ListView_Scroll(object sender, ScrollEventArgs e)
+        {
+            foreach (KeyValuePair<ListViewItem.ListViewSubItem, Button> button in _buttons)
+            {
+                SetBounds(button.Value, button.Key.Bounds);
+            }
+        }
+        private void ListView_MouseScroll(object sender, MouseEventArgs e)
+        {
+            foreach (KeyValuePair<ListViewItem.ListViewSubItem, Button> button in _buttons)
+            {
+                SetBounds(button.Value, button.Key.Bounds);
             }
         }
 
