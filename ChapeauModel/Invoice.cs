@@ -35,30 +35,25 @@ namespace ChapeauModel
             _invoiceId = invoiceId;
         }
 
-        public Invoice SetId(int invoiceId)
+        public void SetId(int invoiceId)
         {
             _invoiceId = invoiceId;
-            return this;
         }
-        public Invoice SetTable(Table table)
+        public void SetTable(Table table)
         {
             Table = table;
-            return this;
         }
-        public Invoice SetServer(Employee server)
+        public void SetServer(Employee server)
         {
             Server = server;
-            return this;
         }
-        public Invoice SetInvoiceComment(InvoiceComment invoiceComment)
+        public void SetInvoiceComment(InvoiceComment invoiceComment)
         {
             Comment = invoiceComment;
-            return this;
         }
-        public Invoice SetInvoiceStatus(EInvoiceStatus invoiceStatus)
+        public void SetInvoiceStatus(EInvoiceStatus invoiceStatus)
         {
             InvoiceStatus = invoiceStatus;
-            return this;
         }
     }
 }

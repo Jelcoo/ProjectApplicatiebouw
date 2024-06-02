@@ -18,15 +18,13 @@ namespace ChapeauModel
             _orderNoteId = orderNoteId;
         }
 
-        public OrderNote SetId(int orderNoteId)
+        public void SetId(int orderNoteId)
         {
             _orderNoteId = orderNoteId;
-            return this;
         }
-        public OrderNote SetNote(string note)
+        public void SetNote(string note)
         {
             _note = note;
-            return this;
         }
     }
 }

@@ -31,7 +31,6 @@ namespace ChapeauService
 
             return order;
         }
-
         public void UpdateOrder(Order oldOrder, Order newOrder)
         {
             foreach (OrderLine orderLine in newOrder.OrderLines)
@@ -67,7 +66,6 @@ namespace ChapeauService
                 UpdateOrderLine(orderLine);
             }
         }
-
         public List<OrderLine> MakeNewOrderLines(Order order)
         {
             List<OrderLine> orderLines = new List<OrderLine>();
@@ -85,34 +83,27 @@ namespace ChapeauService
 
             return orderLines;
         }
-
         public List<Order> GetOrdersByTable(Table table)
         {
-            List<Order> orders = _orderDao.GetOrdersByTable(table);
-            return orders;
+            return _orderDao.GetOrdersByTable(table);
         }
-
         public void UpdateOrderLine(OrderLine orderLine)
         {
             _orderDao.UpdateOrderLine(orderLine);
         }
-
         public void RemoveOrderLine(OrderLine orderLine)
         {
             if (orderLine.OrderNote != null) _orderDao.DeleteOrderNote(orderLine.OrderNote);
             _orderDao.DeleteOrderLine(orderLine);
         }
-
         public void CreateOrderNote(OrderLine orderLine)
         {
             _orderDao.CreateOrderNote(orderLine);
         }
-
         public void UpdateOrderNote(OrderNote orderNote)
         {
             _orderDao.UpdateOrderNote(orderNote);
         }
-
         public void DeleteOrderNote(OrderNote orderNote)
         {
             _orderDao.DeleteOrderNote(orderNote);

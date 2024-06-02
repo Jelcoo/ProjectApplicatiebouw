@@ -25,6 +25,10 @@ JOIN stock AS S ON S.stockId = MI.stockId;";
 
                 stock[menuItemId] = (itemName, stockValue);
             }
+
+            reader.Close();
+            CloseConnection();
+
             if (stock.Count == 0)
             {
                 throw new Exception($"No stock found");

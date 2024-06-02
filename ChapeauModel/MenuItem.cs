@@ -37,15 +37,13 @@ namespace ChapeauModel
             _menuItemId = menuItemId;
         }
 
-        public MenuItem SetStock(Stock stock)
+        public void SetStock(Stock stock)
         {
             Stock = stock;
-            return this;
         }
-        public MenuItem SetMenuType(EMenuType menuType)
+        public void SetMenuType(EMenuType menuType)
         {
             MenuType = menuType;
-            return this;
         }
     }
 }

@@ -21,6 +21,7 @@ SELECT SCOPE_IDENTITY();";
 
             int paymentId = Convert.ToInt32(command.ExecuteScalar());
             payment.SetPaymentId(paymentId);
+
             CloseConnection();
 
             return payment;
@@ -43,7 +44,6 @@ SELECT SCOPE_IDENTITY();";
             return tip;
         }
 
-
         public Payment GetPaymentByInvoiceId(int invoiceId)
         {
             string query = @"
@@ -64,8 +64,7 @@ WHERE invoiceId = @invoiceId";
 
                 return payment;
             }
-            else
-            {
+            else {
                 throw new Exception($"Payment with Invoice ID '{invoiceId}' not found");
             }
         }

@@ -18,15 +18,13 @@ namespace ChapeauModel
             _tableId = tableId;
         }
 
-        public Table SetId(int tableId)
+        public void SetId(int tableId)
         {
             _tableId = tableId;
-            return this;
         }
-        public Table SetOccupied(bool occupied)
+        public void SetOccupied(bool occupied)
         {
             _occupied = occupied;
-            return this;
         }
     }
 }

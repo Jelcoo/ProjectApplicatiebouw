@@ -31,20 +31,17 @@ namespace ChapeauModel
             _paymentId = paymentId;
         }
 
-        public Payment SetPaymentMethod(EPaymentMethod paymentMethod)
-        {
-            PaymentMethod = paymentMethod;
-            return this;
-        }
-        public Payment SetTip(Tip tip)
-        {
-            Tip = tip;
-            return this;
-        }
-
         public void SetPaymentId(int paymentId)
         {
             _paymentId = paymentId;
+        }
+        public void SetPaymentMethod(EPaymentMethod paymentMethod)
+        {
+            PaymentMethod = paymentMethod;
+        }
+        public void SetTip(Tip tip)
+        {
+            Tip = tip;
         }
     }
 }

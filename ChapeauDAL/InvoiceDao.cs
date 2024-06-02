@@ -22,6 +22,7 @@ SELECT SCOPE_IDENTITY();";
             
             int invoiceId = Convert.ToInt32(command.ExecuteScalar());
             invoice.SetId(invoiceId);
+
             CloseConnection();
 
             return invoice;
@@ -51,7 +52,8 @@ AND I.invoiceStatusId = @status;";
                 CloseConnection();
 
                 return invoice;
-            } else {
+            }
+            else {
                 return null;
             }
         }
@@ -83,6 +85,10 @@ GROUP BY MI.menuItemId, MI.stockId, MI.menuId, MI.itemDetailName, MI.itemName, M
 
                 AllOrderedItems.Add(menuItem, quantity);
             }
+
+            reader.Close();
+            CloseConnection();
+
             if (AllOrderedItems.Count == 0)
             {
                 throw new Exception($"Invoice ID '{invoiceId}' not found");

@@ -22,6 +22,9 @@ LEFT JOIN menuTypes AS MT ON MT.menuTypeId = MI.menuTypeId;";
 
             List<Menu> menus = MenuParser(reader);
 
+            reader.Close();
+            CloseConnection();
+
             return menus;
         }
 

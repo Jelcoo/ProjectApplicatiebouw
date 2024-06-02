@@ -35,25 +35,21 @@ namespace ChapeauModel
             _orderedAt = orderedAt;
         }
 
-        public Order SetId(int orderId)
+        public void SetId(int orderId)
         {
             _orderId = orderId;
-            return this;
         }
-        public Order SetInvoice(Invoice? invoice)
+        public void SetInvoice(Invoice? invoice)
         {
             Invoice = invoice;
-            return this;
         }
-        public Order SetOrderLines(List<OrderLine> orderLines)
+        public void SetOrderLines(List<OrderLine> orderLines)
         {
             OrderLines = orderLines;
-            return this;
         }
-        public Order AddOrderLine(OrderLine orderLine)
+        public void AddOrderLine(OrderLine orderLine)
         {
             OrderLines.Add(orderLine);
-            return this;
         }
 
         public int GetTotalQuantity()

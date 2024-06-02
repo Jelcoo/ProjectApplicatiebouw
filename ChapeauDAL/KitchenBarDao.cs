@@ -24,7 +24,8 @@ LEFT JOIN orderNotes AS [ON] ON [ON].orderLineId = OL.orderLineId
 WHERE MT.menuTypeId IS NOT NULL 
 AND CONVERT(date, O.orderedAt) = CONVERT(date, GETDATE()) 
 ORDER BY O.orderedAt";
-            } else {
+            }
+            else {
                 query = @"
 SELECT O.orderId, O.invoiceId, O.orderedAt, OL.orderLineId, OL.quantity, OS.orderStatusId, OS.[status], MI.menuItemId, MI.stockId, ST.[count], MI.menuId, MI.itemDetailName, MI.itemName, MI.VATRate, MI.price, MT.menuTypeId, MT.typeName, [ON].orderNoteId, [ON].note 
 FROM orders AS O 
@@ -56,12 +57,15 @@ ORDER BY O.orderedAt";
 UPDATE orderLines 
 SET orderStatusId = @statusId 
 WHERE orderLineId = @orderLineId";
+
             foreach (OrderLine line in order.OrderLines)
             {
                 SqlCommand command = new SqlCommand(query, OpenConnection());
                 command.Parameters.AddWithValue("@statusId", (int)line.OrderLineStatus);
                 command.Parameters.AddWithValue("@orderLineId", line.OrderLineId);
                 command.ExecuteNonQuery();
+
+                CloseConnection();
             }
         }
 
@@ -83,7 +87,8 @@ WHERE MT.menuTypeId IS NOT NULL
 AND CONVERT(date, O.orderedAt) <= CONVERT(date, GETDATE()) AND
 OL.orderStatusId = 3
 ORDER BY O.orderedAt";
-            } else {
+            }
+            else {
                 query = @"
 SELECT O.orderId, O.invoiceId, O.orderedAt, OL.orderLineId, OL.quantity, OS.orderStatusId, OS.[status], MI.menuItemId, MI.stockId, ST.[count], MI.menuId, MI.itemDetailName, MI.itemName, MI.VATRate, MI.price, MT.menuTypeId, MT.typeName, [ON].orderNoteId, [ON].note 
 FROM orders AS O 

@@ -15,8 +15,7 @@ namespace ChapeauService
 
         public List<Table> GetTables()
         {
-            List<Table> tables = _tableDao.GetTables();
-            return tables;
+            return _tableDao.GetTables();
         }
     }
 }

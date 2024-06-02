@@ -22,13 +22,10 @@ namespace ChapeauService
             );
             return _invoiceDao.CreateInvoice(invoice);
         }
-
         public Invoice? GetOpenInvoice(Table table)
         {
             return _invoiceDao.GetOpenInvoice(table);
         }
-        
-
         public Dictionary<MenuItem, int> GetAllOrderedItemsByInvoiceId(int invoiceId)
         {
             return _invoiceDao.GetAllOrderedItemsByInvoiceId(invoiceId);

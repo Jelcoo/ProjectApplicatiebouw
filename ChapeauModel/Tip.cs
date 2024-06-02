@@ -18,10 +18,9 @@ namespace ChapeauModel
             _tipId = tipId;
         }
 
-        public Tip SetId(int tipId)
+        public void SetId(int tipId)
         {
             _tipId = tipId;
-            return this;
         }
     }
 }

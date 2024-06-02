@@ -30,10 +30,10 @@ namespace ChapeauModel
         {
             _employeeId = employeeId;
         }
-        public Employee SetRole(ERole role)
+
+        public void SetRole(ERole role)
         {
             Role = role;
-            return this;
         }
     }
 }

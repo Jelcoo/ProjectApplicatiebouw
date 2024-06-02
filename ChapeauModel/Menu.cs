@@ -30,15 +30,13 @@ namespace ChapeauModel
             _menuId = menuId;
         }
 
-        public Menu SetMenuItems(List<MenuItem> menuItems)
+        public void SetMenuItems(List<MenuItem> menuItems)
         {
             MenuItems = menuItems;
-            return this;
         }
-        public Menu AddMenuItem(MenuItem menuItem)
+        public void AddMenuItem(MenuItem menuItem)
         {
             MenuItems.Add(menuItem);
-            return this;
         }
     }
 }

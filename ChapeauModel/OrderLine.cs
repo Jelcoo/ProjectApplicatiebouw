@@ -28,30 +28,25 @@ namespace ChapeauModel
             _orderLineId = orderLineId;
         }
 
-        public OrderLine SetId(int orderLineId)
+        public void SetId(int orderLineId)
         {
             _orderLineId = orderLineId;
-            return this;
         }
-        public OrderLine SetMenuItem(MenuItem menuItem)
+        public void SetMenuItem(MenuItem menuItem)
         {
             MenuItem = menuItem;
-            return this;
         }
-        public OrderLine SetOrderNote(OrderNote? orderNote)
+        public void SetOrderNote(OrderNote? orderNote)
         {
             OrderNote = orderNote;
-            return this;
         }
-        public OrderLine IncreaseQuantity(int quantity)
+        public void IncreaseQuantity(int quantity)
         {
             _quantity += quantity;
-            return this;
         }
-        public OrderLine DecreaseQuantity(int quantity)
+        public void DecreaseQuantity(int quantity)
         {
             _quantity -= quantity;
-            return this;
         }
 
         public override string ToString()

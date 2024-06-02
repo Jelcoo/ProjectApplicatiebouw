@@ -12,6 +12,7 @@ namespace ChapeauService
         {
             _paymentDao = new PaymentDao();
         }
+
         public Payment MakeNewPayment(Invoice invoice, double amount, EPaymentMethod paymentMethod, double tipAmount)
         {
             Tip tip = _paymentDao.AddTip(invoice, new Tip(tipAmount));
