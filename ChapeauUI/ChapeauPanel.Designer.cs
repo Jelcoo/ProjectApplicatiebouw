@@ -31,7 +31,9 @@
             orderButton = new Button();
             kitchenButton = new Button();
             barOverview = new Button();
-            managementButton = new Button();
+            managementStockButton = new Button();
+            managementMenuButton = new Button();
+            managementIncomeButton = new Button();
             SuspendLayout();
             // 
             // orderButton
@@ -64,22 +66,44 @@
             barOverview.UseVisualStyleBackColor = true;
             barOverview.Click += barOverview_Click;
             // 
-            // managementButton
+            // managementStockButton
             // 
-            managementButton.Location = new Point(480, 12);
-            managementButton.Name = "managementButton";
-            managementButton.Size = new Size(150, 75);
-            managementButton.TabIndex = 3;
-            managementButton.Text = "Management";
-            managementButton.UseVisualStyleBackColor = true;
-            managementButton.Click += managementButton_Click;
+            managementStockButton.Location = new Point(480, 12);
+            managementStockButton.Name = "managementStockButton";
+            managementStockButton.Size = new Size(150, 75);
+            managementStockButton.TabIndex = 3;
+            managementStockButton.Text = "Management: Stock";
+            managementStockButton.UseVisualStyleBackColor = true;
+            managementStockButton.Click += managementStockButton_Click;
+            // 
+            // managementMenuButton
+            // 
+            managementMenuButton.Location = new Point(636, 12);
+            managementMenuButton.Name = "managementMenuButton";
+            managementMenuButton.Size = new Size(150, 75);
+            managementMenuButton.TabIndex = 4;
+            managementMenuButton.Text = "Management: Menu";
+            managementMenuButton.UseVisualStyleBackColor = true;
+            managementMenuButton.Click += managementMenuButton_Click_1;
+            // 
+            // managementIncomeButton
+            // 
+            managementIncomeButton.Location = new Point(792, 12);
+            managementIncomeButton.Name = "managementIncomeButton";
+            managementIncomeButton.Size = new Size(150, 75);
+            managementIncomeButton.TabIndex = 5;
+            managementIncomeButton.Text = "Management: Income";
+            managementIncomeButton.UseVisualStyleBackColor = true;
+            managementIncomeButton.Click += managementIncomeButton_Click_1;
             // 
             // ChapeauPanel
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(793, 103);
-            Controls.Add(managementButton);
+            ClientSize = new Size(954, 103);
+            Controls.Add(managementIncomeButton);
+            Controls.Add(managementMenuButton);
+            Controls.Add(managementStockButton);
             Controls.Add(barOverview);
             Controls.Add(kitchenButton);
             Controls.Add(orderButton);
@@ -93,6 +117,8 @@
         private Button orderButton;
         private Button kitchenButton;
         private Button barOverview;
-        private Button managementButton;
+        private Button managementStockButton;
+        private Button managementMenuButton;
+        private Button managementIncomeButton;
     }
 }

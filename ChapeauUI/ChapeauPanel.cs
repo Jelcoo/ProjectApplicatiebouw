@@ -1,6 +1,8 @@
 using ChapeauUI.BarUI;
 using ChapeauUI.KitchenUI;
 using ChapeauUI.TableUI;
+using ChapeauUI.StockUI;
+using ChapeauUI.MenuUI;
 
 namespace ChapeauUI
 {
@@ -32,9 +34,25 @@ namespace ChapeauUI
             this.Hide();
         }
 
-        private void managementButton_Click(object sender, EventArgs e)
+        private void managementStockButton_Click(object sender, EventArgs e)
         {
+            StockManagement stockManagement = new StockManagement();
+            stockManagement.Show();
+            this.Hide();
+        }
 
+        private void managementMenuButton_Click(object sender, EventArgs e)
+        {
+            MenuManagement menuManagement = new MenuManagement();
+            menuManagement.Show();
+            this.Hide();
+        }
+
+        private void managementIncomeButton_Click(object sender, EventArgs e)
+        {
+            IncomeUI incomeUI = new IncomeUI();
+            incomeUI.Show();
+            this.Hide();
         }
     }
 }

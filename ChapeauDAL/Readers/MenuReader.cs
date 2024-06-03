@@ -31,6 +31,12 @@ namespace ChapeauDAL.Readers
             if (reader["menuTypeId"] != DBNull.Value) {
                 menuItem.SetMenuType((EMenuType)(int)reader["menuTypeId"]);
             }
+            else { 
+                menuItem.SetMenuType(EMenuType.None);
+            }
+            if (reader["menuId"] != DBNull.Value) {
+                menuItem.SetMenu((EMenu)(int)reader["menuId"]);
+            }
 
             return menuItem;
         }

@@ -9,6 +9,8 @@ namespace ChapeauModel
 
         public Stock Stock { get; private set; }
 
+        public EMenu? Menu; 
+
         public EMenuType? MenuType;
 
         private string _name;
@@ -44,6 +46,11 @@ namespace ChapeauModel
         public void SetMenuType(EMenuType menuType)
         {
             MenuType = menuType;
+        }
+        public MenuItem SetMenu(EMenu? menu)
+        {
+            Menu = menu;
+            return this;
         }
     }
 }
