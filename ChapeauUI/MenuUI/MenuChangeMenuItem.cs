@@ -59,8 +59,8 @@ namespace ChapeauUI.MenuUI
 
             menuItem.SetMenu(menu);
 
-            if (menuType == EMenuType.None) { menuItem.SetMenuType(null); }
-            else { menuItem.SetMenuType(menuType); }
+            if (menuType == EMenuType.None) menuItem.SetMenuType(null);
+            else menuItem.SetMenuType(menuType);
 
             return menuItem;
         }

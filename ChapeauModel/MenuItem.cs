@@ -43,7 +43,7 @@ namespace ChapeauModel
         {
             Stock = stock;
         }
-        public void SetMenuType(EMenuType menuType)
+        public void SetMenuType(EMenuType? menuType)
         {
             MenuType = menuType;
         }

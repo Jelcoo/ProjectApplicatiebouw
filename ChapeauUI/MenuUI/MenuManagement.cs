@@ -1,37 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using ChapeauModel;
+﻿using ChapeauModel;
 using ChapeauModel.Enums;
 using ChapeauService;
-using ChapeauUI.StockUI;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ChapeauUI.MenuUI
 {
     public partial class MenuManagement : Form
     {
+        private Restaurant _restaurant;
+
         public MenuManagement()
         {
+            _restaurant = Restaurant.GetInstance();
+
             InitializeComponent();
             PopulateMenuDisplay();
         }
 
         public void PopulateMenuDisplay()
         {
-            MenuService menuService = new MenuService();
-            List<MenuItem> menu = menuService.GetMenu();
-
-
             lvMenu.Items.Clear();
 
-            foreach (MenuItem item in menu)
+            foreach (MenuItem item in _restaurant.Menus.SelectMany(m => m.MenuItems))
             {
                 ListViewItem listViewItem = new ListViewItem(item.Name);
                 listViewItem.SubItems.Add(item.DetailName);

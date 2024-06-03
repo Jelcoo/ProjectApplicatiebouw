@@ -84,7 +84,7 @@
             managementMenuButton.TabIndex = 4;
             managementMenuButton.Text = "Management: Menu";
             managementMenuButton.UseVisualStyleBackColor = true;
-            managementMenuButton.Click += managementMenuButton_Click_1;
+            managementMenuButton.Click += managementMenuButton_Click;
             // 
             // managementIncomeButton
             // 
@@ -94,7 +94,7 @@
             managementIncomeButton.TabIndex = 5;
             managementIncomeButton.Text = "Management: Income";
             managementIncomeButton.UseVisualStyleBackColor = true;
-            managementIncomeButton.Click += managementIncomeButton_Click_1;
+            managementIncomeButton.Click += managementIncomeButton_Click;
             // 
             // ChapeauPanel
             // 

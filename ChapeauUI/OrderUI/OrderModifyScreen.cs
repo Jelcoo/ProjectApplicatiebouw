@@ -111,15 +111,10 @@ namespace ChapeauUI.OrderUI
 
                 if (!string.IsNullOrEmpty(note.Note))
                 {
-                    if (line.OrderNote == null)
-                        line.OrderNote = new OrderNote(note.Note);
-                    else
-                        line.OrderNote.SetNote(note.Note);
+                    if (line.OrderNote == null) line.OrderNote = new OrderNote(note.Note);
+                    else line.OrderNote.SetNote(note.Note);
                 }
-                else
-                {
-                    line.OrderNote = null;
-                }
+                else line.OrderNote = null;
 
                 noteButton.Text = note.Note;
             };
