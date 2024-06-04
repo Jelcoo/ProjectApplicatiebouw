@@ -34,10 +34,10 @@
             loggedInAsPreLabel = new Label();
             chapeauLogo = new PictureBox();
             backgroundPanel = new Panel();
+            backButton = new Button();
             CompletedOrderButton = new Components.RoundedButton();
             currentOrderButton = new Components.RoundedButton();
             kitchenOrderLayoutPanel = new TableLayoutPanel();
-            backButton = new Button();
             ((System.ComponentModel.ISupportInitialize)chapeauLogo).BeginInit();
             backgroundPanel.SuspendLayout();
             SuspendLayout();
@@ -46,9 +46,10 @@
             // 
             dateTimeLabel.AutoSize = true;
             dateTimeLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            dateTimeLabel.Location = new Point(1177, 13);
+            dateTimeLabel.Location = new Point(1471, 16);
+            dateTimeLabel.Margin = new Padding(4, 0, 4, 0);
             dateTimeLabel.Name = "dateTimeLabel";
-            dateTimeLabel.Size = new Size(188, 28);
+            dateTimeLabel.Size = new Size(230, 32);
             dateTimeLabel.TabIndex = 9;
             dateTimeLabel.Text = "Loading date & time...";
             dateTimeLabel.TextAlign = ContentAlignment.MiddleRight;
@@ -57,9 +58,10 @@
             // 
             loggedInAsLabel.AutoSize = true;
             loggedInAsLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            loggedInAsLabel.Location = new Point(468, 13);
+            loggedInAsLabel.Location = new Point(585, 16);
+            loggedInAsLabel.Margin = new Padding(4, 0, 4, 0);
             loggedInAsLabel.Name = "loggedInAsLabel";
-            loggedInAsLabel.Size = new Size(140, 28);
+            loggedInAsLabel.Size = new Size(170, 32);
             loggedInAsLabel.TabIndex = 8;
             loggedInAsLabel.Text = "Pierre Dubois";
             // 
@@ -67,18 +69,20 @@
             // 
             loggedInAsPreLabel.AutoSize = true;
             loggedInAsPreLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            loggedInAsPreLabel.Location = new Point(192, 13);
+            loggedInAsPreLabel.Location = new Point(240, 16);
+            loggedInAsPreLabel.Margin = new Padding(4, 0, 4, 0);
             loggedInAsPreLabel.Name = "loggedInAsPreLabel";
-            loggedInAsPreLabel.Size = new Size(270, 28);
+            loggedInAsPreLabel.Size = new Size(332, 32);
             loggedInAsPreLabel.TabIndex = 7;
             loggedInAsPreLabel.Text = "You are currently logged in as";
             // 
             // chapeauLogo
             // 
             chapeauLogo.Image = (Image)resources.GetObject("chapeauLogo.Image");
-            chapeauLogo.Location = new Point(22, 32);
+            chapeauLogo.Location = new Point(28, 40);
+            chapeauLogo.Margin = new Padding(4, 4, 4, 4);
             chapeauLogo.Name = "chapeauLogo";
-            chapeauLogo.Size = new Size(130, 130);
+            chapeauLogo.Size = new Size(162, 162);
             chapeauLogo.TabIndex = 6;
             chapeauLogo.TabStop = false;
             // 
@@ -89,10 +93,22 @@
             backgroundPanel.Controls.Add(CompletedOrderButton);
             backgroundPanel.Controls.Add(currentOrderButton);
             backgroundPanel.Controls.Add(kitchenOrderLayoutPanel);
-            backgroundPanel.Location = new Point(192, 62);
+            backgroundPanel.Location = new Point(240, 78);
+            backgroundPanel.Margin = new Padding(4, 4, 4, 4);
             backgroundPanel.Name = "backgroundPanel";
-            backgroundPanel.Size = new Size(1230, 954);
+            backgroundPanel.Size = new Size(1538, 1192);
             backgroundPanel.TabIndex = 5;
+            // 
+            // backButton
+            // 
+            backButton.Location = new Point(1705, 26);
+            backButton.Margin = new Padding(4, 4, 4, 4);
+            backButton.Name = "backButton";
+            backButton.Size = new Size(171, 69);
+            backButton.TabIndex = 12;
+            backButton.Text = "< Back";
+            backButton.UseVisualStyleBackColor = true;
+            backButton.Click += backButton_Click;
             // 
             // CompletedOrderButton
             // 
@@ -102,9 +118,10 @@
             CompletedOrderButton.BorderWidth = 5;
             CompletedOrderButton.Cursor = Cursors.Hand;
             CompletedOrderButton.HasBorder = false;
-            CompletedOrderButton.Location = new Point(195, 17);
+            CompletedOrderButton.Location = new Point(244, 21);
+            CompletedOrderButton.Margin = new Padding(4, 4, 4, 4);
             CompletedOrderButton.Name = "CompletedOrderButton";
-            CompletedOrderButton.Size = new Size(174, 44);
+            CompletedOrderButton.Size = new Size(218, 55);
             CompletedOrderButton.TabIndex = 11;
             CompletedOrderButton.Text = "Completed Orders";
             CompletedOrderButton.UseVisualStyleBackColor = false;
@@ -119,9 +136,10 @@
             currentOrderButton.Cursor = Cursors.Hand;
             currentOrderButton.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             currentOrderButton.HasBorder = false;
-            currentOrderButton.Location = new Point(15, 17);
+            currentOrderButton.Location = new Point(19, 21);
+            currentOrderButton.Margin = new Padding(4, 4, 4, 4);
             currentOrderButton.Name = "currentOrderButton";
-            currentOrderButton.Size = new Size(174, 44);
+            currentOrderButton.Size = new Size(218, 55);
             currentOrderButton.TabIndex = 10;
             currentOrderButton.Text = "Current Orders";
             currentOrderButton.UseVisualStyleBackColor = false;
@@ -135,35 +153,26 @@
             kitchenOrderLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
             kitchenOrderLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
             kitchenOrderLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            kitchenOrderLayoutPanel.Location = new Point(20, 84);
-            kitchenOrderLayoutPanel.Margin = new Padding(4, 4, 4, 4);
+            kitchenOrderLayoutPanel.Location = new Point(25, 105);
+            kitchenOrderLayoutPanel.Margin = new Padding(5, 5, 5, 5);
             kitchenOrderLayoutPanel.Name = "kitchenOrderLayoutPanel";
             kitchenOrderLayoutPanel.RowCount = 1;
             kitchenOrderLayoutPanel.RowStyles.Add(new RowStyle());
-            kitchenOrderLayoutPanel.Size = new Size(1481, 816);
+            kitchenOrderLayoutPanel.Size = new Size(1481, 1065);
             kitchenOrderLayoutPanel.TabIndex = 0;
-            // 
-            // backButton
-            // 
-            backButton.Location = new Point(1364, 21);
-            backButton.Name = "backButton";
-            backButton.Size = new Size(137, 55);
-            backButton.TabIndex = 12;
-            backButton.Text = "< Back";
-            backButton.UseVisualStyleBackColor = true;
-            backButton.Click += backButton_Click;
             // 
             // KitchenHome
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(164, 195, 178);
-            ClientSize = new Size(1444, 1028);
+            ClientSize = new Size(1805, 1285);
             Controls.Add(dateTimeLabel);
             Controls.Add(loggedInAsLabel);
             Controls.Add(loggedInAsPreLabel);
             Controls.Add(chapeauLogo);
             Controls.Add(backgroundPanel);
+            Margin = new Padding(4, 4, 4, 4);
             Name = "KitchenHome";
             Text = "Kitchen - Current Overview";
             Load += KitchenHome_Load;
