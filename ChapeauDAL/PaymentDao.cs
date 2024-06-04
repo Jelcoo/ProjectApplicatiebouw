@@ -43,30 +43,5 @@ SELECT SCOPE_IDENTITY();";
 
             return tip;
         }
-
-        public Payment GetPaymentByInvoiceId(int invoiceId)
-        {
-            string query = @"
-SELECT paymentId, invoiceId, paymentMethodId, paymentAmount, paidAt
-FROM payments
-WHERE invoiceId = @invoiceId";
-
-            SqlCommand command = new SqlCommand(query, OpenConnection());
-            command.Parameters.AddWithValue("@invoiceId", invoiceId);
-
-            SqlDataReader reader = command.ExecuteReader();
-            if (reader.Read())
-            {
-                Payment payment = PaymentReader.ReadPayment(reader);
-
-                reader.Close();
-                CloseConnection();
-
-                return payment;
-            }
-            else {
-                throw new Exception($"Payment with Invoice ID '{invoiceId}' not found");
-            }
-        }
     }
 }
