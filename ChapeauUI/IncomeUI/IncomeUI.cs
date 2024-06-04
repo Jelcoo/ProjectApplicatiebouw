@@ -1,4 +1,5 @@
-﻿using ChapeauService;
+﻿using ChapeauModel;
+using ChapeauService;
 
 namespace ChapeauUI.IncomeUI
 {
@@ -119,6 +120,13 @@ namespace ChapeauUI.IncomeUI
             {
                 SetIncome(GetIncome());
             }
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            ChapeauPanel chapeauPanel = new ChapeauPanel();
+            chapeauPanel.Show();
+            this.Hide();
         }
     }
 }

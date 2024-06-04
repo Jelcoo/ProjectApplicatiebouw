@@ -38,6 +38,7 @@
             btnAddMenuItem = new Button();
             btnChangeMenuItem = new Button();
             btnDeleteMenuItem = new Button();
+            backButton = new Button();
             SuspendLayout();
             // 
             // lvMenu
@@ -108,11 +109,22 @@
             btnDeleteMenuItem.UseVisualStyleBackColor = true;
             btnDeleteMenuItem.Click += btnDeleteMenuItem_Click;
             // 
+            // backButton
+            // 
+            backButton.Location = new Point(823, 12);
+            backButton.Name = "backButton";
+            backButton.Size = new Size(83, 31);
+            backButton.TabIndex = 5;
+            backButton.Text = "< Back";
+            backButton.UseVisualStyleBackColor = true;
+            backButton.Click += backButton_Click;
+            // 
             // MenuManagement
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(918, 450);
+            Controls.Add(backButton);
             Controls.Add(btnDeleteMenuItem);
             Controls.Add(btnChangeMenuItem);
             Controls.Add(btnAddMenuItem);
@@ -134,5 +146,6 @@
         private Button btnAddMenuItem;
         private Button btnChangeMenuItem;
         private Button btnDeleteMenuItem;
+        private Button backButton;
     }
 }

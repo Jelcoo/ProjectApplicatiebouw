@@ -140,5 +140,12 @@ namespace ChapeauUI.StockUI
             StockAlterStock alterStockForm = new StockAlterStock(itemId, this);
             alterStockForm.ShowDialog();
         }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            ChapeauPanel chapeauPanel = new ChapeauPanel();
+            chapeauPanel.Show();
+            this.Hide();
+        }
     }
 }

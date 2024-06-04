@@ -43,6 +43,7 @@
             lblMenuItemStock = new Label();
             pbItemImage = new PictureBox();
             lblSelectAnItemText = new Label();
+            backButton = new Button();
             ((System.ComponentModel.ISupportInitialize)pbItemImage).BeginInit();
             SuspendLayout();
             // 
@@ -205,11 +206,22 @@
             lblSelectAnItemText.Text = "Select an Item";
             lblSelectAnItemText.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // backButton
+            // 
+            backButton.Location = new Point(705, 12);
+            backButton.Name = "backButton";
+            backButton.Size = new Size(83, 31);
+            backButton.TabIndex = 9;
+            backButton.Text = "< Back";
+            backButton.UseVisualStyleBackColor = true;
+            backButton.Click += backButton_Click;
+            // 
             // StockManagement
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(backButton);
             Controls.Add(lblSelectAnItemText);
             Controls.Add(pbItemImage);
             Controls.Add(lblMenuItemStock);
@@ -242,5 +254,6 @@
         private Label lblMenuItemStock;
         private PictureBox pbItemImage;
         private Label lblSelectAnItemText;
+        private Button backButton;
     }
 }

@@ -85,5 +85,12 @@ namespace ChapeauUI.MenuUI
                 MessageBox.Show("Please select an item from the list.");
             }
         }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            ChapeauPanel chapeauPanel = new ChapeauPanel();
+            chapeauPanel.Show();
+            this.Hide();
+        }
     }
 }
