@@ -136,7 +136,7 @@ WHERE I.tableId = @tableId;";
         {
             OrderLine orderLine = OrderReader.ReadOrderLine(reader);
             orderLine.SetMenuItem(MenuReader.ReadMenuItem(reader));
-            if (orderLine.MenuItem.MenuType != null)
+            if (orderLine.MenuItem.MenuType != EMenuType.None)
             {
                 orderLine.MenuItem.SetMenuType((EMenuType)(int)reader["menuTypeId"]);
             }
