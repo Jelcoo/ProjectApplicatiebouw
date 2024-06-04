@@ -37,6 +37,7 @@
             dtpEndDay = new DateTimePicker();
             lblSelectDateText = new Label();
             lblSelectEndDateText = new Label();
+            backButton = new Button();
             SuspendLayout();
             // 
             // lblAllTimeIncomeText
@@ -120,11 +121,22 @@
             lblSelectEndDateText.TabIndex = 3;
             lblSelectEndDateText.Text = "Select End Date:";
             // 
-            // RevenueUI
+            // backButton
+            // 
+            backButton.Location = new Point(705, 31);
+            backButton.Name = "backButton";
+            backButton.Size = new Size(83, 31);
+            backButton.TabIndex = 4;
+            backButton.Text = "< Back";
+            backButton.UseVisualStyleBackColor = true;
+            backButton.Click += backButton_Click;
+            // 
+            // IncomeUI
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(backButton);
             Controls.Add(lblSelectEndDateText);
             Controls.Add(lblSelectDateText);
             Controls.Add(cbSingleDay);
@@ -134,7 +146,7 @@
             Controls.Add(lblAllTimeIncome);
             Controls.Add(lblIncomeByDateText);
             Controls.Add(lblAllTimeIncomeText);
-            Name = "RevenueUI";
+            Name = "IncomeUI";
             Text = "RevenueUI";
             ResumeLayout(false);
             PerformLayout();
@@ -151,5 +163,6 @@
         private DateTimePicker dtpEndDay;
         private Label lblSelectDateText;
         private Label lblSelectEndDateText;
+        private Button backButton;
     }
 }
