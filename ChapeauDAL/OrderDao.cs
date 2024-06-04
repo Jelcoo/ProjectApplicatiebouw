@@ -117,10 +117,12 @@ JOIN stock AS ST ON MI.stockId = ST.stockId
 JOIN invoices AS I ON I.invoiceId = O.invoiceId
 LEFT JOIN menuTypes AS MT ON MT.menuTypeId = MI.menuTypeId
 LEFT JOIN orderNotes AS [ON] ON [ON].orderLineId = OL.orderLineId
-WHERE I.tableId = @tableId;";
+WHERE I.tableId = @tableId
+AND I.invoiceStatusId = @status";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
             command.Parameters.AddWithValue("@tableId", table.TableId);
+            command.Parameters.AddWithValue("@status", (int)EInvoiceStatus.Pending);
 
             SqlDataReader reader = command.ExecuteReader();
 
