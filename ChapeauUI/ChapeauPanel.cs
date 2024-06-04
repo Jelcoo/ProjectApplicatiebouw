@@ -3,6 +3,7 @@ using ChapeauUI.KitchenUI;
 using ChapeauUI.TableUI;
 using ChapeauUI.StockUI;
 using ChapeauUI.MenuUI;
+using ChapeauUI.IncomeUI;
 
 namespace ChapeauUI
 {
@@ -50,7 +51,7 @@ namespace ChapeauUI
 
         private void managementIncomeButton_Click(object sender, EventArgs e)
         {
-            IncomeUI incomeUI = new IncomeUI();
+            IncomeUI.IncomeUI incomeUI = new IncomeUI.IncomeUI();
             incomeUI.Show();
             this.Hide();
         }

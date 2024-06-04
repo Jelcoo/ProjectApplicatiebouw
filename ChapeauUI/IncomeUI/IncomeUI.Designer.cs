@@ -1,4 +1,4 @@
-﻿namespace ChapeauUI
+﻿namespace ChapeauUI.IncomeUI
 {
     partial class IncomeUI
     {
