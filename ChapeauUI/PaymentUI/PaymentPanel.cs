@@ -12,11 +12,12 @@ namespace ChapeauUI.PaymentUI
         private PaymentService _paymentService;
         private List<(string personId, int percentage, double totalPrice, EPaymentMethod paymentMethod)> paymentDetailsList;
 
-        public PaymentPanel(Table table)
+        public PaymentPanel(Table table, Invoice invoice)
         {
             InitializeComponent();
 
             _table = table;
+            _invoice = invoice;
 
             _invoiceService = new InvoiceService();
             _paymentService = new PaymentService();
@@ -28,7 +29,6 @@ namespace ChapeauUI.PaymentUI
 
         private void InitializeInvoiceAndDisplayItems()
         {
-            _invoice = _invoiceService.GetOpenInvoice(_table);
             DisplayAllOrderedItems(GetAllOrderedItems(_invoice.InvoiceId));
             ResetVisibilityAndText();
         }
@@ -115,6 +115,8 @@ namespace ChapeauUI.PaymentUI
             ProcessPayments(tipAmount);
 
             MessageBox.Show("Payment successful.", "Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            _invoiceService.CloseInvoice(_invoice);
 
             ChapeauPanel chapeauPanel = new ChapeauPanel();
             chapeauPanel.Show();

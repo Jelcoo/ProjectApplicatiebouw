@@ -176,7 +176,14 @@ namespace ChapeauUI.OrderUI
 
         private void paymentButton_Click(object sender, EventArgs e)
         {
-            PaymentPanel paymentPanel = new PaymentPanel(_restaurant.SelectedTable);
+            Invoice openInvoice = _invoiceService.GetOpenInvoice(_restaurant.SelectedTable);
+            if (openInvoice == null)
+            {
+                MessageBox.Show("No open invoice found. Please place an order.");
+                return;
+            }
+
+            PaymentPanel paymentPanel = new PaymentPanel(_restaurant.SelectedTable, openInvoice);
             paymentPanel.Show();
             this.Hide();
         }

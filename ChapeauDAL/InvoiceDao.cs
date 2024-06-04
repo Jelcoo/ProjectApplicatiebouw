@@ -53,6 +53,9 @@ AND I.invoiceStatusId = @status;";
                 return invoice;
             }
             else {
+                reader.Close();
+                CloseConnection();
+
                 return null;
             }
         }
@@ -94,6 +97,20 @@ GROUP BY MI.menuItemId, MI.stockId, MI.menuId, MI.itemDetailName, MI.itemName, M
             }
 
             return AllOrderedItems;
+        }
+
+        public void CloseInvoice(Invoice invoice)
+        {
+            string query = @"
+UPDATE invoices
+SET invoiceStatusId = @status
+WHERE invoiceId = @invoiceId;";
+
+            SqlCommand command = new SqlCommand(query, OpenConnection());
+            command.Parameters.AddWithValue("@status", (int)EInvoiceStatus.Paid);
+            command.Parameters.AddWithValue("@invoiceId", invoice.InvoiceId);
+            command.ExecuteNonQuery();
+            CloseConnection();
         }
     }
 }

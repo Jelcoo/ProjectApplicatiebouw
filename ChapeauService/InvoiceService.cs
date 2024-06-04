@@ -30,5 +30,9 @@ namespace ChapeauService
         {
             return _invoiceDao.GetAllOrderedItemsByInvoiceId(invoiceId);
         }
+        public void CloseInvoice(Invoice invoice)
+        {
+            _invoiceDao.CloseInvoice(invoice);
+        }
     }
 }
