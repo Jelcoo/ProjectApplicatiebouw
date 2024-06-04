@@ -1,6 +1,6 @@
 ﻿using ChapeauService;
 
-namespace ChapeauUI
+namespace ChapeauUI.IncomeUI
 {
     public partial class IncomeUI : Form
     {
