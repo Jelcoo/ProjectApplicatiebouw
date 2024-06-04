@@ -115,7 +115,10 @@ namespace ChapeauUI.PaymentUI
             ProcessPayments(tipAmount);
 
             MessageBox.Show("Payment successful.", "Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            this.Close();
+
+            ChapeauPanel chapeauPanel = new ChapeauPanel();
+            chapeauPanel.Show();
+            this.Hide();
         }
 
         private double GetTotalVatPriceFromListView()
