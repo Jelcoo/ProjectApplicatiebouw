@@ -23,30 +23,30 @@ namespace ChapeauUI.Components
             List<OrderLine> orderLinesIntermediates = MenuItemSeperator(EMenuType.Intermediate, lines);
             List<OrderLine> orderLinesMains = MenuItemSeperator(EMenuType.Main, lines);
             List<OrderLine> orderLinesDesserts = MenuItemSeperator(EMenuType.Dessert, lines);
-            List<OrderLine> orderLinesDrinks = MenuItemSeperator(null, lines);
+            List<OrderLine> orderLinesDrinks = MenuItemSeperator(EMenuType.None, lines);
 
             AddItemsToList(orderLinesStarters, EMenuType.Starter);
             AddItemsToList(orderLinesIntermediates, EMenuType.Intermediate);
             AddItemsToList(orderLinesMains, EMenuType.Main);
             AddItemsToList(orderLinesDesserts, EMenuType.Dessert);
-            AddItemsToList(orderLinesDrinks, null);
+            AddItemsToList(orderLinesDrinks, EMenuType.None);
             if (_orderTime == EOrderTime.InThePast) { CheckAllItems(); }
             checkedListBox1.ItemCheck += checkedListBox1_ItemCheck;
             AdjustCheckedListBoxHeight();
             ChecklistCount = checkedListBox1.Items.Count;
         }
-        private void AddItemsToList(List<OrderLine> lines, EMenuType? menuType)
+        private void AddItemsToList(List<OrderLine> lines, EMenuType menuType)
         {
             if (lines.Count == 0) { return; }
 
-            checkedListBox1.Items.Add(menuType == null ? "Drinks:" : $"{menuType}:");
+            checkedListBox1.Items.Add(menuType == EMenuType.None ? "Drinks:" : $"{menuType}:");
 
             for (int i = 0; i < lines.Count; i++)
             {
                 checkedListBox1.Items.Add(lines[i]);
             }
         }
-        private List<OrderLine> MenuItemSeperator(EMenuType? menuType, List<OrderLine> orderLines)
+        private List<OrderLine> MenuItemSeperator(EMenuType menuType, List<OrderLine> orderLines)
         {
             List<OrderLine> orderLinesFiltered = new List<OrderLine>();
             for (int i = 0; i < orderLines.Count; i++)
