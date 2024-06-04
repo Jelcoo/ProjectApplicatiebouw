@@ -28,7 +28,6 @@ SELECT SCOPE_IDENTITY();";
             return invoice;
         }
 
-
         public Invoice? GetOpenInvoice(Table table)
         {
             string query = @"

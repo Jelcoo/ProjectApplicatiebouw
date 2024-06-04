@@ -6,10 +6,8 @@ namespace ChapeauUI.PaymentUI
 {
     public partial class PaymentPanel : Form
     {
-        const int invoiceId = 2; // debug
         private Table _table;
         private Invoice _invoice;
-        private OrderService _orderService;
         private InvoiceService _invoiceService;
         private PaymentService _paymentService;
         private List<(string personId, int percentage, double totalPrice, EPaymentMethod paymentMethod)> paymentDetailsList;
@@ -20,7 +18,6 @@ namespace ChapeauUI.PaymentUI
 
             _table = table;
 
-            _orderService = new OrderService();
             _invoiceService = new InvoiceService();
             _paymentService = new PaymentService();
             paymentDetailsList = new List<(string, int, double, EPaymentMethod)>();
@@ -32,7 +29,7 @@ namespace ChapeauUI.PaymentUI
         private void InitializeInvoiceAndDisplayItems()
         {
             _invoice = _invoiceService.GetOpenInvoice(_table);
-            DisplayAllOrderedItems(GetAllOrderedItems(invoiceId));
+            DisplayAllOrderedItems(GetAllOrderedItems(_invoice.InvoiceId));
             ResetVisibilityAndText();
         }
 
