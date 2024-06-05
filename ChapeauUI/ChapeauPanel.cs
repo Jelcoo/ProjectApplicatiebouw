@@ -58,7 +58,9 @@ namespace ChapeauUI
 
         private void managementEmployeeButton_Click(object sender, EventArgs e)
         {
-            
+            EmploymentUI.EmployeeManagement employeeManagement = new EmploymentUI.EmployeeManagement();
+            employeeManagement.Show();
+            this.Hide();
         }
     }
 }

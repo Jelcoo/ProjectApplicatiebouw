@@ -105,12 +105,12 @@
             // 
             // managementEmployeeButton
             // 
-            managementEmployeeButton.Location = new Point(758, 10);
-            managementEmployeeButton.Margin = new Padding(2);
+            managementEmployeeButton.Location = new Point(759, 10);
+            managementEmployeeButton.Margin = new Padding(2, 2, 2, 2);
             managementEmployeeButton.Name = "managementEmployeeButton";
             managementEmployeeButton.Size = new Size(120, 60);
             managementEmployeeButton.TabIndex = 5;
-            managementEmployeeButton.Text = "Management: Employees";
+            managementEmployeeButton.Text = "Management: Employee";
             managementEmployeeButton.UseVisualStyleBackColor = true;
             managementEmployeeButton.Click += managementEmployeeButton_Click;
             // 
@@ -118,7 +118,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(893, 82);
+            ClientSize = new Size(1000, 82);
             Controls.Add(managementEmployeeButton);
             Controls.Add(managementIncomeButton);
             Controls.Add(managementMenuButton);
