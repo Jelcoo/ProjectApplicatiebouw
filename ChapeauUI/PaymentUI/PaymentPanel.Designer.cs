@@ -54,6 +54,7 @@
             lblPercentage3 = new Label();
             lblPercentage4 = new Label();
             tbPeopleAmount = new TextBox();
+            backButton = new Button();
             SuspendLayout();
             // 
             // lvAllOrderItems
@@ -316,11 +317,22 @@
             tbPeopleAmount.TextAlign = HorizontalAlignment.Right;
             tbPeopleAmount.TextChanged += tbPeopleAmount_TextChanged;
             // 
+            // backButton
+            // 
+            backButton.Location = new Point(750, 24);
+            backButton.Name = "backButton";
+            backButton.Size = new Size(112, 34);
+            backButton.TabIndex = 25;
+            backButton.Text = "< Back";
+            backButton.UseVisualStyleBackColor = true;
+            backButton.Click += backButton_Click;
+            // 
             // PaymentPanel
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(957, 453);
+            Controls.Add(backButton);
             Controls.Add(tbPeopleAmount);
             Controls.Add(lblPercentage4);
             Controls.Add(lblPercentage3);
@@ -378,5 +390,6 @@
         private Label lblPercentage3;
         private Label lblPercentage4;
         private TextBox tbPeopleAmount;
+        private Button backButton;
     }
 }

@@ -183,7 +183,7 @@ namespace ChapeauUI.OrderUI
                 return;
             }
 
-            PaymentPanel paymentPanel = new PaymentPanel(_restaurant.SelectedTable, openInvoice);
+            PaymentPanel paymentPanel = new PaymentPanel(openInvoice);
             paymentPanel.Show();
             this.Hide();
         }

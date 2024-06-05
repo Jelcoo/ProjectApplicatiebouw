@@ -1,22 +1,21 @@
 ﻿using ChapeauModel;
 using ChapeauModel.Enums;
 using ChapeauService;
+using ChapeauUI.OrderUI;
 
 namespace ChapeauUI.PaymentUI
 {
     public partial class PaymentPanel : Form
     {
-        private Table _table;
         private Invoice _invoice;
         private InvoiceService _invoiceService;
         private PaymentService _paymentService;
         private List<(string personId, int percentage, double totalPrice, EPaymentMethod paymentMethod)> paymentDetailsList;
 
-        public PaymentPanel(Table table, Invoice invoice)
+        public PaymentPanel(Invoice invoice)
         {
             InitializeComponent();
 
-            _table = table;
             _invoice = invoice;
 
             _invoiceService = new InvoiceService();
@@ -44,7 +43,7 @@ namespace ChapeauUI.PaymentUI
             }
         }
 
-        private void DisplayAllOrderedItems(Dictionary<MenuItem, int> orderedItems)
+        private void DisplayAllOrderedItems(Dictionary<ChapeauModel.MenuItem, int> orderedItems)
         {
             lvAllOrderItems.Items.Clear();
 
@@ -96,7 +95,7 @@ namespace ChapeauUI.PaymentUI
             lvAllOrderItems.Items.Add(listViewItem);
         }
 
-        private Dictionary<MenuItem, int> GetAllOrderedItems(int invoiceId)
+        private Dictionary<ChapeauModel.MenuItem, int> GetAllOrderedItems(int invoiceId)
         {
             return _invoiceService.GetAllOrderedItemsByInvoiceId(invoiceId);
         }
@@ -281,6 +280,13 @@ namespace ChapeauUI.PaymentUI
             {
                 e.Handled = true;
             }
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            OrderHome orderHome = new OrderHome();
+            orderHome.Show();
+            this.Hide();
         }
     }
 }
