@@ -12,10 +12,13 @@ namespace ChapeauUI.PaymentUI
             lblPercentage.Text += $"{percentage}%";
             lblPrice.Text += $"{totalPrice.ToString("€0.00")}";
             lblPaymentMethod.Text += paymentMethod.ToString();
+
+            this.AcceptButton = btnPay;
         }
 
         private void btnPay_Click(object sender, EventArgs e)
         {
+            this.DialogResult = DialogResult.OK;
             this.Close();
         }
     }

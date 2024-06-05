@@ -2,12 +2,16 @@
 using ChapeauModel.Enums;
 using ChapeauService;
 using ChapeauUI.OrderUI;
+using ChapeauUI.TableUI;
+using MenuItem = ChapeauModel.MenuItem;
 
 namespace ChapeauUI.PaymentUI
 {
     public partial class PaymentPanel : Form
     {
+        private Table _table;
         private Invoice _invoice;
+        private OrderService _orderService;
         private InvoiceService _invoiceService;
         private PaymentService _paymentService;
         private List<(string personId, int percentage, double totalPrice, EPaymentMethod paymentMethod)> paymentDetailsList;
@@ -43,7 +47,7 @@ namespace ChapeauUI.PaymentUI
             }
         }
 
-        private void DisplayAllOrderedItems(Dictionary<ChapeauModel.MenuItem, int> orderedItems)
+        private void DisplayAllOrderedItems(Dictionary<MenuItem, int> orderedItems)
         {
             lvAllOrderItems.Items.Clear();
 
@@ -95,7 +99,7 @@ namespace ChapeauUI.PaymentUI
             lvAllOrderItems.Items.Add(listViewItem);
         }
 
-        private Dictionary<ChapeauModel.MenuItem, int> GetAllOrderedItems(int invoiceId)
+        private Dictionary<MenuItem, int> GetAllOrderedItems(int invoiceId)
         {
             return _invoiceService.GetAllOrderedItemsByInvoiceId(invoiceId);
         }
@@ -103,23 +107,42 @@ namespace ChapeauUI.PaymentUI
         private void btnPay_Click(object sender, EventArgs e)
         {
             paymentDetailsList.Clear();
+
             double totalVatPrice = GetTotalVatPriceFromListView();
             double tipAmount = CalculateTipAmount(totalVatPrice, out double totalWithTip);
 
-            AddPaymentDetails(1, lblPersonOne, tbPersonOnePercentage, cbPersonOne, totalWithTip);
-            AddPaymentDetails(2, lblPersonTwo, tbPersonTwoPercentage, cbPersonTwo, totalWithTip);
-            AddPaymentDetails(3, lblPersonThree, tbPersonThreePercentage, cbPersonThree, totalWithTip);
-            AddPaymentDetails(4, lblPersonFour, tbPersonFourPercentage, cbPersonFour, totalWithTip);
+            bool isValid = true;
+            isValid &= AddPaymentDetails(1, lblPersonOne, tbPersonOnePercentage, cbPersonOne, totalWithTip);
+            isValid &= AddPaymentDetails(2, lblPersonTwo, tbPersonTwoPercentage, cbPersonTwo, totalWithTip);
+            isValid &= AddPaymentDetails(3, lblPersonThree, tbPersonThreePercentage, cbPersonThree, totalWithTip);
+            isValid &= AddPaymentDetails(4, lblPersonFour, tbPersonFourPercentage, cbPersonFour, totalWithTip);
 
-            ProcessPayments(tipAmount);
+            int.TryParse(tbPersonOnePercentage.Text, out int personOnePercentage);
+            int.TryParse(tbPersonTwoPercentage.Text, out int personTwoPercentage);
+            int.TryParse(tbPersonThreePercentage.Text, out int personThreePercentage);
+            int.TryParse(tbPersonFourPercentage.Text, out int personFourPercentage);
 
-            MessageBox.Show("Payment successful.", "Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            int totalPercentage = personOnePercentage + personTwoPercentage + personThreePercentage + personFourPercentage;
 
-            _invoiceService.CloseInvoice(_invoice);
+            if (!isValid || totalPercentage != 100)
+            {
+                MessageBox.Show("Please make sure all fields are filled and the percentages sum to 100.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            ChapeauPanel chapeauPanel = new ChapeauPanel();
-            chapeauPanel.Show();
-            this.Hide();
+            bool allPaymentsConfirmed = ProcessPayments(tipAmount);
+
+            if (allPaymentsConfirmed)
+            {
+                _invoiceService.CloseInvoice(_invoice);
+                MessageBox.Show("Payment successful.", "Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                new TableUI.TableHome().Show();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Payment not successful. Please try again.", "Payment Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private double GetTotalVatPriceFromListView()
@@ -152,24 +175,45 @@ namespace ChapeauUI.PaymentUI
             return tipAmount;
         }
 
-        private void AddPaymentDetails(int personNumber, Label lblPerson, TextBox tbPercentage, ComboBox cbPaymentMethod, double totalVatPrice)
+        private bool AddPaymentDetails(int personNumber, Label lblPerson, TextBox tbPercentage, ComboBox cbPaymentMethod, double totalVatPrice)
         {
-            if (lblPerson.Visible && int.TryParse(tbPercentage.Text, out int percentage) && cbPaymentMethod.SelectedItem is EPaymentMethod paymentMethod)
+            if (lblPerson.Visible)
             {
-                double personTotalPrice = totalVatPrice * percentage / 100;
+                if (!int.TryParse(tbPercentage.Text, out int percentage) || percentage < 0 || percentage > 100)
+                {
+                    return false;
+                }
+
+                if (cbPaymentMethod.SelectedItem is not EPaymentMethod paymentMethod)
+                {
+                    return false;
+                }
+
+                double personTotalPrice = totalVatPrice * (percentage / 100);
                 paymentDetailsList.Add((personNumber.ToString(), percentage, personTotalPrice, paymentMethod));
             }
+            return true;
         }
 
-        private void ProcessPayments(double tipAmount)
+        private bool ProcessPayments(double tipAmount)
         {
             foreach ((string personId, int percentage, double totalPrice, EPaymentMethod paymentMethod) in paymentDetailsList)
             {
-                new PaymentPromptPanel(personId, percentage, totalPrice, paymentMethod).ShowDialog();
-                double personTipAmount = tipAmount * (percentage / 100);
+                using (PaymentPromptPanel paymentPromptPanel = new PaymentPromptPanel(personId, percentage, totalPrice, paymentMethod))
+                {
+                    if (paymentPromptPanel.ShowDialog() != DialogResult.OK)
+                    {
+                        return false;
+                    }
+                }
+
+                double personTipAmount = tipAmount * (percentage / 100.0);
                 _paymentService.MakeNewPayment(_invoice, totalPrice, paymentMethod, personTipAmount);
-            }
+                }
+            return true;
         }
+
+
 
         private void tbPeopleAmount_TextChanged(object sender, EventArgs e)
         {
@@ -237,10 +281,23 @@ namespace ChapeauUI.PaymentUI
 
         private void SetAllTextBoxText(int percentage)
         {
-            tbPersonOnePercentage.Text = percentage.ToString();
-            tbPersonTwoPercentage.Text = percentage.ToString();
-            tbPersonThreePercentage.Text = percentage.ToString();
-            tbPersonFourPercentage.Text = percentage.ToString();
+            switch (tbPeopleAmount.Text)
+            {
+                case "4":
+                    tbPersonFourPercentage.Text = percentage.ToString();
+                    goto case "3";
+                case "3":
+                    tbPersonThreePercentage.Text = percentage.ToString();
+                    goto case "2";
+                case "2":
+                    tbPersonTwoPercentage.Text = percentage.ToString();
+                    goto case "1";
+                case "1":
+                    tbPersonOnePercentage.Text = percentage.ToString();
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void ResetVisibilityAndText()
