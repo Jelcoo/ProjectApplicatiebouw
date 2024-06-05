@@ -43,6 +43,13 @@
             _loggedInEmployee = employee;
         }
 
+        public void AddMenuItem(MenuItem menuItem)
+        {
+            foreach (Menu menu in _menus)
+            {
+                if (menu.Name == menuItem.Menu) menu.AddMenuItem(menuItem);
+            }
+        }
         public void DecreaseStock(MenuItem menuItem, int quantity)
         {
             foreach (Menu menu in _menus)

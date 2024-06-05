@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using ChapeauModel.Enums;
+﻿using ChapeauModel.Enums;
 using ChapeauModel;
 using ChapeauService;
 
@@ -16,11 +7,13 @@ namespace ChapeauUI.MenuUI
     public partial class MenuAddMenuItem : Form
     {
         private MenuManagement parentForm;
+        private Restaurant _restaurant;
 
         public MenuAddMenuItem(MenuManagement parentForm)
         {
             InitializeComponent();
             this.parentForm = parentForm;
+            _restaurant = Restaurant.GetInstance();
             FillComboBoxes();
         }
 
@@ -35,6 +28,7 @@ namespace ChapeauUI.MenuUI
                 int stockId = menuService.CreateItemStock();
                 MenuItem menuItem = GetMenuItemDataFromInput(stockId);
                 menuService.AddMenuItem(menuItem);
+                _restaurant.AddMenuItem(menuItem);
 
                 MessageBox.Show("MenuItem added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 

@@ -3,7 +3,7 @@ using ChapeauModel.Enums;
 namespace ChapeauModel
 {
     public class Menu
-    { // TODO: make singleton?
+    {
         private int _menuId;
         public int MenuId { get { return _menuId; } }
 

@@ -112,7 +112,6 @@ VALUES(@stockId, @menuId, @itemName, @itemDetailName, @VATRate, @price, @menuTyp
             command.Parameters.AddWithValue("@itemDetailName", menuItem.DetailName);
             command.Parameters.AddWithValue("@VATRate", menuItem.VATRate);
             command.Parameters.AddWithValue("@price", menuItem.Price);
-            command.ExecuteNonQuery();
 
             if (menuItem.MenuType == EMenuType.None)
             {
