@@ -20,14 +20,21 @@ namespace ChapeauService
         {
             return _incomeDao.GetAllTimeIncome();
         }
-        public double GetIncome(DateTime startDate)
+
+        public double GetIncome(DateTime date)
         {
-            return _incomeDao.GetIncome(startDate);
+            DateTime startOfDay = new DateTime(date.Year, date.Month, date.Day, 0, 0, 0, 0);
+            DateTime endOfDay = new DateTime(date.Year, date.Month, date.Day, 23, 59, 59, 999);
+
+            return _incomeDao.GetIncome(startOfDay, endOfDay);
         }
 
         public double GetIncome(DateTime startDate, DateTime endDate)
         {
-            return _incomeDao.GetIncome(startDate, endDate);
+            DateTime startDateStart = new DateTime(startDate.Year, startDate.Month, startDate.Day, 0, 0, 0, 0);
+            DateTime endDateEnd = new DateTime(endDate.Year, endDate.Month, endDate.Day, 23, 59, 59, 999);
+
+            return _incomeDao.GetIncome(startDateStart, endDateEnd);
         }
 
 

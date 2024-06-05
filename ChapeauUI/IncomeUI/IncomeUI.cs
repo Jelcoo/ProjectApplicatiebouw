@@ -21,7 +21,7 @@ namespace ChapeauUI.IncomeUI
 
         public void SetSingleDate()
         {
-            dtpStartDay.Value = (DateTime.Today).AddDays(-1);
+            dtpStartDay.Value = DateTime.Today;
 
             dtpEndDay.Visible = false;
             lblSelectEndDateText.Visible = false;

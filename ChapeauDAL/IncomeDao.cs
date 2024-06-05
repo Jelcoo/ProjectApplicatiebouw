@@ -13,55 +13,12 @@ namespace ChapeauDAL
 {
     public class IncomeDao : BaseDao
     {
-        public double GetIncome(DateTime date)
-        {
-            string query = @"
-SELECT SUM(ol.quantity * mi.price) AS TotalIncome
-FROM invoices i
-JOIN orders AS o ON i.invoiceId = o.invoiceId
-JOIN orderLines AS ol ON o.orderId = ol.orderId
-JOIN menuItems AS mi ON ol.menuItemId = mi.menuItemId
-JOIN payments AS p ON i.invoiceId = p.invoiceId
-WHERE CAST(i.createdAt AS DATE) = @SelectedDate AND CAST(p.paidAt AS DATE) = @SelectedDate;";
-
-            double income = 0.0;
-
-            try
-            {
-                using (SqlConnection connection = OpenConnection())
-                {
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@SelectedDate", date);
-
-                        object result = command.ExecuteScalar();
-
-                        if (result != DBNull.Value && result != null)
-                        {
-                            income = Convert.ToDouble(result);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-            return income;
-        }
-
         public double GetIncome(DateTime startDate, DateTime endDate)
         {
             string query = @"
-SELECT SUM(ol.quantity * mi.price) AS TotalIncome
-FROM invoices i
-JOIN orders AS o ON i.invoiceId = o.invoiceId
-JOIN orderLines AS ol ON o.orderId = ol.orderId
-JOIN menuItems AS mi ON ol.menuItemId = mi.menuItemId
-JOIN payments AS p ON i.invoiceId = p.invoiceId
-WHERE CAST(i.createdAt AS DATE) BETWEEN @StartDate AND @EndDate
-AND CAST(p.paidAt AS DATE) BETWEEN @StartDate AND @EndDate;";
+SELECT SUM(paymentAmount) AS TotalIncome
+FROM payments
+WHERE paidAt BETWEEN @StartDate AND @EndDate;";
 
             double income = 0.0;
             try
@@ -70,8 +27,8 @@ AND CAST(p.paidAt AS DATE) BETWEEN @StartDate AND @EndDate;";
                 {
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@SelectedDate", startDate);
-                        command.Parameters.AddWithValue("@SelectedDate", endDate);
+                        command.Parameters.AddWithValue("@StartDate", startDate);
+                        command.Parameters.AddWithValue("@EndDate", endDate);
                         command.ExecuteNonQuery();
 
                         object result = command.ExecuteScalar();
@@ -94,14 +51,8 @@ AND CAST(p.paidAt AS DATE) BETWEEN @StartDate AND @EndDate;";
         public double GetAllTimeIncome()
         {
             string query = @"
-SELECT SUM(ol.quantity * mi.price) AS TotalIncome
-FROM invoices AS i
-JOIN orders AS o ON i.invoiceId = o.invoiceId
-JOIN orderLines AS ol ON o.orderId = ol.orderId
-JOIN menuItems AS mi ON ol.menuItemId = mi.menuItemId
-AS JOIN payments p ON i.invoiceId = p.invoiceId
-WHERE CAST(i.createdAt AS DATE) BETWEEN @StartDate AND @EndDate
-AND CAST(p.paidAt AS DATE) BETWEEN @StartDate AND @EndDate;";
+SELECT SUM(paymentAmount) AS TotalIncome
+FROM payments;";
 
             double income = 0.0;
             try
