@@ -17,16 +17,24 @@ namespace ChapeauUI
 
             MenuService menuService = new MenuService();
             TableService tableService = new TableService();
-            List<Menu> menuList = menuService.GetMenus();
-            _restaurant.SetMenus(menuList);
-            List<Table> tableList = tableService.GetTables();
-            _restaurant.SetTables(tableList);
-            _restaurant.SetLoggedInEmployee(new Employee(1, "John Doe", "1234", DateTime.Now, ChapeauModel.Enums.ERole.Manager));
+            try
+            {
+                List<Menu> menuList = menuService.GetMenus();
+                List<Table> tableList = tableService.GetTables();
+                
+                _restaurant.SetMenus(menuList);
+                _restaurant.SetTables(tableList);
+                _restaurant.SetLoggedInEmployee(new Employee(1, "John Doe", "1234", DateTime.Now, ChapeauModel.Enums.ERole.Manager));
 
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
-            Application.Run(new ChapeauPanel());
+                // To customize application configuration such as set high DPI settings or default font,
+                // see https://aka.ms/applicationconfiguration.
+                ApplicationConfiguration.Initialize();
+                Application.Run(new ChapeauPanel());
+            }
+            catch (Exception e) {
+                MessageBox.Show($"Something went wrong: {e.Message}");
+                return;
+            }
         }
     }
 }

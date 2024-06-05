@@ -67,8 +67,13 @@ namespace ChapeauUI.OrderUI
         {
             if (_order.OrderId != 0)
             {
-                Order oldOrder = _orderService.GetOrderById(_order.OrderId);
-                _orderService.UpdateOrder(oldOrder, _order);
+                try {
+                    Order oldOrder = _orderService.GetOrderById(_order.OrderId);
+                    _orderService.UpdateOrder(oldOrder, _order);
+                } catch (Exception ex) {
+                    MessageBox.Show($"Something went wrong: {ex.Message}");
+                    return;
+                }
             }
 
             for (int i = _order.OrderLines.Count - 1; i >= 0; i--)

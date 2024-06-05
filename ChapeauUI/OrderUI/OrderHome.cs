@@ -31,8 +31,13 @@ namespace ChapeauUI.OrderUI
         {
             dateTimeLabel.Text = GenericHelpers.FormatDateTime(DateTime.Now);
 
-            Invoice? openInvoice = _invoiceService.GetOpenInvoice(_restaurant.SelectedTable!);
-            _currentOrder.SetInvoice(openInvoice);
+            try {
+                Invoice? openInvoice = _invoiceService.GetOpenInvoice(_restaurant.SelectedTable!);
+                _currentOrder.SetInvoice(openInvoice);
+            } catch (Exception ex) {
+                MessageBox.Show($"Something went wrong: {ex.Message}");
+                return;
+            }
 
             orderItemList.SetOrder(_currentOrder);
 
@@ -176,16 +181,21 @@ namespace ChapeauUI.OrderUI
 
         private void paymentButton_Click(object sender, EventArgs e)
         {
-            Invoice openInvoice = _invoiceService.GetOpenInvoice(_restaurant.SelectedTable);
-            if (openInvoice == null)
-            {
-                MessageBox.Show("No open invoice found. Please place an order.");
+            try {
+                Invoice openInvoice = _invoiceService.GetOpenInvoice(_restaurant.SelectedTable);
+                if (openInvoice == null)
+                {
+                    MessageBox.Show("No open invoice found. Please place an order.");
+                    return;
+                }
+
+                PaymentPanel paymentPanel = new PaymentPanel(openInvoice);
+                paymentPanel.Show();
+                this.Hide();
+            } catch (Exception ex) {
+                MessageBox.Show($"Something went wrong: {ex.Message}");
                 return;
             }
-
-            PaymentPanel paymentPanel = new PaymentPanel(openInvoice);
-            paymentPanel.Show();
-            this.Hide();
         }
     }
 }

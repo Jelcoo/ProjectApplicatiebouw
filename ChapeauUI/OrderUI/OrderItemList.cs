@@ -56,7 +56,12 @@ namespace ChapeauUI.OrderUI
                 return;
             }
 
-            _orderService.MakeNewOrder(_order, _restaurant.SelectedTable, _restaurant.LoggedInEmployee);
+            try {
+                _orderService.MakeNewOrder(_order, _restaurant.SelectedTable, _restaurant.LoggedInEmployee);
+            } catch (Exception ex) {
+                MessageBox.Show($"Something went wrong: {ex.Message}");
+                return;
+            }
 
             MessageBox.Show("Your order has been processed!");
 
