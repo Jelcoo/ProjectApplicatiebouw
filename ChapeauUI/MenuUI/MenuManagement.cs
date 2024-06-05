@@ -65,7 +65,7 @@ namespace ChapeauUI.MenuUI
 
             if (lvMenu.SelectedItems.Count > 0)
             {
-                DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete a item?", "Confirm Add Item", MessageBoxButtons.YesNo);
+                DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete a item?", "Confirm Delete Item", MessageBoxButtons.YesNo);
 
                 if (dialogResult == DialogResult.Yes)
                 {

@@ -266,7 +266,7 @@ WHERE menuItemId = @menuItemId;";
         {
             string query = @"
 DELETE stock
-where stockId = @stockId;";
+WHERE stockId = @stockId;";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
             command.Parameters.AddWithValue("@stockId", id);

@@ -55,5 +55,10 @@ namespace ChapeauUI
             incomeUI.Show();
             this.Hide();
         }
+
+        private void managementEmployeeButton_Click(object sender, EventArgs e)
+        {
+            
+        }
     }
 }
