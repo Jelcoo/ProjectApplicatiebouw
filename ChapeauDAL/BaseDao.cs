@@ -15,18 +15,11 @@ namespace ChapeauDAL
 
         protected SqlConnection OpenConnection()
         {
-            try
+            if (_conn.State == ConnectionState.Closed || _conn.State == ConnectionState.Broken)
             {
-                if (_conn.State == ConnectionState.Closed || _conn.State == ConnectionState.Broken)
-                {
-                    _conn.Open();
-                }
+                _conn.Open();
             }
-            catch (Exception e)
-            {
-                //Print.ErrorLog(e);
-                throw;
-            }
+
             return _conn;
         }
 
