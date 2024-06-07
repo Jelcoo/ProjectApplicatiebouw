@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="ChapeauModel.Employee">
+    <Position X="9" Y="7.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>ABQAIAAAAAAAAAAAEAAAIAQQAAAAAAAAIAAAAAACAAA=</HashCode>
+      <FileName>Employee.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Role" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ChapeauModel.Invoice">
+    <Position X="12.5" Y="3.5" Width="2.25" />
+    <AssociationLine Name="Server" Type="ChapeauModel.Employee" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="12.5" Y="6.312" />
+        <Point X="10" Y="6.312" />
+        <Point X="10" Y="7.25" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Table" Type="ChapeauModel.Table" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="14.75" Y="6.312" />
+        <Point X="18.125" Y="6.312" />
+        <Point X="18.125" Y="8" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>BAAAIIAEAAAAIIAAACAAQAAACAAAAAAACAAAAoAAAAA=</HashCode>
+      <FileName>Invoice.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="InvoiceStatus" />
+      <Property Name="Server" />
+      <Property Name="Table" />
+      <Property Name="Comment" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ChapeauModel.InvoiceComment">
+    <Position X="16" Y="2.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEECAAAAIAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>InvoiceComment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChapeauModel.Menu">
+    <Position X="12.5" Y="11" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>GAAAAAAAAAACABAEAEAAAAQAAACABAEAAIAAAAAAAAA=</HashCode>
+      <FileName>Menu.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="MenuItems" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="ChapeauModel.MenuItem">
+    <Position X="17.25" Y="11" Width="2.25" />
+    <AssociationLine Name="Menu" Type="ChapeauModel.Enums.EMenu" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="17.25" Y="14.583" />
+        <Point X="16.656" Y="14.583" />
+        <Point X="16.656" Y="16.25" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="MenuType" Type="ChapeauModel.Enums.EMenuType" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="19.5" Y="14.583" />
+        <Point X="20.25" Y="14.583" />
+        <Point X="20.25" Y="16.25" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AgAAIABAIUCAAAAAAAAAAEQAgYAIAAAACAAIAAQAAAA=</HashCode>
+      <FileName>MenuItem.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="Menu" />
+      <Field Name="MenuType" />
+      <Property Name="Stock" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ChapeauModel.Order">
+    <Position X="22.75" Y="6" Width="2" />
+    <AssociationLine Name="Invoice" Type="ChapeauModel.Invoice" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="23.667" Y="6" />
+        <Point X="23.667" Y="5.667" />
+        <Point X="14.75" Y="5.667" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="OrderLines" Type="ChapeauModel.OrderLine" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="24" Y="9.545" />
+        <Point X="24" Y="11.562" />
+        <Point X="22.75" Y="11.562" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="1.314" Y="1.353" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>EAAAAEAAEAAAIAAAAAEEgAAAAABAAAQAAAAQAABAAQA=</HashCode>
+      <FileName>Order.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Invoice" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="OrderLines" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="ChapeauModel.OrderLine">
+    <Position X="20.75" Y="11" Width="2" />
+    <AssociationLine Name="OrderNote" Type="ChapeauModel.OrderNote" FixedToPoint="true">
+      <Path>
+        <Point X="22.75" Y="12.375" />
+        <Point X="24.5" Y="12.375" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAQAIBAFEAAAAAEAAAAAAAEAAACAgAAAKAA=</HashCode>
+      <FileName>OrderLine.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="OrderNote" />
+      <Field Name="OrderLineStatus" />
+      <Property Name="MenuItem" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ChapeauModel.OrderNote">
+    <Position X="24.5" Y="11.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAIABAAEAAAAAAAAAAAQAAAAAAAAEAAAA=</HashCode>
+      <FileName>OrderNote.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChapeauModel.Payment">
+    <Position X="6.25" Y="7.25" Width="2.25" />
+    <AssociationLine Name="Invoice" Type="ChapeauModel.Invoice" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="7.375" Y="7.25" />
+        <Point X="7.375" Y="5" />
+        <Point X="12.5" Y="5" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAASACEACAEAAgABAAAABAAAAEAQA=</HashCode>
+      <FileName>Payment.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Invoice" />
+      <Property Name="Tip" />
+      <Property Name="PaymentMethod" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ChapeauModel.Restaurant">
+    <Position X="12.75" Y="7.25" Width="2.25" />
+    <AssociationLine Name="Menus" Type="ChapeauModel.Menu" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="12.75" Y="10.125" />
+        <Point X="11.67" Y="10.125" />
+        <Point X="11.67" Y="12.773" />
+        <Point X="12.5" Y="12.773" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.06" Y="-0.372" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>BAAUEAAAAJAAAAAAAAQAUQAABACAAAAAAAgAAGAIEAA=</HashCode>
+      <FileName>Restaurant.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_loggedInEmployee" />
+      <Field Name="_selectedTable" />
+      <Property Name="LoggedInEmployee" />
+      <Property Name="SelectedTable" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="_tables" />
+      <Field Name="_menus" />
+      <Property Name="Menus" />
+      <Property Name="Tables" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="ChapeauModel.Stock">
+    <Position X="17.5" Y="16.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAABAAAAAAAAAAQAAAAAAAAAAACKAAAAAAA=</HashCode>
+      <FileName>Stock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChapeauModel.StockDisplayItem">
+    <Position X="21.25" Y="16.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAIAJAAAAAAAAAAAAAAQAAAAAAAAAKQAAAAAA=</HashCode>
+      <FileName>StockDisplayItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChapeauModel.Table">
+    <Position X="17.25" Y="8" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAEAAAIAAAAAAAAAQAAAAAAAAQAAAEAAAAAAA=</HashCode>
+      <FileName>Table.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChapeauModel.Tip">
+    <Position X="3.75" Y="7.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAEAAAAAIAAAAAAAAACAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Tip.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="ChapeauModel.Interfaces.IKitchenBar">
+    <Position X="18.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Interfaces\IKitchenBar.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="ChapeauModel.Enums.EInvoiceStatus">
+    <Position X="12.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Enums\EInvoiceStatus.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ChapeauModel.Enums.EMenu">
+    <Position X="15.75" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Enums\EMenu.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ChapeauModel.Enums.EMenuType">
+    <Position X="19.5" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAhAEAAAQ=</HashCode>
+      <FileName>Enums\EMenuType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ChapeauModel.Enums.EOrderDestination">
+    <Position X="20.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Enums\EOrderDestination.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ChapeauModel.Enums.EOrderLineStatus">
+    <Position X="20.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAAAIAAAAAEAAAIAAAAAA=</HashCode>
+      <FileName>Enums\EOrderLineStatus.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ChapeauModel.Enums.EOrderTime">
+    <Position X="18.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Enums\EOrderTime.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ChapeauModel.Enums.EPaymentMethod">
+    <Position X="6.5" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAACAQAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Enums\EPaymentMethod.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ChapeauModel.Enums.ERole">
+    <Position X="9" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAACDCAAAAAAAAAAAAA=</HashCode>
+      <FileName>Enums\ERole.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

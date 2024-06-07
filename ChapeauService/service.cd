@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ChapeauService.EmployeeService">
+    <Position X="5.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAIgAhAAAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EmployeeService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_employeeDao" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ChapeauService.IncomeService">
+    <Position X="7.5" Y="4.5" Width="1.5" />
+    <AssociationLine Name="_incomeDao" Type="ChapeauDAL.IncomeDao">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.11" Y="0.168" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAIAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>IncomeService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_incomeDao" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ChapeauService.InvoiceService">
+    <Position X="16.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAgAAAAAAAAAAAAAAAAAgAAAAAAAEAAAIAA=</HashCode>
+      <FileName>InvoiceService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_invoiceDao" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ChapeauService.KitchenBarService">
+    <Position X="9.25" Y="4.5" Width="1.5" />
+    <AssociationLine Name="_kitchenBarDao" Type="ChapeauDAL.KitchenBarDao">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.093" Y="0.193" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAAEAAAAAAAAAAAAAAAAAIg=</HashCode>
+      <FileName>KitchenBarService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_kitchenBarDao" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ChapeauService.MenuService">
+    <Position X="11" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIACAAABEACEAAAAAAAAAgBAAAA=</HashCode>
+      <FileName>MenuService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_menuDao" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ChapeauService.OrderService">
+    <Position X="12.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAgAAAMACAAAAAAAAEAIAAEAAACAgAAAAgIAAA=</HashCode>
+      <FileName>OrderService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_orderDao" />
+      <Field Name="_restaurant" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ChapeauService.PaymentService">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>PaymentService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_paymentDao" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ChapeauService.StockService">
+    <Position X="4" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAACAAAAAAACEAAAAAAIEA=</HashCode>
+      <FileName>StockService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_stockDao" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ChapeauService.TableService">
+    <Position X="2.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TableService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_tableDao" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ChapeauDAL.StockDao">
+    <Position X="4" Y="1.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ChapeauDAL.TableDao">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ChapeauDAL.EmployeeDao">
+    <Position X="5.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ChapeauDAL.IncomeDao">
+    <Position X="7.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ChapeauDAL.PaymentDao">
+    <Position X="0.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ChapeauDAL.KitchenBarDao">
+    <Position X="9.25" Y="2" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ChapeauDAL.MenuDao">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ChapeauDAL.OrderDao">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ChapeauModel.Restaurant">
+    <Position X="14.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ChapeauDAL.InvoiceDao">
+    <Position X="16.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

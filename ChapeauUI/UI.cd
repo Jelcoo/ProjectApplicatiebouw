@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="ChapeauUI.BarUI.BarHome" BaseTypeListCollapsed="true">
+    <Position X="3.5" Y="11.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AEMAAAEAIiAgAAoAAACAABACAQEEACAACAAAAAAACAg=</HashCode>
+      <FileName>BarUI\BarHome.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ChapeauUI.Components.BackgroundPanel">
+    <Position X="0.5" Y="5.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AQCAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Components\BackgroundPanel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChapeauUI.Components.CompleteOrderTemplate">
+    <Position X="6.75" Y="17" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>ACAAABACACCAgAAAAACAAAASAASAAAAgAAAAAAghJAA=</HashCode>
+      <FileName>Components\CompleteOrderTemplate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChapeauUI.Components.MenuChecklist">
+    <Position X="3.5" Y="17" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAQCCgAAAgiACAAAECAEAAAAAAIQAAAABgIEI=</HashCode>
+      <FileName>Components\MenuChecklist.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChapeauUI.Components.RoundedButton">
+    <Position X="0.5" Y="7.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AACAgAAAAIAAAAIAAAIAAEACAABAAAIAAAAAACAAAAA=</HashCode>
+      <FileName>Components\RoundedButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScrollableListView">
+    <Position X="0.5" Y="11.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAEAAAAAAAAAAAAAAAAEAQQAAAAgQAAAIAA=</HashCode>
+      <FileName>Components\ScrollableListView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChapeauUI.EmploymentUI.EmployeeAddEmployee">
+    <Position X="26" Y="11.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAACAAACAAAICAEAACAAEAAAQAAAAAEAAABAA=</HashCode>
+      <FileName>EmploymentUI\EmployeeAddEmployee.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChapeauUI.EmploymentUI.EmployeeChangePassword">
+    <Position X="28.75" Y="11.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAEAEAAAECAAADAIwgCACkACgAAAAAAACEAAAAggAQA=</HashCode>
+      <FileName>EmploymentUI\EmployeeChangePassword.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChapeauUI.EmploymentUI.EmployeeManagement">
+    <Position X="22.75" Y="11.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>GAUsAJJBwCgZIDAEEKCgAA4DAEUKARBEKAQgACCgDAM=</HashCode>
+      <FileName>EmploymentUI\EmployeeManagement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChapeauUI.EmploymentUI.EmploymentEditEmployee">
+    <Position X="18.75" Y="4.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAQEAAAACAAECAAQICEEAACAAEAAAQAAAAAEAAABCA=</HashCode>
+      <FileName>EmploymentUI\EmploymentEditEmployee.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChapeauUI.IncomeUI.IncomeUI">
+    <Position X="19.5" Y="11.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAYCAAADQAIAGgAQACAQCgAAAAAAAIgAAAgCw=</HashCode>
+      <FileName>IncomeUI\IncomeUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChapeauUI.KitchenUI.KitchenHome" BaseTypeListCollapsed="true">
+    <Position X="6.75" Y="11.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIqAgAAoAEAGAAAACAQEEACAQCAAAAAAACAg=</HashCode>
+      <FileName>KitchenUI\KitchenHome.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ChapeauUI.MenuUI.MenuAddMenuItem">
+    <Position X="27.75" Y="4.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAQQCAAABABSACAAgAyAAQAAIAAMCIAAAAIAIE=</HashCode>
+      <FileName>MenuUI\MenuAddMenuItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChapeauUI.MenuUI.MenuChangeMenuItem">
+    <Position X="24.5" Y="4.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAABEQQCACCBABSACAAgAyAAQAAAEAICIAAAAAAIE=</HashCode>
+      <FileName>MenuUI\MenuChangeMenuItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChapeauUI.MenuUI.MenuManagement">
+    <Position X="21.75" Y="4.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAGAAAABCADAAAAEACAAgACBQAAAAAACIACAEAIABg=</HashCode>
+      <FileName>MenuUI\MenuManagement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChapeauUI.OrderUI.OrderHome">
+    <Position X="10.25" Y="11.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAIoQQCAQyCgAAgBAASAAsCCQQUEAKJAAAAABCQIQAg=</HashCode>
+      <FileName>OrderUI\OrderHome.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChapeauUI.OrderUI.OrderItemList" BaseTypeListCollapsed="true">
+    <Position X="10.25" Y="20.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>MAQAAAACACAAAAAAAACBhIACAAAAAAAAACAEAACICAA=</HashCode>
+      <FileName>OrderUI\OrderItemList.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ChapeauUI.OrderUI.OrderLineNote">
+    <Position X="13.25" Y="15" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAACAAAQAAAACCAQACAAAAAAAAgIAgEAEAAAA=</HashCode>
+      <FileName>OrderUI\OrderLineNote.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChapeauUI.OrderUI.OrderModifyScreen">
+    <Position X="16" Y="11.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAABAACCACAAAAQAAACAAAACAIQJAAAgACAAQCAAAAA=</HashCode>
+      <FileName>OrderUI\OrderModifyScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChapeauUI.OrderUI.OrderViewScreen">
+    <Position X="13.25" Y="11.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAhAAIACAAAACAAAAAAAAACAAQCAAAAA=</HashCode>
+      <FileName>OrderUI\OrderViewScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChapeauUI.PaymentUI.PaymentPanel">
+    <Position X="32.25" Y="4.5" Width="5" />
+    <TypeIdentifier>
+      <HashCode>IAEhAAAACCDCEhQACKGCAABCAQAEkJmB0ZAAgAGgUGg=</HashCode>
+      <FileName>PaymentUI\PaymentPanel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChapeauUI.PaymentUI.PaymentPromptPanel">
+    <Position X="37.5" Y="4.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAQAAAAACCAAACAAAACAAAgACAAAAAQAA=</HashCode>
+      <FileName>PaymentUI\PaymentPromptPanel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChapeauUI.StockUI.StockAddDelivery">
+    <Position X="15.5" Y="4.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAASAgABQGgBiAAAITAgyAEAgCAAAgAAAAAQg=</HashCode>
+      <FileName>StockUI\StockAddDelivery.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChapeauUI.StockUI.StockAlterStock">
+    <Position X="12.25" Y="4.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AEEAAJAAASAgABAGgBiAAAATAowAEAgAAAAAAAAAAQg=</HashCode>
+      <FileName>StockUI\StockAlterStock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChapeauUI.StockUI.StockManagement">
+    <Position X="9.25" Y="4.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAACCAAgABAEAiAAIBDgQoCECAACAAEAABBgAg=</HashCode>
+      <FileName>StockUI\StockManagement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChapeauUI.TableUI.TableHome">
+    <Position X="6.75" Y="5.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AQAABAAAACAAAAAABACBAAACAQAAAAAAAAAAAAAIAAg=</HashCode>
+      <FileName>TableUI\TableHome.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChapeauUI.ChapeauPanel">
+    <Position X="3.5" Y="5.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAACEAAAgEBACBCAACAAgAAAAAAAIAAABoCCA=</HashCode>
+      <FileName>ChapeauPanel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChapeauUI.Program">
+    <Position X="3.5" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAIAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChapeauUI.OrderUI.MenuItem">
+    <Position X="13.25" Y="19.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAhCBCFAAQAAAACAAAACAAgAAIIAgAAgAAAgAAA=</HashCode>
+      <FileName>OrderUI\MenuItem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="ChapeauUI.OrderUI.Observers.IOrderObservable">
+    <Position X="0.5" Y="3.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>OrderUI\Observers\IOrderObservable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ChapeauUI.OrderUI.Observers.IOrderObserver">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OrderUI\Observers\IOrderObserver.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
