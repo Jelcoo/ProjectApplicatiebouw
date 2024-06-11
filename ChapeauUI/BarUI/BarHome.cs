@@ -22,23 +22,30 @@ namespace ChapeauUI.BarUI
         }
         public void Addpanel(EOrderTime orderTime)
         {
-            barOrderLayoutPanel.Controls.Clear();
-            int count = barOrderLayoutPanel.Controls.Count; // Get the total amount of panels
-            int columns = barOrderLayoutPanel.ColumnCount;
-            int rows = barOrderLayoutPanel.RowCount;
-
-            // Calculate the next cell to add a new panel
-            int nextRow = count / columns;
-
-            // Add a new row if there is no space anymore
-            if (nextRow >= rows)
+            try
             {
-                barOrderLayoutPanel.RowCount++;
-                barOrderLayoutPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            }
+                barOrderLayoutPanel.Controls.Clear();
+                int count = barOrderLayoutPanel.Controls.Count; // Get the total amount of panels
+                int columns = barOrderLayoutPanel.ColumnCount;
+                int rows = barOrderLayoutPanel.RowCount;
 
-            AddOrderToPanel(columns, nextRow, orderTime);
-            HeightChecker();
+                // Calculate the next cell to add a new panel
+                int nextRow = count / columns;
+
+                // Add a new row if there is no space anymore
+                if (nextRow >= rows)
+                {
+                    barOrderLayoutPanel.RowCount++;
+                    barOrderLayoutPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+                }
+
+                AddOrderToPanel(columns, nextRow, orderTime);
+                HeightChecker();
+            } catch (Exception ex)
+            {
+                MessageBox.Show($"Something went wrong: {ex.Message}");
+            }
+            
         }
 
         private void HeightChecker()

@@ -82,17 +82,24 @@ ORDER BY O.orderedAt";
 
         private OrderLine CombineData(SqlDataReader reader)
         {
-            OrderLine orderLine = OrderReader.ReadOrderLine(reader);
-            orderLine.SetMenuItem(MenuReader.ReadMenuItem(reader));
-            if (orderLine.MenuItem.MenuType != EMenuType.None)
+            try
             {
-                orderLine.MenuItem.SetMenuType((EMenuType)(int)reader["menuTypeId"]);
+                OrderLine orderLine = OrderReader.ReadOrderLine(reader);
+                orderLine.SetMenuItem(MenuReader.ReadMenuItem(reader));
+                if (orderLine.MenuItem.MenuType != EMenuType.None)
+                {
+                    orderLine.MenuItem.SetMenuType((EMenuType)(int)reader["menuTypeId"]);
+                }
+                if (orderLine.OrderNote != null)
+                {
+                    orderLine.SetOrderNote(OrderReader.ReadOrderNote(reader));
+                }
+                return orderLine;
             }
-            if (orderLine.OrderNote != null)
-            {
-                orderLine.SetOrderNote(OrderReader.ReadOrderNote(reader));
+            catch (Exception ex) 
+            { 
+                throw new Exception("Something went wrong parsing the orders");
             }
-            return orderLine;
         }
 
         private List<Order> OrderParserAndCombiner(SqlDataReader reader)
