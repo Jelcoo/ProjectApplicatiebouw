@@ -80,7 +80,7 @@ namespace ChapeauUI.OrderUI
         private void CreateOrderline(string? note)
         {
             OrderLine orderLine = new OrderLine(_menuItem, EOrderLineStatus.Pending, 1);
-            if (note != null) orderLine.SetOrderNote(new OrderNote(note));
+            if (!string.IsNullOrEmpty(note)) orderLine.SetOrderNote(new OrderNote(note));
             _order.AddOrderLine(orderLine);
         }
     }
