@@ -21,23 +21,29 @@ namespace ChapeauUI.KitchenUI
         }
         public void Addpanel(EOrderTime orderTime)
         {
-            kitchenOrderLayoutPanel.Controls.Clear();
-            int count = kitchenOrderLayoutPanel.Controls.Count; // Get the total amount of panels
-            int columns = kitchenOrderLayoutPanel.ColumnCount;
-            int rows = kitchenOrderLayoutPanel.RowCount;
-
-            // Calculate the next cell to add a new panel
-            int nextRow = count / columns;
-
-            // Add a new row if there is no space anymore
-            if (nextRow >= rows)
+            try
             {
-                kitchenOrderLayoutPanel.RowCount++;
-                kitchenOrderLayoutPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            }
+                kitchenOrderLayoutPanel.Controls.Clear();
+                int count = kitchenOrderLayoutPanel.Controls.Count; // Get the total amount of panels
+                int columns = kitchenOrderLayoutPanel.ColumnCount;
+                int rows = kitchenOrderLayoutPanel.RowCount;
 
-            AddOrderToPanel(columns, nextRow, orderTime);
-            HeightChecker();
+                // Calculate the next cell to add a new panel
+                int nextRow = count / columns;
+
+                // Add a new row if there is no space anymore
+                if (nextRow >= rows)
+                {
+                    kitchenOrderLayoutPanel.RowCount++;
+                    kitchenOrderLayoutPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+                }
+
+                AddOrderToPanel(columns, nextRow, orderTime);
+                HeightChecker();
+            } catch (Exception ex)
+            {
+                MessageBox.Show($"Something went wrong: {ex.Message}");
+            }
         }
 
         private void HeightChecker()
