@@ -20,6 +20,7 @@ namespace ChapeauUI.EmploymentUI
     {
         private EmployeeService _employeeService;
         private ListView currentListView;
+
         public EmployeeManagement()
         {
             InitializeComponent();
@@ -134,8 +135,6 @@ namespace ChapeauUI.EmploymentUI
             lblEmployedAtText.Visible = true;
             lblEmployedAt.Visible = true;
 
-            pbEmployee.Visible = true;
-
             btnEditEmployee.Visible = true;
             btnFireEmployee.Visible = true;
             btnChangePasswordEmployee.Visible = true;
@@ -150,8 +149,6 @@ namespace ChapeauUI.EmploymentUI
             lblEmployeeId.Visible = false;
             lblEmployedAtText.Visible = false;
             lblEmployedAt.Visible = false;
-
-            pbEmployee.Visible = false;
 
             btnEditEmployee.Visible = false;
             btnFireEmployee.Visible = false;
@@ -217,7 +214,7 @@ namespace ChapeauUI.EmploymentUI
 
         private void btnAddEmployee_Click(object sender, EventArgs e)
         {
-
+            new EmployeeHireEmployee(this).ShowDialog();
         }
     }
 }

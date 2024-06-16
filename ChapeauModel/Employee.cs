@@ -11,6 +11,7 @@ namespace ChapeauModel
         public string Name { get { return _name; } }
 
         private string _password;
+        public string Password { get { return _password; } }
 
         private DateTime _employedAt;
         public DateTime EmployedAt { get { return _employedAt; } }
@@ -35,5 +36,6 @@ namespace ChapeauModel
         {
             Role = role;
         }
+
     }
 }

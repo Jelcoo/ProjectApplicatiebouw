@@ -53,7 +53,6 @@
             MEmployedAt = new ColumnHeader();
             MRole = new ColumnHeader();
             btnAddEmployee = new Button();
-            pbEmployee = new PictureBox();
             lblEmployeeName = new Label();
             lblIdText = new Label();
             lblEmployeeId = new Label();
@@ -63,7 +62,6 @@
             btnEditEmployee = new Button();
             btnChangePasswordEmployee = new Button();
             lblSelectAnEmployeeText = new Label();
-            ((System.ComponentModel.ISupportInitialize)pbEmployee).BeginInit();
             SuspendLayout();
             // 
             // btnWaitersTab
@@ -113,7 +111,7 @@
             lvWaiters.Location = new Point(12, 47);
             lvWaiters.MultiSelect = false;
             lvWaiters.Name = "lvWaiters";
-            lvWaiters.Size = new Size(550, 457);
+            lvWaiters.Size = new Size(550, 354);
             lvWaiters.TabIndex = 0;
             lvWaiters.UseCompatibleStateImageBehavior = false;
             lvWaiters.View = View.Details;
@@ -146,7 +144,7 @@
             lvChefs.Location = new Point(12, 47);
             lvChefs.MultiSelect = false;
             lvChefs.Name = "lvChefs";
-            lvChefs.Size = new Size(550, 457);
+            lvChefs.Size = new Size(550, 354);
             lvChefs.TabIndex = 0;
             lvChefs.UseCompatibleStateImageBehavior = false;
             lvChefs.View = View.Details;
@@ -175,7 +173,7 @@
             lvBartenders.Location = new Point(12, 47);
             lvBartenders.MultiSelect = false;
             lvBartenders.Name = "lvBartenders";
-            lvBartenders.Size = new Size(550, 457);
+            lvBartenders.Size = new Size(550, 354);
             lvBartenders.TabIndex = 0;
             lvBartenders.UseCompatibleStateImageBehavior = false;
             lvBartenders.View = View.Details;
@@ -204,7 +202,7 @@
             lvManagers.Location = new Point(12, 47);
             lvManagers.MultiSelect = false;
             lvManagers.Name = "lvManagers";
-            lvManagers.Size = new Size(550, 457);
+            lvManagers.Size = new Size(550, 354);
             lvManagers.TabIndex = 0;
             lvManagers.UseCompatibleStateImageBehavior = false;
             lvManagers.View = View.Details;
@@ -228,7 +226,7 @@
             // 
             // btnAddEmployee
             // 
-            btnAddEmployee.Location = new Point(618, 469);
+            btnAddEmployee.Location = new Point(618, 366);
             btnAddEmployee.Name = "btnAddEmployee";
             btnAddEmployee.Size = new Size(200, 35);
             btnAddEmployee.TabIndex = 1;
@@ -236,18 +234,9 @@
             btnAddEmployee.UseVisualStyleBackColor = true;
             btnAddEmployee.Click += btnAddEmployee_Click;
             // 
-            // pbEmployee
-            // 
-            pbEmployee.Location = new Point(618, 155);
-            pbEmployee.Name = "pbEmployee";
-            pbEmployee.Size = new Size(200, 200);
-            pbEmployee.TabIndex = 2;
-            pbEmployee.TabStop = false;
-            pbEmployee.Visible = false;
-            // 
             // lblEmployeeName
             // 
-            lblEmployeeName.Location = new Point(618, 12);
+            lblEmployeeName.Location = new Point(618, 47);
             lblEmployeeName.Name = "lblEmployeeName";
             lblEmployeeName.Size = new Size(200, 50);
             lblEmployeeName.TabIndex = 3;
@@ -256,7 +245,7 @@
             // 
             // lblIdText
             // 
-            lblIdText.Location = new Point(618, 86);
+            lblIdText.Location = new Point(618, 121);
             lblIdText.Name = "lblIdText";
             lblIdText.Size = new Size(100, 25);
             lblIdText.TabIndex = 4;
@@ -267,7 +256,7 @@
             // lblEmployeeId
             // 
             lblEmployeeId.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            lblEmployeeId.Location = new Point(718, 86);
+            lblEmployeeId.Location = new Point(718, 121);
             lblEmployeeId.Name = "lblEmployeeId";
             lblEmployeeId.Size = new Size(100, 25);
             lblEmployeeId.TabIndex = 4;
@@ -276,7 +265,7 @@
             // 
             // lblEmployedAtText
             // 
-            lblEmployedAtText.Location = new Point(618, 111);
+            lblEmployedAtText.Location = new Point(618, 146);
             lblEmployedAtText.Name = "lblEmployedAtText";
             lblEmployedAtText.Size = new Size(100, 25);
             lblEmployedAtText.TabIndex = 4;
@@ -287,7 +276,7 @@
             // lblEmployedAt
             // 
             lblEmployedAt.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            lblEmployedAt.Location = new Point(718, 111);
+            lblEmployedAt.Location = new Point(718, 146);
             lblEmployedAt.Name = "lblEmployedAt";
             lblEmployedAt.Size = new Size(144, 25);
             lblEmployedAt.TabIndex = 4;
@@ -296,7 +285,7 @@
             // 
             // btnFireEmployee
             // 
-            btnFireEmployee.Location = new Point(724, 376);
+            btnFireEmployee.Location = new Point(724, 273);
             btnFireEmployee.Name = "btnFireEmployee";
             btnFireEmployee.Size = new Size(94, 29);
             btnFireEmployee.TabIndex = 5;
@@ -307,7 +296,7 @@
             // 
             // btnEditEmployee
             // 
-            btnEditEmployee.Location = new Point(618, 376);
+            btnEditEmployee.Location = new Point(618, 273);
             btnEditEmployee.Name = "btnEditEmployee";
             btnEditEmployee.Size = new Size(94, 29);
             btnEditEmployee.TabIndex = 5;
@@ -318,7 +307,7 @@
             // 
             // btnChangePasswordEmployee
             // 
-            btnChangePasswordEmployee.Location = new Point(618, 411);
+            btnChangePasswordEmployee.Location = new Point(618, 308);
             btnChangePasswordEmployee.Name = "btnChangePasswordEmployee";
             btnChangePasswordEmployee.Size = new Size(200, 29);
             btnChangePasswordEmployee.TabIndex = 5;
@@ -341,7 +330,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(861, 516);
+            ClientSize = new Size(861, 431);
             Controls.Add(lblSelectAnEmployeeText);
             Controls.Add(btnChangePasswordEmployee);
             Controls.Add(btnEditEmployee);
@@ -351,7 +340,6 @@
             Controls.Add(lblEmployedAtText);
             Controls.Add(lblIdText);
             Controls.Add(lblEmployeeName);
-            Controls.Add(pbEmployee);
             Controls.Add(btnAddEmployee);
             Controls.Add(lvWaiters);
             Controls.Add(lvChefs);
@@ -363,7 +351,6 @@
             Controls.Add(btnWaitersTab);
             Name = "EmployeeManagement";
             Text = "EmployeeManagement";
-            ((System.ComponentModel.ISupportInitialize)pbEmployee).EndInit();
             ResumeLayout(false);
         }
 
@@ -394,7 +381,6 @@
         private ColumnHeader BRole;
         private ColumnHeader MRole;
         private Button btnAddEmployee;
-        private PictureBox pbEmployee;
         private Label lblEmployeeName;
         private Label lblIdText;
         private Label lblEmployeeId;

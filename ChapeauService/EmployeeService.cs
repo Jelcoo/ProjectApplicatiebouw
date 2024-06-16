@@ -43,5 +43,10 @@ namespace ChapeauService
         {
             return _employeeDao.GetPassword(id);
         }
+
+        public void HireEmployee(Employee employee)
+        {
+            _employeeDao.HireEmployee(employee);
+        }
     }
 }

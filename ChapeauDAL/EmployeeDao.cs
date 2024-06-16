@@ -65,8 +65,8 @@ SET password = @password
 WHERE employeeId = @employeeId;";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
-            command.Parameters.AddWithValue("@password", id);
-            command.Parameters.AddWithValue("@employeeId", password);
+            command.Parameters.AddWithValue("@password", password);
+            command.Parameters.AddWithValue("@employeeId", id);
             command.ExecuteNonQuery();
             CloseConnection();
         }
@@ -92,7 +92,7 @@ FROM employees
 WHERE employeeId = @employeeId;";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
-            command.Parameters.AddWithValue("@roleId", id);
+            command.Parameters.AddWithValue("@employeeId", id);
             command.ExecuteNonQuery();
 
             SqlDataReader reader = command.ExecuteReader();
@@ -112,6 +112,22 @@ WHERE employeeId = @employeeId;";
             CloseConnection();
 
             return password;
+        }
+
+        public void HireEmployee(Employee employee)
+        {
+            string query = @"
+INSERT INTO employees (employeeName, password, employedAt, roleId)
+VALUES (@employeeName, @password, @employedAt, @roleId);";
+
+            SqlCommand command = new SqlCommand(query, OpenConnection());
+            command.Parameters.AddWithValue("@employeeName", employee.Name);
+            command.Parameters.AddWithValue("@password", employee.Password);
+            command.Parameters.AddWithValue("employedAt", employee.EmployedAt);
+            command.Parameters.AddWithValue("roleId", (int)employee.Role);
+            command.ExecuteNonQuery();
+
+            CloseConnection();
         }
     }
 }

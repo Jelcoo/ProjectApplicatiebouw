@@ -69,7 +69,7 @@ namespace ChapeauUI.EmploymentUI
 
                 try
                 {
-                    employeeService.EditEmployee(newEmployee);  
+                    employeeService.EditEmployee(newEmployee);
 
                     MessageBox.Show("Employee edited successfully");
 

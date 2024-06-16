@@ -1,6 +1,6 @@
 ﻿namespace ChapeauUI.EmploymentUI
 {
-    partial class EmployeeAddEmployee
+    partial class EmployeeHireEmployee
     {
         /// <summary>
         /// Required designer variable.
@@ -31,24 +31,24 @@
             cbRoles = new ComboBox();
             btnConfirmEdit = new Button();
             btnCancelEdit = new Button();
-            dtpEmployedAt = new DateTimePicker();
             inputEmployeeName = new TextBox();
             lblRoleText = new Label();
-            lblEmployedAtText = new Label();
+            lblPasswordText = new Label();
             lblNameText = new Label();
+            inputPassword = new TextBox();
             SuspendLayout();
             // 
             // cbRoles
             // 
             cbRoles.FormattingEnabled = true;
-            cbRoles.Location = new Point(122, 113);
+            cbRoles.Location = new Point(165, 119);
             cbRoles.Name = "cbRoles";
             cbRoles.Size = new Size(151, 28);
             cbRoles.TabIndex = 18;
             // 
             // btnConfirmEdit
             // 
-            btnConfirmEdit.Location = new Point(278, 157);
+            btnConfirmEdit.Location = new Point(337, 178);
             btnConfirmEdit.Name = "btnConfirmEdit";
             btnConfirmEdit.Size = new Size(94, 29);
             btnConfirmEdit.TabIndex = 16;
@@ -58,71 +58,68 @@
             // 
             // btnCancelEdit
             // 
-            btnCancelEdit.Location = new Point(16, 157);
+            btnCancelEdit.Location = new Point(12, 178);
             btnCancelEdit.Name = "btnCancelEdit";
             btnCancelEdit.Size = new Size(94, 29);
             btnCancelEdit.TabIndex = 17;
             btnCancelEdit.Text = "Cancel";
             btnCancelEdit.UseVisualStyleBackColor = true;
             // 
-            // dtpEmployedAt
-            // 
-            dtpEmployedAt.Location = new Point(122, 73);
-            dtpEmployedAt.Name = "dtpEmployedAt";
-            dtpEmployedAt.Size = new Size(250, 27);
-            dtpEmployedAt.TabIndex = 15;
-            // 
             // inputEmployeeName
             // 
-            inputEmployeeName.Location = new Point(122, 22);
+            inputEmployeeName.Location = new Point(165, 28);
             inputEmployeeName.Name = "inputEmployeeName";
             inputEmployeeName.Size = new Size(250, 27);
             inputEmployeeName.TabIndex = 14;
             // 
             // lblRoleText
             // 
-            lblRoleText.Location = new Point(16, 113);
+            lblRoleText.Location = new Point(59, 119);
             lblRoleText.Name = "lblRoleText";
             lblRoleText.Size = new Size(100, 25);
             lblRoleText.TabIndex = 11;
             lblRoleText.Text = "Role:";
             lblRoleText.TextAlign = ContentAlignment.MiddleRight;
-            lblRoleText.Visible = false;
             // 
-            // lblEmployedAtText
+            // lblPasswordText
             // 
-            lblEmployedAtText.Location = new Point(16, 72);
-            lblEmployedAtText.Name = "lblEmployedAtText";
-            lblEmployedAtText.Size = new Size(100, 25);
-            lblEmployedAtText.TabIndex = 12;
-            lblEmployedAtText.Text = "Employed At:";
-            lblEmployedAtText.TextAlign = ContentAlignment.MiddleRight;
-            lblEmployedAtText.Visible = false;
+            lblPasswordText.Location = new Point(59, 78);
+            lblPasswordText.Name = "lblPasswordText";
+            lblPasswordText.Size = new Size(100, 25);
+            lblPasswordText.TabIndex = 12;
+            lblPasswordText.Text = "Password:";
+            lblPasswordText.TextAlign = ContentAlignment.MiddleRight;
             // 
             // lblNameText
             // 
-            lblNameText.Location = new Point(16, 22);
+            lblNameText.Location = new Point(59, 28);
             lblNameText.Name = "lblNameText";
             lblNameText.Size = new Size(100, 25);
             lblNameText.TabIndex = 13;
             lblNameText.Text = "Name:";
             lblNameText.TextAlign = ContentAlignment.MiddleRight;
-            lblNameText.Visible = false;
             // 
-            // EmployeeAddEmployee
+            // inputPassword
+            // 
+            inputPassword.Location = new Point(165, 76);
+            inputPassword.Name = "inputPassword";
+            inputPassword.Size = new Size(250, 27);
+            inputPassword.TabIndex = 14;
+            // 
+            // EmployeeHireEmployee
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(389, 208);
+            ClientSize = new Size(443, 224);
             Controls.Add(cbRoles);
             Controls.Add(btnConfirmEdit);
             Controls.Add(btnCancelEdit);
-            Controls.Add(dtpEmployedAt);
+            Controls.Add(inputPassword);
             Controls.Add(inputEmployeeName);
             Controls.Add(lblRoleText);
-            Controls.Add(lblEmployedAtText);
+            Controls.Add(lblPasswordText);
             Controls.Add(lblNameText);
-            Name = "EmployeeAddEmployee";
+            Name = "EmployeeHireEmployee";
             Text = "EmployeeAddEmployee";
             ResumeLayout(false);
             PerformLayout();
@@ -136,7 +133,8 @@
         private DateTimePicker dtpEmployedAt;
         private TextBox inputEmployeeName;
         private Label lblRoleText;
-        private Label lblEmployedAtText;
+        private Label lblPasswordText;
         private Label lblNameText;
+        private TextBox inputPassword;
     }
 }
