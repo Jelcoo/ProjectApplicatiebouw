@@ -216,5 +216,12 @@ namespace ChapeauUI.EmploymentUI
         {
             new EmployeeHireEmployee(this).ShowDialog();
         }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            ChapeauPanel chapeauPanel = new ChapeauPanel();
+            chapeauPanel.Show();
+            this.Hide();
+        }
     }
 }

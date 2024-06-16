@@ -62,6 +62,7 @@
             btnEditEmployee = new Button();
             btnChangePasswordEmployee = new Button();
             lblSelectAnEmployeeText = new Label();
+            backButton = new Button();
             SuspendLayout();
             // 
             // btnWaitersTab
@@ -326,11 +327,22 @@
             lblSelectAnEmployeeText.Text = "Select an Employee";
             lblSelectAnEmployeeText.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // backButton
+            // 
+            backButton.Location = new Point(766, 13);
+            backButton.Name = "backButton";
+            backButton.Size = new Size(83, 31);
+            backButton.TabIndex = 10;
+            backButton.Text = "< Back";
+            backButton.UseVisualStyleBackColor = true;
+            backButton.Click += backButton_Click;
+            // 
             // EmployeeManagement
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(861, 431);
+            Controls.Add(backButton);
             Controls.Add(lblSelectAnEmployeeText);
             Controls.Add(btnChangePasswordEmployee);
             Controls.Add(btnEditEmployee);
@@ -390,5 +402,6 @@
         private Button btnEditEmployee;
         private Button btnChangePasswordEmployee;
         private Label lblSelectAnEmployeeText;
+        private Button backButton;
     }
 }

@@ -14,32 +14,28 @@ namespace ChapeauUI.StockUI
 {
     public partial class StockAlterStock : Form
     {
-        private int stockId;
+        private StockService _stockService;
         private StockManagement parentForm;
-        public StockAlterStock(int itemId, StockManagement parentForm)
+        private MenuItem SelectedMenuItem;
+
+        public StockAlterStock(MenuItem item, StockManagement parentForm)
         {
             InitializeComponent();
+
+            _stockService = new StockService();
+
             this.parentForm = parentForm;
-            FillMenuItemDetails(itemId);
+            SelectedMenuItem = item;
+            FillMenuItemDetails();
             FillQuantifiersComboBox();
         }
 
-        public void FillMenuItemDetails(int itemId)
+        public void FillMenuItemDetails()
         {
-            StockService stockService = new StockService();
-            Dictionary<MenuItem, Stock> details = stockService.GetMenuItemAndStockById(itemId);
+            lblMenuItemName.Text = SelectedMenuItem.Name;
+            lblMenuItemName.Tag = SelectedMenuItem.MenuItemId;
 
-            foreach (MenuItem item in details.Keys)
-            {
-                lblMenuItemName.Text = item.Name;
-                lblMenuItemName.Tag = item.MenuItemId;
-            }
-            foreach (Stock stock in details.Values)
-            {
-                lblMenuItemStock.Text = stock.Count.ToString();
-                lblMenuItemStock.Tag = stock.StockId;
-                stockId = stock.StockId;
-            }
+            lblMenuItemStock.Text = SelectedMenuItem.Stock.Count.ToString();
         }
 
         public void FillQuantifiersComboBox()
@@ -94,24 +90,25 @@ namespace ChapeauUI.StockUI
         {
             if (cbQuantifiers.SelectedIndex > -1 && !string.IsNullOrEmpty(InputAddStock.Text))
             {
-                KeyValuePair<string, int> selectedQuantifier = (KeyValuePair<string, int>)cbQuantifiers.SelectedItem;
-                return (int.Parse(InputAddStock.Text) * selectedQuantifier.Value);
+                return (int.Parse(InputAddStock.Text) * GetSelectedQuantifier().Value);
             }
             else { return 0; }
+        }
+
+        public KeyValuePair<string, int> GetSelectedQuantifier()
+        {
+            return (KeyValuePair<string, int>)cbQuantifiers.SelectedItem;
         }
 
         private void btnAlterConfirm_Click(object sender, EventArgs e)
         {
             if (cbQuantifiers.SelectedIndex > -1 && InputAddStock.Text != "0" && InputAddStock.Text != string.Empty)
             {
-                KeyValuePair<string, int> selectedQuantifier = (KeyValuePair<string, int>)cbQuantifiers.SelectedItem;
-                DialogResult result = MessageBox.Show($"Are you sure you want to alter stock of {lblMenuItemName.Text} to ({selectedQuantifier.Value} * {InputAddStock.Text} =) {CheckAndCalculateAlterTotal()}?", "Confirmation", MessageBoxButtons.YesNo);
+                DialogResult result = MessageBox.Show($"Are you sure you want to alter stock of {SelectedMenuItem.Name} to ({GetSelectedQuantifier().Value} * {InputAddStock.Text} =) {CheckAndCalculateAlterTotal()}?", "Confirmation", MessageBoxButtons.YesNo);
 
                 if (result == DialogResult.Yes)
                 {
-                    StockService stockService = new StockService();
-
-                    stockService.AlterStock(new Stock(stockId, CheckAndCalculateAlterTotal()));
+                    _stockService.ChangeStock(new Stock(SelectedMenuItem.Stock.StockId, CheckAndCalculateAlterTotal()));
                     MessageBox.Show("Stock altered successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     parentForm.Reload();
