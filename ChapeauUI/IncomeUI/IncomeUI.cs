@@ -13,12 +13,6 @@ namespace ChapeauUI.IncomeUI
             SetAllTimeIncome();
         }
 
-        public void SetAllTimeIncome()
-        {
-            IncomeService incomeService = new IncomeService();
-            lblAllTimeIncome.Text = incomeService.GetAllTimeIncome().ToString("€ 0.00");
-        }
-
         public void SetSingleDate()
         {
             dtpStartDay.Value = DateTime.Today;
@@ -39,29 +33,15 @@ namespace ChapeauUI.IncomeUI
             lblSelectDateText.Text = "Select Start Date:";
         }
 
+        public void SetAllTimeIncome()
+        {
+            IncomeService incomeService = new IncomeService();
+            lblAllTimeIncome.Text = incomeService.GetAllTimeIncome().ToString("€ 0.00");
+        }
+
         public void ClearIncome()
         {
             lblIncomeByDate.Text = "€ 0.00";
-        }
-
-        public bool CheckIfInFuture(DateTime date)
-        {
-            if (date > DateTime.Today)
-            {
-                MessageBox.Show("Can't select date in future");
-                return true;
-            }
-            return false;
-        }
-
-        public bool CheckIfEndDateIsBeforeStartDate()
-        {
-            if (dtpStartDay.Value > dtpEndDay.Value)
-            {
-                MessageBox.Show("End day can't be before start day");
-                return true;
-            }
-            return false;
         }
 
         public double GetIncome()
@@ -84,6 +64,26 @@ namespace ChapeauUI.IncomeUI
         public void SetIncome(double income)
         {
             lblIncomeByDate.Text = income.ToString("€ 0.00");
+        }
+
+        public bool CheckIfInFuture(DateTime date)
+        {
+            if (date > DateTime.Today)
+            {
+                MessageBox.Show("Can't select date in future");
+                return true;
+            }
+            return false;
+        }
+
+        public bool CheckIfEndDateIsBeforeStartDate()
+        {
+            if (dtpStartDay.Value > dtpEndDay.Value)
+            {
+                MessageBox.Show("End day can't be before start day");
+                return true;
+            }
+            return false;
         }
 
         private void cbSingleDay_CheckedChanged(object sender, EventArgs e)

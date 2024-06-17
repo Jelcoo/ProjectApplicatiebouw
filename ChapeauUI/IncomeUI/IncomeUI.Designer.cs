@@ -123,7 +123,7 @@
             // 
             // backButton
             // 
-            backButton.Location = new Point(705, 31);
+            backButton.Location = new Point(442, 12);
             backButton.Name = "backButton";
             backButton.Size = new Size(83, 31);
             backButton.TabIndex = 4;
@@ -135,7 +135,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(537, 400);
             Controls.Add(backButton);
             Controls.Add(lblSelectEndDateText);
             Controls.Add(lblSelectDateText);

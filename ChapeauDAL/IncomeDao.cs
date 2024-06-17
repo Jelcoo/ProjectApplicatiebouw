@@ -48,7 +48,7 @@ WHERE paidAt BETWEEN @StartDate AND @EndDate;";
             return income;
         }
 
-        public double GetAllTimeIncome()
+        public double GetIncome()
         {
             string query = @"
 SELECT SUM(paymentAmount) AS TotalIncome
