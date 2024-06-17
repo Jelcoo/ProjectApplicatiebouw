@@ -16,19 +16,20 @@ namespace ChapeauUI.EmploymentUI
 {
     public partial class EmployeeHireEmployee : Form
     {
-        EmployeeManagement _parentForm;
+        private EmployeeManagement _parentForm;
+        private EmployeeService _employeeService;
+
 
         public EmployeeHireEmployee(EmployeeManagement parentForm)
         {
             InitializeComponent();
             _parentForm = parentForm;
+            _employeeService = new EmployeeService();
             LoadRoles();
         }
 
         private void LoadRoles()
         {
-            EmployeeService employeeService = new EmployeeService();
-
             // Roles
             cbRoles.Items.Clear();
             cbRoles.DataSource = Enum.GetValues(typeof(ERole));
@@ -40,9 +41,13 @@ namespace ChapeauUI.EmploymentUI
             {
                 try
                 {
-                    EmployeeService employeeService = new EmployeeService();
-                    employeeService.HireEmployee(GetEmployeeData());
+                    //Asks employeeService to hire Employee
+                    Employee hiredEmployee = GetEmployeeData();
+                    _employeeService.HireEmployee(hiredEmployee);
 
+                    MessageBox.Show($"Succesfully hired {hiredEmployee.Name} the {hiredEmployee.Role}!");
+
+                    //Reloads parent form
                     _parentForm.Reload();
                     this.Close();
                 }
@@ -53,18 +58,10 @@ namespace ChapeauUI.EmploymentUI
             }
         }
 
-        private Employee GetEmployeeData()
-        {
-            return new Employee(
-                inputEmployeeName.Text,
-                inputPassword.Text,
-                DateTime.Now,
-                (ERole)cbRoles.SelectedValue);
-        }
-
         private bool CheckIfAllFilled()
         {
-            if (inputEmployeeName.Text.Length > 0 && inputPassword.Text.Length > 0)
+            //Checks if employeeName is filled in
+            if (string.IsNullOrEmpty(inputEmployeeName.Text))
             {
                 return true;
             }
@@ -73,6 +70,16 @@ namespace ChapeauUI.EmploymentUI
                 MessageBox.Show("Please fill all boxes");
                 return false;
             }
+        }
+
+        private Employee GetEmployeeData()
+        {
+            //Gets all employee data from inputs
+            return new Employee(
+                inputEmployeeName.Text,
+                inputPassword.Text,
+                DateTime.Now,
+                (ERole)cbRoles.SelectedValue);
         }
     }
 }

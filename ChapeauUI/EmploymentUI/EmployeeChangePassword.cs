@@ -15,21 +15,26 @@ namespace ChapeauUI.EmploymentUI
 {
     public partial class EmployeeChangePassword : Form
     {
-        private Employee currentEmployee;
         private EmployeeManagement _parentForm;
         private EmployeeService _employeeService;
+
+        private Employee currentEmployee;
 
 
         public EmployeeChangePassword(EmployeeManagement parentForm, Employee employee)
         {
             InitializeComponent();
-            currentEmployee = employee;
+
             _parentForm = parentForm;
             _employeeService = new EmployeeService();
+
+            //Sets the currentemployee
+            currentEmployee = employee;
         }
 
         private void inputNewPassword2_TextChanged(object sender, EventArgs e)
         {
+            //Checks if Passwords are the same, if so changes the Checkbox
             if (CheckIfPassword1IsSameAsPassword2())
             {
                 cbRepeatPasswordCorrect.Checked = true;
@@ -43,6 +48,7 @@ namespace ChapeauUI.EmploymentUI
 
         private void btnConfirmChangePassword_Click(object sender, EventArgs e)
         {
+            // Disables all interactions for security
             DisableInteractions();
 
             //No password hashing due to group member absent
@@ -52,10 +58,12 @@ namespace ChapeauUI.EmploymentUI
                 {
                     try
                     {
+                        // Asks employeeService to change password
                         _employeeService.ChangePassword(currentEmployee.EmployeeId, inputNewPassword1.Text);
 
                         MessageBox.Show("Password succesfully changed");
 
+                        // Reloads parent form
                         _parentForm.Reload();
                         this.Close();
                     }
@@ -64,16 +72,18 @@ namespace ChapeauUI.EmploymentUI
                         MessageBox.Show(ex.Message);
                     }
                 }
-                else
+                else // Password not the same
                 {
                     MessageBox.Show("New password and Repeat password are not the same");
                 }
             }
-            else
+            else // Incorrect password
             {
                 MessageBox.Show("Current password was incorrect");
             }
 
+
+            //(Re)Enable interactions
             EnableInteractions();
         }
 
@@ -97,20 +107,23 @@ namespace ChapeauUI.EmploymentUI
 
         private bool CheckIfAllFilledIn()
         {
-            if (string.IsNullOrEmpty(inputCurrentPassword.Text)) {  return false; }
+            //Checks if all the inputs are filled in
+            if (string.IsNullOrEmpty(inputCurrentPassword.Text)) { return false; }
             if (string.IsNullOrEmpty(inputNewPassword1.Text)) { return false; }
-            if (string.IsNullOrEmpty(inputNewPassword2.Text)) { return false; } 
+            if (string.IsNullOrEmpty(inputNewPassword2.Text)) { return false; }
             return true;
         }
 
         private bool CheckIfPassword1IsSameAsPassword2()
         {
+            // Checks if Password 1 is the same ass Password 2
             if (inputNewPassword2.Text == inputNewPassword1.Text) { return true; }
             else { return false; }
         }
 
         private void DisableInteractions()
         {
+            //Disables all input interactions
             inputCurrentPassword.Enabled = false;
             inputNewPassword1.Enabled = false;
             inputNewPassword2.Enabled = false;
@@ -118,6 +131,7 @@ namespace ChapeauUI.EmploymentUI
 
         private void EnableInteractions()
         {
+            //Enables all input interactions
             inputCurrentPassword.Enabled = true;
             inputNewPassword1.Enabled = true;
             inputNewPassword2.Enabled = true;

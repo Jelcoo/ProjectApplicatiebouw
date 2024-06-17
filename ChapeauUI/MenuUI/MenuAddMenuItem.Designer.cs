@@ -41,7 +41,7 @@
             lblItemMenu = new Label();
             lblItemVATRate = new Label();
             lblItemDetailName = new Label();
-            label6 = new Label();
+            lblAddNewMenuItemText = new Label();
             lblItemName = new Label();
             SuspendLayout();
             // 
@@ -155,15 +155,15 @@
             lblItemDetailName.TabIndex = 8;
             lblItemDetailName.Text = "Detailed Name";
             // 
-            // label6
+            // lblAddNewMenuItemText
             // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point);
-            label6.Location = new Point(12, 9);
-            label6.Name = "label6";
-            label6.Size = new Size(351, 46);
-            label6.TabIndex = 9;
-            label6.Text = "Add New Menu Item";
+            lblAddNewMenuItemText.AutoSize = true;
+            lblAddNewMenuItemText.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point);
+            lblAddNewMenuItemText.Location = new Point(12, 9);
+            lblAddNewMenuItemText.Name = "lblAddNewMenuItemText";
+            lblAddNewMenuItemText.Size = new Size(351, 46);
+            lblAddNewMenuItemText.TabIndex = 9;
+            lblAddNewMenuItemText.Text = "Add New Menu Item";
             // 
             // lblItemName
             // 
@@ -192,10 +192,10 @@
             Controls.Add(lblItemMenu);
             Controls.Add(lblItemVATRate);
             Controls.Add(lblItemDetailName);
-            Controls.Add(label6);
+            Controls.Add(lblAddNewMenuItemText);
             Controls.Add(lblItemName);
             Name = "MenuAddMenuItem";
-            Text = "MenuAddMenuItem";
+            Text = "Add Menu item";
             ResumeLayout(false);
             PerformLayout();
         }
@@ -215,7 +215,7 @@
         private Label lblItemMenu;
         private Label lblItemVATRate;
         private Label lblItemDetailName;
-        private Label label6;
+        private Label lblAddNewMenuItemText;
         private Label lblItemName;
     }
 }

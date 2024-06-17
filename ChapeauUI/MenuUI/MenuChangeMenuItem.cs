@@ -18,6 +18,7 @@ namespace ChapeauUI.MenuUI
     {
         private MenuManagement parentForm;
         private MenuService _menuService;
+
         private MenuItem SelectedMenuItem;
 
 
@@ -27,6 +28,8 @@ namespace ChapeauUI.MenuUI
 
             parentForm = form;
             _menuService = new MenuService();
+
+            //Sets SelectedMenuItem
             SelectedMenuItem = item;
 
             FillComboBoxes();
@@ -35,8 +38,8 @@ namespace ChapeauUI.MenuUI
 
         private void LoadMenuItemData()
         {
+            //Sets selectedData to the input
             inputItemName.Text = SelectedMenuItem.Name;
-            inputItemName.Tag = SelectedMenuItem.MenuItemId;
             inputItemDetailName.Text = SelectedMenuItem.DetailName;
             inputItemPrice.Text = SelectedMenuItem.Price.ToString("F2");
 
@@ -68,17 +71,19 @@ namespace ChapeauUI.MenuUI
             {
                 try
                 {
+                    // Gets all changed data
                     MenuItem changedMenuItem = GetMenuItemDataFromInput();
 
+                    //Asks menuService to changeItem
                     _menuService.ChangeMenuItem(changedMenuItem);
-                    MessageBox.Show(changedMenuItem.MenuItemId.ToString());
 
                     MessageBox.Show("MenuItem Changed successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                    // Reloads parent form
                     parentForm.Reload();
                     this.Close();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
@@ -88,7 +93,7 @@ namespace ChapeauUI.MenuUI
                 MessageBox.Show("Fill in all details");
             }
         }
-        
+
         private void btnCancelChangeItem_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -96,6 +101,7 @@ namespace ChapeauUI.MenuUI
 
         private MenuItem GetMenuItemDataFromInput()
         {
+            //Gets all MenuItem data from inputs
             EMenuType menuType = (EMenuType)cbItemType.SelectedValue;
             EMenu menu = (EMenu)cbItemMenu.SelectedValue;
             string itemName = inputItemName.Text;
@@ -103,10 +109,13 @@ namespace ChapeauUI.MenuUI
             double VATRate = (double)cbItemVATRate.SelectedValue;
             double price = double.Parse(inputItemPrice.Text);
 
+            //Sets all data into a MenuItem
             MenuItem menuItem = new MenuItem(SelectedMenuItem.MenuItemId, SelectedMenuItem.Stock, itemName, itemDetailName, VATRate, price);
 
+            //Sets the Menu
             menuItem.SetMenu(menu);
 
+            //Sets the MenuType to Null if None, else selected
             if (menuType == EMenuType.None) menuItem.SetMenuType(null);
             else menuItem.SetMenuType(menuType);
 
@@ -115,6 +124,7 @@ namespace ChapeauUI.MenuUI
 
         private bool CheckIfAllFilled()
         {
+            // Checks if any inputs are empty
             if (string.IsNullOrEmpty(inputItemName.Text)) { return false; }
             if (string.IsNullOrWhiteSpace(inputItemDetailName.Text)) { return false; }
             if (string.IsNullOrEmpty(inputItemPrice.Text)) { return false; }

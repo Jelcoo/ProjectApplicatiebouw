@@ -143,7 +143,7 @@
             Controls.Add(inputNewPassword1);
             Controls.Add(inputCurrentPassword);
             Name = "EmployeeChangePassword";
-            Text = "EmployeeChangePassword";
+            Text = "Change Password";
             ResumeLayout(false);
             PerformLayout();
         }

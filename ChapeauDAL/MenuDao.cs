@@ -74,6 +74,8 @@ JOIN stock AS s ON menuItems.stockId = s.stockId";
             {
                 menu = MenuReader.ReadMenuItems(reader);
             }
+
+            //Checks if menuItem is empty
             if (menu.Count == 0)
             {
                 throw new Exception("No menu found");
@@ -105,6 +107,7 @@ GROUP BY VATRate;";
                 VATRates.Add(VATRate);
             }
 
+            //Checks if VATRates are empty
             if (VATRates.Count == 0)
             {
                 throw new Exception("No VAT-rates found");
