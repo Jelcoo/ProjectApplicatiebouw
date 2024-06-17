@@ -73,7 +73,7 @@ namespace ChapeauUI.StockUI
             if (CheckTotal())
             {
                 // Confirmation + show calculation
-                DialogResult result = MessageBox.Show($"Are you sure you want to add ({GetSelectedQuantifier().Value} * {InputAddStock.Text} =) {CheckAndCalculateTotal()} to {lblMenuItemName.Text}?", "Confirmation", MessageBoxButtons.YesNo);
+                DialogResult result = MessageBox.Show($"Are you sure you want to add ({GetSelectedQuantifier().Value} * {InputAddStock.Text} =) {CalculateTotal()} to {lblMenuItemName.Text}?", "Confirmation", MessageBoxButtons.YesNo);
 
                 if (result == DialogResult.Yes)
                 {
