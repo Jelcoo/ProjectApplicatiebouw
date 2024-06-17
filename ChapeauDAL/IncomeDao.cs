@@ -13,6 +13,7 @@ namespace ChapeauDAL
 {
     public class IncomeDao : BaseDao
     {
+        //Gets Income by date
         public double GetIncome(DateTime startDate, DateTime endDate)
         {
             string query = @"
@@ -48,6 +49,7 @@ WHERE paidAt BETWEEN @StartDate AND @EndDate;";
             return income;
         }
 
+        //Gets TotalIncome
         public double GetIncome()
         {
             string query = @"

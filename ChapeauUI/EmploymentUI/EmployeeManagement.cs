@@ -30,6 +30,7 @@ namespace ChapeauUI.EmploymentUI
 
         private void SetDefaultStartListView()
         {
+            // Sets the default listview to Waiters
             currentListView = lvWaiters;
             SwitchListView(lvWaiters);
             FillListView(ERole.Waiter, lvWaiters);
@@ -37,12 +38,14 @@ namespace ChapeauUI.EmploymentUI
 
         private void SwitchListView(ListView switchListView)
         {
+            // Switches the listview to the selected listview
             HideAllListViews();
             switchListView.Visible = true;
         }
 
         private void HideAllListViews()
         {
+            // Hides ALL listviews
             foreach (Control control in this.Controls)
             {
                 if (control is ListView) { control.Visible = false; }
@@ -51,14 +54,17 @@ namespace ChapeauUI.EmploymentUI
 
         private void FillListView(ERole role, ListView listview)
         {
+            // Clears previous data
             listview.Items.Clear();
 
             try
             {
                 List<Employee> employees = new List<Employee>();
 
+                // Asks employeeService for employees by role
                 employees = _employeeService.GetEmployeesByRole(role);
 
+                //Sets the data 
                 foreach (Employee employee in employees)
                 {
                     ListViewItem item = new ListViewItem(employee.EmployeeId.ToString());
@@ -147,16 +153,19 @@ namespace ChapeauUI.EmploymentUI
 
         private void btnAddEmployee_Click(object sender, EventArgs e)
         {
+            // Opens new HireEmplyee
             new EmployeeHireEmployee(this).ShowDialog();
         }
 
         private void btnEditEmployee_Click(object sender, EventArgs e)
         {
+            // Opens new EditEmployee, adds SelectedEmployee and parentform
             new EmploymentEditEmployee(this, GetSelectedEmployee()).ShowDialog();
         }
 
         private void btnChangePasswordEmployee_Click(object sender, EventArgs e)
         {
+            // Opens new ChangePassword, adds SelectedEmployee and parentform
             new EmployeeChangePassword(this, GetSelectedEmployee()).ShowDialog();
         }
 
@@ -168,10 +177,14 @@ namespace ChapeauUI.EmploymentUI
             {
                 try
                 {
+                    // Gets currentEmployee
                     Employee currentEmployee = GetSelectedEmployee();
+
+                    //Asks employeeService to fire current employee
                     _employeeService.FireEmployee(currentEmployee);
                     MessageBox.Show($"Successfully fired {currentEmployee.Name}");
 
+                    //Reloads form
                     this.Reload();
                 }
                 catch (Exception ex)
@@ -183,6 +196,7 @@ namespace ChapeauUI.EmploymentUI
 
         private void backButton_Click(object sender, EventArgs e)
         {
+            // Back to ChapeauPanel
             ChapeauPanel chapeauPanel = new ChapeauPanel();
             chapeauPanel.Show();
             this.Hide();
@@ -196,10 +210,14 @@ namespace ChapeauUI.EmploymentUI
 
         private void LoadEmployee(Employee employee)
         {
+            //Shows all labels & buttons
             MakeTextVisible();
 
+            //Sets currentEmployee data to the labels
             lblEmployeeName.Text = employee.Name;
             lblEmployeeId.Text = employee.EmployeeId.ToString();
+
+            //Formats the EmployeAt date
             string formattedDate = $"{employee.EmployedAt:MMM} {employee.EmployedAt.Day}{GetDaySuffix(employee.EmployedAt.Day)} {employee.EmployedAt.Year}";
 
             lblEmployedAt.Text = formattedDate;
@@ -207,12 +225,14 @@ namespace ChapeauUI.EmploymentUI
 
         private Employee GetSelectedEmployee()
         {
+            // Gets the currentEmployee
             ListViewItem listViewItem = currentListView.SelectedItems[0];
             return listViewItem.Tag as Employee;
         }
 
         private string GetDaySuffix(int day)
         {
+            // Returns daysuffix depending on day
             if (day >= 11 && day <= 13)
             {
                 return "th";

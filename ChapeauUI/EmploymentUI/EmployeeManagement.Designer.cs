@@ -362,7 +362,7 @@
             Controls.Add(btnChefsTab);
             Controls.Add(btnWaitersTab);
             Name = "EmployeeManagement";
-            Text = "EmployeeManagement";
+            Text = "Employee Management";
             ResumeLayout(false);
         }
 

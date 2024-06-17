@@ -120,7 +120,7 @@
             Controls.Add(lblPasswordText);
             Controls.Add(lblNameText);
             Name = "EmployeeHireEmployee";
-            Text = "EmployeeAddEmployee";
+            Text = "Add Employee";
             ResumeLayout(false);
             PerformLayout();
         }

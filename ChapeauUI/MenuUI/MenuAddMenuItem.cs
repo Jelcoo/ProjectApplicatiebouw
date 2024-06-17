@@ -44,13 +44,19 @@ namespace ChapeauUI.MenuUI
             {
                 try
                 {
+                    // Asks menuService to create item stock
                     int stockId = _menuService.CreateItemStock();
+
+                    //Gets all input data
                     MenuItem menuItem = GetMenuItemDataFromInput(stockId);
+
+                    // Asks menuService to create a menuItem with StockId
                     _menuService.AddMenuItem(menuItem);
                     _restaurant.AddMenuItem(menuItem);
 
                     MessageBox.Show("MenuItem added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                    //Reloads parent form
                     parentForm.Reload();
                     this.Close();
                 }
@@ -69,6 +75,7 @@ namespace ChapeauUI.MenuUI
 
         private MenuItem GetMenuItemDataFromInput(int stockId)
         {
+            //Gets all MenuItem data from inputs
             EMenuType menuType = (EMenuType)cbItemType.SelectedValue;
             EMenu menu = (EMenu)cbItemMenu.SelectedValue;
             string itemName = inputItemName.Text;
@@ -76,10 +83,13 @@ namespace ChapeauUI.MenuUI
             double VATRate = (double)cbItemVATRate.SelectedValue;
             double price = double.Parse(inputItemPrice.Text);
 
+            //Sets all data into a MenuItem
             MenuItem menuItem = new MenuItem(new Stock(stockId, 0), itemName, itemDetailName, VATRate, price);
 
+            //Sets the Menu
             menuItem.SetMenu(menu);
 
+            //Sets the MenuType to Null if None, else selected
             if (menuType == EMenuType.None) { menuItem.SetMenuType(null); }
             else { menuItem.SetMenuType(menuType); }
 
@@ -88,7 +98,8 @@ namespace ChapeauUI.MenuUI
 
         private bool CheckIfAllFilled()
         {
-            if (string.IsNullOrEmpty(inputItemName.Text)) {  return false; }
+            // Checks if any inputs are empty
+            if (string.IsNullOrEmpty(inputItemName.Text)) { return false; }
             if (string.IsNullOrWhiteSpace(inputItemDetailName.Text)) { return false; }
             if (string.IsNullOrEmpty(inputItemPrice.Text)) { return false; }
 

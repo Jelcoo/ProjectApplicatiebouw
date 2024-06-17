@@ -36,12 +36,29 @@ WHERE roleId = @roleId;";
             reader.Close();
             CloseConnection();
 
+            //Checks if any employees have been found
             if (employeesByRole.Count > 0)
             {
                 throw new Exception("No employees found");
             }
 
             return employeesByRole;
+        }
+
+        public void HireEmployee(Employee employee)
+        {
+            string query = @"
+INSERT INTO employees (employeeName, password, employedAt, roleId)
+VALUES (@employeeName, @password, @employedAt, @roleId);";
+
+            SqlCommand command = new SqlCommand(query, OpenConnection());
+            command.Parameters.AddWithValue("@employeeName", employee.Name);
+            command.Parameters.AddWithValue("@password", employee.Password);
+            command.Parameters.AddWithValue("employedAt", employee.EmployedAt);
+            command.Parameters.AddWithValue("roleId", (int)employee.Role);
+            command.ExecuteNonQuery();
+
+            CloseConnection();
         }
 
         public void EditEmployee(Employee employee)
@@ -108,6 +125,7 @@ WHERE employeeId = @employeeId;";
                 password = reader.GetString("password");
             }
 
+            //Checks if password isnt empty
             if (password == string.Empty)
             {
                 new Exception("Password not found");
@@ -117,22 +135,6 @@ WHERE employeeId = @employeeId;";
             CloseConnection();
 
             return password;
-        }
-
-        public void HireEmployee(Employee employee)
-        {
-            string query = @"
-INSERT INTO employees (employeeName, password, employedAt, roleId)
-VALUES (@employeeName, @password, @employedAt, @roleId);";
-
-            SqlCommand command = new SqlCommand(query, OpenConnection());
-            command.Parameters.AddWithValue("@employeeName", employee.Name);
-            command.Parameters.AddWithValue("@password", employee.Password);
-            command.Parameters.AddWithValue("employedAt", employee.EmployedAt);
-            command.Parameters.AddWithValue("roleId", (int)employee.Role);
-            command.ExecuteNonQuery();
-
-            CloseConnection();
         }
     }
 }

@@ -42,7 +42,7 @@
             lblItemVATRate = new Label();
             lblItemDetailName = new Label();
             lblItemName = new Label();
-            label6 = new Label();
+            lblChangeMenuItemText = new Label();
             SuspendLayout();
             // 
             // btnConfirmAddItem
@@ -164,15 +164,15 @@
             lblItemName.TabIndex = 39;
             lblItemName.Text = "Name";
             // 
-            // label6
+            // lblChangeMenuItemText
             // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point);
-            label6.Location = new Point(12, 9);
-            label6.Name = "label6";
-            label6.Size = new Size(323, 46);
-            label6.TabIndex = 33;
-            label6.Text = "Change Menu Item";
+            lblChangeMenuItemText.AutoSize = true;
+            lblChangeMenuItemText.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point);
+            lblChangeMenuItemText.Location = new Point(12, 9);
+            lblChangeMenuItemText.Name = "lblChangeMenuItemText";
+            lblChangeMenuItemText.Size = new Size(323, 46);
+            lblChangeMenuItemText.TabIndex = 33;
+            lblChangeMenuItemText.Text = "Change Menu Item";
             // 
             // MenuChangeMenuItem
             // 
@@ -193,9 +193,9 @@
             Controls.Add(lblItemVATRate);
             Controls.Add(lblItemDetailName);
             Controls.Add(lblItemName);
-            Controls.Add(label6);
+            Controls.Add(lblChangeMenuItemText);
             Name = "MenuChangeMenuItem";
-            Text = "MenuCreateMenuItem";
+            Text = "Change Menu item";
             ResumeLayout(false);
             PerformLayout();
         }
@@ -216,6 +216,6 @@
         private Label lblItemVATRate;
         private Label lblItemDetailName;
         private Label lblItemName;
-        private Label label6;
+        private Label lblChangeMenuItemText;
     }
 }

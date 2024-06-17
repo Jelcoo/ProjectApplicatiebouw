@@ -147,7 +147,7 @@
             Controls.Add(lblIncomeByDateText);
             Controls.Add(lblAllTimeIncomeText);
             Name = "IncomeUI";
-            Text = "RevenueUI";
+            Text = "Revenue";
             ResumeLayout(false);
             PerformLayout();
         }

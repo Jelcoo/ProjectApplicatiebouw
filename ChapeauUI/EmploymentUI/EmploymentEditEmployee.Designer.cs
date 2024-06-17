@@ -121,7 +121,7 @@
             Controls.Add(lblEmployedAtText);
             Controls.Add(lblNameText);
             Name = "EmploymentEditEmployee";
-            Text = "EmploymentEditEmployee";
+            Text = "Edit Employee";
             ResumeLayout(false);
             PerformLayout();
         }

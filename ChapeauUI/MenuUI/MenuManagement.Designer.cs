@@ -131,7 +131,7 @@
             Controls.Add(btnAddMenuItem);
             Controls.Add(lvMenu);
             Name = "MenuManagement";
-            Text = "MenuManagement";
+            Text = "Menu Management";
             ResumeLayout(false);
         }
 
