@@ -23,24 +23,15 @@ namespace ChapeauService
             return _stockDao.GetStock();
         }
 
-        public string GetDetailNameById(int id)
+        public void AddDelivery(Stock stock, int deliveryAmount)
         {
-            return _stockDao.GetDetailNameById(id);
+            stock.Increase(deliveryAmount);
+            ChangeStock(stock);
         }
 
-        public Dictionary<MenuItem, Stock> GetMenuItemAndStockById(int id)
+        public void ChangeStock(Stock stock)
         {
-            return _stockDao.GetMenuItemAndStockById(id);
-        }
-
-        public void AddDelivery(int stockId, int amount)
-        {
-            _stockDao.AddDelivery(stockId, amount);
-        }
-
-        public void AlterStock(Stock stock)
-        {
-            _stockDao.AlterStock(stock);
+            _stockDao.ChangeStock(stock);
         }
     }
 }

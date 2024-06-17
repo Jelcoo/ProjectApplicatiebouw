@@ -101,7 +101,7 @@
             cbQuantifiers.Size = new Size(153, 28);
             cbQuantifiers.TabIndex = 15;
             cbQuantifiers.Text = "Select a Quantifier";
-            cbQuantifiers.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            cbQuantifiers.SelectedIndexChanged += cbQuantifiers_SelectedIndexChanged;
             // 
             // label1
             // 

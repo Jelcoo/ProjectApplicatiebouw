@@ -33,6 +33,7 @@
             lvStock = new ListView();
             ItemName = new ColumnHeader();
             ItemStock = new ColumnHeader();
+            stockStatus = new ColumnHeader();
             lblStockManagementText = new Label();
             btnAddStock = new Button();
             btnAlterStock = new Button();
@@ -49,7 +50,7 @@
             // 
             // lvStock
             // 
-            lvStock.Columns.AddRange(new ColumnHeader[] { ItemName, ItemStock });
+            lvStock.Columns.AddRange(new ColumnHeader[] { ItemName, ItemStock, stockStatus });
             lvStock.FullRowSelect = true;
             lvStock.Location = new Point(12, 12);
             lvStock.MultiSelect = false;
@@ -67,6 +68,11 @@
             // ItemStock
             // 
             ItemStock.Text = "Stock";
+            // 
+            // stockStatus
+            // 
+            stockStatus.Text = "Status";
+            stockStatus.Width = 90;
             // 
             // lblStockManagementText
             // 
@@ -255,5 +261,6 @@
         private PictureBox pbItemImage;
         private Label lblSelectAnItemText;
         private Button backButton;
+        private ColumnHeader stockStatus;
     }
 }

@@ -18,7 +18,7 @@ namespace ChapeauService
 
         public double GetAllTimeIncome()
         {
-            return _incomeDao.GetAllTimeIncome();
+            return _incomeDao.GetIncome();
         }
 
         public double GetIncome(DateTime date)

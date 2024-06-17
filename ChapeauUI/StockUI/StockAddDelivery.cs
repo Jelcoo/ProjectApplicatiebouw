@@ -15,35 +15,32 @@ namespace ChapeauUI.StockUI
 {
     public partial class StockAddDelivery : Form
     {
-        private int stockId;
+        private StockService _stockService;
         private StockManagement parentForm;
-        public StockAddDelivery(int itemId, StockManagement parentForm)
+        private MenuItem SelectedMenuItem;
+
+        public StockAddDelivery(MenuItem item, StockManagement parentForm)
         {
             InitializeComponent();
+
+            _stockService = new StockService();
+
             this.parentForm = parentForm;
-            FillMenuItemDetails(itemId);
+            SelectedMenuItem = item;
+
+            FillMenuItemDetails();
             FillQuantifiersComboBox();
         }
 
-        public void FillMenuItemDetails(int itemId)
+        private void FillMenuItemDetails()
         {
-            StockService stockService = new StockService();
-            Dictionary<MenuItem, Stock> details = stockService.GetMenuItemAndStockById(itemId);
+            lblMenuItemName.Text = SelectedMenuItem.Name;
+            lblMenuItemName.Tag = SelectedMenuItem.MenuItemId;
 
-            foreach (MenuItem item in details.Keys)
-            {
-                lblMenuItemName.Text = item.Name;
-                lblMenuItemName.Tag = item.MenuItemId;
-            }
-            foreach (Stock stock in details.Values)
-            {
-                lblMenuItemStock.Text = stock.Count.ToString();
-                lblMenuItemStock.Tag = stock.StockId;
-                stockId = stock.StockId;
-            }
+            lblMenuItemStock.Text = SelectedMenuItem.Stock.Count.ToString();
         }
 
-        public void FillQuantifiersComboBox()
+        private void FillQuantifiersComboBox()
         {
             Dictionary<string, int> quantifiers = GetQuantifiers();
 
@@ -58,7 +55,53 @@ namespace ChapeauUI.StockUI
             cbQuantifiers.SelectedIndex = 0;
         }
 
-        public Dictionary<string, int> GetQuantifiers()
+        private void InputAddStock_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Make textbox only allow numbers as input :)
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) { e.Handled = true; }
+        }
+
+        private void btnDeliveryConfirm_Click(object sender, EventArgs e)
+        {
+            if (cbQuantifiers.SelectedIndex > -1 && InputAddStock.Text != "0" && InputAddStock.Text != string.Empty)
+            {
+                DialogResult result = MessageBox.Show($"Are you sure you want to add ({GetSelectedQuantifier().Value} * {InputAddStock.Text} =) {CheckAndCalculateTotal()} to {lblMenuItemName.Text}?", "Confirmation", MessageBoxButtons.YesNo);
+
+                if (result == DialogResult.Yes)
+                {
+                    try
+                    {
+                        _stockService.AddDelivery(SelectedMenuItem.Stock, CheckAndCalculateTotal());
+                        MessageBox.Show("Stock added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        parentForm.Reload();
+                        this.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+            }
+            else { MessageBox.Show("Please select/input a correct delivery amount"); }
+        }
+
+        private void cbQuantifiers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ChangeTotal();
+        }
+
+        private void InputAddStock_TextChanged(object sender, EventArgs e)
+        {
+            ChangeTotal();
+        }
+
+        private void btnDeliveryCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private Dictionary<string, int> GetQuantifiers()
         {
             Dictionary<string, int> quantifiers = new Dictionary<string, int>()
             {
@@ -75,56 +118,23 @@ namespace ChapeauUI.StockUI
             return quantifiers;
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void ChangeTotal()
         {
             lblTotal.Text = CheckAndCalculateTotal().ToString();
         }
 
-        private void InputAddStock_TextChanged(object sender, EventArgs e)
-        {
-            lblTotal.Text = CheckAndCalculateTotal().ToString();
-        }
-
-        private void InputAddStock_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // Make textbox only allow numbers as input :)
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) { e.Handled = true; }
-        }
-
-        public int CheckAndCalculateTotal()
+        private int CheckAndCalculateTotal()
         {
             if (cbQuantifiers.SelectedIndex > -1 && !string.IsNullOrEmpty(InputAddStock.Text))
             {
-                KeyValuePair<string, int> selectedQuantifier = (KeyValuePair<string, int>)cbQuantifiers.SelectedItem;
-                return (int.Parse(InputAddStock.Text) * selectedQuantifier.Value);
+                return (int.Parse(InputAddStock.Text) * GetSelectedQuantifier().Value);
             }
             else { return 0; }
         }
 
-        private void btnDeliveryConfirm_Click(object sender, EventArgs e)
+        private KeyValuePair<string, int> GetSelectedQuantifier()
         {
-            if (cbQuantifiers.SelectedIndex > -1 && InputAddStock.Text != "0" && InputAddStock.Text != string.Empty)
-            {
-                KeyValuePair<string, int> selectedQuantifier = (KeyValuePair<string, int>)cbQuantifiers.SelectedItem;
-                DialogResult result = MessageBox.Show($"Are you sure you want to add ({selectedQuantifier.Value} * {InputAddStock.Text} =) {CheckAndCalculateTotal()} to {lblMenuItemName.Text}?", "Confirmation", MessageBoxButtons.YesNo);
-
-                if (result == DialogResult.Yes)
-                {
-                    StockService stockService = new StockService();
-
-                    stockService.AddDelivery(stockId, CheckAndCalculateTotal());
-                    MessageBox.Show("Stock added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    parentForm.Reload();
-                    this.Close();
-                }
-            }
-            else { MessageBox.Show("Please select/input a correct delivery amount"); }
-        }
-
-        private void btnDeliveryCancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
+            return (KeyValuePair<string, int>)cbQuantifiers.SelectedItem;
         }
     }
 }

@@ -17,40 +17,33 @@ namespace ChapeauUI.EmploymentUI
     {
         private EmployeeManagement _parentForm;
         private Employee currentEmployee;
+        private EmployeeService _employeeService;
 
         public EmploymentEditEmployee(EmployeeManagement parentForm, Employee employee)
         {
             InitializeComponent();
             _parentForm = parentForm;
             currentEmployee = employee;
+            _employeeService = new EmployeeService();
+
             LoadRoles();
             LoadEmployeeData(currentEmployee);
         }
 
-        public void LoadRoles()
+        private void LoadRoles()
         {
             EmployeeService employeeService = new EmployeeService();
 
-            // MenuType's
+            // Roles
             cbRoles.Items.Clear();
             cbRoles.DataSource = Enum.GetValues(typeof(ERole));
         }
 
-        public void LoadEmployeeData(Employee employee)
+        private void LoadEmployeeData(Employee employee)
         {
             inputEmployeeName.Text = employee.Name;
             dtpEmployedAt.Value = employee.EmployedAt;
             cbRoles.SelectedIndex = (int)employee.Role - 1;
-        }
-
-        public Employee GetNewData()
-        {
-            return new Employee(
-                currentEmployee.EmployeeId,
-                inputEmployeeName.Text,
-                string.Empty, //Cant change password here
-                dtpEmployedAt.Value,
-                (ERole)cbRoles.SelectedValue);
         }
 
         private void btnCancelEdit_Click(object sender, EventArgs e)
@@ -64,12 +57,11 @@ namespace ChapeauUI.EmploymentUI
 
             if (result == DialogResult.Yes)
             {
-                EmployeeService employeeService = new EmployeeService();
                 Employee newEmployee = GetNewData();
 
                 try
                 {
-                    employeeService.EditEmployee(newEmployee);  
+                    _employeeService.EditEmployee(newEmployee);
 
                     MessageBox.Show("Employee edited successfully");
 
@@ -81,6 +73,16 @@ namespace ChapeauUI.EmploymentUI
                     MessageBox.Show(ex.Message);
                 }
             }
+        }
+
+        private Employee GetNewData()
+        {
+            return new Employee(
+                currentEmployee.EmployeeId,
+                inputEmployeeName.Text,
+                string.Empty, //Cant change password here
+                dtpEmployedAt.Value,
+                (ERole)cbRoles.SelectedValue);
         }
     }
 }

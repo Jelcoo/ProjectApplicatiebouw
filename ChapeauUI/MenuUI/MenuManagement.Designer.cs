@@ -52,6 +52,7 @@
             lvMenu.TabIndex = 0;
             lvMenu.UseCompatibleStateImageBehavior = false;
             lvMenu.View = View.Details;
+            lvMenu.SelectedIndexChanged += lvMenu_SelectedIndexChanged;
             // 
             // itemName
             // 

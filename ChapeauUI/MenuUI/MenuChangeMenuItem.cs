@@ -17,83 +17,36 @@ namespace ChapeauUI.MenuUI
     public partial class MenuChangeMenuItem : Form
     {
         private MenuManagement parentForm;
-        private int menuItemId;
+        private MenuService _menuService;
+        private MenuItem SelectedMenuItem;
 
-        public MenuChangeMenuItem(MenuManagement form, int itemId)
+
+        public MenuChangeMenuItem(MenuManagement form, MenuItem item)
         {
             InitializeComponent();
-            this.parentForm = form;
-            this.menuItemId = itemId;
+
+            parentForm = form;
+            _menuService = new MenuService();
+            SelectedMenuItem = item;
+
             FillComboBoxes();
-            LoadMenuItemData(itemId);
+            LoadMenuItemData();
         }
 
-        private void btnConfirmChangeItem_Click(object sender, EventArgs e)
+        private void LoadMenuItemData()
         {
-            DialogResult dialogResult = MessageBox.Show("Are you sure you want to change a item?", "Confirm Add Item", MessageBoxButtons.YesNo);
+            inputItemName.Text = SelectedMenuItem.Name;
+            inputItemName.Tag = SelectedMenuItem.MenuItemId;
+            inputItemDetailName.Text = SelectedMenuItem.DetailName;
+            inputItemPrice.Text = SelectedMenuItem.Price.ToString("F2");
 
-            if (dialogResult == DialogResult.Yes)
-            {
-                //Get menuItemData to change to
-                MenuItem changedMenuItem = GetMenuItemDataFromInput();
-
-                MenuService menuService = new MenuService();
-                menuService.ChangeMenuItem(changedMenuItem);
-
-                MessageBox.Show("MenuItem Changed successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                parentForm.Reload();
-                this.Close();
-            }
-        }
-        public MenuItem GetMenuItemDataFromInput()
-        {
-            EMenuType menuType = (EMenuType)cbItemType.SelectedValue;
-            EMenu menu = (EMenu)cbItemMenu.SelectedValue;
-            string itemName = inputItemName.Text;
-            string itemDetailName = inputItemDetailName.Text;
-            double VATRate = (double)cbItemVATRate.SelectedValue;
-            double price = double.Parse(inputItemPrice.Text);
-
-            MenuItem menuItem = new MenuItem(menuItemId, new Stock(0), itemName, itemDetailName, VATRate, price);
-
-            menuItem.SetMenu(menu);
-
-            if (menuType == EMenuType.None) menuItem.SetMenuType(null);
-            else menuItem.SetMenuType(menuType);
-
-            return menuItem;
+            cbItemMenu.SelectedIndex = (int)SelectedMenuItem.Menu - 1;
+            cbItemType.SelectedIndex = (int)SelectedMenuItem.MenuType;
+            cbItemVATRate.SelectedIndex = SelectedMenuItem.VATRate == 0.09 ? 0 : SelectedMenuItem.VATRate == 0.21 ? 1 : -1;
         }
 
-
-        private void btnCancelChangeItem_Click(object sender, EventArgs e)
+        private void FillComboBoxes()
         {
-            this.Close();
-        }
-
-        public void LoadMenuItemData(int itemId)
-        {
-            MenuService menuService = new MenuService();
-
-            MenuItem menuItem = menuService.GetMenuItemById(itemId);
-
-            if (menuItem != null)
-            {
-                inputItemName.Text = menuItem.Name;
-                inputItemName.Tag = menuItem.MenuItemId;
-                inputItemDetailName.Text = menuItem.DetailName;
-                inputItemPrice.Text = menuItem.Price.ToString("F2");
-
-                cbItemMenu.SelectedIndex = (int)menuItem.Menu - 1;
-                cbItemType.SelectedIndex = (int)menuItem.MenuType;
-                cbItemVATRate.SelectedIndex = menuItem.VATRate == 0.09 ? 0 : menuItem.VATRate == 0.21 ? 1 : -1;
-            }
-        }
-
-        public void FillComboBoxes()
-        {
-            MenuService menuService = new MenuService();
-
             // MenuType's
             cbItemType.Items.Clear();
             cbItemType.DataSource = Enum.GetValues(typeof(EMenuType));
@@ -103,8 +56,70 @@ namespace ChapeauUI.MenuUI
             cbItemMenu.DataSource = Enum.GetValues(typeof(EMenu));
 
             // VATRates
-            List<double> VATRates = menuService.GetVATRates();
+            List<double> VATRates = _menuService.GetVATRates();
             cbItemVATRate.DataSource = VATRates;
+        }
+
+        private void btnConfirmChangeItem_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to change a item?", "Confirm Add Item", MessageBoxButtons.YesNo);
+
+            if (dialogResult == DialogResult.Yes && CheckIfAllFilled())
+            {
+                try
+                {
+                    MenuItem changedMenuItem = GetMenuItemDataFromInput();
+
+                    _menuService.ChangeMenuItem(changedMenuItem);
+                    MessageBox.Show(changedMenuItem.MenuItemId.ToString());
+
+                    MessageBox.Show("MenuItem Changed successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    parentForm.Reload();
+                    this.Close();
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Fill in all details");
+            }
+        }
+        
+        private void btnCancelChangeItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private MenuItem GetMenuItemDataFromInput()
+        {
+            EMenuType menuType = (EMenuType)cbItemType.SelectedValue;
+            EMenu menu = (EMenu)cbItemMenu.SelectedValue;
+            string itemName = inputItemName.Text;
+            string itemDetailName = inputItemDetailName.Text;
+            double VATRate = (double)cbItemVATRate.SelectedValue;
+            double price = double.Parse(inputItemPrice.Text);
+
+            MenuItem menuItem = new MenuItem(SelectedMenuItem.MenuItemId, SelectedMenuItem.Stock, itemName, itemDetailName, VATRate, price);
+
+            menuItem.SetMenu(menu);
+
+            if (menuType == EMenuType.None) menuItem.SetMenuType(null);
+            else menuItem.SetMenuType(menuType);
+
+            return menuItem;
+        }
+
+        private bool CheckIfAllFilled()
+        {
+            if (string.IsNullOrEmpty(inputItemName.Text)) { return false; }
+            if (string.IsNullOrWhiteSpace(inputItemDetailName.Text)) { return false; }
+            if (string.IsNullOrEmpty(inputItemPrice.Text)) { return false; }
+
+            return true;
         }
     }
 }

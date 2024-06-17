@@ -9,68 +9,85 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ChapeauModel;
 using ChapeauService;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ChapeauUI.StockUI
 {
     public partial class StockManagement : Form
     {
         private StockService _stockService;
+        private MenuItem SelectedMenuItem;
+        private int DefaultNoImageId;
+
         public StockManagement()
         {
             InitializeComponent();
+
             _stockService = new StockService();
+            DefaultNoImageId = 0;
+
             PopulateStock();
         }
 
-        public void PopulateStock()
+        private void PopulateStock()
         {
-            List<MenuItem> stockData = _stockService.GetStock();
-
-            lvStock.Items.Clear();
-
-            foreach (MenuItem item in stockData)
+            try 
             {
-                ListViewItem listViewItem = new ListViewItem(item.Name)
-                {
-                    Tag = item.MenuItemId
-                };
-                ListViewItem.ListViewSubItem stockAmountSubItem = new ListViewItem.ListViewSubItem
-                {
-                    Text = item.Stock.Count.ToString(),
-                    Tag = item.Stock.StockId
-                };
+                List<MenuItem> stockData = _stockService.GetStock();
 
-                listViewItem.SubItems.Add(stockAmountSubItem);
-                lvStock.Items.Add(listViewItem);
+                lvStock.Items.Clear();
+
+                foreach (MenuItem item in stockData)
+                {
+                    ListViewItem listViewItem = new ListViewItem(item.Name);
+                    listViewItem.Tag = item;
+
+                    listViewItem.SubItems.Add(item.Stock.Count.ToString());
+                    listViewItem.SubItems.Add(GiveStatus(item.Stock.Count));
+
+                    lvStock.Items.Add(listViewItem);
+                }
+
+                lvStock.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
             }
-
-            lvStock.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
 
         private void lvStock_SelectedIndexChanged(object sender, EventArgs e)
         {
-            StockService stockService = new StockService();
-
             if (lvStock.SelectedItems.Count > 0)
             {
-                lblSelectAnItemText.Visible = false;
+                SelectedMenuItem = (MenuItem)lvStock.SelectedItems[0].Tag;
 
-                ListViewItem selectedItem = lvStock.SelectedItems[0];
-
-                int itemId = (int)selectedItem.Tag;
-
-                lblMenuItemName.Text = selectedItem.Text;
-                lblMenuItemDetail.Text = stockService.GetDetailNameById(itemId);
-                lblMenuItemStock.Text = selectedItem.SubItems[1].Text;
-                SetItemImage(itemId);
-                lblStockManagementText.Visible = true;
-                lblInStockText.Visible = true;
-                btnAddStock.Visible = true;
-                btnAlterStock.Visible = true;
+                SetTags();
+                MakeTagsVisible();
             }
         }
 
-        public void SetItemImage(int id)
+        private void btnAddStock_Click(object sender, EventArgs e)
+        {
+            StockAddDelivery addDeliveryForm = new StockAddDelivery(SelectedMenuItem, this);
+            addDeliveryForm.ShowDialog();
+        }
+
+        private void btnAlterStock_Click(object sender, EventArgs e)
+        {
+            StockAlterStock alterStockForm = new StockAlterStock(SelectedMenuItem, this);
+            alterStockForm.ShowDialog();
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            ChapeauPanel chapeauPanel = new ChapeauPanel();
+            chapeauPanel.Show();
+            this.Hide();
+        }
+
+        private void SetItemImage(int id)
         {
             string imagePath = GetImagePath(id);
 
@@ -82,19 +99,17 @@ namespace ChapeauUI.StockUI
                 }
                 catch (Exception ex)
                 {
-                    // 0 is default NoImage
-                    pbItemImage.Image = Image.FromFile(GetImagePath(0));
+                    pbItemImage.Image = Image.FromFile(GetImagePath(DefaultNoImageId));
                     throw new Exception($"Error loading image: {ex.Message}");
                 }
             }
             else
             {
-                // 0 is default NoImage
-                pbItemImage.Image = Image.FromFile(GetImagePath(0));
+                pbItemImage.Image = Image.FromFile(GetImagePath(DefaultNoImageId));
             }
         }
 
-        public string GetImagePath(int id)
+        private string GetImagePath(int id)
         {
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string imagesDirectory = Path.Combine(baseDirectory, @"..\..\..\Resources\StockImages");
@@ -104,20 +119,56 @@ namespace ChapeauUI.StockUI
             return imagePath;
         }
 
-        private void btnAddStock_Click(object sender, EventArgs e)
-        {
-            ListViewItem selectedItem = lvStock.SelectedItems[0];
-
-            int itemId = (int)selectedItem.Tag;
-
-            StockAddDelivery addDeliveryForm = new StockAddDelivery(itemId, this);
-            addDeliveryForm.ShowDialog();
-        }
-
         public void Reload()
         {
             PopulateStock();
+            MakeTagsInvisible();
+        }
 
+        private string GiveStatus(int stock)
+        {
+            if (stock == 0)
+            {
+                return "Empty";
+            }
+            else if (stock < 10)
+            {
+                return "Insufficient";
+            }
+            else
+            {
+                return "Sufficient";
+            }
+        }
+
+        private void SetTags()
+        {
+            lblMenuItemName.Text = SelectedMenuItem.Name;
+            lblMenuItemDetail.Text = SelectedMenuItem.DetailName;
+            lblMenuItemStock.Text = SelectedMenuItem.Stock.Count.ToString();
+
+            try
+            {
+                SetItemImage(SelectedMenuItem.MenuItemId);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void MakeTagsVisible()
+        {
+            lblSelectAnItemText.Visible = false;
+
+            lblStockManagementText.Visible = true;
+            lblInStockText.Visible = true;
+            btnAddStock.Visible = true;
+            btnAlterStock.Visible = true;
+        }
+
+        private void MakeTagsInvisible()
+        {
             lblStockManagementText.Visible = false;
             lblInStockText.Visible = false;
             btnAddStock.Visible = false;
@@ -129,23 +180,6 @@ namespace ChapeauUI.StockUI
             pbItemImage.Image = null;
 
             lblSelectAnItemText.Visible = true;
-        }
-
-        private void btnAlterStock_Click(object sender, EventArgs e)
-        {
-            ListViewItem selectedItem = lvStock.SelectedItems[0];
-
-            int itemId = (int)selectedItem.Tag;
-
-            StockAlterStock alterStockForm = new StockAlterStock(itemId, this);
-            alterStockForm.ShowDialog();
-        }
-
-        private void backButton_Click(object sender, EventArgs e)
-        {
-            ChapeauPanel chapeauPanel = new ChapeauPanel();
-            chapeauPanel.Show();
-            this.Hide();
         }
     }
 }

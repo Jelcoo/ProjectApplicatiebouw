@@ -46,7 +46,6 @@
             lblEmployedAtText.TabIndex = 5;
             lblEmployedAtText.Text = "Employed At:";
             lblEmployedAtText.TextAlign = ContentAlignment.MiddleRight;
-            lblEmployedAtText.Visible = false;
             // 
             // lblNameText
             // 
@@ -56,7 +55,6 @@
             lblNameText.TabIndex = 6;
             lblNameText.Text = "Name:";
             lblNameText.TextAlign = ContentAlignment.MiddleRight;
-            lblNameText.Visible = false;
             // 
             // inputEmployeeName
             // 
@@ -100,7 +98,6 @@
             lblRoleText.TabIndex = 5;
             lblRoleText.Text = "Role:";
             lblRoleText.TextAlign = ContentAlignment.MiddleRight;
-            lblRoleText.Visible = false;
             // 
             // cbRoles
             // 

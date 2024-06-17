@@ -20,6 +20,7 @@ namespace ChapeauUI.EmploymentUI
     {
         private EmployeeService _employeeService;
         private ListView currentListView;
+
         public EmployeeManagement()
         {
             InitializeComponent();
@@ -27,14 +28,14 @@ namespace ChapeauUI.EmploymentUI
             SetDefaultStartListView();
         }
 
-        public void SetDefaultStartListView()
+        private void SetDefaultStartListView()
         {
             currentListView = lvWaiters;
             SwitchListView(lvWaiters);
             FillListView(ERole.Waiter, lvWaiters);
         }
 
-        public void SwitchListView(ListView switchListView)
+        private void SwitchListView(ListView switchListView)
         {
             HideAllListViews();
             switchListView.Visible = true;
@@ -51,24 +52,57 @@ namespace ChapeauUI.EmploymentUI
         private void FillListView(ERole role, ListView listview)
         {
             listview.Items.Clear();
-            List<Employee> employees = new List<Employee>();
 
-            employees = _employeeService.GetEmployeesByRole(role);
-
-            if (employees.Count == 0)
+            try
             {
-                MessageBox.Show("No Employees found");
-            }
+                List<Employee> employees = new List<Employee>();
 
-            foreach (Employee employee in employees)
-            {
-                ListViewItem item = new ListViewItem(employee.EmployeeId.ToString());
-                item.Tag = employee;
-                item.SubItems.Add(employee.Name);
-                item.SubItems.Add(employee.EmployedAt.ToShortDateString());
-                item.SubItems.Add(employee.Role.ToString());
-                listview.Items.Add(item);
+                employees = _employeeService.GetEmployeesByRole(role);
+
+                foreach (Employee employee in employees)
+                {
+                    ListViewItem item = new ListViewItem(employee.EmployeeId.ToString());
+                    item.Tag = employee;
+                    item.SubItems.Add(employee.Name);
+                    item.SubItems.Add(employee.EmployedAt.ToShortDateString());
+                    item.SubItems.Add(employee.Role.ToString());
+                    listview.Items.Add(item);
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void MakeTextVisible()
+        {
+            lblSelectAnEmployeeText.Visible = false;
+
+            lblEmployeeName.Visible = true;
+            lblIdText.Visible = true;
+            lblEmployeeId.Visible = true;
+            lblEmployedAtText.Visible = true;
+            lblEmployedAt.Visible = true;
+
+            btnEditEmployee.Visible = true;
+            btnFireEmployee.Visible = true;
+            btnChangePasswordEmployee.Visible = true;
+        }
+
+        private void MakeTextInvisible()
+        {
+            lblSelectAnEmployeeText.Visible = true;
+
+            lblEmployeeName.Visible = false;
+            lblIdText.Visible = false;
+            lblEmployeeId.Visible = false;
+            lblEmployedAtText.Visible = false;
+            lblEmployedAt.Visible = false;
+
+            btnEditEmployee.Visible = false;
+            btnFireEmployee.Visible = false;
+            btnChangePasswordEmployee.Visible = false;
         }
 
         private void btnWaitersTab_Click(object sender, EventArgs e)
@@ -97,67 +131,6 @@ namespace ChapeauUI.EmploymentUI
             FillListView(ERole.Manager, lvManagers);
         }
 
-        public void LoadEmployee(Employee employee)
-        {
-            MakeTextAndImageVisible();
-
-            lblEmployeeName.Text = employee.Name;
-            lblEmployeeId.Text = employee.EmployeeId.ToString();
-            string formattedDate = $"{employee.EmployedAt:MMM} {employee.EmployedAt.Day}{GetDaySuffix(employee.EmployedAt.Day)} {employee.EmployedAt.Year}";
-
-            lblEmployedAt.Text = formattedDate;
-            //Change Image TODO: DisplayEmployeeImage(employee.EmployeeId);
-        }
-        private string GetDaySuffix(int day)
-        {
-            if (day >= 11 && day <= 13)
-            {
-                return "th";
-            }
-
-            switch (day % 10)
-            {
-                case 1: return "st";
-                case 2: return "nd";
-                case 3: return "rd";
-                default: return "th";
-            }
-        }
-
-        public void MakeTextAndImageVisible()
-        {
-            lblSelectAnEmployeeText.Visible = false;
-
-            lblEmployeeName.Visible = true;
-            lblIdText.Visible = true;
-            lblEmployeeId.Visible = true;
-            lblEmployedAtText.Visible = true;
-            lblEmployedAt.Visible = true;
-
-            pbEmployee.Visible = true;
-
-            btnEditEmployee.Visible = true;
-            btnFireEmployee.Visible = true;
-            btnChangePasswordEmployee.Visible = true;
-        }
-
-        public void MakeTextAndImageInvisible()
-        {
-            lblSelectAnEmployeeText.Visible = true;
-
-            lblEmployeeName.Visible = false;
-            lblIdText.Visible = false;
-            lblEmployeeId.Visible = false;
-            lblEmployedAtText.Visible = false;
-            lblEmployedAt.Visible = false;
-
-            pbEmployee.Visible = false;
-
-            btnEditEmployee.Visible = false;
-            btnFireEmployee.Visible = false;
-            btnChangePasswordEmployee.Visible = false;
-        }
-
         private void AllListViews_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (currentListView.SelectedItems.Count > 0)
@@ -172,21 +145,14 @@ namespace ChapeauUI.EmploymentUI
             }
         }
 
-        public Employee GetSelectedEmployee()
+        private void btnAddEmployee_Click(object sender, EventArgs e)
         {
-            ListViewItem listViewItem = currentListView.SelectedItems[0];
-            return listViewItem.Tag as Employee;
+            new EmployeeHireEmployee(this).ShowDialog();
         }
 
         private void btnEditEmployee_Click(object sender, EventArgs e)
         {
             new EmploymentEditEmployee(this, GetSelectedEmployee()).ShowDialog();
-        }
-
-        public void Reload()
-        {
-            SwitchListView(currentListView);
-            MakeTextAndImageInvisible();
         }
 
         private void btnChangePasswordEmployee_Click(object sender, EventArgs e)
@@ -215,9 +181,50 @@ namespace ChapeauUI.EmploymentUI
             }
         }
 
-        private void btnAddEmployee_Click(object sender, EventArgs e)
+        private void backButton_Click(object sender, EventArgs e)
         {
+            ChapeauPanel chapeauPanel = new ChapeauPanel();
+            chapeauPanel.Show();
+            this.Hide();
+        }
 
+        public void Reload()
+        {
+            SwitchListView(currentListView);
+            MakeTextInvisible();
+        }
+
+        private void LoadEmployee(Employee employee)
+        {
+            MakeTextVisible();
+
+            lblEmployeeName.Text = employee.Name;
+            lblEmployeeId.Text = employee.EmployeeId.ToString();
+            string formattedDate = $"{employee.EmployedAt:MMM} {employee.EmployedAt.Day}{GetDaySuffix(employee.EmployedAt.Day)} {employee.EmployedAt.Year}";
+
+            lblEmployedAt.Text = formattedDate;
+        }
+
+        private Employee GetSelectedEmployee()
+        {
+            ListViewItem listViewItem = currentListView.SelectedItems[0];
+            return listViewItem.Tag as Employee;
+        }
+
+        private string GetDaySuffix(int day)
+        {
+            if (day >= 11 && day <= 13)
+            {
+                return "th";
+            }
+
+            switch (day % 10)
+            {
+                case 1: return "st";
+                case 2: return "nd";
+                case 3: return "rd";
+                default: return "th";
+            }
         }
     }
 }
