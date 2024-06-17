@@ -33,7 +33,7 @@ namespace ChapeauUI.MenuUI
             LoadMenuItemData();
         }
 
-        public void LoadMenuItemData()
+        private void LoadMenuItemData()
         {
             inputItemName.Text = SelectedMenuItem.Name;
             inputItemName.Tag = SelectedMenuItem.MenuItemId;
@@ -45,7 +45,7 @@ namespace ChapeauUI.MenuUI
             cbItemVATRate.SelectedIndex = SelectedMenuItem.VATRate == 0.09 ? 0 : SelectedMenuItem.VATRate == 0.21 ? 1 : -1;
         }
 
-        public void FillComboBoxes()
+        private void FillComboBoxes()
         {
             // MenuType's
             cbItemType.Items.Clear();
@@ -95,7 +95,7 @@ namespace ChapeauUI.MenuUI
             this.Close();
         }
 
-        public MenuItem GetMenuItemDataFromInput()
+        private MenuItem GetMenuItemDataFromInput()
         {
             EMenuType menuType = (EMenuType)cbItemType.SelectedValue;
             EMenu menu = (EMenu)cbItemMenu.SelectedValue;

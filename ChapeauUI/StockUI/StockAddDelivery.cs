@@ -32,7 +32,7 @@ namespace ChapeauUI.StockUI
             FillQuantifiersComboBox();
         }
 
-        public void FillMenuItemDetails()
+        private void FillMenuItemDetails()
         {
             lblMenuItemName.Text = SelectedMenuItem.Name;
             lblMenuItemName.Tag = SelectedMenuItem.MenuItemId;
@@ -40,7 +40,7 @@ namespace ChapeauUI.StockUI
             lblMenuItemStock.Text = SelectedMenuItem.Stock.Count.ToString();
         }
 
-        public void FillQuantifiersComboBox()
+        private void FillQuantifiersComboBox()
         {
             Dictionary<string, int> quantifiers = GetQuantifiers();
 
@@ -94,7 +94,7 @@ namespace ChapeauUI.StockUI
             this.Close();
         }
 
-        public Dictionary<string, int> GetQuantifiers()
+        private Dictionary<string, int> GetQuantifiers()
         {
             Dictionary<string, int> quantifiers = new Dictionary<string, int>()
             {
@@ -111,12 +111,12 @@ namespace ChapeauUI.StockUI
             return quantifiers;
         }
 
-        public void ChangeTotal()
+        private void ChangeTotal()
         {
             lblTotal.Text = CheckAndCalculateTotal().ToString();
         }
 
-        public int CheckAndCalculateTotal()
+        private int CheckAndCalculateTotal()
         {
             if (cbQuantifiers.SelectedIndex > -1 && !string.IsNullOrEmpty(InputAddStock.Text))
             {
@@ -125,7 +125,7 @@ namespace ChapeauUI.StockUI
             else { return 0; }
         }
 
-        public KeyValuePair<string, int> GetSelectedQuantifier()
+        private KeyValuePair<string, int> GetSelectedQuantifier()
         {
             return (KeyValuePair<string, int>)cbQuantifiers.SelectedItem;
         }

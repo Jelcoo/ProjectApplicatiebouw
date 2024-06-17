@@ -19,7 +19,7 @@ namespace ChapeauUI.MenuUI
             PopulateMenuDisplay();
         }
 
-        public void PopulateMenuDisplay()
+        private void PopulateMenuDisplay()
         {
             lvMenu.Items.Clear();
 
@@ -58,7 +58,7 @@ namespace ChapeauUI.MenuUI
 
         public void Reload() { PopulateMenuDisplay(); }
 
-        public void btnDeleteMenuItem_Click(object sender, EventArgs e)
+        private void btnDeleteMenuItem_Click(object sender, EventArgs e)
         {
             if (lvMenu.SelectedItems.Count > 0)
             {

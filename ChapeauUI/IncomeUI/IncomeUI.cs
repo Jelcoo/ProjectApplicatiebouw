@@ -13,7 +13,7 @@ namespace ChapeauUI.IncomeUI
             SetAllTimeIncome();
         }
 
-        public void SetSingleDate()
+        private void SetSingleDate()
         {
             dtpStartDay.Value = DateTime.Today;
 
@@ -22,7 +22,7 @@ namespace ChapeauUI.IncomeUI
             lblSelectDateText.Text = "Select Date:";
         }
 
-        public void SetDoubleDate()
+        private void SetDoubleDate()
         {
             DateTime today = DateTime.Today;
             dtpEndDay.Value = today;
@@ -33,18 +33,18 @@ namespace ChapeauUI.IncomeUI
             lblSelectDateText.Text = "Select Start Date:";
         }
 
-        public void SetAllTimeIncome()
+        private void SetAllTimeIncome()
         {
             IncomeService incomeService = new IncomeService();
             lblAllTimeIncome.Text = incomeService.GetAllTimeIncome().ToString("€ 0.00");
         }
 
-        public void ClearIncome()
+        private void ClearIncome()
         {
             lblIncomeByDate.Text = "€ 0.00";
         }
 
-        public double GetIncome()
+        private double GetIncome()
         {
             IncomeService incomeService = new IncomeService();
             double income = 0;
@@ -61,12 +61,12 @@ namespace ChapeauUI.IncomeUI
             return income;
         }
 
-        public void SetIncome(double income)
+        private void SetIncome(double income)
         {
             lblIncomeByDate.Text = income.ToString("€ 0.00");
         }
 
-        public bool CheckIfInFuture(DateTime date)
+        private bool CheckIfInFuture(DateTime date)
         {
             if (date > DateTime.Today)
             {
@@ -76,7 +76,7 @@ namespace ChapeauUI.IncomeUI
             return false;
         }
 
-        public bool CheckIfEndDateIsBeforeStartDate()
+        private bool CheckIfEndDateIsBeforeStartDate()
         {
             if (dtpStartDay.Value > dtpEndDay.Value)
             {

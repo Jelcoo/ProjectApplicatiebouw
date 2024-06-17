@@ -19,7 +19,7 @@ namespace ChapeauUI.MenuUI
             FillComboBoxes();
         }
 
-        public void FillComboBoxes()
+        private void FillComboBoxes()
         {
             MenuService menuService = new MenuService();
 
@@ -60,7 +60,7 @@ namespace ChapeauUI.MenuUI
 
         private void btnCancelAddItem_Click(object sender, EventArgs e) { this.Close(); }
 
-        public MenuItem GetMenuItemDataFromInput(int stockId)
+        private MenuItem GetMenuItemDataFromInput(int stockId)
         {
             EMenuType menuType = (EMenuType)cbItemType.SelectedValue;
             EMenu menu = (EMenu)cbItemMenu.SelectedValue;
