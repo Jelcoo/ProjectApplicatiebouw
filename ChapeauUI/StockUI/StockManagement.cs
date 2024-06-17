@@ -17,6 +17,8 @@ namespace ChapeauUI.StockUI
     {
         private StockService _stockService;
         private MenuItem SelectedMenuItem;
+
+        // used for stockImage
         private int DefaultNoImageId;
 
         public StockManagement()
@@ -24,6 +26,8 @@ namespace ChapeauUI.StockUI
             InitializeComponent();
 
             _stockService = new StockService();
+
+            // 0 stands for NoId, corresponds to NoImage image
             DefaultNoImageId = 0;
 
             PopulateStock();
@@ -31,36 +35,44 @@ namespace ChapeauUI.StockUI
 
         private void PopulateStock()
         {
-            try 
+            try
             {
+                // Asks all MenuItems with Stock from stockService
                 List<MenuItem> stockData = _stockService.GetStock();
 
+                // Clears previous data
                 lvStock.Items.Clear();
 
+                // Sets the name, stockCount and Status for each MenuItem
                 foreach (MenuItem item in stockData)
                 {
                     ListViewItem listViewItem = new ListViewItem(item.Name);
-                    listViewItem.Tag = item;
-
                     listViewItem.SubItems.Add(item.Stock.Count.ToString());
+
+                    // Sets the Status of the stock
                     listViewItem.SubItems.Add(GiveStatus(item.Stock.Count));
+
+                    //Sets the whole item as the tag
+                    listViewItem.Tag = item;
 
                     lvStock.Items.Add(listViewItem);
                 }
 
+                //Auto resizes the column that contains the name
                 lvStock.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            
+
         }
 
         private void lvStock_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lvStock.SelectedItems.Count > 0)
             {
+                // Sets the SelectedMenuItem
                 SelectedMenuItem = (MenuItem)lvStock.SelectedItems[0].Tag;
 
                 SetTags();
@@ -70,18 +82,21 @@ namespace ChapeauUI.StockUI
 
         private void btnAddStock_Click(object sender, EventArgs e)
         {
+            // Opens new delivery form. Adds SelectedMenuItem and parentForm
             StockAddDelivery addDeliveryForm = new StockAddDelivery(SelectedMenuItem, this);
             addDeliveryForm.ShowDialog();
         }
 
         private void btnAlterStock_Click(object sender, EventArgs e)
         {
+            // Opens new alter stock form. Adds SelectedMenuItem and parentForm
             StockAlterStock alterStockForm = new StockAlterStock(SelectedMenuItem, this);
             alterStockForm.ShowDialog();
         }
 
         private void backButton_Click(object sender, EventArgs e)
         {
+            // Back to ChapeauPanel
             ChapeauPanel chapeauPanel = new ChapeauPanel();
             chapeauPanel.Show();
             this.Hide();
@@ -89,31 +104,48 @@ namespace ChapeauUI.StockUI
 
         private void SetItemImage(int id)
         {
+            // Gets Image Path
             string imagePath = GetImagePath(id);
 
+            //Checks if file exists
             if (File.Exists(imagePath))
             {
+                // tries to set the image
                 try
                 {
                     pbItemImage.Image = Image.FromFile(imagePath);
                 }
                 catch (Exception ex)
                 {
-                    pbItemImage.Image = Image.FromFile(GetImagePath(DefaultNoImageId));
+                    //Fails, sets the image to NoImage
+                    SetToNoImage();
+
                     throw new Exception($"Error loading image: {ex.Message}");
                 }
             }
             else
             {
-                pbItemImage.Image = Image.FromFile(GetImagePath(DefaultNoImageId));
+                // Image doesnt exist, sets image to NoImage
+                SetToNoImage();
             }
+        }
+
+        private void SetToNoImage()
+        {
+            // Sets the image to NoImage with Id DefaultNoImageId
+            pbItemImage.Image = Image.FromFile(GetImagePath(DefaultNoImageId));
         }
 
         private string GetImagePath(int id)
         {
+            //Gets the baseDirectory
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            
+            //Combines base with Resources location
             string imagesDirectory = Path.Combine(baseDirectory, @"..\..\..\Resources\StockImages");
 
+            //Combines path with id
+            //Only Allows png
             string imagePath = Path.Combine(imagesDirectory, id + ".png");
 
             return imagePath;
@@ -127,6 +159,7 @@ namespace ChapeauUI.StockUI
 
         private string GiveStatus(int stock)
         {
+            // Returns the status depending on the stock
             if (stock == 0)
             {
                 return "Empty";
@@ -143,10 +176,12 @@ namespace ChapeauUI.StockUI
 
         private void SetTags()
         {
+            // Sets the MenuItem data to labels
             lblMenuItemName.Text = SelectedMenuItem.Name;
             lblMenuItemDetail.Text = SelectedMenuItem.DetailName;
             lblMenuItemStock.Text = SelectedMenuItem.Stock.Count.ToString();
 
+            // Trys to set the image
             try
             {
                 SetItemImage(SelectedMenuItem.MenuItemId);
@@ -174,6 +209,7 @@ namespace ChapeauUI.StockUI
             btnAddStock.Visible = false;
             btnAlterStock.Visible = false;
 
+            // Removes all data from labels
             lblMenuItemName.Text = string.Empty;
             lblMenuItemDetail.Text = string.Empty;
             lblMenuItemStock.Text = string.Empty;

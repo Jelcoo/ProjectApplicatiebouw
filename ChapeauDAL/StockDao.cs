@@ -16,6 +16,7 @@ JOIN stock AS S ON S.stockId = MI.stockId;";
             SqlCommand command = new SqlCommand(query, OpenConnection());
             SqlDataReader reader = command.ExecuteReader();
 
+            // List of all the stockItems
             List<MenuItem> stockItems = new List<MenuItem>();
 
             while (reader.Read())
@@ -26,6 +27,7 @@ JOIN stock AS S ON S.stockId = MI.stockId;";
             reader.Close();
             CloseConnection();
 
+            // Checks if the stockItems are not empty
             if (stockItems.Count == 0)
             {
                 throw new Exception("No stock found");
