@@ -37,7 +37,7 @@ WHERE roleId = @roleId;";
             CloseConnection();
 
             //Checks if any employees have been found
-            if (employeesByRole.Count > 0)
+            if (employeesByRole.Count == 0)
             {
                 throw new Exception("No employees found");
             }
