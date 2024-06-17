@@ -28,7 +28,7 @@ JOIN stock AS S ON S.stockId = MI.stockId;";
 
             if (stockItems.Count == 0)
             {
-                throw new Exception($"No stock found");
+                throw new Exception("No stock found");
             }
 
             reader.Close();

@@ -42,15 +42,22 @@ namespace ChapeauUI.MenuUI
 
             if (dialogResult == DialogResult.Yes && CheckIfAllFilled())
             {
-                int stockId = _menuService.CreateItemStock();
-                MenuItem menuItem = GetMenuItemDataFromInput(stockId);
-                _menuService.AddMenuItem(menuItem);
-                _restaurant.AddMenuItem(menuItem);
+                try
+                {
+                    int stockId = _menuService.CreateItemStock();
+                    MenuItem menuItem = GetMenuItemDataFromInput(stockId);
+                    _menuService.AddMenuItem(menuItem);
+                    _restaurant.AddMenuItem(menuItem);
 
-                MessageBox.Show("MenuItem added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("MenuItem added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                parentForm.Reload();
-                this.Close();
+                    parentForm.Reload();
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
             else
             {

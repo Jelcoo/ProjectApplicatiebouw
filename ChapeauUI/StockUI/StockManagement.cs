@@ -31,22 +31,30 @@ namespace ChapeauUI.StockUI
 
         private void PopulateStock()
         {
-            List<MenuItem> stockData = _stockService.GetStock();
-
-            lvStock.Items.Clear();
-
-            foreach (MenuItem item in stockData)
+            try 
             {
-                ListViewItem listViewItem = new ListViewItem(item.Name);
-                listViewItem.Tag = item;
+                List<MenuItem> stockData = _stockService.GetStock();
 
-                listViewItem.SubItems.Add(item.Stock.Count.ToString());
-                listViewItem.SubItems.Add(GiveStatus(item.Stock.Count));
+                lvStock.Items.Clear();
 
-                lvStock.Items.Add(listViewItem);
+                foreach (MenuItem item in stockData)
+                {
+                    ListViewItem listViewItem = new ListViewItem(item.Name);
+                    listViewItem.Tag = item;
+
+                    listViewItem.SubItems.Add(item.Stock.Count.ToString());
+                    listViewItem.SubItems.Add(GiveStatus(item.Stock.Count));
+
+                    lvStock.Items.Add(listViewItem);
+                }
+
+                lvStock.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
             }
-
-            lvStock.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
 
         private void lvStock_SelectedIndexChanged(object sender, EventArgs e)
@@ -139,7 +147,14 @@ namespace ChapeauUI.StockUI
             lblMenuItemDetail.Text = SelectedMenuItem.DetailName;
             lblMenuItemStock.Text = SelectedMenuItem.Stock.Count.ToString();
 
-            SetItemImage(SelectedMenuItem.MenuItemId);
+            try
+            {
+                SetItemImage(SelectedMenuItem.MenuItemId);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void MakeTagsVisible()

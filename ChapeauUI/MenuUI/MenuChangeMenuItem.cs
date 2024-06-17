@@ -68,7 +68,6 @@ namespace ChapeauUI.MenuUI
             {
                 try
                 {
-                    //Get menuItemData to change to
                     MenuItem changedMenuItem = GetMenuItemDataFromInput();
 
                     _menuService.ChangeMenuItem(changedMenuItem);

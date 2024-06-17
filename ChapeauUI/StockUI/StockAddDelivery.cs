@@ -69,11 +69,18 @@ namespace ChapeauUI.StockUI
 
                 if (result == DialogResult.Yes)
                 {
-                    _stockService.AddDelivery(SelectedMenuItem.Stock, CheckAndCalculateTotal());
-                    MessageBox.Show("Stock added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    try
+                    {
+                        _stockService.AddDelivery(SelectedMenuItem.Stock, CheckAndCalculateTotal());
+                        MessageBox.Show("Stock added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    parentForm.Reload();
-                    this.Close();
+                        parentForm.Reload();
+                        this.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                 }
             }
             else { MessageBox.Show("Please select/input a correct delivery amount"); }

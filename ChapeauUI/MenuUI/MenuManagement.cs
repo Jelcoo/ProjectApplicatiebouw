@@ -66,11 +66,18 @@ namespace ChapeauUI.MenuUI
 
                 if (dialogResult == DialogResult.Yes)
                 {
-                    _menuService.DeleteMenuItemAndStockById(SelectedMenuItem);
+                    try
+                    {
+                        _menuService.DeleteMenuItemAndStockById(SelectedMenuItem);
 
-                    MessageBox.Show("Item deleted successfully");
+                        MessageBox.Show("Item deleted successfully");
 
-                    this.Reload();
+                        this.Reload();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                 }
             }
             else

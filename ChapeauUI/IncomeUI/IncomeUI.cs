@@ -49,13 +49,20 @@ namespace ChapeauUI.IncomeUI
             IncomeService incomeService = new IncomeService();
             double income = 0;
 
-            if (cbSingleDay.Checked)
+            try
             {
-                income = incomeService.GetIncome(dtpStartDay.Value);
+                if (cbSingleDay.Checked)
+                {
+                    income = incomeService.GetIncome(dtpStartDay.Value);
+                }
+                else if (!cbSingleDay.Checked)
+                {
+                    income = incomeService.GetIncome(dtpStartDay.Value, dtpEndDay.Value);
+                }
             }
-            else if (!cbSingleDay.Checked)
+            catch (Exception ex)
             {
-                income = incomeService.GetIncome(dtpStartDay.Value, dtpEndDay.Value);
+                MessageBox.Show(ex.Message);
             }
 
             return income;

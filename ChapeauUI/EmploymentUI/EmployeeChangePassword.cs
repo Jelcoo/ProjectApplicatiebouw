@@ -46,7 +46,7 @@ namespace ChapeauUI.EmploymentUI
             DisableInteractions();
 
             //No password hashing due to group member absent
-            if (inputCurrentPassword.Text == _employeeService.GetPassword(currentEmployee.EmployeeId))
+            if (CheckIfAllFilledIn() && inputCurrentPassword.Text == GetCurrentPassword())
             {
                 if (CheckIfPassword1IsSameAsPassword2())
                 {
@@ -80,6 +80,27 @@ namespace ChapeauUI.EmploymentUI
         private void btnCancelChangePassword_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private string GetCurrentPassword()
+        {
+            try
+            {
+                return _employeeService.GetPassword(currentEmployee.EmployeeId);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            return string.Empty;
+        }
+
+        private bool CheckIfAllFilledIn()
+        {
+            if (string.IsNullOrEmpty(inputCurrentPassword.Text)) {  return false; }
+            if (string.IsNullOrEmpty(inputNewPassword1.Text)) { return false; }
+            if (string.IsNullOrEmpty(inputNewPassword2.Text)) { return false; } 
+            return true;
         }
 
         private bool CheckIfPassword1IsSameAsPassword2()

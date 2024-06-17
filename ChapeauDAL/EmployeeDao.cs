@@ -36,6 +36,11 @@ WHERE roleId = @roleId;";
             reader.Close();
             CloseConnection();
 
+            if (employeesByRole.Count > 0)
+            {
+                throw new Exception("No employees found");
+            }
+
             return employeesByRole;
         }
 

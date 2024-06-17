@@ -52,23 +52,26 @@ namespace ChapeauUI.EmploymentUI
         private void FillListView(ERole role, ListView listview)
         {
             listview.Items.Clear();
-            List<Employee> employees = new List<Employee>();
 
-            employees = _employeeService.GetEmployeesByRole(role);
-
-            if (employees.Count == 0)
+            try
             {
-                MessageBox.Show("No Employees found");
+                List<Employee> employees = new List<Employee>();
+
+                employees = _employeeService.GetEmployeesByRole(role);
+
+                foreach (Employee employee in employees)
+                {
+                    ListViewItem item = new ListViewItem(employee.EmployeeId.ToString());
+                    item.Tag = employee;
+                    item.SubItems.Add(employee.Name);
+                    item.SubItems.Add(employee.EmployedAt.ToShortDateString());
+                    item.SubItems.Add(employee.Role.ToString());
+                    listview.Items.Add(item);
+                }
             }
-
-            foreach (Employee employee in employees)
+            catch (Exception ex)
             {
-                ListViewItem item = new ListViewItem(employee.EmployeeId.ToString());
-                item.Tag = employee;
-                item.SubItems.Add(employee.Name);
-                item.SubItems.Add(employee.EmployedAt.ToShortDateString());
-                item.SubItems.Add(employee.Role.ToString());
-                listview.Items.Add(item);
+                MessageBox.Show(ex.Message);
             }
         }
 

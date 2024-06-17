@@ -53,6 +53,52 @@ namespace ChapeauUI.StockUI
             cbQuantifiers.SelectedIndex = 0;
         }
 
+        private void InputAddStock_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Make textbox only allow numbers as input :)
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) { e.Handled = true; }
+        }
+
+        private void btnAlterConfirm_Click(object sender, EventArgs e)
+        {
+            if (cbQuantifiers.SelectedIndex > -1 && InputAddStock.Text != "0" && InputAddStock.Text != string.Empty)
+            {
+                DialogResult result = MessageBox.Show($"Are you sure you want to alter stock of {SelectedMenuItem.Name} to ({GetSelectedQuantifier().Value} * {InputAddStock.Text} =) {CheckAndCalculateAlterTotal()}?", "Confirmation", MessageBoxButtons.YesNo);
+
+                if (result == DialogResult.Yes)
+                {
+                    try
+                    {
+                        _stockService.ChangeStock(new Stock(SelectedMenuItem.Stock.StockId, CheckAndCalculateAlterTotal()));
+                        MessageBox.Show("Stock altered successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        parentForm.Reload();
+                        this.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+            }
+            else { MessageBox.Show("Please select/input a correct alter amount"); }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ChangeTotal();
+        }
+
+        private void InputAddStock_TextChanged(object sender, EventArgs e)
+        {
+            ChangeTotal();
+        }
+
+        private void btnAlterCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
         private Dictionary<string, int> GetQuantifiers()
         {
             Dictionary<string, int> quantifiers = new Dictionary<string, int>()
@@ -70,20 +116,9 @@ namespace ChapeauUI.StockUI
             return quantifiers;
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void ChangeTotal()
         {
             lblTotal.Text = CheckAndCalculateAlterTotal().ToString();
-        }
-
-        private void InputAddStock_TextChanged(object sender, EventArgs e)
-        {
-            lblTotal.Text = CheckAndCalculateAlterTotal().ToString();
-        }
-
-        private void InputAddStock_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // Make textbox only allow numbers as input :)
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) { e.Handled = true; }
         }
 
         private int CheckAndCalculateAlterTotal()
@@ -98,29 +133,6 @@ namespace ChapeauUI.StockUI
         private KeyValuePair<string, int> GetSelectedQuantifier()
         {
             return (KeyValuePair<string, int>)cbQuantifiers.SelectedItem;
-        }
-
-        private void btnAlterConfirm_Click(object sender, EventArgs e)
-        {
-            if (cbQuantifiers.SelectedIndex > -1 && InputAddStock.Text != "0" && InputAddStock.Text != string.Empty)
-            {
-                DialogResult result = MessageBox.Show($"Are you sure you want to alter stock of {SelectedMenuItem.Name} to ({GetSelectedQuantifier().Value} * {InputAddStock.Text} =) {CheckAndCalculateAlterTotal()}?", "Confirmation", MessageBoxButtons.YesNo);
-
-                if (result == DialogResult.Yes)
-                {
-                    _stockService.ChangeStock(new Stock(SelectedMenuItem.Stock.StockId, CheckAndCalculateAlterTotal()));
-                    MessageBox.Show("Stock altered successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    parentForm.Reload();
-                    this.Close();
-                }
-            }
-            else { MessageBox.Show("Please select/input a correct alter amount"); }
-        }
-
-        private void btnAlterCancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
     }
 }
