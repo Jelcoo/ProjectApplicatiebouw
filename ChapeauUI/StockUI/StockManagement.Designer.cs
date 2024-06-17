@@ -239,7 +239,7 @@
             Controls.Add(lblStockManagementText);
             Controls.Add(lvStock);
             Name = "StockManagement";
-            Text = "StockManagement";
+            Text = "Stock Management";
             ((System.ComponentModel.ISupportInitialize)pbItemImage).EndInit();
             ResumeLayout(false);
             PerformLayout();

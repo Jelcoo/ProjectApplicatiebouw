@@ -28,11 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            lblStockId = new Label();
             btnAlterCancel = new Button();
             btnAlterConfirm = new Button();
             lblTotal = new Label();
-            label1 = new Label();
+            lblTotalText = new Label();
             cbQuantifiers = new ComboBox();
             InputAddStock = new TextBox();
             lblMenuItemStock = new Label();
@@ -40,15 +39,6 @@
             lblInStockText = new Label();
             lblMenuItemName = new Label();
             SuspendLayout();
-            // 
-            // lblStockId
-            // 
-            lblStockId.AutoSize = true;
-            lblStockId.Location = new Point(425, 36);
-            lblStockId.Name = "lblStockId";
-            lblStockId.Size = new Size(0, 20);
-            lblStockId.TabIndex = 30;
-            lblStockId.Visible = false;
             // 
             // btnAlterCancel
             // 
@@ -79,15 +69,15 @@
             lblTotal.TabIndex = 27;
             lblTotal.Text = "0";
             // 
-            // label1
+            // lblTotalText
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(178, 275);
-            label1.Name = "label1";
-            label1.Size = new Size(48, 20);
-            label1.TabIndex = 26;
-            label1.Text = "Total:";
+            lblTotalText.AutoSize = true;
+            lblTotalText.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            lblTotalText.Location = new Point(178, 275);
+            lblTotalText.Name = "lblTotalText";
+            lblTotalText.Size = new Size(48, 20);
+            lblTotalText.TabIndex = 26;
+            lblTotalText.Text = "Total:";
             // 
             // cbQuantifiers
             // 
@@ -156,11 +146,10 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(475, 362);
-            Controls.Add(lblStockId);
             Controls.Add(btnAlterCancel);
             Controls.Add(btnAlterConfirm);
             Controls.Add(lblTotal);
-            Controls.Add(label1);
+            Controls.Add(lblTotalText);
             Controls.Add(cbQuantifiers);
             Controls.Add(InputAddStock);
             Controls.Add(lblMenuItemStock);
@@ -168,18 +157,16 @@
             Controls.Add(lblInStockText);
             Controls.Add(lblMenuItemName);
             Name = "StockAlterStock";
-            Text = "AlterStock";
+            Text = "Alter Stock";
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private Label lblStockId;
         private Button btnAlterCancel;
         private Button btnAlterConfirm;
         private Label lblTotal;
-        private Label label1;
+        private Label lblTotalText;
         private ComboBox cbQuantifiers;
         private TextBox InputAddStock;
         private Label lblMenuItemStock;

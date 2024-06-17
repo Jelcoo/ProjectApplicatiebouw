@@ -16,6 +16,7 @@ namespace ChapeauUI.StockUI
     {
         private StockService _stockService;
         private StockManagement parentForm;
+
         private MenuItem SelectedMenuItem;
 
         public StockAlterStock(MenuItem item, StockManagement parentForm)
@@ -32,6 +33,7 @@ namespace ChapeauUI.StockUI
 
         private void FillMenuItemDetails()
         {
+            //Sets MenuItem data to the labels
             lblMenuItemName.Text = SelectedMenuItem.Name;
             lblMenuItemName.Tag = SelectedMenuItem.MenuItemId;
 
@@ -40,39 +42,48 @@ namespace ChapeauUI.StockUI
 
         private void FillQuantifiersComboBox()
         {
+            // Dictornay of Quantifiers <string Name, int quantification>
             Dictionary<string, int> quantifiers = GetQuantifiers();
 
+            // Puts each quantifier in a combobox
             foreach (var quantifier in quantifiers)
             {
                 cbQuantifiers.Items.Add(new KeyValuePair<string, int>(quantifier.Key, quantifier.Value));
             }
 
+            // Sets Key and Value
             cbQuantifiers.DisplayMember = "Key";
             cbQuantifiers.ValueMember = "Value";
 
+            //Default combobox select is 0, means x1
             cbQuantifiers.SelectedIndex = 0;
         }
 
         private void InputAddStock_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // Make textbox only allow numbers as input :)
+            // Make textbox only allow numbers as input
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) { e.Handled = true; }
         }
 
         private void btnAlterConfirm_Click(object sender, EventArgs e)
         {
-            if (cbQuantifiers.SelectedIndex > -1 && InputAddStock.Text != "0" && InputAddStock.Text != string.Empty)
+            // Checks the total
+            if (CheckTotal())
             {
+                // Confirmation + show calculation
                 DialogResult result = MessageBox.Show($"Are you sure you want to alter stock of {SelectedMenuItem.Name} to ({GetSelectedQuantifier().Value} * {InputAddStock.Text} =) {CheckAndCalculateAlterTotal()}?", "Confirmation", MessageBoxButtons.YesNo);
 
                 if (result == DialogResult.Yes)
                 {
                     try
                     {
-                        _stockService.ChangeStock(new Stock(SelectedMenuItem.Stock.StockId, CheckAndCalculateAlterTotal()));
+                        // Sends Stock and Calculated Value to MenuService
+                        _stockService.ChangeStock(new Stock(SelectedMenuItem.Stock.StockId, CalculateAlterTotal()));
                         MessageBox.Show("Stock altered successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                        // Reloads parentform
                         parentForm.Reload();
+
                         this.Close();
                     }
                     catch (Exception ex)
@@ -101,6 +112,8 @@ namespace ChapeauUI.StockUI
 
         private Dictionary<string, int> GetQuantifiers()
         {
+
+            // Hardcodes all quantifiers
             Dictionary<string, int> quantifiers = new Dictionary<string, int>()
             {
                 { "Single (x1)", 1 },
@@ -118,13 +131,21 @@ namespace ChapeauUI.StockUI
 
         private void ChangeTotal()
         {
-            lblTotal.Text = CheckAndCalculateAlterTotal().ToString();
+            // Sets Total label to the Calculated Total
+            lblTotal.Text = CalculateAlterTotal().ToString();
         }
 
-        private int CheckAndCalculateAlterTotal()
+        public bool CheckTotal()
         {
-            if (cbQuantifiers.SelectedIndex > -1 && !string.IsNullOrEmpty(InputAddStock.Text))
+            // Checks if quantifier is selected and the input is not 0 or empty
+            return (cbQuantifiers.SelectedIndex > -1 && (!string.IsNullOrEmpty(InputAddStock.Text) || InputAddStock.Text != "0"));
+        }
+
+        private int CalculateAlterTotal()
+        {
+            if (CheckTotal())
             {
+                // returns calculated total; Quantifier * input
                 return (int.Parse(InputAddStock.Text) * GetSelectedQuantifier().Value);
             }
             else { return 0; }
@@ -132,6 +153,7 @@ namespace ChapeauUI.StockUI
 
         private KeyValuePair<string, int> GetSelectedQuantifier()
         {
+            // returns the selected quantifier
             return (KeyValuePair<string, int>)cbQuantifiers.SelectedItem;
         }
     }

@@ -34,11 +34,10 @@
             InputAddStock = new TextBox();
             lblHowMuchIsDelivered = new Label();
             cbQuantifiers = new ComboBox();
-            label1 = new Label();
+            lblTotalText = new Label();
             lblTotal = new Label();
             btnDeliveryConfirm = new Button();
             btnDeliveryCancel = new Button();
-            lblStockId = new Label();
             SuspendLayout();
             // 
             // lblMenuItemStock
@@ -103,15 +102,15 @@
             cbQuantifiers.Text = "Select a Quantifier";
             cbQuantifiers.SelectedIndexChanged += cbQuantifiers_SelectedIndexChanged;
             // 
-            // label1
+            // lblTotalText
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(178, 284);
-            label1.Name = "label1";
-            label1.Size = new Size(48, 20);
-            label1.TabIndex = 16;
-            label1.Text = "Total:";
+            lblTotalText.AutoSize = true;
+            lblTotalText.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            lblTotalText.Location = new Point(178, 284);
+            lblTotalText.Name = "lblTotalText";
+            lblTotalText.Size = new Size(48, 20);
+            lblTotalText.TabIndex = 16;
+            lblTotalText.Text = "Total:";
             // 
             // lblTotal
             // 
@@ -142,25 +141,15 @@
             btnDeliveryCancel.UseVisualStyleBackColor = true;
             btnDeliveryCancel.Click += btnDeliveryCancel_Click;
             // 
-            // lblStockId
-            // 
-            lblStockId.AutoSize = true;
-            lblStockId.Location = new Point(425, 45);
-            lblStockId.Name = "lblStockId";
-            lblStockId.Size = new Size(0, 20);
-            lblStockId.TabIndex = 19;
-            lblStockId.Visible = false;
-            // 
             // StockAddDelivery
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(475, 362);
-            Controls.Add(lblStockId);
             Controls.Add(btnDeliveryCancel);
             Controls.Add(btnDeliveryConfirm);
             Controls.Add(lblTotal);
-            Controls.Add(label1);
+            Controls.Add(lblTotalText);
             Controls.Add(cbQuantifiers);
             Controls.Add(InputAddStock);
             Controls.Add(lblMenuItemStock);
@@ -168,7 +157,7 @@
             Controls.Add(lblInStockText);
             Controls.Add(lblMenuItemName);
             Name = "StockAddDelivery";
-            Text = "StockAddDelivery";
+            Text = "Add Delivery";
             ResumeLayout(false);
             PerformLayout();
         }
@@ -185,5 +174,6 @@
         private Button btnDeliveryConfirm;
         private Button btnDeliveryCancel;
         private Label lblStockId;
+        private Label lblTotalText;
     }
 }
