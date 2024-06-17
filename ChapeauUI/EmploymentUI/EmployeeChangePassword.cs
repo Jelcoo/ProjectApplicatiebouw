@@ -15,14 +15,17 @@ namespace ChapeauUI.EmploymentUI
 {
     public partial class EmployeeChangePassword : Form
     {
-        Employee currentEmployee;
-        EmployeeManagement _parentForm;
+        private Employee currentEmployee;
+        private EmployeeManagement _parentForm;
+        private EmployeeService _employeeService;
+
 
         public EmployeeChangePassword(EmployeeManagement parentForm, Employee employee)
         {
             InitializeComponent();
-            this.currentEmployee = employee;
-            this._parentForm = parentForm;
+            currentEmployee = employee;
+            _parentForm = parentForm;
+            _employeeService = new EmployeeService();
         }
 
         private void inputNewPassword2_TextChanged(object sender, EventArgs e)
@@ -37,39 +40,19 @@ namespace ChapeauUI.EmploymentUI
             }
         }
 
-        private bool CheckIfPassword1IsSameAsPassword2()
-        {
-            if (inputNewPassword2.Text == inputNewPassword1.Text) { return true; }
-            else { return false; }
-        }
-
-        public void DisableInteractions()
-        {
-            inputCurrentPassword.Enabled = false;
-            inputNewPassword1.Enabled = false;
-            inputNewPassword2.Enabled = false;
-        }
-
-        public void EnableInteractions()
-        {
-            inputCurrentPassword.Enabled = true;
-            inputNewPassword1.Enabled = true;
-            inputNewPassword2.Enabled = true;
-        }
 
         private void btnConfirmChangePassword_Click(object sender, EventArgs e)
         {
             DisableInteractions();
-            EmployeeService employeeService = new EmployeeService();
 
             //No password hashing due to group member absent
-            if (inputCurrentPassword.Text == employeeService.GetPassword(currentEmployee.EmployeeId))
+            if (inputCurrentPassword.Text == _employeeService.GetPassword(currentEmployee.EmployeeId))
             {
                 if (CheckIfPassword1IsSameAsPassword2())
                 {
                     try
                     {
-                        employeeService.ChangePassword(currentEmployee.EmployeeId, inputNewPassword1.Text);
+                        _employeeService.ChangePassword(currentEmployee.EmployeeId, inputNewPassword1.Text);
 
                         MessageBox.Show("Password succesfully changed");
 
@@ -97,6 +80,26 @@ namespace ChapeauUI.EmploymentUI
         private void btnCancelChangePassword_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private bool CheckIfPassword1IsSameAsPassword2()
+        {
+            if (inputNewPassword2.Text == inputNewPassword1.Text) { return true; }
+            else { return false; }
+        }
+
+        private void DisableInteractions()
+        {
+            inputCurrentPassword.Enabled = false;
+            inputNewPassword1.Enabled = false;
+            inputNewPassword2.Enabled = false;
+        }
+
+        private void EnableInteractions()
+        {
+            inputCurrentPassword.Enabled = true;
+            inputNewPassword1.Enabled = true;
+            inputNewPassword2.Enabled = true;
         }
     }
 }

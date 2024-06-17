@@ -25,6 +25,15 @@ namespace ChapeauUI.EmploymentUI
             LoadRoles();
         }
 
+        private void LoadRoles()
+        {
+            EmployeeService employeeService = new EmployeeService();
+
+            // Roles
+            cbRoles.Items.Clear();
+            cbRoles.DataSource = Enum.GetValues(typeof(ERole));
+        }
+
         private void btnConfirmEdit_Click(object sender, EventArgs e)
         {
             if (CheckIfAllFilled())
@@ -44,16 +53,7 @@ namespace ChapeauUI.EmploymentUI
             }
         }
 
-        public void LoadRoles()
-        {
-            EmployeeService employeeService = new EmployeeService();
-
-            // Roles
-            cbRoles.Items.Clear();
-            cbRoles.DataSource = Enum.GetValues(typeof(ERole));
-        }
-
-        public Employee GetEmployeeData()
+        private Employee GetEmployeeData()
         {
             return new Employee(
                 inputEmployeeName.Text,
@@ -62,7 +62,7 @@ namespace ChapeauUI.EmploymentUI
                 (ERole)cbRoles.SelectedValue);
         }
 
-        public bool CheckIfAllFilled()
+        private bool CheckIfAllFilled()
         {
             if (inputEmployeeName.Text.Length > 0 && inputPassword.Text.Length > 0)
             {
