@@ -57,7 +57,7 @@ LEFT JOIN menuTypes AS MT ON MT.menuTypeId = MI.menuTypeId;";
             return menus;
         }
 
-         public List<MenuItem> GetMenu()
+        public List<MenuItem> GetMenu()
         {
             string query = @"
 SELECT menuItemId, s.stockId, menuId, menuTypeId, itemName, itemDetailName, VATRate, price, s.[count]
@@ -83,62 +83,6 @@ JOIN stock AS s ON menuItems.stockId = s.stockId";
             CloseConnection();
 
             return menu;
-        }
-        public int CreateItemStock()
-        {
-            string query = @"
-INSERT INTO stock (count)
-VALUES (0);
-SELECT SCOPE_IDENTITY();";
-
-            SqlCommand command = new SqlCommand(query, OpenConnection());
-            int stockId = Convert.ToInt32(command.ExecuteScalar());
-
-            CloseConnection();
-
-            return stockId;
-        }
-
-        public void AddMenuItem(MenuItem menuItem)
-        {
-            string query = @"
-INSERT INTO menuItems(stockId, menuId, itemName, itemDetailName, VATRate, price, menuTypeId)
-VALUES(@stockId, @menuId, @itemName, @itemDetailName, @VATRate, @price, @menuTypeId);";
-
-            SqlCommand command = new SqlCommand(query, OpenConnection());
-            command.Parameters.AddWithValue("@stockId", menuItem.Stock.StockId);
-            command.Parameters.AddWithValue("@menuId", (int)menuItem.Menu);
-            command.Parameters.AddWithValue("@itemName", menuItem.Name);
-            command.Parameters.AddWithValue("@itemDetailName", menuItem.DetailName);
-            command.Parameters.AddWithValue("@VATRate", menuItem.VATRate);
-            command.Parameters.AddWithValue("@price", menuItem.Price);
-
-            if (menuItem.MenuType == EMenuType.None)
-            {
-                command.Parameters.AddWithValue("@menuTypeId", DBNull.Value);
-            }
-            else
-            {
-                command.Parameters.AddWithValue("@menuTypeId", (int)menuItem.MenuType);
-            }
-
-            command.ExecuteNonQuery();
-            CloseConnection();
-        }
-
-        public void AddMenuItemMenuType(MenuItem menuItem)
-        {
-            string query = @"
-UPDATE menuItems
-SET menuTypeId = @menuTypeId
-WHERE menuItemId = @menuItemId;";
-
-            SqlCommand command = new SqlCommand(query, OpenConnection());
-            command.Parameters.AddWithValue("@menuTypeId", (int)menuItem.MenuType);
-            command.Parameters.AddWithValue("@menuItemId", menuItem.MenuItemId);
-            command.ExecuteNonQuery();
-
-            CloseConnection();
         }
 
         public List<Double> GetVATRates()
@@ -172,31 +116,52 @@ GROUP BY VATRate;";
             return VATRates;
         }
 
-        public MenuItem GetMenuItemById(int id)
+        public int CreateItemStock()
         {
             string query = @"
-SELECT menuItemId, s.stockId, s.count, menuId, menuTypeId, itemName, itemDetailName, VATRate, price
-FROM menuItems
-JOIN stock AS s ON menuItems.stockId = s.stockId
+INSERT INTO stock (count)
+VALUES (0);
+SELECT SCOPE_IDENTITY();";
+
+            SqlCommand command = new SqlCommand(query, OpenConnection());
+            int stockId = Convert.ToInt32(command.ExecuteScalar());
+
+            CloseConnection();
+
+            return stockId;
+        }
+
+        public void AddMenuItem(MenuItem menuItem)
+        {
+            string query = @"
+INSERT INTO menuItems(stockId, menuId, itemName, itemDetailName, VATRate, price)
+VALUES(@stockId, @menuId, @itemName, @itemDetailName, @VATRate, @price);";
+
+            SqlCommand command = new SqlCommand(query, OpenConnection());
+            command.Parameters.AddWithValue("@stockId", menuItem.Stock.StockId);
+            command.Parameters.AddWithValue("@menuId", (int)menuItem.Menu);
+            command.Parameters.AddWithValue("@itemName", menuItem.Name);
+            command.Parameters.AddWithValue("@itemDetailName", menuItem.DetailName);
+            command.Parameters.AddWithValue("@VATRate", menuItem.VATRate);
+            command.Parameters.AddWithValue("@price", menuItem.Price);
+
+            command.ExecuteNonQuery();
+            CloseConnection();
+        }
+
+        public void AddMenuItemMenuType(MenuItem menuItem)
+        {
+            string query = @"
+UPDATE menuItems
+SET menuTypeId = @menuTypeId
 WHERE menuItemId = @menuItemId;";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
-            command.Parameters.AddWithValue("@menuItemId", id);
+            command.Parameters.AddWithValue("@menuTypeId", (int)menuItem.MenuType);
+            command.Parameters.AddWithValue("@menuItemId", menuItem.MenuItemId);
+            command.ExecuteNonQuery();
 
-            SqlDataReader reader = command.ExecuteReader();
-            if (reader.Read())
-            {
-                MenuItem menuItem = MenuReader.ReadMenuItem(reader);
-
-                reader.Close();
-                CloseConnection();
-
-                return menuItem;
-            }
-            else
-            {
-                throw new Exception($"MenuItem with id:{id} not found");
-            }
+            CloseConnection();
         }
 
         public void ChangeMenuItem(MenuItem menuItem)
@@ -235,32 +200,6 @@ WHERE menuItemId = @menuItemId;";
             CloseConnection();
         }
 
-        public int GetStockId(int id)
-        {
-            string query = @"
-SELECT stockId
-FROM menuItems
-WHERE menuItemId = @menuItemId;";
-
-            SqlCommand command = new SqlCommand(query, OpenConnection());
-            command.Parameters.AddWithValue("@menuItemId", id);
-            command.ExecuteNonQuery();
-
-            SqlDataReader reader = command.ExecuteReader();
-            if (reader.Read())
-            {
-                int stockId = reader.GetInt32(reader.GetOrdinal("stockId"));
-
-                CloseConnection();
-                return stockId;
-                
-            }
-            else
-            {
-                throw new Exception($"StockId with MenuItemId:{id} not found");
-            }
-
-        }
 
         public void DeleteMenuItemStockById(int id)
         {

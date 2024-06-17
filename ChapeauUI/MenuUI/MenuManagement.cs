@@ -7,10 +7,13 @@ namespace ChapeauUI.MenuUI
     public partial class MenuManagement : Form
     {
         private Restaurant _restaurant;
+        private MenuService _menuService;
+        private MenuItem SelectedMenuItem;
 
         public MenuManagement()
         {
             _restaurant = Restaurant.GetInstance();
+            _menuService = new MenuService();
 
             InitializeComponent();
             PopulateMenuDisplay();
@@ -23,12 +26,12 @@ namespace ChapeauUI.MenuUI
             foreach (MenuItem item in _restaurant.Menus.SelectMany(m => m.MenuItems))
             {
                 ListViewItem listViewItem = new ListViewItem(item.Name);
+                listViewItem.Tag = item;
                 listViewItem.SubItems.Add(item.DetailName);
                 listViewItem.SubItems.Add(item.Menu.ToString());
                 listViewItem.SubItems.Add(item.MenuType != EMenuType.None ? (item.MenuType).ToString() : "");
                 listViewItem.SubItems.Add(item.Price.ToString("F2"));
                 listViewItem.SubItems.Add(item.VATRate.ToString("F2"));
-                listViewItem.Tag = item.MenuItemId;
 
                 lvMenu.Items.Add(listViewItem);
             }
@@ -44,12 +47,8 @@ namespace ChapeauUI.MenuUI
         {
             if (lvMenu.SelectedItems.Count > 0)
             {
-                ListViewItem selectedItem = lvMenu.SelectedItems[0];
-
-                int menuItemId = (int)selectedItem.Tag;
-
-                MenuChangeMenuItem otherForm = new MenuChangeMenuItem(this, menuItemId);
-                otherForm.ShowDialog();
+                MenuChangeMenuItem menuChangeMenuItem = new MenuChangeMenuItem(this, SelectedMenuItem);
+                menuChangeMenuItem.ShowDialog();
             }
             else
             {
@@ -61,19 +60,13 @@ namespace ChapeauUI.MenuUI
 
         public void btnDeleteMenuItem_Click(object sender, EventArgs e)
         {
-            MenuService menuService = new MenuService();
-
             if (lvMenu.SelectedItems.Count > 0)
             {
                 DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete a item?", "Confirm Delete Item", MessageBoxButtons.YesNo);
 
                 if (dialogResult == DialogResult.Yes)
                 {
-                    ListViewItem selectedItem = lvMenu.SelectedItems[0];
-
-                    int menuItemId = (int)selectedItem.Tag;
-                    MessageBox.Show(menuItemId.ToString());
-                    menuService.DeleteMenuItemAndStockById(menuItemId);
+                    _menuService.DeleteMenuItemAndStockById(SelectedMenuItem);
 
                     MessageBox.Show("Item deleted successfully");
 
@@ -91,6 +84,11 @@ namespace ChapeauUI.MenuUI
             ChapeauPanel chapeauPanel = new ChapeauPanel();
             chapeauPanel.Show();
             this.Hide();
+        }
+
+        private void lvMenu_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SelectedMenuItem = (MenuItem)lvMenu.SelectedItems[0].Tag;
         }
     }
 }

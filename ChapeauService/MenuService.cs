@@ -27,27 +27,27 @@ namespace ChapeauService
             return _menuDao.CreateItemStock();
         }
 
+        private void AddMenuItemMenuType(MenuItem menuItem)
+        {
+            _menuDao.AddMenuItemMenuType(menuItem);
+        }
+
         public void AddMenuItem(MenuItem menuItem)
         {
             _menuDao.AddMenuItem(menuItem);
-        }
-
-        public MenuItem GetMenuItemById(int id)
-        {
-            return _menuDao.GetMenuItemById(id);
+            if (menuItem.MenuType != null) { AddMenuItemMenuType(menuItem); }
         }
 
         public void ChangeMenuItem(MenuItem changedMenuItem)
         {
             _menuDao.ChangeMenuItem(changedMenuItem);
-            if (changedMenuItem.MenuType != null) { _menuDao.AddMenuItemMenuType(changedMenuItem); }
+            if (changedMenuItem.MenuType != null) { AddMenuItemMenuType(changedMenuItem); }
         }
 
-        public void DeleteMenuItemAndStockById(int menuItemId)
+        public void DeleteMenuItemAndStockById(MenuItem item)
         {
-            int stockId = _menuDao.GetStockId(menuItemId);
-            _menuDao.DeleteMenuItemById(menuItemId);
-            _menuDao.DeleteMenuItemStockById(stockId);
+            _menuDao.DeleteMenuItemById(item.MenuItemId);
+            _menuDao.DeleteMenuItemStockById(item.Stock.StockId);
         }
     }
 }

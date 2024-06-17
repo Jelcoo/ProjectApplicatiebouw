@@ -8,36 +8,16 @@ namespace ChapeauUI.MenuUI
     {
         private MenuManagement parentForm;
         private Restaurant _restaurant;
+        private MenuService _menuService;
 
         public MenuAddMenuItem(MenuManagement parentForm)
         {
             InitializeComponent();
             this.parentForm = parentForm;
             _restaurant = Restaurant.GetInstance();
+            _menuService = new MenuService();
             FillComboBoxes();
         }
-
-        private void btnConfirmAddItem_Click(object sender, EventArgs e)
-        {
-            DialogResult dialogResult = MessageBox.Show("Are you sure you want to add a item?", "Confirm Add Item", MessageBoxButtons.YesNo);
-
-            if (dialogResult == DialogResult.Yes)
-            {
-                MenuService menuService = new MenuService();
-
-                int stockId = menuService.CreateItemStock();
-                MenuItem menuItem = GetMenuItemDataFromInput(stockId);
-                menuService.AddMenuItem(menuItem);
-                _restaurant.AddMenuItem(menuItem);
-
-                MessageBox.Show("MenuItem added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                parentForm.Reload();
-                this.Close();
-            }
-        }
-
-        private void btnCancelAddItem_Click(object sender, EventArgs e) { this.Close(); }
 
         public void FillComboBoxes()
         {
@@ -56,6 +36,30 @@ namespace ChapeauUI.MenuUI
             cbItemVATRate.DataSource = VATRates;
         }
 
+        private void btnConfirmAddItem_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to add a item?", "Confirm Add Item", MessageBoxButtons.YesNo);
+
+            if (dialogResult == DialogResult.Yes && CheckIfAllFilled())
+            {
+                int stockId = _menuService.CreateItemStock();
+                MenuItem menuItem = GetMenuItemDataFromInput(stockId);
+                _menuService.AddMenuItem(menuItem);
+                _restaurant.AddMenuItem(menuItem);
+
+                MessageBox.Show("MenuItem added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                parentForm.Reload();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Fill in all details");
+            }
+        }
+
+        private void btnCancelAddItem_Click(object sender, EventArgs e) { this.Close(); }
+
         public MenuItem GetMenuItemDataFromInput(int stockId)
         {
             EMenuType menuType = (EMenuType)cbItemType.SelectedValue;
@@ -73,6 +77,15 @@ namespace ChapeauUI.MenuUI
             else { menuItem.SetMenuType(menuType); }
 
             return menuItem;
+        }
+
+        private bool CheckIfAllFilled()
+        {
+            if (string.IsNullOrEmpty(inputItemName.Text)) {  return false; }
+            if (string.IsNullOrWhiteSpace(inputItemDetailName.Text)) { return false; }
+            if (string.IsNullOrEmpty(inputItemPrice.Text)) { return false; }
+
+            return true;
         }
     }
 }
